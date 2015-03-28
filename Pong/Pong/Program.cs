@@ -3,17 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using SFML.Audio;
 using SFML.Graphics;
 using SFML.Window;
 
 namespace Pong {
     class Program {
+        const int WIDTH = 1024;
+        const int HEIGHT = 576;
         static ContextSettings context = new ContextSettings();
-        static RenderWindow window;
+        static RenderWindow window = new RenderWindow(new VideoMode(WIDTH, HEIGHT), "Pong!", Styles.Default, context);
 
-        static Texture mouse_tex = new Texture("../Content/Mouse.png");
-        static Sprite mouse_sprite;
+        static Sprite mouse_sprite = new Sprite(new Texture("../Content/Mouse.png"));
+
+        static Paddle player = new Paddle(new Vector2f(50, HEIGHT * 0.5f) , new Vector2f(25, 100), Color.Cyan);
+        static Paddle ai = new Paddle(new Vector2f(WIDTH - 50, HEIGHT * 0.5f), new Vector2f(25, 100), Color.Green);
 
         static void Main(string[] args) {
             /*
@@ -26,7 +31,17 @@ namespace Pong {
              * 
              */
             Console.WriteLine("Hello World! :D");
-            window = new RenderWindow(new VideoMode(1024, 768), "Pong!", Styles.Default, context);
+            InitWindow();
+            while (window.IsOpen()) {
+                window.DispatchEvents();
+                window.Clear();
+
+                Draw();
+                window.Display();
+            }
+        }
+
+        private static void InitWindow() {
             window.Closed += window_Closed;
             window.KeyReleased += window_KeyReleased;
             window.MouseMoved += window_MouseMoved;
@@ -34,14 +49,12 @@ namespace Pong {
             window.MouseLeft += window_MouseLeft;
             window.SetActive(true);
             window.SetFramerateLimit(60);
-            mouse_sprite = new Sprite(mouse_tex);
-            while (window.IsOpen()) {
-                window.DispatchEvents();
-                window.Clear();
+        }
 
-                mouse_sprite.Draw(window, RenderStates.Default);
-                window.Display();
-            }
+        private static void Draw() {
+            window.Draw(player);
+            window.Draw(ai);
+            mouse_sprite.Draw(window, RenderStates.Default);
         }
 
         private static void window_MouseMoved(object sender, MouseMoveEventArgs e) {
