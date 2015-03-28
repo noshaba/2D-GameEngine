@@ -29,5 +29,19 @@ namespace Pong {
             base.FillColor = color;
         }
         #endregion
+
+        public float Width {
+            get { return Size.X; }
+            set { Size = new Vector2f(value, Size.Y); }
+        }
+
+        public float Height {
+            get { return Size.Y; }
+            set { Size = new Vector2f(Size.X, value); }
+        }
+
+        public void move(float y) { 
+            Position = new Vector2f(Position.X, y);
+        }
     }
 }

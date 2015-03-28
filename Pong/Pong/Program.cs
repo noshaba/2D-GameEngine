@@ -15,7 +15,7 @@ namespace Pong {
         static ContextSettings context = new ContextSettings();
         static RenderWindow window = new RenderWindow(new VideoMode(WIDTH, HEIGHT), "Pong!", Styles.Default, context);
 
-        static Sprite mouse_sprite = new Sprite(new Texture("../Content/Mouse.png"));
+        static Sprite mouseSprite = new Sprite(new Texture("../Content/Mouse.png"));
 
         static Paddle player = new Paddle(new Vector2f(50, HEIGHT * 0.5f) , new Vector2f(25, 100), Color.Cyan);
         static Paddle ai = new Paddle(new Vector2f(WIDTH - 50, HEIGHT * 0.5f), new Vector2f(25, 100), Color.Green);
@@ -54,11 +54,14 @@ namespace Pong {
         private static void Draw() {
             window.Draw(player);
             window.Draw(ai);
-            mouse_sprite.Draw(window, RenderStates.Default);
+            mouseSprite.Draw(window, RenderStates.Default);
         }
 
+        #region Listener
+
         private static void window_MouseMoved(object sender, MouseMoveEventArgs e) {
-            mouse_sprite.Position = new Vector2f(e.X,e.Y);
+            mouseSprite.Position = new Vector2f(e.X,e.Y);
+            player.move(e.Y);
         }
 
         private static void window_MouseLeft(object sender, EventArgs e) {
@@ -78,6 +81,8 @@ namespace Pong {
         static void window_Closed(object sender, EventArgs e) {
             window.Close();
         }
+
+        #endregion
 
     }
 }
