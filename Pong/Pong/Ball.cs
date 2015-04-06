@@ -8,58 +8,21 @@ using SFML.Window;
 
 namespace Pong {
     class Ball : CircleShape {
-        struct State {
-            public Vector2f position;
-            public Vector2f momentum;
-            public Vector2f velocity;
-        }
-        struct Derivative {
-            public Vector2f velocity;
-            public Vector2f force;
 
-        }
+        State current;
 
-        public State state;
-
-        #region Constructors
-        public Ball() : base() {
-            state = new State();
-            state.position = base.Position;
-            state.velocity = new Vector2f(0,0);
-        }
-        public Ball(CircleShape copy) : base(copy) { }
-        public Ball(float radius) : base(radius) {
-            Origin = new Vector2f(Position.X + radius * 0.5f, Position.Y + radius * 0.5f);
-        }
-        public Ball(float radius, Color color) : base(radius) {
-            Origin = new Vector2f(Position.X + radius * 0.5f, Position.Y + radius * 0.5f);
-            FillColor = color;
-        }
-        public Ball(float radius, uint pointCount) : base(radius, pointCount) {
-            Origin = new Vector2f(Position.X + radius * 0.5f, Position.Y + radius * 0.5f);
-        }
-        public Ball(float radius, Color color, uint pointCount) : base(radius, pointCount) {
-            Origin = new Vector2f(Position.X + radius * 0.5f, Position.Y + radius * 0.5f);
-            FillColor = color;
-        }
-        public Ball(Vector2f position, float radius) : base(radius) {
-            Origin = new Vector2f(Position.X + radius * 0.5f, Position.Y + radius * 0.5f);
-            Position = position;
-        }
-        public Ball(Vector2f position, float radius, uint pointCount) : base(radius, pointCount) {
-            Origin = new Vector2f(Position.X + radius * 0.5f, Position.Y + radius * 0.5f);
-            Position = position;
-        }
         public Ball(Vector2f position, float radius, Color color) : base(radius) {
             Origin = new Vector2f(Position.X + radius * 0.5f, Position.Y + radius * 0.5f);
             Position = position;
             FillColor = color;
+            current = new State(position);
         }
-        public Ball(Vector2f position, float radius, Color color, uint pointCount) : base(radius, pointCount) {
+
+        public Ball(Vector2f position, float radius, Color color, float mass) : base(radius) {
             Origin = new Vector2f(Position.X + radius * 0.5f, Position.Y + radius * 0.5f);
             Position = position;
             FillColor = color;
+            current = new State(position,mass,(float) (Math.PI * 0.25 * Math.Pow(radius,4)) );
         }
-        #endregion
     }
 }
