@@ -19,6 +19,7 @@ namespace Pong {
 
         static Paddle player = new Paddle(new Vector2f(50, HEIGHT * 0.5f) , new Vector2f(25, 100), Color.Cyan);
         static Paddle ai = new Paddle(new Vector2f(WIDTH - 50, HEIGHT * 0.5f), new Vector2f(25, 100), Color.Green);
+        static Ball ball = new Ball(new Vector2f(WIDTH * 0.5f, 12.5f), 12.5f, Color.Red);
 
         static void Main(string[] args) {
             /*
@@ -54,6 +55,7 @@ namespace Pong {
         private static void Draw() {
             window.Draw(player);
             window.Draw(ai);
+            window.Draw(ball);
             mouseSprite.Draw(window, RenderStates.Default);
         }
 
