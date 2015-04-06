@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using SFML.Audio;
 using SFML.Graphics;
 using SFML.Window;
 
@@ -17,9 +16,7 @@ namespace Pong {
 
         static Sprite mouseSprite = new Sprite(new Texture("../Content/Mouse.png"));
 
-        static Paddle player = new Paddle(new Vector2f(50, HEIGHT * 0.5f) , new Vector2f(25, 100), Color.Cyan);
-        static Paddle ai = new Paddle(new Vector2f(WIDTH - 50, HEIGHT * 0.5f), new Vector2f(25, 100), Color.Green);
-        static Ball ball = new Ball(new Vector2f(WIDTH * 0.5f, 12.5f), 12.5f, Color.Red,1);
+        static Game pong = new Game(WIDTH,HEIGHT,window);
 
         static void Main(string[] args) {
             /*
@@ -53,9 +50,7 @@ namespace Pong {
         }
 
         private static void Draw() {
-            window.Draw(player);
-            window.Draw(ai);
-            window.Draw(ball);
+            pong.Draw();
             mouseSprite.Draw(window, RenderStates.Default);
         }
 
@@ -63,7 +58,7 @@ namespace Pong {
 
         private static void window_MouseMoved(object sender, MouseMoveEventArgs e) {
             mouseSprite.Position = new Vector2f(e.X,e.Y);
-            player.move(e.Y);
+            pong.MovePlayer(e.Y);
         }
 
         private static void window_MouseLeft(object sender, EventArgs e) {
@@ -75,8 +70,15 @@ namespace Pong {
         }
 
         static void window_KeyReleased(object sender, KeyEventArgs e) {
-            if (e.Code == Keyboard.Key.Escape) {
-                window.Close();
+            switch (e.Code) { 
+                case Keyboard.Key.Escape:
+                    window.Close();
+                    break;
+                case Keyboard.Key.Return:
+
+                    break;
+                default:
+                    break;
             }
         }
 
