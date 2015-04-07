@@ -12,12 +12,25 @@ namespace Pong {
         private Paddle player;
         private Ball ball;
         private RenderWindow window;
+        private Physics physics;
 
         public Game(float width, float height, RenderWindow window) {
+            physics = new Physics();
             player = new Paddle(new Vector2f(50, height * 0.5f), new Vector2f(25, 100), Color.Cyan);
             ai = new Paddle(new Vector2f(width - 50, height * 0.5f), new Vector2f(25, 100), Color.Green);
             ball = new Ball(new Vector2f(width * 0.5f, 12.5f), 12.5f, Color.Red, 1);
+            physics.AddObject(player);
+            physics.AddObject(ai);
+            physics.AddObject(ball);
             this.window = window;
+        }
+
+        public void Update(float dt) {
+            physics.Update(dt);
+        }
+
+        public void Start() {
+            ball.Momentum = new Vector2f(-1,-1);
         }
 
         public void Draw() {

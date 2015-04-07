@@ -75,7 +75,7 @@ namespace Pong {
                     window.Close();
                     break;
                 case Keyboard.Key.Return:
-
+                    pong.Start();
                     break;
                 default:
                     break;

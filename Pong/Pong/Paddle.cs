@@ -9,7 +9,7 @@ using SFML.Window;
 namespace Pong {
     class Paddle : RectangleShape {
 
-        State current;
+        private State current;
 
         public Paddle(Vector2f position, Vector2f size, Color color) : base(size) {
             current = new State(position);

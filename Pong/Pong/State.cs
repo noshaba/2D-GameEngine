@@ -7,6 +7,7 @@ using SFML.Window;
 
 namespace Pong {
     class State {
+
         // primary physics state
         public Vector2f position;
         public Vector2f momentum;
@@ -111,9 +112,32 @@ namespace Pong {
 
         #endregion
 
-        public void Recalculate() {
+        private void Recalculate() {
             velocity = momentum * inverseMass;
             angularVelocity = angularMomentum * inverseInertiaTensor;
+        }
+
+        private State Evaluate(State state, float dt, State derivative){
+            state.position += derivative.velocity * dt;
+            state.momentum += derivative.force * dt;
+            state.orientation += derivative.angularVelocity * dt;
+            state.angularMomentum += derivative.torque * dt;
+            return state;
+        }
+
+        public void Integrate(float dt) {
+            State k1 = this;
+            State k2 = Evaluate(this, dt * 0.5f, k1);
+            State k3 = Evaluate(this, dt * 0.5f, k2);
+            State k4 = Evaluate(this, dt, k3);
+
+            float k = 1.0f / 6.0f;
+
+            position += k * dt * (k1.velocity + 2.0f * (k2.velocity + k3.velocity) + k4.velocity);
+            momentum += k * dt * (k1.force + 2.0f * (k2.force + k3.force) + k4.force);
+            orientation += k * dt * (k1.angularVelocity + 2.0f * (k2.angularVelocity + k3.angularVelocity) + k4.angularVelocity);
+            angularMomentum += k * dt * (k1.torque + 2.0f * (k2.torque + k3.torque) + k4.torque);
+            Recalculate();
         }
     }
 }
