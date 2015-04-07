@@ -12,9 +12,10 @@ namespace Pong{
             objects.Add(obj);
         }
         public void Update(float dt) {
-            for (uint i = 0; i < objects.Count(); ++i) {
-                for (uint j = 0; j < objects.Count(); ++j) {
+            for (int i = 0; i < objects.Count(); ++i) {
+                for (int j = 0; j < objects.Count(); ++j) {
                     if (i == j) continue;
+                    Collision.CheckForCollision(objects[i],objects[j]);
                 }
             }
         }
