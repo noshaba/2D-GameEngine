@@ -10,8 +10,8 @@ namespace Pong{
     abstract class OBB : RectangleShape {
         public Collision.Type type = Collision.Type.OBB;
 
-        public List<Vector2f> axis = new List<Vector2f>();
-        public List<float> hl = new List<float>(); // half lengths of axis'
+        public Vector2f[] axis = { new Vector2f(1,0), new Vector2f(0,1) };
+        public float[] hl = new float[2]; // half lengths of axis'
 
         protected State previous;
         protected State current;
@@ -19,10 +19,8 @@ namespace Pong{
         public OBB(Vector2f position, Vector2f size) : base(size) {
             Origin = new Vector2f(size.X * 0.5f, size.Y * 0.5f);
             Position = position;
-            axis.Add(new Vector2f(1,0));
-            axis.Add(new Vector2f(0,1));
-            hl.Add(size.X * 0.5f);
-            hl.Add(size.Y * 0.5f);
+            hl[0] = size.X * 0.5f;
+            hl[1] = size.Y * 0.5f;
         }
 
         public float Width {

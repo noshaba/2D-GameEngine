@@ -23,5 +23,25 @@ namespace Pong{
 
             return colli;
         }
+
+        private delegate void CollisionType(Shape obj1, Shape obj2, ref Collision colli);
+
+        private CollisionType[,] Dispatch = {
+            { CircleToCircle, CircleToOBB },
+            { OBBToCircle, OBBToOBB}
+        };
+
+        private static void CircleToCircle(Shape obj1, Shape obj2, ref Collision colli) {
+        }
+
+        private static void CircleToOBB(Shape obj1, Shape obj2, ref Collision colli) { 
+        }
+
+        private static void OBBToCircle(Shape obj1, Shape obj2, ref Collision colli) {
+            CircleToOBB(obj2, obj1, ref colli);
+        }
+
+        private static void OBBToOBB(Shape obj1, Shape obj2, ref Collision colli) {
+        }
     }
 }
