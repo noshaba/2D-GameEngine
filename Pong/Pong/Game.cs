@@ -30,7 +30,7 @@ namespace Pong {
         }
 
         public void Start() {
-            ball.Momentum = new Vector2f(-1,-1);
+            ball.Force = new Vector2f(-1,1);
         }
 
         public void Draw() {

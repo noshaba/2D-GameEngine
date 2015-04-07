@@ -22,14 +22,21 @@ namespace Pong {
             get { return type; }
         }
 
-        public Vector2f Momentum {
-            get { return current.momentum; }
-            set { current.momentum = value; }
+        public Vector2f Force {
+            get { return current.force; }
+            set { current.force = value; }
+        }
+
+        public float Torque {
+            get { return current.torque; }
+            set { current.torque = value; }
         }
 
         public void Update(float dt) {
             previous = current;
             current.Integrate(dt);
+            Position = current.position;
+            Rotation = current.orientation;
         }
     }
 }

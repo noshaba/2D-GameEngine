@@ -13,6 +13,7 @@ namespace Pong{
         }
         public void Update(float dt) {
             for (int i = 0; i < objects.Count(); ++i) {
+                objects[i].Update(dt);
                 for (int j = 0; j < objects.Count(); ++j) {
                     if (i == j) continue;
                     Collision.CheckForCollision(objects[i],objects[j]);
