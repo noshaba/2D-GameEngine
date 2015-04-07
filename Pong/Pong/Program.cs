@@ -33,7 +33,7 @@ namespace Pong {
             while (window.IsOpen()) {
                 window.DispatchEvents();
                 window.Clear();
-
+                pong.Update(0.1f);
                 Draw();
                 window.Display();
             }

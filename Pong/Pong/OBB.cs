@@ -7,8 +7,8 @@ using SFML.Graphics;
 using SFML.Window;
 
 namespace Pong{
-    abstract class OBB : RectangleShape {
-        public Collision.Type type = Collision.Type.OBB;
+    abstract class OBB : RectangleShape, IShape {
+        private Collision.Type type = Collision.Type.OBB;
 
         public Vector2f[] axis = { new Vector2f(1,0), new Vector2f(0,1) };
         public float[] hl = new float[2]; // half lengths of axis'
@@ -21,6 +21,10 @@ namespace Pong{
             Position = position;
             hl[0] = size.X * 0.5f;
             hl[1] = size.Y * 0.5f;
+        }
+
+        public Collision.Type Type {
+            get { return type; }
         }
 
         public float Width {

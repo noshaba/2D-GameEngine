@@ -55,6 +55,7 @@
     <Compile Include="Circle.cs" />
     <Compile Include="Collision.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="IShape.cs" />
     <Compile Include="OBB.cs" />
     <Compile Include="Paddle.cs" />
     <Compile Include="Physics.cs" />

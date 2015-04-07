@@ -18,30 +18,36 @@ namespace Pong{
         public float overlap;
         public Vector2f point;
 
-        public static Collision CheckForCollision(Shape obj1, Shape obj2) {
+        public static Collision CheckForCollision(IShape obj1, IShape obj2) {
             Collision colli = new Collision();
-
+            Dispatch[(int) obj1.Type, (int) obj2.Type](obj1, obj2, ref colli);
             return colli;
         }
 
-        private delegate void CollisionType(Shape obj1, Shape obj2, ref Collision colli);
+        private delegate void CollisionType(IShape obj1, IShape obj2, ref Collision colli);
 
-        private CollisionType[,] Dispatch = {
+        private static CollisionType[,] Dispatch = {
             { CircleToCircle, CircleToOBB },
             { OBBToCircle, OBBToOBB}
         };
 
-        private static void CircleToCircle(Shape obj1, Shape obj2, ref Collision colli) {
+        private static void CircleToCircle(IShape obj1, IShape obj2, ref Collision colli) {
+            Circle cir1 = obj1 as Circle;
+            Circle cir2 = obj2 as Circle;
         }
 
-        private static void CircleToOBB(Shape obj1, Shape obj2, ref Collision colli) { 
+        private static void CircleToOBB(IShape obj1, IShape obj2, ref Collision colli) {
+            Circle cir = obj1 as Circle;
+            OBB obb = obj2 as OBB;
         }
 
-        private static void OBBToCircle(Shape obj1, Shape obj2, ref Collision colli) {
+        private static void OBBToCircle(IShape obj1, IShape obj2, ref Collision colli) {
             CircleToOBB(obj2, obj1, ref colli);
         }
 
-        private static void OBBToOBB(Shape obj1, Shape obj2, ref Collision colli) {
+        private static void OBBToOBB(IShape obj1, IShape obj2, ref Collision colli) {
+            OBB obb1 = obj1 as OBB;
+            OBB obb2 = obj2 as OBB;
         }
     }
 }

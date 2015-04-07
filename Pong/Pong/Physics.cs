@@ -7,8 +7,8 @@ using SFML.Graphics;
 
 namespace Pong{
     class Physics {
-        private List<Shape> objects = new List<Shape>();
-        public void AddObject(Shape obj) {
+        private List<IShape> objects = new List<IShape>();
+        public void AddObject(IShape obj) {
             objects.Add(obj);
         }
         public void Update(float dt) {

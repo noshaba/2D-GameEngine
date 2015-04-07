@@ -7,8 +7,8 @@ using SFML.Graphics;
 using SFML.Window;
 
 namespace Pong {
-    abstract class Circle : CircleShape {
-        public Collision.Type type = Collision.Type.Circle;
+    abstract class Circle : CircleShape, IShape {
+        private Collision.Type type = Collision.Type.Circle;
 
         protected State current;
         protected State previous;
@@ -16,6 +16,10 @@ namespace Pong {
         public Circle(Vector2f position, float radius) : base(radius) {
             Origin = new Vector2f(Position.X + radius * 0.5f, Position.Y + radius * 0.5f);
             Position = position;
+        }
+
+        public Collision.Type Type {
+            get { return type; }
         }
 
         public Vector2f Momentum {
