@@ -17,6 +17,8 @@ namespace Pong{
         public float distance;
         public float overlap;
         public Vector2f point;
+        public Vector2f rad1;
+        public Vector2f rad2;
 
         public static Collision CheckForCollision(IShape obj1, IShape obj2) {
             Collision colli = new Collision();
@@ -39,6 +41,18 @@ namespace Pong{
         private static void CircleToOBB(IShape obj1, IShape obj2, ref Collision colli) {
             Circle cir = obj1 as Circle;
             OBB obb = obj2 as OBB;
+            Vector2f closest = ClosestPointOnOBB(cir.Position, obb);
+            colli.normal = cir.Position - closest;
+            colli.distance = colli.normal.Length();
+            if (colli.distance != 0) colli.normal /= colli.distance;
+            colli.overlap = cir.Radius - colli.distance;
+            colli.collision = colli.distance <= cir.Radius;
+            if (colli.collision) {
+                cir.Pull( colli.normal, colli.overlap);
+                colli.point = closest;
+                colli.rad1 = closest - cir.Position;
+                colli.rad2 = closest - obb.Position;
+            }
         }
 
         private static void OBBToCircle(IShape obj1, IShape obj2, ref Collision colli) {
@@ -48,6 +62,19 @@ namespace Pong{
         private static void OBBToOBB(IShape obj1, IShape obj2, ref Collision colli) {
             OBB obb1 = obj1 as OBB;
             OBB obb2 = obj2 as OBB;
+        }
+
+        private static Vector2f ClosestPointOnOBB(Vector2f p, OBB obb) {
+            Vector2f distanceVec = p - obb.Position;
+            Vector2f closest = obb.Position;
+            float distance;
+            for(uint i = 0; i < obb.axis.Length; ++i){ 
+                distance = distanceVec.Dot(obb.Axis(i));
+                if (distance >  obb.hl[i]) distance =  obb.hl[i];
+                if (distance < -obb.hl[i]) distance = -obb.hl[i];
+                closest += distance * obb.Axis(i);
+            }
+            return closest;
         }
     }
 }

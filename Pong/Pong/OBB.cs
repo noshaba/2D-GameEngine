@@ -47,11 +47,38 @@ namespace Pong{
             set { current.torque = value; }
         }
 
+        public Vector2f Velocity {
+            get { return current.velocity; }
+            set { current.velocity = value; }
+        }
+
+        public float AngularVelocity {
+            get { return current.angularVelocity; }
+            set { current.angularVelocity = value; }
+        }
+
+        public Vector2f Axis(uint i){
+            if(current.orientation != 0)
+                return axis[i].Rotate(current.orientation);
+            return axis[i];
+        }
+
+        public Vector2f Axis(int i){
+            if (current.orientation != 0)
+                return axis[i].Rotate(current.orientation);
+            return axis[i];
+        }
+
         public void Update(float dt) {
             previous = current;
             current.Integrate(dt);
             Position = current.position;
-            Rotation = current.orientation;
+            Rotation = (float) (current.orientation * 180.0f / Math.PI);
+        }
+
+        public void Pull(Vector2f n, float overlap) {
+            current.position += n * overlap;
+            Position = current.position;
         }
     }
 }
