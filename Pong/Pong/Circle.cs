@@ -10,7 +10,7 @@ namespace Pong {
     abstract class Circle : CircleShape, IShape {
         private Collision.Type type = Collision.Type.Circle;
 
-        protected State current;
+        public State current;
         protected State previous;
 
         public Circle(Vector2f position, float radius) : base(radius) {
@@ -22,14 +22,17 @@ namespace Pong {
             get { return type; }
         }
 
-        public Vector2f Force {
-            get { return current.force; }
-            set { current.force = value; }
+        public void ApplyImpulse(Vector2f J, Vector2f r) {
+            current.velocity += J * current.inverseMass;
+            current.angularVelocity += r.CrossProduct(J) * current.inverseInertiaTensor;
         }
 
-        public float Torque {
-            get { return current.torque; }
-            set { current.torque = value; }
+        public float InverseMass {
+            get { return current.inverseMass; }
+        }
+
+        public float InverseInertia {
+            get { return current.inverseInertiaTensor; }
         }
 
         public Vector2f Velocity {

@@ -17,10 +17,10 @@ namespace Pong {
         public Game(float width, float height, RenderWindow window) {
             physics = new Physics();
             player = new Paddle(new Vector2f(50, height * 0.5f), new Vector2f(25, 100), Color.Cyan);
-            ai = new Paddle(new Vector2f(width - 50, height * 0.5f), new Vector2f(25, 100), Color.Green);
+            // ai = new Paddle(new Vector2f(width - 50, height * 0.5f), new Vector2f(25, 100), Color.Green);
             ball = new Ball(new Vector2f(width * 0.5f, 12.5f), 12.5f, Color.Red, 1);
             physics.AddObject(player);
-            physics.AddObject(ai);
+            //physics.AddObject(ai);
             physics.AddObject(ball);
             this.window = window;
         }
@@ -30,17 +30,21 @@ namespace Pong {
         }
 
         public void Start() {
-            ball.Force = new Vector2f(-1,1);
+            ball.Velocity = new Vector2f(-5, 5);
         }
 
         public void Draw() {
             window.Draw(player);
-            window.Draw(ai);
+            //window.Draw(ai);
             window.Draw(ball);
         }
 
         public void MovePlayer(float y) {
             player.move(y);
+        }
+
+        public void ToggleFreeze(){
+            physics.frozen = !physics.frozen;
         }
     }
 }

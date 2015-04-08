@@ -8,8 +8,9 @@ using SFML.Window;
 namespace Pong {
     interface IShape {
         Collision.Type Type{ get; }
-        Vector2f Force { get; set; }
-        float Torque { get; set; }
+        float InverseMass { get; }
+        float InverseInertia { get; }
+        void ApplyImpulse(Vector2f J, Vector2f r);
         Vector2f Velocity { get; set; }
         float AngularVelocity { get; set; }
         void Update(float dt);

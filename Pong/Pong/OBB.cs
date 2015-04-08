@@ -37,14 +37,17 @@ namespace Pong{
             set { Size = new Vector2f(Size.X, value); }
         }
 
-        public Vector2f Force {
-            get { return current.force; }
-            set { current.force = value; }
+        public void ApplyImpulse(Vector2f J, Vector2f r) {
+            current.velocity += J * current.inverseMass;
+            current.angularVelocity += r.CrossProduct(J) * current.inverseInertiaTensor;
         }
 
-        public float Torque {
-            get { return current.torque; }
-            set { current.torque = value; }
+        public float InverseMass {
+            get { return current.inverseMass; }
+        }
+
+        public float InverseInertia {
+            get { return current.inverseInertiaTensor; }
         }
 
         public Vector2f Velocity {

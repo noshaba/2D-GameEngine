@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Diagnostics;
 using SFML.Graphics;
 using SFML.Window;
 
@@ -11,7 +12,12 @@ namespace Pong {
     class Program {
         const int WIDTH = 1024;
         const int HEIGHT = 576;
+        const float FPS = 60.0f;
+        const float DT = 1.0f / FPS;
+        static float accumulator = 0;
+
         static ContextSettings context = new ContextSettings();
+        static Stopwatch timer = new Stopwatch();
         static RenderWindow window = new RenderWindow(new VideoMode(WIDTH, HEIGHT), "Pong!", Styles.Default, context);
 
         static Sprite mouseSprite = new Sprite(new Texture("../Content/Mouse.png"));
@@ -30,10 +36,17 @@ namespace Pong {
              */
             Console.WriteLine("Hello World! :D");
             InitWindow();
+
+            timer.Start();
+            float frameStart = timer.ElapsedMilliseconds / 100.0f;
+
             while (window.IsOpen()) {
                 window.DispatchEvents();
                 window.Clear();
-                pong.Update(0.1f);
+
+                //pong.Update(DT);
+                Update(ref frameStart);
+
                 Draw();
                 window.Display();
             }
@@ -47,6 +60,20 @@ namespace Pong {
             window.MouseLeft += window_MouseLeft;
             window.SetActive(true);
             window.SetFramerateLimit(60);
+        }
+
+        private static void Update(ref float frameStart) {
+            float currentTime = timer.ElapsedMilliseconds / 100.0f;
+            accumulator += currentTime - frameStart;
+            frameStart = currentTime;
+
+            if (accumulator > 0.2f)
+                accumulator = 0.2f;
+            
+            while (accumulator >= DT) {
+                pong.Update(DT);
+                accumulator -= DT;
+            }
         }
 
         private static void Draw() {
@@ -76,6 +103,9 @@ namespace Pong {
                     break;
                 case Keyboard.Key.Return:
                     pong.Start();
+                    break;
+                case Keyboard.Key.P:
+                    pong.ToggleFreeze();
                     break;
                 default:
                     break;

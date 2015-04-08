@@ -30,7 +30,7 @@ namespace Pong{
 
         private static CollisionType[,] Dispatch = {
             { CircleToCircle, CircleToOBB },
-            { OBBToCircle, OBBToOBB}
+            { OBBToCircle, OBBToOBB }
         };
 
         private static void CircleToCircle(IShape obj1, IShape obj2, ref Collision colli) {
@@ -48,7 +48,7 @@ namespace Pong{
             colli.overlap = cir.Radius - colli.distance;
             colli.collision = colli.distance <= cir.Radius;
             if (colli.collision) {
-                cir.Pull( colli.normal, colli.overlap);
+                cir.Pull(colli.normal, colli.overlap);
                 colli.point = closest;
                 colli.rad1 = closest - cir.Position;
                 colli.rad2 = closest - obb.Position;
