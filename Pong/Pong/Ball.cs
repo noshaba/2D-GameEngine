@@ -11,14 +11,14 @@ namespace Pong {
 
         public Collision.Type type = Collision.Type.Circle;
 
-        public Ball(Vector2f position, float radius, Color color) : base(position, radius) {
+        public Ball(Vector2f position, float radius, Color color) : base(radius) {
             current = new State(position);
             previous = current;
             FillColor = color;
         }
 
-        public Ball(Vector2f position, float radius, Color color, float mass) : base(position, radius) {
-            current = new State(position,mass,(float) (Math.PI * 0.25 * Math.Pow(radius,4)) );
+        public Ball(Vector2f position, float radius, Color color, float mass) : base(radius) {
+            current = new State(position, mass, (float) (Math.PI * 0.25 * Math.Pow(radius,4)) );
             previous = current;
             FillColor = color;
         }

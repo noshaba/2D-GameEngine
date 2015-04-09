@@ -9,15 +9,14 @@ using SFML.Window;
 namespace Pong {
     class Paddle : OBB {
 
-        public Paddle(Vector2f position, Vector2f size, Color color) : base(position, size) {
+        public Paddle(Vector2f position, Vector2f size, Color color) : base(size) {
             current = new State(position);
             previous = current;
             FillColor = color;
         }
 
-        public void move(float y) { 
-            Position = new Vector2f(Position.X, y);
-            current.position = Position;
+        public void move(float y) {
+            current.position = new Vector2f(COM.X, y); ;
         }
     }
 }

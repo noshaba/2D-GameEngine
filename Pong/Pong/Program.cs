@@ -14,10 +14,13 @@ namespace Pong {
         const int HEIGHT = 576;
         const float FPS = 60.0f;
         const float DT = 1.0f / FPS;
+        const float MIN_FPS = 1.0f;
+        const float MIN_DT = 1.0f / MIN_FPS;
         static float accumulator = 0;
 
         static ContextSettings context = new ContextSettings();
         static Stopwatch timer = new Stopwatch();
+        static Stopwatch FPSClock = new Stopwatch();
         static RenderWindow window = new RenderWindow(new VideoMode(WIDTH, HEIGHT), "Pong!", Styles.Default, context);
 
         static Sprite mouseSprite = new Sprite(new Texture("../Content/Mouse.png"));
@@ -25,29 +28,15 @@ namespace Pong {
         static Game pong = new Game(WIDTH,HEIGHT,window);
 
         static void Main(string[] args) {
-            /*
-             * stopwatch
-             * renderwindow
-             * setverticalsyncenabled
-             * dt = clock.elapsedtimes / (float) stopwatch.frequency
-             * clock.restart
-             * while dt > tick
-             * 
-             */
-            Console.WriteLine("Hello World! :D");
+            Console.WriteLine("Hello World!");
             InitWindow();
-
             timer.Start();
-            float frameStart = timer.ElapsedMilliseconds / 100.0f;
-
+            float frameStart = timer.ElapsedMilliseconds / 1000.0f;
             while (window.IsOpen()) {
                 window.DispatchEvents();
                 window.Clear();
-
-                //pong.Update(DT);
                 Update(ref frameStart);
-
-                Draw();
+                Draw(accumulator/DT);
                 window.Display();
             }
         }
@@ -59,25 +48,21 @@ namespace Pong {
             window.MouseEntered += window_MouseEntered;
             window.MouseLeft += window_MouseLeft;
             window.SetActive(true);
-            window.SetFramerateLimit(60);
         }
 
         private static void Update(ref float frameStart) {
-            float currentTime = timer.ElapsedMilliseconds / 100.0f;
+            float currentTime = timer.ElapsedMilliseconds / 1000.0f;
             accumulator += currentTime - frameStart;
             frameStart = currentTime;
-
-            if (accumulator > 0.2f)
-                accumulator = 0.2f;
-            
+            if (accumulator > MIN_DT) accumulator = MIN_DT;
             while (accumulator >= DT) {
                 pong.Update(DT);
                 accumulator -= DT;
             }
         }
 
-        private static void Draw() {
-            pong.Draw();
+        private static void Draw(float alpha) {
+            pong.Draw(alpha);
             mouseSprite.Draw(window, RenderStates.Default);
         }
 

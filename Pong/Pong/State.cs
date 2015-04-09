@@ -109,5 +109,31 @@ namespace Pong {
             position += k * dt * (k1.velocity + 2.0f * (k2.velocity + k3.velocity) + k4.velocity);
             orientation += k * dt * (k1.angularVelocity + 2.0f * (k2.angularVelocity + k3.angularVelocity) + k4.angularVelocity);
         }
+
+        // to interpolate between two states
+
+        public static State operator *(State state, float s) {
+            State output = new State(state.mass, state.inertiaTensor);
+            output.position = state.position * s;
+            output.orientation = state.orientation * s;
+            return output;
+        }
+
+        public static State operator *(float s, State state) {
+            return state * s;
+        }
+
+        public static State operator +(State s1, State s2) {
+            State output = new State(s1.mass, s1.inertiaTensor);
+            output.position = s1.position + s2.position;
+            output.orientation = s1.orientation + s2.orientation;
+            return output;
+        }
+
+        public float DegOrientation {
+            get {
+                return (float)(orientation * 180.0f / Math.PI);
+            }
+        }
     }
 }

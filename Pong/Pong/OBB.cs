@@ -16,15 +16,30 @@ namespace Pong{
         protected State previous;
         protected State current;
 
-        public OBB(Vector2f position, Vector2f size) : base(size) {
+        public OBB(Vector2f size) : base(size) {
             Origin = new Vector2f(size.X * 0.5f, size.Y * 0.5f);
-            Position = position;
             hl[0] = size.X * 0.5f;
             hl[1] = size.Y * 0.5f;
         }
 
         public Collision.Type Type {
             get { return type; }
+        }
+
+        public Vector2f COM {
+            get { return current.position; }
+        }
+
+        public State Current {
+            get { return current; }
+        }
+
+        public State Previous {
+            get { return previous; }
+        }
+
+        public State Interpolation(float alpha) {
+            return previous * alpha + current * (1.0f - alpha);
         }
 
         public float Width {
@@ -35,11 +50,6 @@ namespace Pong{
         public float Height {
             get { return Size.Y; }
             set { Size = new Vector2f(Size.X, value); }
-        }
-
-        public void ApplyImpulse(Vector2f J, Vector2f r) {
-            current.velocity += J * current.inverseMass;
-            current.angularVelocity += r.CrossProduct(J) * current.inverseInertiaTensor;
         }
 
         public float InverseMass {
@@ -75,13 +85,15 @@ namespace Pong{
         public void Update(float dt) {
             previous = current;
             current.Integrate(dt);
-            Position = current.position;
-            Rotation = (float) (current.orientation * 180.0f / Math.PI);
+        }
+
+        public void ApplyImpulse(Vector2f J, Vector2f r) {
+            current.velocity += J * current.inverseMass;
+            current.angularVelocity += r.CrossProduct(J) * current.inverseInertiaTensor;
         }
 
         public void Pull(Vector2f n, float overlap) {
             current.position += n * overlap;
-            Position = current.position;
         }
     }
 }

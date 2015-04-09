@@ -8,6 +8,9 @@ using SFML.Window;
 namespace Pong {
     interface IShape {
         Collision.Type Type{ get; }
+        Vector2f COM { get; }
+        State Current { get; }
+        State Previous { get; }
         float InverseMass { get; }
         float InverseInertia { get; }
         void ApplyImpulse(Vector2f J, Vector2f r);
@@ -15,5 +18,6 @@ namespace Pong {
         float AngularVelocity { get; set; }
         void Update(float dt);
         void Pull(Vector2f n, float overlap);
+        State Interpolation(float alpha);
     }
 }

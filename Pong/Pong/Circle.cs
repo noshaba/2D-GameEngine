@@ -13,19 +13,30 @@ namespace Pong {
         public State current;
         protected State previous;
 
-        public Circle(Vector2f position, float radius) : base(radius) {
+        public Circle(float radius) : base(radius) {
             Origin = new Vector2f(Position.X + radius * 0.5f, Position.Y + radius * 0.5f);
-            Position = position;
         }
 
         public Collision.Type Type {
             get { return type; }
         }
 
-        public void ApplyImpulse(Vector2f J, Vector2f r) {
-            current.velocity += J * current.inverseMass;
-            current.angularVelocity += r.CrossProduct(J) * current.inverseInertiaTensor;
+        public Vector2f COM {
+            get { return current.position; }
         }
+
+        public State Current {
+            get { return current; }
+        }
+
+        public State Previous {
+            get { return previous; }
+        }
+
+        public State Interpolation(float alpha) {
+            return previous * alpha + current * (1.0f - alpha);
+        }
+
 
         public float InverseMass {
             get { return current.inverseMass; }
@@ -48,12 +59,15 @@ namespace Pong {
         public void Update(float dt) {
             previous = current;
             current.Integrate(dt);
-            Position = current.position;
-            Rotation = (float)(current.orientation * 180.0f / Math.PI);
         }
+
+        public void ApplyImpulse(Vector2f J, Vector2f r) {
+            current.velocity += J * current.inverseMass;
+            current.angularVelocity += r.CrossProduct(J) * current.inverseInertiaTensor;
+        }
+
         public void Pull(Vector2f n, float overlap) {
             current.position += n * overlap;
-            Position = current.position;
         }
     }
 }
