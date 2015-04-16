@@ -69,7 +69,7 @@ namespace Pong{
         private static void OBBToOBB(IShape obj1, IShape obj2, ref Collision colli) {
             OBB obb1 = obj1 as OBB;
             OBB obb2 = obj2 as OBB;
-            /*colli.overlap = float.MaxValue;
+            colli.overlap = float.MaxValue;
             Vector2f T = obb2.COM - obb1.COM;
             Collision c;
             for (int i = 0; i < obb1.axis.Length; ++i) {
@@ -89,7 +89,16 @@ namespace Pong{
                 }
                 if (c.overlap < colli.overlap)
                     colli = c;
-            }*/
+            }
+            if (obb1.InverseMass > 0 && obb2.InverseMass > 0) {
+                obb1.Pull(colli.normal, colli.overlap * 0.5f);
+                obb2.Pull(colli.normal, -colli.overlap * 0.5f);
+            } else {
+                obb1.Pull(colli.normal, colli.overlap * obb1.InverseMass * obb1.Mass);
+                obb2.Pull(colli.normal, -colli.overlap * obb2.InverseMass * obb2.Mass);
+            }
+            colli.rad1 = ClosestPointOnOBB(obb2.COM, obb1) - obb1.COM;
+            colli.rad2 = ClosestPointOnOBB(obb1.COM, obb2) - obb2.COM;
 
         }
 

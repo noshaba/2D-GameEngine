@@ -19,14 +19,14 @@ namespace Pong{
             if (!frozen) {
                 for (int i = 0; i < objects.Count(); ++i) {
                     objects[i].Update(dt);
-                    ApplyForces(i);
+                    ApplyForces(dt, i);
                 }
             }
         }
 
         #region Physical Methods
 
-        private void ApplyForces(int i) {
+        private void ApplyForces(float dt, int i) {
             AddCollisionImpulse(i);
         }
 
