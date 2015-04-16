@@ -16,7 +16,7 @@ namespace Pong{
         }
 
         public void Reset() {
-            objects.RemoveRange(5, objects.Count - 5);
+            objects.RemoveRange(7, objects.Count - 7);
         }
 
         public void Update(float dt) {

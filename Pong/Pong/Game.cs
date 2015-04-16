@@ -35,12 +35,12 @@ namespace Pong {
             AddObject(player);
             AddObject(ai);
             AddObject(ball);
-            // walls
+            // walls and obstacles
             AddObject(new OBB(new Vector2f(width * 0.5f, 12.5f), new Vector2f(width, 25), 0, Color.White));
             AddObject(new OBB(new Vector2f(width * 0.5f, height - 12.5f), new Vector2f(width, 25), 0, Color.White));
-            // obstacles
-            for (int i = 0; i < random.Next(10, 15); ++i)
-                AddObject(new OBB(new Vector2f(random.Next(width), random.Next(100, height)), new Vector2f(random.Next(100), random.Next(100)), random.Next(360), Color.White, (float) random.NextDouble()));
+            AddObject(new OBB(new Vector2f(12.5f, height * 0.5f), new Vector2f(25, height), 0, Color.White));
+            AddObject(new OBB(new Vector2f(width - 12.5f, height * 0.5f), new Vector2f(25, width), 0, Color.White));
+            AddObstacles();
             // score
             font = new Font("../Content/arial.ttf");
             playerScore = new Text(player.score.ToString(), font, 50);
@@ -58,21 +58,29 @@ namespace Pong {
             physics.AddObject(obj);
         }
 
+        private void AddObstacles() {
+            // static obstacles
+            for (int i = 0; i < random.Next(5, 10); ++i)
+                AddObject(new OBB(new Vector2f(random.Next(WIDTH), random.Next(100, HEIGHT)), new Vector2f(random.Next(100), random.Next(100)), random.Next(360), Color.White));
+            // moveable obstacles
+            for (int i = 0; i < random.Next(3, 6); ++i)
+                AddObject(new OBB(new Vector2f(random.Next(WIDTH), random.Next(100, HEIGHT)), new Vector2f(random.Next(100), random.Next(100)), random.Next(360), Color.Blue, random.Next(5, 10)));
+        }
+
         private void ResetObstacles() {
-            objects.RemoveRange(5, objects.Count - 5);
+            objects.RemoveRange(7, objects.Count - 7);
             physics.Reset();
-            for (int i = 0; i < random.Next(10, 15); ++i)
-                AddObject(new OBB(new Vector2f(random.Next(WIDTH), random.Next(100, HEIGHT)), new Vector2f(random.Next(100), random.Next(100)), random.Next(360), Color.White, (float)random.NextDouble()));
+            AddObstacles();
         }
 
         public void Update(float dt) {
-            if (ball.COM.X < 0) {
+            if (ball.COM.X < player.COM.X) {
                 ai.score++;
                 aiScore.DisplayedString = ai.score.ToString();
                 Sounds.scoreSound.Play();
                 Reset();
             }
-            if (ball.COM.X > WIDTH) {
+            if (ball.COM.X > ai.COM.X) {
                 player.score++;
                 playerScore.DisplayedString = player.score.ToString();
                 Sounds.scoreSound.Play();

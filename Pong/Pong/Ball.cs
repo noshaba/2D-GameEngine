@@ -29,7 +29,6 @@ namespace Pong {
         }
 
         public void IncreaseVelocity(float dt) {
-            Console.WriteLine(current.velocity.Length2());
             if (current.velocity.Length2() < MAXVELOCITY2)
                 current.velocity += dt * current.velocity.Norm() * 50;
         }
