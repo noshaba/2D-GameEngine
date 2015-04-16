@@ -33,5 +33,10 @@ namespace Pong{
             float s = (float) Math.Sin(radians);
             return new Vector2f(c * vec.X - s * vec.Y, s * vec.X + c * vec.Y);
         }
+
+        public static Vector2f Norm(this Vector2f vec) {
+            if (vec.Length2() == 0) return vec;
+            return vec / vec.Length();
+        }
     }
 }

@@ -41,7 +41,7 @@ namespace Pong {
             AddObject(new OBB(new Vector2f(width * 0.5f, height - 12.5f), new Vector2f(width, 25), 0, Color.White));
             // obstacles
             for (int i = 0; i < random.Next(10, 15); ++i)
-                AddObject(new OBB(new Vector2f(random.Next(width), random.Next(height)), new Vector2f(random.Next(100), random.Next(100)), random.Next(360), Color.White, (float) random.NextDouble()));
+                AddObject(new OBB(new Vector2f(random.Next(width), random.Next(100, height)), new Vector2f(random.Next(100), random.Next(100)), random.Next(360), Color.White, (float) random.NextDouble()));
             // score
             font = new Font("../Content/arial.ttf");
             scoreSound = new Sound(new SoundBuffer("../Content/score.ogg"));
@@ -64,7 +64,7 @@ namespace Pong {
             objects.RemoveRange(5, objects.Count - 5);
             physics.Reset();
             for (int i = 0; i < random.Next(10, 15); ++i)
-                AddObject(new OBB(new Vector2f(random.Next(WIDTH), random.Next(HEIGHT)), new Vector2f(random.Next(100), random.Next(100)), random.Next(360), Color.White, (float)random.NextDouble()));
+                AddObject(new OBB(new Vector2f(random.Next(WIDTH), random.Next(100, HEIGHT)), new Vector2f(random.Next(100), random.Next(100)), random.Next(360), Color.White, (float)random.NextDouble()));
         }
 
         public void Update(float dt) {
@@ -81,11 +81,12 @@ namespace Pong {
                 Reset();
             }
             ai.move(ball.COM.Y);
+            ball.IncreaseVelocity(dt);
             physics.Update(dt);
         }
 
         public void Start() {
-            ball.Velocity = new Vector2f(-50, 50);
+            ball.Impulse();
         }
 
         private void Reset() {
