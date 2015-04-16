@@ -17,6 +17,9 @@ namespace Pong {
         private int WIDTH;
         private int HEIGHT;
         private Random random;
+        private Font font;
+        private Text playerScore;
+        private Text aiScore;
 
         public Game(int width, int height, RenderWindow window) {
             WIDTH = width;
@@ -37,6 +40,16 @@ namespace Pong {
             // obstacles
             for (int i = 0; i < random.Next(10, 15); ++i)
                 AddObject(new OBB(new Vector2f(random.Next(width), random.Next(height)), new Vector2f(random.Next(100), random.Next(100)), random.Next(360), Color.White, (float) random.NextDouble()));
+            // score
+            font = new Font("../Content/arial.ttf");
+            playerScore = new Text(player.score.ToString(), font, 50);
+            playerScore.Position = new Vector2f(width * 0.25f, 50);
+            playerScore.Style = Text.Styles.Bold;
+            playerScore.Color = Color.Cyan;
+            aiScore = new Text(ai.score.ToString(), font, 50);
+            aiScore.Position = new Vector2f(width * 0.75f, 50);
+            aiScore.Style = Text.Styles.Bold;
+            aiScore.Color = Color.Green;
         }
 
         private void AddObject(IShape obj) {
@@ -47,10 +60,12 @@ namespace Pong {
         public void Update(float dt) {
             if (ball.COM.X < 0) {
                 ai.score++;
+                aiScore.DisplayedString = ai.score.ToString();
                 ball.Reset();
             }
             if (ball.COM.X > WIDTH) {
                 player.score++;
+                playerScore.DisplayedString = player.score.ToString();
                 ball.Reset();
             }
             ai.move(ball.COM.Y);
@@ -77,6 +92,8 @@ namespace Pong {
                 r.Transform = t;
                 window.Draw(obj, r);
             }
+            window.Draw(playerScore);
+            window.Draw(aiScore);
         }
 
         public void MovePlayer(float y) {

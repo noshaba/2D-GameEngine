@@ -97,6 +97,7 @@ namespace Pong{
                 obb1.Pull(colli.normal, colli.overlap * obb1.InverseMass * obb1.Mass);
                 obb2.Pull(colli.normal, -colli.overlap * obb2.InverseMass * obb2.Mass);
             }
+            // TODO: actual point of contact generation
             colli.rad1 = ClosestPointOnOBB(obb2.COM, obb1) - obb1.COM;
             colli.rad2 = ClosestPointOnOBB(obb1.COM, obb2) - obb2.COM;
 
