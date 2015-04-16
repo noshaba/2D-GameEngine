@@ -51,7 +51,7 @@ namespace Pong{
             colli.collision = colli.distance < cir.Radius;
             if (colli.collision) {
                 if (cir is Ball)
-                    Program.hitSound.Play();
+                    Sounds.hitSound.Play();
                 if (cir.InverseMass > 0 && obb.InverseMass > 0) {
                     cir.Pull(colli.normal,  colli.overlap * 0.5f);
                     obb.Pull(colli.normal, -colli.overlap * 0.5f);

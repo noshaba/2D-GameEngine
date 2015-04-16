@@ -18,8 +18,6 @@ namespace Pong {
         const float MIN_FPS = 20.0f;
         const float MAX_DT = 1.0f / MIN_FPS;
         static float accumulator = 0;
-        public static Sound scoreSound = new Sound(new SoundBuffer("../Content/score.ogg"));
-        public static Sound hitSound = new Sound(new SoundBuffer("../Content/Hit.wav"));
 
         static ContextSettings context = new ContextSettings();
         static Stopwatch timer = new Stopwatch();

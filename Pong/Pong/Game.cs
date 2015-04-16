@@ -69,13 +69,13 @@ namespace Pong {
             if (ball.COM.X < 0) {
                 ai.score++;
                 aiScore.DisplayedString = ai.score.ToString();
-                Program.scoreSound.Play();
+                Sounds.scoreSound.Play();
                 Reset();
             }
             if (ball.COM.X > WIDTH) {
                 player.score++;
                 playerScore.DisplayedString = player.score.ToString();
-                Program.scoreSound.Play();
+                Sounds.scoreSound.Play();
                 Reset();
             }
             // if ball too fast or FPS too low
