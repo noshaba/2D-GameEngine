@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.Window;
+using SFML.Audio;
 
 namespace Pong{
     class Collision {
@@ -19,6 +20,7 @@ namespace Pong{
         public Vector2f point;
         public Vector2f rad1;
         public Vector2f rad2;
+        private static Sound hitSound = new Sound(new SoundBuffer("../Content/Hit.wav"));
 
         public static Collision CheckForCollision(IShape obj1, IShape obj2) {
             Collision colli = new Collision();
@@ -48,6 +50,8 @@ namespace Pong{
             colli.overlap = cir.Radius - colli.distance;
             colli.collision = colli.distance < cir.Radius;
             if (colli.collision) {
+                if (cir is Ball)
+                    hitSound.Play();
                 if (cir.InverseMass > 0 && obb.InverseMass > 0) {
                     cir.Pull(colli.normal,  colli.overlap * 0.5f);
                     obb.Pull(colli.normal, -colli.overlap * 0.5f);
