@@ -37,9 +37,9 @@ namespace Pong {
             inverseInertiaTensor = 0;
         }
 
-        public State(Vector2f position) {
+        public State(Vector2f position, float rotation) {
             this.position = position;
-            orientation = 0;
+            orientation = (float) (rotation * Math.PI / 180.0);
 
             velocity = new Vector2f(0, 0);
             angularVelocity = 0;
@@ -70,9 +70,9 @@ namespace Pong {
             }
         }
 
-        public State(Vector2f position, float mass, float inertiaTensor) {
+        public State(Vector2f position, float rotation, float mass, float inertiaTensor) {
             this.position = position;
-            orientation = 0;
+            orientation = (float)(rotation * Math.PI / 180.0);
 
             velocity = new Vector2f(0, 0);
             angularVelocity = 0;
@@ -110,6 +110,13 @@ namespace Pong {
             orientation += k * dt * (k1.angularVelocity + 2.0f * (k2.angularVelocity + k3.angularVelocity) + k4.angularVelocity);
         }
 
+        public void Reset() {
+            position = new Vector2f(0,0);
+            orientation = 0;
+            velocity = new Vector2f(0,0);
+            angularVelocity = 0;
+        }
+
         // to interpolate between two states
 
         public static State operator *(State state, float s) {
@@ -132,7 +139,7 @@ namespace Pong {
 
         public float DegOrientation {
             get {
-                return (float)(orientation * 180.0f / Math.PI);
+                return (float)(orientation * 180.0 / Math.PI);
             }
         }
     }

@@ -7,7 +7,7 @@ using SFML.Graphics;
 using SFML.Window;
 
 namespace Pong{
-    abstract class OBB : RectangleShape, IShape {
+    class OBB : RectangleShape, IShape {
         private Collision.Type type = Collision.Type.OBB;
 
         public Vector2f[] axis = { new Vector2f(1,0), new Vector2f(0,1) };
@@ -16,10 +16,22 @@ namespace Pong{
         protected State previous;
         protected State current;
 
-        public OBB(Vector2f size) : base(size) {
+        public OBB(Vector2f position, Vector2f size, float rotation, Color color) : base(size) {
             Origin = new Vector2f(size.X * 0.5f, size.Y * 0.5f);
             hl[0] = size.X * 0.5f;
             hl[1] = size.Y * 0.5f;
+            current = new State(position, rotation);
+            previous = current;
+            FillColor = color;
+        }
+
+        public OBB(Vector2f position, Vector2f size, float rotation, Color color, float mass) : base(size) {
+            Origin = new Vector2f(size.X * 0.5f, size.Y * 0.5f);
+            hl[0] = size.X * 0.5f;
+            hl[1] = size.Y * 0.5f;
+            current = new State(position, rotation, mass, size.X * size.Y / 6.0f);
+            previous = current;
+            FillColor = color;
         }
 
         public Collision.Type Type {
@@ -50,6 +62,10 @@ namespace Pong{
         public float Height {
             get { return Size.Y; }
             set { Size = new Vector2f(Size.X, value); }
+        }
+
+        public float Mass {
+            get { return current.mass; }
         }
 
         public float InverseMass {

@@ -46,10 +46,17 @@ namespace Pong{
             colli.distance = colli.normal.Length();
             if (colli.distance != 0) colli.normal /= colli.distance;
             colli.overlap = cir.Radius - colli.distance;
-            colli.collision = colli.distance <= cir.Radius;
+            colli.collision = colli.distance < cir.Radius;
             if (colli.collision) {
-                cir.Pull(colli.normal, colli.overlap);
-                colli.point = closest;
+                if (cir.InverseMass > 0 && obb.InverseMass > 0) {
+                    cir.Pull(colli.normal,  colli.overlap * 0.5f);
+                    obb.Pull(colli.normal, -colli.overlap * 0.5f);
+                    colli.point = closest - colli.normal * colli.overlap * 0.5f;
+                } else {
+                    cir.Pull(colli.normal,  colli.overlap * cir.InverseMass * cir.Mass);
+                    obb.Pull(colli.normal, -colli.overlap * obb.InverseMass * obb.Mass);
+                    colli.point = closest - colli.normal * colli.overlap * obb.InverseMass * obb.Mass;
+                }
                 colli.rad1 = closest - cir.COM;
                 colli.rad2 = closest - obb.COM;
             }
@@ -62,6 +69,28 @@ namespace Pong{
         private static void OBBToOBB(IShape obj1, IShape obj2, ref Collision colli) {
             OBB obb1 = obj1 as OBB;
             OBB obb2 = obj2 as OBB;
+            /*colli.overlap = float.MaxValue;
+            Vector2f T = obb2.COM - obb1.COM;
+            Collision c;
+            for (int i = 0; i < obb1.axis.Length; ++i) {
+                c = OBBToAxis(obb1, obb2, obb1.Axis(i), T);
+                if (!c.collision) {
+                    colli.collision = false;
+                    return;
+                }
+                if (c.overlap < colli.overlap)
+                    colli = c;
+            }
+            for (int i = 0; i < obb2.axis.Length; ++i) {
+                c = OBBToAxis(obb1, obb2, obb2.Axis(i), T);
+                if (!c.collision) {
+                    colli.collision = false;
+                    return;
+                }
+                if (c.overlap < colli.overlap)
+                    colli = c;
+            }*/
+
         }
 
         private static Vector2f ClosestPointOnOBB(Vector2f p, OBB obb) {
@@ -75,6 +104,22 @@ namespace Pong{
                 closest += distance * obb.Axis(i);
             }
             return closest;
+        }
+
+        private static Collision OBBToAxis(OBB obb1, OBB obb2, Vector2f n, Vector2f T) {
+            Collision colli = new Collision();
+            colli.distance = T.Dot(n);
+            if (colli.distance > 0) n = -n;
+            colli.normal = n;
+            colli.distance = Math.Abs(colli.distance);
+            float r = 0;
+            for (int i = 0; i < obb1.hl.Length; ++i)
+                r += Math.Abs(obb1.hl[i]*obb1.Axis(i).Dot(n));
+            for (int i = 0; i < obb2.hl.Length; ++i)
+                r += Math.Abs(obb2.hl[i] * obb2.Axis(i).Dot(n));
+            colli.overlap = r - colli.distance;
+            colli.collision = colli.distance <= r;
+            return colli;
         }
     }
 }

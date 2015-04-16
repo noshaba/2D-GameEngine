@@ -35,11 +35,10 @@ namespace Pong{
                 if (i == j) continue;
                 Collision colli = Collision.CheckForCollision(objects[i], objects[j]);
                 if (colli.collision) {
-                    if (objects[i].InverseMass != 0 || objects[j].InverseMass != 0) {
+                    if (objects[i].InverseMass > 0 || objects[j].InverseMass > 0) {
                         Vector2f J = CollisionImpulse(objects[i], objects[j], colli.rad1, colli.rad2, colli.normal);
                         objects[i].ApplyImpulse(J, colli.rad1);
                         objects[j].ApplyImpulse(-J, colli.rad2);
-                        PositionalCorrection(objects[i], objects[j], colli.normal);
                     }
                 }
             }
@@ -61,11 +60,6 @@ namespace Pong{
             float j = -2 * cv;
             j /= invMassSum;
             return j * n;
-        }
-
-        private void PositionalCorrection(IShape obj1, IShape obj2, Vector2f n) {
-            obj1.Pull(n, 0.5f * obj1.InverseMass);
-            obj2.Pull(n, 0.5f * obj2.InverseMass);
         }
 
         #endregion

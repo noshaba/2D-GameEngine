@@ -11,6 +11,7 @@ namespace Pong {
         Vector2f COM { get; }
         State Current { get; }
         State Previous { get; }
+        float Mass { get; }
         float InverseMass { get; }
         float InverseInertia { get; }
         void ApplyImpulse(Vector2f J, Vector2f r);

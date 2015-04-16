@@ -7,14 +7,24 @@ using SFML.Graphics;
 using SFML.Window;
 
 namespace Pong {
-    abstract class Circle : CircleShape, IShape {
+    class Circle : CircleShape, IShape {
         private Collision.Type type = Collision.Type.Circle;
 
-        public State current;
+        protected State current;
         protected State previous;
 
-        public Circle(float radius) : base(radius) {
+        public Circle(Vector2f position, float radius, Color color) : base(radius) {
             Origin = new Vector2f(Position.X + radius * 0.5f, Position.Y + radius * 0.5f);
+            current = new State(position, 0);
+            previous = current;
+            FillColor = color;
+        }
+
+        public Circle(Vector2f position, float radius, Color color, float mass) : base(radius) {
+            Origin = new Vector2f(Position.X + radius * 0.5f, Position.Y + radius * 0.5f);
+            current = new State(position, 0, mass, (float)(Math.PI * 0.25 * Math.Pow(radius, 4)));
+            previous = current;
+            FillColor = color;
         }
 
         public Collision.Type Type {
@@ -37,6 +47,9 @@ namespace Pong {
             return previous * alpha + current * (1.0f - alpha);
         }
 
+        public float Mass {
+            get { return current.mass; }
+        }
 
         public float InverseMass {
             get { return current.inverseMass; }
