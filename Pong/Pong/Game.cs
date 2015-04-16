@@ -64,7 +64,7 @@ namespace Pong {
                 AddObject(new OBB(new Vector2f(random.Next(WIDTH), random.Next(100, HEIGHT)), new Vector2f(random.Next(100), random.Next(100)), random.Next(360), Color.White));
             // moveable obstacles
             for (int i = 0; i < random.Next(3, 6); ++i)
-                AddObject(new OBB(new Vector2f(random.Next(WIDTH), random.Next(100, HEIGHT)), new Vector2f(random.Next(100), random.Next(100)), random.Next(360), Color.Blue, random.Next(5, 10)));
+                AddObject(new OBB(new Vector2f(random.Next(WIDTH), random.Next(100, HEIGHT)), new Vector2f(random.Next(100), random.Next(100)), random.Next(360), Color.Yellow, random.Next(5, 10)));
         }
 
         private void ResetObstacles() {
@@ -98,7 +98,7 @@ namespace Pong {
             ball.Impulse();
         }
 
-        private void Reset() {
+        public void Reset() {
             ball.Reset();
             ResetObstacles();
         }

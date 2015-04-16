@@ -93,6 +93,9 @@ namespace Pong {
                 case Keyboard.Key.P:
                     pong.ToggleFreeze();
                     break;
+                case Keyboard.Key.Space:
+                    pong.Reset();
+                    break;
                 default:
                     break;
             }
