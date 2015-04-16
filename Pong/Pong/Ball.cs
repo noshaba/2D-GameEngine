@@ -12,7 +12,7 @@ namespace Pong {
         public Collision.Type type = Collision.Type.Circle;
 
         private Vector2f initPosition;
-        private const float MAXVELOCITY2 = 50000;
+        private const float MAXVELOCITY2 = 40000;
 
         public Ball(Vector2f position, float radius, Color color, float mass) : base(position, radius, color, mass) {
             initPosition = position;

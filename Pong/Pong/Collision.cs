@@ -20,7 +20,7 @@ namespace Pong{
         public Vector2f point;
         public Vector2f rad1;
         public Vector2f rad2;
-        private static Sound hitSound = new Sound(new SoundBuffer("../Content/Hit.wav"));
+        private const float TOLERANCE = 0;
 
         public static Collision CheckForCollision(IShape obj1, IShape obj2) {
             Collision colli = new Collision();
@@ -51,7 +51,7 @@ namespace Pong{
             colli.collision = colli.distance < cir.Radius;
             if (colli.collision) {
                 if (cir is Ball)
-                    hitSound.Play();
+                    Program.hitSound.Play();
                 if (cir.InverseMass > 0 && obb.InverseMass > 0) {
                     cir.Pull(colli.normal,  colli.overlap * 0.5f);
                     obb.Pull(colli.normal, -colli.overlap * 0.5f);
@@ -63,6 +63,7 @@ namespace Pong{
                 }
                 colli.rad1 = closest - cir.COM;
                 colli.rad2 = closest - obb.COM;
+                PositionalCorrection(obj1, obj2, colli.normal);
             }
         }
 
@@ -94,17 +95,19 @@ namespace Pong{
                 if (c.overlap < colli.overlap)
                     colli = c;
             }
-            if (obb1.InverseMass > 0 && obb2.InverseMass > 0) {
-                obb1.Pull(colli.normal, colli.overlap * 0.5f);
-                obb2.Pull(colli.normal, -colli.overlap * 0.5f);
-            } else {
-                obb1.Pull(colli.normal, colli.overlap * obb1.InverseMass * obb1.Mass);
-                obb2.Pull(colli.normal, -colli.overlap * obb2.InverseMass * obb2.Mass);
+            if (colli.collision) {
+                if (obb1.InverseMass > 0 && obb2.InverseMass > 0) {
+                    obb1.Pull(colli.normal, colli.overlap * 0.5f);
+                    obb2.Pull(colli.normal, -colli.overlap * 0.5f);
+                } else {
+                    obb1.Pull(colli.normal, colli.overlap * obb1.InverseMass * obb1.Mass);
+                    obb2.Pull(colli.normal, -colli.overlap * obb2.InverseMass * obb2.Mass);
+                }
+                // TODO: actual point of contact generation
+                colli.rad1 = ClosestPointOnOBB(obb2.COM, obb1) - obb1.COM;
+                colli.rad2 = ClosestPointOnOBB(obb1.COM, obb2) - obb2.COM;
+                PositionalCorrection(obj1, obj2, colli.normal);
             }
-            // TODO: actual point of contact generation
-            colli.rad1 = ClosestPointOnOBB(obb2.COM, obb1) - obb1.COM;
-            colli.rad2 = ClosestPointOnOBB(obb1.COM, obb2) - obb2.COM;
-
         }
 
         private static Vector2f ClosestPointOnOBB(Vector2f p, OBB obb) {
@@ -132,8 +135,18 @@ namespace Pong{
             for (int i = 0; i < obb2.hl.Length; ++i)
                 r += Math.Abs(obb2.hl[i] * obb2.Axis(i).Dot(n));
             colli.overlap = r - colli.distance;
-            colli.collision = colli.distance <= r;
+            colli.collision = colli.distance < r;
             return colli;
+        }
+
+        private static void PositionalCorrection(IShape obj1, IShape obj2, Vector2f n) {
+            if (obj1.InverseMass > 0 && obj2.InverseMass > 0) {
+                obj1.Pull(n,  TOLERANCE * 0.5f);
+                obj2.Pull(n, -TOLERANCE * 0.5f);
+            } else {
+                obj1.Pull(n,  TOLERANCE * obj1.InverseMass * obj1.Mass);
+                obj2.Pull(n, -TOLERANCE * obj2.InverseMass * obj2.Mass);
+            }
         }
     }
 }

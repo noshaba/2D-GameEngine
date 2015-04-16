@@ -7,6 +7,7 @@ using System.Windows;
 using System.Diagnostics;
 using SFML.Graphics;
 using SFML.Window;
+using SFML.Audio;
 
 namespace Pong {
     class Program {
@@ -14,9 +15,11 @@ namespace Pong {
         const int HEIGHT = 576;
         const float FPS = 60.0f;
         const float DT = 1.0f / FPS;
-        const float MIN_FPS = 1.0f;
-        const float MIN_DT = 1.0f / MIN_FPS;
+        const float MIN_FPS = 20.0f;
+        const float MAX_DT = 1.0f / MIN_FPS;
         static float accumulator = 0;
+        public static Sound scoreSound = new Sound(new SoundBuffer("../Content/score.ogg"));
+        public static Sound hitSound = new Sound(new SoundBuffer("../Content/Hit.wav"));
 
         static ContextSettings context = new ContextSettings();
         static Stopwatch timer = new Stopwatch();
@@ -54,7 +57,7 @@ namespace Pong {
             float currentTime = timer.ElapsedMilliseconds / 1000.0f;
             accumulator += currentTime - frameStart;
             frameStart = currentTime;
-            if (accumulator > MIN_DT) accumulator = MIN_DT;
+            if (accumulator > MAX_DT) accumulator = MAX_DT;
             while (accumulator >= DT) {
                 pong.Update(DT);
                 accumulator -= DT;

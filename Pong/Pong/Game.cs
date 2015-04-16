@@ -19,7 +19,6 @@ namespace Pong {
         private int HEIGHT;
         private Random random;
         private Font font;
-        private Sound scoreSound;
         private Text playerScore;
         private Text aiScore;
 
@@ -44,7 +43,6 @@ namespace Pong {
                 AddObject(new OBB(new Vector2f(random.Next(width), random.Next(100, height)), new Vector2f(random.Next(100), random.Next(100)), random.Next(360), Color.White, (float) random.NextDouble()));
             // score
             font = new Font("../Content/arial.ttf");
-            scoreSound = new Sound(new SoundBuffer("../Content/score.ogg"));
             playerScore = new Text(player.score.ToString(), font, 50);
             playerScore.Position = new Vector2f(width * 0.25f, 50);
             playerScore.Style = Text.Styles.Bold;
@@ -71,15 +69,18 @@ namespace Pong {
             if (ball.COM.X < 0) {
                 ai.score++;
                 aiScore.DisplayedString = ai.score.ToString();
-                scoreSound.Play();
+                Program.scoreSound.Play();
                 Reset();
             }
             if (ball.COM.X > WIDTH) {
                 player.score++;
                 playerScore.DisplayedString = player.score.ToString();
-                scoreSound.Play();
+                Program.scoreSound.Play();
                 Reset();
             }
+            // if ball too fast or FPS too low
+            if (ball.COM.Y > HEIGHT || ball.COM.Y < 0)
+                Reset();
             ai.move(ball.COM.Y);
             ball.IncreaseVelocity(dt);
             physics.Update(dt);
