@@ -60,18 +60,25 @@ namespace Pong {
             physics.AddObject(obj);
         }
 
+        private void ResetObstacles() {
+            objects.RemoveRange(5, objects.Count - 5);
+            physics.Reset();
+            for (int i = 0; i < random.Next(10, 15); ++i)
+                AddObject(new OBB(new Vector2f(random.Next(WIDTH), random.Next(HEIGHT)), new Vector2f(random.Next(100), random.Next(100)), random.Next(360), Color.White, (float)random.NextDouble()));
+        }
+
         public void Update(float dt) {
             if (ball.COM.X < 0) {
                 ai.score++;
                 aiScore.DisplayedString = ai.score.ToString();
                 scoreSound.Play();
-                ball.Reset();
+                Reset();
             }
             if (ball.COM.X > WIDTH) {
                 player.score++;
                 playerScore.DisplayedString = player.score.ToString();
                 scoreSound.Play();
-                ball.Reset();
+                Reset();
             }
             ai.move(ball.COM.Y);
             physics.Update(dt);
@@ -83,6 +90,7 @@ namespace Pong {
 
         private void Reset() {
             ball.Reset();
+            ResetObstacles();
         }
 
         public void Draw(float alpha) {

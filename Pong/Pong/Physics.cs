@@ -15,6 +15,10 @@ namespace Pong{
             objects.Add(obj);
         }
 
+        public void Reset() {
+            objects.RemoveRange(5, objects.Count - 5);
+        }
+
         public void Update(float dt) {
             if (!frozen) {
                 for (int i = 0; i < objects.Count(); ++i) {
