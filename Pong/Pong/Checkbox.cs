@@ -63,8 +63,11 @@ namespace Pong {
         }
 
         public void OnHover(float X, float Y) {
-            if (displayed && GetGlobalBounds().Contains(X, Y)) {
-                status = Status.OnHover;
+            if (displayed) {
+                if (GetGlobalBounds().Contains(X, Y))
+                    status = Status.OnHover;
+                else
+                    status = Status.Released;
             }
         }
 

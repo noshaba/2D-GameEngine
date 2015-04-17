@@ -52,23 +52,23 @@ namespace Pong {
         }
 
         public void Released(float X, float Y) {
-            if (displayed) {
+            if (displayed && GetGlobalBounds().Contains(X, Y)) {
                 foreach (IGraphic child in children)
                     child.Released(X, Y);
             }
         }
 
         public void Pressed(float X, float Y) {
-            if (displayed) {
+            if (displayed && GetGlobalBounds().Contains(X, Y)) {
                 foreach (IGraphic child in children)
                     child.Pressed(X, Y);
             }
         }
 
         public void OnHover(float X, float Y) {
-            if (displayed) {
+            if (displayed && GetGlobalBounds().Contains(X, Y)){
                 foreach (IGraphic child in children)
-                    child.Pressed(X, Y);
+                    child.OnHover(X, Y);
             }
         }
     }

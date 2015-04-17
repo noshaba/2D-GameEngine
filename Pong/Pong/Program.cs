@@ -27,12 +27,11 @@ namespace Pong {
         static Sprite mouseSprite = new Sprite(new Texture("../Content/Mouse.png"));
 
         static Game pong = new Game(WIDTH, HEIGHT);
-        static View gui = new View(new Vector2f(0, 0), new Vector2f(WIDTH, HEIGHT));
+        static GUI gui = new GUI(WIDTH, HEIGHT);
 
         static void Main(string[] args) {
             Console.WriteLine("Hello World!");
             InitWindow();
-            InitGUI();
             timer.Start();
             float frameStart = timer.ElapsedMilliseconds / 1000.0f;
             while (window.IsOpen()) {
@@ -44,10 +43,6 @@ namespace Pong {
             }
         }
 
-        private static void InitGUI() {
-            gui.Add(new Button(new Vector2f(0, 0), new Vector2f(50, 50), Color.Blue, () => Console.WriteLine("Options")));
-        }
-
         private static void InitWindow() {
             window.Closed += window_Closed;
             window.KeyReleased += window_KeyReleased;
@@ -55,6 +50,7 @@ namespace Pong {
             window.MouseEntered += window_MouseEntered;
             window.MouseLeft += window_MouseLeft;
             window.MouseButtonReleased += window_MouseButtonReleased;
+            window.MouseButtonPressed += window_MouseButtonPressed;
             window.SetActive(true);
         }
 
@@ -80,6 +76,7 @@ namespace Pong {
         private static void window_MouseMoved(object sender, MouseMoveEventArgs e) {
             mouseSprite.Position = new Vector2f(e.X,e.Y);
             pong.MovePlayer(e.Y);
+            gui.OnHover(e.X, e.Y);
         }
 
         private static void window_MouseLeft(object sender, EventArgs e) {
@@ -92,6 +89,10 @@ namespace Pong {
 
         private static void window_MouseButtonReleased(object sender, MouseButtonEventArgs e) {
             gui.Released(e.X, e.Y);
+        }
+
+        private static void window_MouseButtonPressed(object sender, MouseButtonEventArgs e) {
+            gui.Pressed(e.X, e.Y);
         }
 
         static void window_KeyReleased(object sender, KeyEventArgs e) {
