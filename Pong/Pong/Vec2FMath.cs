@@ -7,6 +7,7 @@ using SFML.Window;
 
 namespace Pong{
     public static class Vec2FMath {
+        public static float EPSILON = 0.0001f;
         public static float Dot(this Vector2f vec1, Vector2f vec2) {
             return vec1.X * vec2.X + vec1.Y * vec2.Y;
         }

@@ -41,7 +41,7 @@ namespace Pong{
                 if (colli.collision) {
                     if (objects[i].InverseMass > 0 || objects[j].InverseMass > 0) {
                         Vector2f J = CollisionImpulse(objects[i], objects[j], colli.rad1, colli.rad2, colli.normal);
-                        objects[i].ApplyImpulse(J, colli.rad1);
+                        objects[i].ApplyImpulse( J, colli.rad1);
                         objects[j].ApplyImpulse(-J, colli.rad2);
                     }
                 }

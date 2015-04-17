@@ -21,6 +21,8 @@ namespace Pong {
         private Font font;
         private Text playerScore;
         private Text aiScore;
+        private HUD hud;
+        
 
         public Game(int width, int height, RenderWindow window) {
             WIDTH = width;
@@ -28,6 +30,7 @@ namespace Pong {
             this.window = window;
             random = new Random();
             physics = new Physics();
+            hud = new HUD();
             // game elements
             player = new Paddle(new Vector2f(50, height * 0.5f), new Vector2f(25, 100), Color.Cyan);
             ai = new Paddle(new Vector2f(width - 50, height * 0.5f), new Vector2f(25, 100), Color.Green);
@@ -63,8 +66,8 @@ namespace Pong {
             for (int i = 0; i < random.Next(5, 10); ++i)
                 AddObject(new OBB(new Vector2f(random.Next(WIDTH), random.Next(100, HEIGHT)), new Vector2f(random.Next(100), random.Next(100)), random.Next(360), Color.White));
             // moveable obstacles
-            for (int i = 0; i < random.Next(3, 6); ++i)
-                AddObject(new OBB(new Vector2f(random.Next(WIDTH), random.Next(100, HEIGHT)), new Vector2f(random.Next(100), random.Next(100)), random.Next(360), Color.Yellow, random.Next(5, 10)));
+          //  for (int i = 0; i < random.Next(3, 6); ++i)
+            //    AddObject(new OBB(new Vector2f(random.Next(WIDTH), random.Next(100, HEIGHT)), new Vector2f(random.Next(100), random.Next(100)), random.Next(360), Color.Yellow, random.Next(5, 10)));
         }
 
         private void ResetObstacles() {
@@ -86,6 +89,7 @@ namespace Pong {
                 Sounds.scoreSound.Play();
                 Reset();
             }
+            // Console.WriteLine(ball.AngularVelocity);
             // if ball too fast or FPS too low
             if (ball.COM.Y > HEIGHT || ball.COM.Y < 0)
                 Reset();
@@ -117,6 +121,7 @@ namespace Pong {
             }
             window.Draw(playerScore);
             window.Draw(aiScore);
+            hud.Draw(window);
         }
 
         public void MovePlayer(float y) {

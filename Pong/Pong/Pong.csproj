@@ -52,9 +52,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ball.cs" />
+    <Compile Include="Button.cs" />
     <Compile Include="Circle.cs" />
     <Compile Include="Collision.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="HUD.cs" />
     <Compile Include="IShape.cs" />
     <Compile Include="OBB.cs" />
     <Compile Include="Paddle.cs" />

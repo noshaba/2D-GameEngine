@@ -63,12 +63,18 @@ namespace Pong{
                 }
                 colli.rad1 = closest - cir.COM;
                 colli.rad2 = closest - obb.COM;
-                PositionalCorrection(obj1, obj2, colli.normal);
+                // PositionalCorrection(obj1, obj2, colli.normal);
             }
         }
 
         private static void OBBToCircle(IShape obj1, IShape obj2, ref Collision colli) {
             CircleToOBB(obj2, obj1, ref colli);
+            if (colli.collision) {
+                Vector2f buffer = colli.rad1;
+                colli.rad1 = colli.rad2;
+                colli.rad2 = buffer;
+                colli.normal = -colli.normal;
+            }
         }
 
         private static void OBBToOBB(IShape obj1, IShape obj2, ref Collision colli) {
@@ -106,7 +112,7 @@ namespace Pong{
                 // TODO: actual point of contact generation
                 colli.rad1 = ClosestPointOnOBB(obb2.COM, obb1) - obb1.COM;
                 colli.rad2 = ClosestPointOnOBB(obb1.COM, obb2) - obb2.COM;
-                PositionalCorrection(obj1, obj2, colli.normal);
+                // PositionalCorrection(obj1, obj2, colli.normal);
             }
         }
 
