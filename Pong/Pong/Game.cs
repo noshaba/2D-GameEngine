@@ -86,8 +86,10 @@ namespace Pong {
                 Reset();
             }
             // if ball too fast or FPS too low
-            if (ball.COM.Y > HEIGHT || ball.COM.Y < 0)
-                Reset();
+            if (ball.COM.Y > HEIGHT - 25 || ball.COM.Y < 25) {
+                ball.Current = ball.Previous;
+                ball.Velocity = new Vector2f(ball.Velocity.X, -ball.Velocity.Y);
+            }
             ai.move(ball.COM.Y);
             ball.IncreaseVelocity(dt);
             physics.Update(dt);

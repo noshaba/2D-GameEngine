@@ -9,7 +9,7 @@ namespace Pong {
     interface IShape {
         Collision.Type Type{ get; }
         Vector2f COM { get; }
-        State Current { get; }
+        State Current { get; set; }
         State Previous { get; }
         float Mass { get; }
         float InverseMass { get; }

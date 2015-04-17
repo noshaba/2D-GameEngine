@@ -37,6 +37,7 @@ namespace Pong {
 
         public State Current {
             get { return current; }
+            set { current = value; }
         }
 
         public State Previous {

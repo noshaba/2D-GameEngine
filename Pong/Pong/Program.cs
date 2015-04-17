@@ -14,8 +14,8 @@ namespace Pong {
         const int WIDTH = 1024;
         const int HEIGHT = 576;
         const float FPS = 60.0f;
-        const float DT = 1.0f / FPS;
         const float MIN_FPS = 20.0f;
+        const float DT = 1.0f / FPS;
         const float MAX_DT = 1.0f / MIN_FPS;
         static float accumulator = 0;
 
