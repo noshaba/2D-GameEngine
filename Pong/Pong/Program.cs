@@ -26,7 +26,8 @@ namespace Pong {
 
         static Sprite mouseSprite = new Sprite(new Texture("../Content/Mouse.png"));
 
-        static Game pong = new Game(WIDTH,HEIGHT,window);
+        static Game pong = new Game(WIDTH, HEIGHT);
+        static HUD hud = new HUD();
 
         static void Main(string[] args) {
             Console.WriteLine("Hello World!");
@@ -48,6 +49,7 @@ namespace Pong {
             window.MouseMoved += window_MouseMoved;
             window.MouseEntered += window_MouseEntered;
             window.MouseLeft += window_MouseLeft;
+            window.MouseButtonReleased += window_MouseButtonReleased;
             window.SetActive(true);
         }
 
@@ -63,7 +65,8 @@ namespace Pong {
         }
 
         private static void Draw(float alpha) {
-            pong.Draw(alpha);
+            pong.Draw(window, alpha);
+            hud.Draw(window);
             mouseSprite.Draw(window, RenderStates.Default);
         }
 
@@ -80,6 +83,10 @@ namespace Pong {
 
         private static void window_MouseEntered(object sender, EventArgs e) {
             window.SetMouseCursorVisible(false);
+        }
+
+        private static void window_MouseButtonReleased(object sender, MouseButtonEventArgs e) {
+            hud.ClickButton(e.X, e.Y);
         }
 
         static void window_KeyReleased(object sender, KeyEventArgs e) {

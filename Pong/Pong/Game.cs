@@ -12,7 +12,6 @@ namespace Pong {
         private Paddle ai;
         private Paddle player;
         private Ball ball;
-        private RenderWindow window;
         private Physics physics;
         private List<IShape> objects = new List<IShape>();
         private int WIDTH;
@@ -21,16 +20,13 @@ namespace Pong {
         private Font font;
         private Text playerScore;
         private Text aiScore;
-        private HUD hud;
         
 
-        public Game(int width, int height, RenderWindow window) {
+        public Game(int width, int height) {
             WIDTH = width;
             HEIGHT = height;
-            this.window = window;
             random = new Random();
             physics = new Physics();
-            hud = new HUD();
             // game elements
             player = new Paddle(new Vector2f(50, height * 0.5f), new Vector2f(25, 100), Color.Cyan);
             ai = new Paddle(new Vector2f(width - 50, height * 0.5f), new Vector2f(25, 100), Color.Green);
@@ -106,7 +102,7 @@ namespace Pong {
             ResetObstacles();
         }
 
-        public void Draw(float alpha) {
+        public void Draw(RenderWindow window, float alpha) {
             State interpol;
             Transform t;
             RenderStates r = new RenderStates();
@@ -120,7 +116,6 @@ namespace Pong {
             }
             window.Draw(playerScore);
             window.Draw(aiScore);
-            hud.Draw(window);
         }
 
         public void MovePlayer(float y) {
