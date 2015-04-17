@@ -27,11 +27,12 @@ namespace Pong {
         static Sprite mouseSprite = new Sprite(new Texture("../Content/Mouse.png"));
 
         static Game pong = new Game(WIDTH, HEIGHT);
-        static HUD hud = new HUD();
+        static View gui = new View(new Vector2f(0, 0), new Vector2f(WIDTH, HEIGHT));
 
         static void Main(string[] args) {
             Console.WriteLine("Hello World!");
             InitWindow();
+            InitGUI();
             timer.Start();
             float frameStart = timer.ElapsedMilliseconds / 1000.0f;
             while (window.IsOpen()) {
@@ -41,6 +42,10 @@ namespace Pong {
                 Draw(accumulator/DT);
                 window.Display();
             }
+        }
+
+        private static void InitGUI() {
+            gui.Add(new Button("Options", new Vector2f(0, 0), new Vector2f(50, 50), Color.Blue));
         }
 
         private static void InitWindow() {
@@ -66,7 +71,7 @@ namespace Pong {
 
         private static void Draw(float alpha) {
             pong.Draw(window, alpha);
-            hud.Draw(window);
+            gui.Draw(window);
             mouseSprite.Draw(window, RenderStates.Default);
         }
 
@@ -86,7 +91,7 @@ namespace Pong {
         }
 
         private static void window_MouseButtonReleased(object sender, MouseButtonEventArgs e) {
-            hud.ClickButton(e.X, e.Y);
+            gui.Released(e.X, e.Y);
         }
 
         static void window_KeyReleased(object sender, KeyEventArgs e) {

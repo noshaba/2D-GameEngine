@@ -37,5 +37,14 @@ namespace Pong {
             if (displayed)
                 window.Draw(this);
         }
+
+        public void Released(float X, float Y) {
+            if (displayed && GetGlobalBounds().Contains(X, Y)){
+                Console.WriteLine(name);
+            }
+        }
+
+        public void Pressed(float X, float Y) {
+        }
     }
 }

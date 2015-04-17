@@ -137,6 +137,13 @@ namespace Pong {
             return output;
         }
 
+        public static State operator -(State s1, State s2) {
+            State output = new State(s1.mass, s1.inertiaTensor);
+            output.position = s1.position - s2.position;
+            output.orientation = s1.orientation - s2.orientation;
+            return output;
+        }
+
         public float DegOrientation {
             get {
                 return (float)(orientation * 180.0 / Math.PI);

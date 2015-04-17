@@ -52,7 +52,7 @@ namespace Pong{
         }
 
         public State Interpolation(float alpha) {
-            return previous * alpha + current * (1.0f - alpha);
+            return current + alpha * (current - previous);
         }
 
         public float Width {
