@@ -12,6 +12,8 @@ namespace Pong {
         void Draw(RenderWindow window);
         void Released(float X, float Y);
         void Pressed(float X, float Y);
+        void OnHover(float X, float Y);
         Vector2f Position { get; set; }
+        IGraphic ParentView { get; set; }
     }
 }

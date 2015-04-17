@@ -10,9 +10,16 @@ namespace Pong {
     class View : RectangleShape, IGraphic{
         private List<IGraphic> children = new List<IGraphic>();
         private bool displayed;
+        private IGraphic parentView;
 
         public View(Vector2f position, Vector2f size) : base(size) {
             displayed = true;
+            parentView = null;
+        }
+
+        public IGraphic ParentView {
+            get { return parentView; }
+            set { parentView = value; }
         }
 
         public bool Displayed{
@@ -27,6 +34,7 @@ namespace Pong {
 
         public void Add(IGraphic graphic) {
             graphic.Position += Position;
+            graphic.ParentView = this;
             children.Add(graphic);
         }
 
@@ -51,6 +59,13 @@ namespace Pong {
         }
 
         public void Pressed(float X, float Y) {
+            if (displayed) {
+                foreach (IGraphic child in children)
+                    child.Pressed(X, Y);
+            }
+        }
+
+        public void OnHover(float X, float Y) {
             if (displayed) {
                 foreach (IGraphic child in children)
                     child.Pressed(X, Y);

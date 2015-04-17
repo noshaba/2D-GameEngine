@@ -45,7 +45,7 @@ namespace Pong {
         }
 
         private static void InitGUI() {
-            gui.Add(new Button("Options", new Vector2f(0, 0), new Vector2f(50, 50), Color.Blue));
+            gui.Add(new Button(new Vector2f(0, 0), new Vector2f(50, 50), Color.Blue, () => Console.WriteLine("Options")));
         }
 
         private static void InitWindow() {
