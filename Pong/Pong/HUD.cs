@@ -16,14 +16,14 @@ namespace Pong {
 
         public void ClickButton(float X, float Y) {
             foreach (Button button in buttons) {
-                if (button.GetGlobalBounds().Contains(X, Y))
+                if (button.Displayed && button.GetGlobalBounds().Contains(X, Y))
                     Console.WriteLine(button.name);
             }
         }
 
         public void Draw(RenderWindow window){
             foreach (Button button in buttons)
-                window.Draw(button);
+                button.Draw(window);
         }
     }
 }

@@ -3,24 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SFML.Window;
 using SFML.Graphics;
+using SFML.Window;
 
 namespace Pong {
-    // TODO: change rectangleshape to sprite later..
-    class Button : RectangleShape, IGraphic {
+    class Checkbox : RectangleShape, IGraphic {
         public string name;
-        public enum Status {
-            Pressed, Released, OnHover
-        }
-        public Status status;
+        public bool check;
         private bool displayed;
 
-        public Button(string name, Vector2f position, Vector2f size, Color color) : base(size) {
+        public Checkbox(string name, Vector2f position, Vector2f size, Color color) : base(size) {
             this.name = name;
             Position = position;
             FillColor = color;
-            status = Status.Released;
+            check = false;
+            displayed = true;
+        }
+
+        public Checkbox(string name, Vector2f position, Vector2f size, Color color, bool check) : base(size) {
+            this.name = name;
+            this.check = check;
+            Position = position;
+            FillColor = color;
             displayed = true;
         }
 
@@ -28,10 +32,6 @@ namespace Pong {
             get { return displayed; }
             set { displayed = value; }
         }
-
-        // for sprite
-        // public Button(Vector2f position, string file) : base() {  
-        // }
 
         public void Draw(RenderWindow window) {
             if (displayed)
