@@ -53,10 +53,12 @@
   <ItemGroup>
     <Compile Include="Ball.cs" />
     <Compile Include="Button.cs" />
+    <Compile Include="Checkbox.cs" />
     <Compile Include="Circle.cs" />
     <Compile Include="Collision.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="HUD.cs" />
+    <Compile Include="IGraphic.cs" />
     <Compile Include="IShape.cs" />
     <Compile Include="OBB.cs" />
     <Compile Include="Paddle.cs" />
@@ -66,6 +68,7 @@
     <Compile Include="Sounds.cs" />
     <Compile Include="State.cs" />
     <Compile Include="Vec2FMath.cs" />
+    <Compile Include="View.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
