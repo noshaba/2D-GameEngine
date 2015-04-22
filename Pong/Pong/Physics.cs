@@ -15,10 +15,12 @@ namespace Pong{
             objects.Add(obj);
         }
 
+        //why 7? - remove all additional objects except ball, 2 paddles and 4 walls? replace 7 with variable in future
         public void Reset() {
             objects.RemoveRange(7, objects.Count - 7);
         }
 
+        //updates all objects in the list
         public void Update(float dt) {
             if (!frozen) {
                 for (int i = 0; i < objects.Count(); ++i) {
@@ -30,10 +32,12 @@ namespace Pong{
 
         #region Physical Methods
 
+        //why have dt in parameters when its not in use?
         private void ApplyForces(float dt, int i) {
             AddCollisionImpulse(i);
         }
 
+        //checks for collision between all objects
         private void AddCollisionImpulse(int i) {
             for (int j = 0; j < objects.Count(); ++j) {
                 if (i == j) continue;
@@ -48,6 +52,7 @@ namespace Pong{
             }
         }
 
+        //determines the collision impulse between to given objects
         private Vector2f CollisionImpulse(IShape obj1, IShape obj2, Vector2f r1, Vector2f r2, Vector2f n) {
             Vector2f v1 = obj1.Velocity;
             Vector2f v2 = obj2.Velocity;

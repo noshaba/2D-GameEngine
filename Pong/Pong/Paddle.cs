@@ -15,8 +15,16 @@ namespace Pong {
             score = 0;
         }
 
-        public void move(float y) {
-            current.position = new Vector2f(COM.X, y); ;
+        public void move(float y)
+        {
+            current.position = new Vector2f(COM.X, y); 
+        }
+
+        public void moveAi(float y, float veloY, float diff) {
+            if (veloY != 0) {
+                float expectedBall = y + veloY * diff;
+                current.position = new Vector2f(COM.X, expectedBall); 
+            }
         }
     }
 }

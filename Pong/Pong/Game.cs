@@ -20,8 +20,9 @@ namespace Pong {
         private Font font;
         private Text playerScore;
         private Text aiScore;
+        private float difficulty;
         
-
+        //constructor
         public Game(int width, int height) {
             WIDTH = width;
             HEIGHT = height;
@@ -31,6 +32,8 @@ namespace Pong {
             player = new Paddle(new Vector2f(50, height * 0.5f), new Vector2f(25, 100), Color.Cyan);
             ai = new Paddle(new Vector2f(width - 50, height * 0.5f), new Vector2f(25, 100), Color.Green);
             ball = new Ball(new Vector2f(width * 0.5f, 50), 12.5f, Color.Red, 10);
+            //determimes difficulty of the AI enemy 0.0=unbeatable, 1.0=easy 
+            difficulty = 0.0f;
             AddObject(player);
             AddObject(ai);
             AddObject(ball);
@@ -57,6 +60,7 @@ namespace Pong {
             physics.AddObject(obj);
         }
 
+        //adds random obstacles
         private void AddObstacles() {
             // static obstacles
             for (int i = 0; i < random.Next(5, 10); ++i)
@@ -66,6 +70,7 @@ namespace Pong {
                 AddObject(new OBB(new Vector2f(random.Next(WIDTH), random.Next(100, HEIGHT)), new Vector2f(random.Next(100), random.Next(100)), random.Next(360), Color.Yellow, random.Next(5, 10)));
         }
 
+        //resets obstacles, leaves 1 ball, 2 paddles and 4 walls
         private void ResetObstacles() {
             objects.RemoveRange(7, objects.Count - 7);
             physics.Reset();
@@ -90,11 +95,12 @@ namespace Pong {
                 ball.Current = ball.Previous;
                 ball.Velocity = new Vector2f(ball.Velocity.X, -ball.Velocity.Y);
             }
-            ai.move(ball.COM.Y);
+            ai.moveAi(ball.COM.Y, ball.Velocity.Y, difficulty);
             ball.IncreaseVelocity(dt);
             physics.Update(dt);
         }
 
+        //starts the ball
         public void Start() {
             ball.Impulse();
         }

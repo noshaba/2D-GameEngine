@@ -19,6 +19,7 @@ namespace Pong {
         const float MAX_DT = 1.0f / MIN_FPS;
         static float accumulator = 0;
 
+        //timers and window
         static ContextSettings context = new ContextSettings();
         static Stopwatch timer = new Stopwatch();
         static Stopwatch FPSClock = new Stopwatch();
@@ -26,14 +27,17 @@ namespace Pong {
 
         static Sprite mouseSprite = new Sprite(new Texture("../Content/Mouse.png"));
 
+        //create game and gui fitting for the window
         static Game pong = new Game(WIDTH, HEIGHT);
         static GUI gui = new GUI(WIDTH, HEIGHT);
 
+        //main method
         static void Main(string[] args) {
-            Console.WriteLine("Hello World!");
+            //Console.WriteLine("Hello World!");
             InitWindow();
             timer.Start();
             float frameStart = timer.ElapsedMilliseconds / 1000.0f;
+            //game loop
             while (window.IsOpen()) {
                 window.DispatchEvents();
                 window.Clear();
@@ -43,6 +47,7 @@ namespace Pong {
             }
         }
 
+        //initialize window and create event handlers
         private static void InitWindow() {
             window.Closed += window_Closed;
             window.KeyReleased += window_KeyReleased;
@@ -54,17 +59,20 @@ namespace Pong {
             window.SetActive(true);
         }
 
+        //update method with time management
         private static void Update(ref float frameStart) {
             float currentTime = timer.ElapsedMilliseconds / 1000.0f;
             accumulator += currentTime - frameStart;
             frameStart = currentTime;
             if (accumulator > MAX_DT) accumulator = MAX_DT;
             while (accumulator >= DT) {
+                //update the game as long as the "lag" is not compensated 
                 pong.Update(DT);
                 accumulator -= DT;
             }
         }
 
+        //draw method
         private static void Draw(float alpha) {
             pong.Draw(window, alpha);
             gui.Draw(window);
