@@ -21,6 +21,7 @@ namespace Pong {
         private Text playerScore;
         private Text aiScore;
         private float difficulty;
+        private bool soundOn;
         
         //constructor
         public Game(int width, int height) {
@@ -53,6 +54,8 @@ namespace Pong {
             aiScore.Position = new Vector2f(width * 0.75f, 50);
             aiScore.Style = Text.Styles.Bold;
             aiScore.Color = Color.Green;
+
+            soundOn = false;
         }
 
         private void AddObject(IShape obj) {
@@ -81,12 +84,14 @@ namespace Pong {
             if (ball.COM.X < player.COM.X) {
                 ai.score++;
                 aiScore.DisplayedString = ai.score.ToString();
+                if (soundOn)
                 Sounds.scoreSound.Play();
                 Reset();
             }
             if (ball.COM.X > ai.COM.X) {
                 player.score++;
                 playerScore.DisplayedString = player.score.ToString();
+                if (soundOn)
                 Sounds.scoreSound.Play();
                 Reset();
             }

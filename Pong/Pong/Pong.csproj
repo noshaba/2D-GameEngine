@@ -60,6 +60,7 @@
     <Compile Include="GUI.cs" />
     <Compile Include="IGraphic.cs" />
     <Compile Include="IShape.cs" />
+    <Compile Include="Menue.cs" />
     <Compile Include="OBB.cs" />
     <Compile Include="Paddle.cs" />
     <Compile Include="Physics.cs" />
