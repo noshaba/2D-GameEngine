@@ -24,18 +24,10 @@ namespace Pong {
         }
 
         private void DisplayOptions() {
-            if (opsMenue.Displayed)
-            {
-                opsMenue.Displayed = false;
-            }
-            else
-            {
-                opsMenue.Displayed = true;
-            }
+            opsMenue.Displayed = !opsMenue.Displayed;
         }
 
-        private void ToggleSound()
-        {
+        private void ToggleSound() {
             game.setSound();
         }
     }

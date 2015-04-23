@@ -139,15 +139,8 @@ namespace Pong {
             physics.frozen = !physics.frozen;
         }
 
-        public void setSound()
-        {
-            if(this.soundOn) {
-                this.soundOn = false;
-            }
-            else
-            {
-                this.soundOn = true;
-            }
+        public void setSound() {
+            soundOn = !soundOn;
         }
     }
 }
