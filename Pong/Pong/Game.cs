@@ -55,7 +55,7 @@ namespace Pong {
             aiScore.Style = Text.Styles.Bold;
             aiScore.Color = Color.Green;
 
-            soundOn = false;
+            soundOn = true;
         }
 
         private void AddObject(IShape obj) {
@@ -137,6 +137,17 @@ namespace Pong {
 
         public void ToggleFreeze(){
             physics.frozen = !physics.frozen;
+        }
+
+        public void setSound()
+        {
+            if(this.soundOn) {
+                this.soundOn = false;
+            }
+            else
+            {
+                this.soundOn = true;
+            }
         }
     }
 }

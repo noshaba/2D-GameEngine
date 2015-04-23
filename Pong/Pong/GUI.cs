@@ -11,8 +11,10 @@ namespace Pong {
         Button options;
         Button sound;
         Menue opsMenue;
+        Game game;
 
-        public GUI(int width, int height) : base(new Vector2f(0, 0), new Vector2f(width, height)) {
+        public GUI(int width, int height, Game g) : base(new Vector2f(0, 0), new Vector2f(width, height)) {
+            game = g;
             options = new Button(new Vector2f(0, 0), new Vector2f(50, 50), Color.Cyan, DisplayOptions);
             opsMenue = new Menue(new Vector2f(100, 100), new Vector2f(300, 200), Color.Red);
             sound = new Button(new Vector2f(110, 110), new Vector2f(70, 50), Color.Cyan, ToggleSound);
@@ -34,7 +36,7 @@ namespace Pong {
 
         private void ToggleSound()
         {
-            Console.WriteLine("sound");
+            game.setSound();
         }
     }
 }

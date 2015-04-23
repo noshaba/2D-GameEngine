@@ -29,7 +29,7 @@ namespace Pong {
 
         //create game and gui fitting for the window
         static Game pong = new Game(WIDTH, HEIGHT);
-        static GUI gui = new GUI(WIDTH, HEIGHT);
+        static GUI gui = new GUI(WIDTH, HEIGHT, pong);
 
         //main method
         static void Main(string[] args) {
