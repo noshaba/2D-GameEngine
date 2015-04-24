@@ -6,6 +6,24 @@ using System.Threading.Tasks;
 using SFML.Window;
 
 namespace Pong{
+    public class Mat22f{
+        private float[,] mat = new float[2,2];
+        public Mat22f(float m00, float m01, float m10, float m11){
+            mat[0,0] = m00;
+            mat[0,1] = m01;
+            mat[1,0] = m10;
+            mat[1,1] = m11;
+        }
+        public Mat22f(Vector2f vec1, Vector2f vec2) {
+            mat[0,0] = vec1.X;
+            mat[0,1] = vec1.Y;
+            mat[1,0] = vec2.X;
+            mat[1,1] = vec2.Y;
+        }
+        public float this[int i, int j]{
+            get { return mat[i,j]; }
+        }
+    }
     public static class EMath {
         public static float EPSILON = 0.0001f;
         public static Random random = new Random();
