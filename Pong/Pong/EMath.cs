@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 using SFML.Window;
 
 namespace Pong{
-    public static class Vec2FMath {
+    public static class EMath {
         public static float EPSILON = 0.0001f;
+        public static Random random = new Random();
+        public static float Random(float l, float h) {
+            float a = (float)random.NextDouble();
+            a = (h - l) * a + l;
+            return a;
+        }
         public static float Dot(this Vector2f vec1, Vector2f vec2) {
             return vec1.X * vec2.X + vec1.Y * vec2.Y;
         }

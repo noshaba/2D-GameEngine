@@ -10,7 +10,6 @@ namespace Pong {
     class Polygon : ConvexShape, IShape{
         private int MAXVERTEXCOUNT = 8;
         private Collision.Type type = Collision.Type.Polygon;
-        private Random random = new Random();
 
         public Vector2f[] vertices;
         public Vector2f[] normals;
@@ -121,11 +120,11 @@ namespace Pong {
         }
 
         private void InitVertices() {
-            uint count = (uint) Random(3, MAXVERTEXCOUNT);
-            float e = Random(50, 100);
+            uint count = (uint) EMath.Random(3, MAXVERTEXCOUNT);
+            float e = EMath.Random(50, 100);
             Vector2f[] buffer = new Vector2f[count];
             for (uint i = 0; i < buffer.Length; ++i) {
-                buffer[i] = new Vector2f(Random(-e, e), Random(-e, e));
+                buffer[i] = new Vector2f(EMath.Random(-e, e), EMath.Random(-e, e));
             }
 
             // find right most vertex in hull
@@ -200,12 +199,6 @@ namespace Pong {
                 Vector2f face = vertices[i2] - vertices[i1];
                 normals[i1] = new Vector2f(face.Y, -face.X).Norm();
             }
-        }
-
-        private float Random(float l, float h) {
-            float a = (float) random.NextDouble();
-            a = (h - l) * a + l;
-            return a;
         }
 
         public Collision.Type Type {

@@ -61,7 +61,7 @@ namespace Pong{
             }
 
             // if circle entirely in polygon
-            if (separation < Vec2FMath.EPSILON) {
+            if (separation < EMath.EPSILON) {
                 colli.contacts = new Vector2f[1];
                 colli.normal = poly.Normal(faceNormal);
                 colli.contacts[0] = -colli.normal * cir.Radius + cir.COM;

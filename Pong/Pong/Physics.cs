@@ -48,7 +48,7 @@ namespace Pong{
                             Vector2f rad1 = colli.contacts[k] - objects[i].COM;
                             Vector2f rad2 = colli.contacts[k] - objects[j].COM;
                             Vector2f J = CollisionImpulse(objects[i], objects[j], rad1, rad2, colli.normal);
-                            objects[i].ApplyImpulse(J, rad1);
+                            objects[i].ApplyImpulse( J, rad1);
                             objects[j].ApplyImpulse(-J, rad2);
                         }
                     }
