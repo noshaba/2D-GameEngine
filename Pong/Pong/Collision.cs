@@ -67,7 +67,7 @@ namespace Pong{
                 colli.contacts[0] = -colli.normal * cir.Radius + cir.COM;
                 colli.overlap = cir.Radius;
                 colli.collision = true;
-                PullApart(cir, poly, colli.normal, colli.overlap, ref colli);
+                //PullApart(cir, poly, colli.normal, colli.overlap, ref colli);
                 return;
             }
 
@@ -89,7 +89,7 @@ namespace Pong{
                 colli.normal = (v1 - center).Rotate(poly.Orientation).Norm();
                 colli.contacts[0] = v1.Rotate(poly.Orientation) + poly.COM;
                 colli.collision = true;
-                PullApart(poly, cir, -colli.normal, colli.overlap, ref colli);
+                //PullApart(poly, cir, -colli.normal, colli.overlap, ref colli);
             // closest to v2
             } else if (dot2 <= 0) {
                 if ((center - v2).Length2() > cir.Radius * cir.Radius) {
@@ -100,17 +100,18 @@ namespace Pong{
                 colli.normal = (v2 - center).Rotate(poly.Orientation).Norm();
                 colli.contacts[0] = v2.Rotate(poly.Orientation) + poly.COM;
                 colli.collision = true;
-                PullApart(poly, cir, -colli.normal, colli.overlap, ref colli);
+                //PullApart(poly, cir, -colli.normal, colli.overlap, ref colli);
             // closest to face
             } else {
                 if ((center - v1).Dot(poly.normals[faceNormal]) > cir.Radius) {
                     colli.collision = false;
                     return;
                 }
+                colli.contacts = new Vector2f[1];
                 colli.normal = poly.Normal(faceNormal);
                 colli.contacts[0] = -colli.normal * cir.Radius + cir.Position;
                 colli.collision = true;
-                PullApart(cir, poly, colli.normal, colli.overlap, ref colli);
+                //PullApart(cir, poly, colli.normal, colli.overlap, ref colli);
             }
         }
 
@@ -260,7 +261,7 @@ namespace Pong{
             faces[0] = output[0];
             faces[1] = output[1];
             if (sp != 3) {
-                Console.WriteLine("NOOOOOOOOOOOOOOOOO");
+                // Console.WriteLine("NOOOOOOOOOOOOOOOOO");
             }
             return sp;
         }

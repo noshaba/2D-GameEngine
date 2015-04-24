@@ -122,7 +122,7 @@ namespace Pong {
 
         private void InitVertices() {
             uint count = (uint) Random(3, MAXVERTEXCOUNT);
-            float e = Random(5, 10);
+            float e = Random(50, 100);
             Vector2f[] buffer = new Vector2f[count];
             for (uint i = 0; i < buffer.Length; ++i) {
                 buffer[i] = new Vector2f(Random(-e, e), Random(-e, e));

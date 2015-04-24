@@ -22,7 +22,6 @@ namespace Pong{
 
         //updates all objects in the list
         public void Update(float dt) {
-            frozen = true;
             if (!frozen) {
                 for (int i = 0; i < objects.Count(); ++i) {
                     objects[i].Update(dt);
@@ -45,9 +44,13 @@ namespace Pong{
                 Collision colli = Collision.CheckForCollision(objects[i], objects[j]);
                 if (colli.collision) {
                     if (objects[i].InverseMass > 0 || objects[j].InverseMass > 0) {
-                        Vector2f J = CollisionImpulse(objects[i], objects[j], colli.rad1, colli.rad2, colli.normal);
-                        objects[i].ApplyImpulse( J, colli.rad1);
-                        objects[j].ApplyImpulse(-J, colli.rad2);
+                        for (uint k = 0; k < colli.contacts.Length; ++k) {
+                            Vector2f rad1 = colli.contacts[k] - objects[i].COM;
+                            Vector2f rad2 = colli.contacts[k] - objects[j].COM;
+                            Vector2f J = CollisionImpulse(objects[i], objects[j], rad1, rad2, colli.normal);
+                            objects[i].ApplyImpulse(J, rad1);
+                            objects[j].ApplyImpulse(-J, rad2);
+                        }
                     }
                 }
             }
