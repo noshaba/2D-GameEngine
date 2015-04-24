@@ -19,8 +19,15 @@ namespace Pong {
         protected State previous;
         protected State current;
 
+        public Polygon(Color color) : base() {
+            FillColor = color;
+        }
+
         public Polygon(Vector2f position, float rotation, Color color) : base(){
             InitVertices();
+            foreach (Vector2f vertex in vertices)
+                Origin += vertex;
+            Origin /= (float)vertices.Length;
             current = new State(position, rotation);
             previous = current;
             FillColor = color;
@@ -30,6 +37,43 @@ namespace Pong {
             InitVertices();
             InitState(position, rotation, density);
             FillColor = color;
+        }
+
+        public void SetBox(float hw, float hh, Vector2f position, float rotation) {
+            SetPointCount(4);
+            vertices = new Vector2f[4];
+            vertices[0] = new Vector2f(-hw, -hh);
+            vertices[1] = new Vector2f( hw, -hh);
+            vertices[2] = new Vector2f( hw,  hh);
+            vertices[3] = new Vector2f(-hw,  hh);
+            normals = new Vector2f[4];
+            normals[0] = new Vector2f( 0, -1);
+            normals[1] = new Vector2f( 1,  0);
+            normals[2] = new Vector2f( 0,  1);
+            normals[3] = new Vector2f(-1,  0);
+            hl = new float[4];
+            hl[0] = hl[1] = hh;
+            hl[2] = hl[3] = hw;
+            current = new State(position, rotation);
+            previous = current;
+        }
+
+        public void SetBox(float hw, float hh, Vector2f position, float rotation, float density) {
+            SetPointCount(4);
+            vertices = new Vector2f[4];
+            vertices[0] = new Vector2f(-hw, -hh);
+            vertices[1] = new Vector2f(hw, -hh);
+            vertices[2] = new Vector2f(hw, hh);
+            vertices[3] = new Vector2f(-hw, hh);
+            normals = new Vector2f[4];
+            normals[0] = new Vector2f(0, -1);
+            normals[1] = new Vector2f(1, 0);
+            normals[2] = new Vector2f(0, 1);
+            normals[3] = new Vector2f(-1, 0);
+            hl = new float[4];
+            hl[0] = hl[1] = hh;
+            hl[2] = hl[3] = hw;
+            InitState(position, rotation, density);
         }
 
         private void InitState(Vector2f position, float rotation, float density) { 
