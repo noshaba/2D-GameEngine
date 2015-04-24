@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.Window;
 
+
 namespace Pong {
     class Paddle : OBB {
 
@@ -20,9 +21,13 @@ namespace Pong {
             current.position = new Vector2f(COM.X, y); 
         }
 
-        public void moveAi(float y, float veloY, float diff) {
+        public void moveAi(float y, float veloY, float diff, int height) {
             if (veloY != 0) {
                 float expectedBall = y + veloY * diff;
+                if (expectedBall < 0)
+                    expectedBall = 0;
+                if (expectedBall > height)
+                    expectedBall = height;
                 current.position = new Vector2f(COM.X, expectedBall); 
             }
         }

@@ -50,7 +50,7 @@ namespace Pong{
             colli.overlap = cir.Radius - colli.distance;
             colli.collision = colli.distance < cir.Radius;
             if (colli.collision) {
-                //TODO: remove this and handle sound of ball in ball class
+                //TODO: remove this and handle sound in Game
                 if (cir is Ball)
                     Sounds.hitSound.Play();
                 if (cir.InverseMass > 0 && obb.InverseMass > 0) {

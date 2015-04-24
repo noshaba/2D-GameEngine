@@ -22,6 +22,7 @@ namespace Pong {
         private Text aiScore;
         private float difficulty;
         private bool soundOn;
+        private String phase;
         
         //constructor
         public Game(int width, int height) {
@@ -34,7 +35,7 @@ namespace Pong {
             ai = new Paddle(new Vector2f(width - 50, height * 0.5f), new Vector2f(25, 100), Color.Green);
             ball = new Ball(new Vector2f(width * 0.5f, 50), 12.5f, Color.Red, 10);
             //determimes difficulty of the AI enemy 0.0=unbeatable, 1.0=easy 
-            difficulty = 0.0f;
+            difficulty = 0.5f;
             AddObject(player);
             AddObject(ai);
             AddObject(ball);
@@ -100,9 +101,12 @@ namespace Pong {
                 ball.Current = ball.Previous;
                 ball.Velocity = new Vector2f(ball.Velocity.X, -ball.Velocity.Y);
             }
-            ai.moveAi(ball.COM.Y, ball.Velocity.Y, difficulty);
+            ai.moveAi(ball.COM.Y, ball.Velocity.Y, difficulty, HEIGHT);
             ball.IncreaseVelocity(dt);
             physics.Update(dt);
+            if (player.score > 4 || ai.score > 4) {
+                phase = "end";
+            }
         }
 
         //starts the ball
@@ -111,24 +115,46 @@ namespace Pong {
         }
 
         public void Reset() {
+            phase = "running";
             ball.Reset();
             ResetObstacles();
         }
 
         public void Draw(RenderWindow window, float alpha) {
-            State interpol;
-            Transform t;
-            RenderStates r = new RenderStates();
-            foreach (Shape obj in objects) {
-                interpol = (obj as IShape).Interpolation(alpha);
-                t = Transform.Identity;
-                t.Translate(interpol.position);
-                t.Rotate(interpol.DegOrientation);
-                r.Transform = t;
-                window.Draw(obj, r);
+            if (phase == "end")
+            {
+                Text t = new Text();
+                t.Font = font;
+                t.CharacterSize = 70;
+                t.Position = new Vector2f(300,200);
+                if (player.score > 4)
+                {
+                    t.DisplayedString = "You Win!";
+                }
+                else
+                {
+                    t.DisplayedString = "You Loose";
+                }
+                window.Draw(t);
             }
-            window.Draw(playerScore);
-            window.Draw(aiScore);
+            else
+            {
+
+                State interpol;
+                Transform t;
+                RenderStates r = new RenderStates();
+                foreach (Shape obj in objects)
+                {
+                    interpol = (obj as IShape).Interpolation(alpha);
+                    t = Transform.Identity;
+                    t.Translate(interpol.position);
+                    t.Rotate(interpol.DegOrientation);
+                    r.Transform = t;
+                    window.Draw(obj, r);
+                }
+                window.Draw(playerScore);
+                window.Draw(aiScore);
+            }
         }
 
         public void MovePlayer(float y) {
@@ -139,7 +165,8 @@ namespace Pong {
             physics.frozen = !physics.frozen;
         }
 
-        public void setSound()
+
+        public void toggleSound()
         {
             if(this.soundOn) {
                 this.soundOn = false;
@@ -148,6 +175,16 @@ namespace Pong {
             {
                 this.soundOn = true;
             }
+
+        }
+
+        public void Restart()
+        {
+            this.player.score = 0;
+            this.ai.score = 0;
+            this.playerScore.DisplayedString = this.player.score.ToString();
+            this.aiScore.DisplayedString = this.ai.score.ToString();
+            this.Reset();
         }
     }
 }

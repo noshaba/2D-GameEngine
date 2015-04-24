@@ -10,6 +10,7 @@ namespace Pong {
     class GUI : View {
         Button options;
         Button sound;
+        Button restart;
         Menue opsMenue;
         Game game;
 
@@ -18,25 +19,28 @@ namespace Pong {
             options = new Button(new Vector2f(0, 0), new Vector2f(50, 50), Color.Cyan, DisplayOptions);
             opsMenue = new Menue(new Vector2f(100, 100), new Vector2f(300, 200), Color.Red);
             sound = new Button(new Vector2f(110, 110), new Vector2f(70, 50), Color.Cyan, ToggleSound);
+            restart = new Button(new Vector2f(30, 110), new Vector2f(70, 50), Color.Blue, StartNewGame);
             Add(options);
             Add(opsMenue);
             opsMenue.Add(sound);
+            opsMenue.Add(restart);
         }
 
         private void DisplayOptions() {
-            if (opsMenue.Displayed)
-            {
-                opsMenue.Displayed = false;
-            }
-            else
-            {
-                opsMenue.Displayed = true;
-            }
+            opsMenue.Displayed = !opsMenue.Displayed;
         }
+
 
         private void ToggleSound()
         {
-            game.setSound();
+            game.toggleSound();
+        }
+
+        private void StartNewGame()
+        {
+            opsMenue.Displayed = false;
+            game.Restart();
+
         }
     }
 }
