@@ -15,8 +15,7 @@ namespace Pong {
             score = 0;
         }
 
-        public void move(float y)
-        {
+        public void move(float y) {
             current.position = new Vector2f(COM.X, y); 
         }
 

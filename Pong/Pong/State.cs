@@ -57,17 +57,10 @@ namespace Pong {
             velocity = new Vector2f(0, 0);
             angularVelocity = 0;
 
-            if (mass != 0 && inertiaTensor != 0) {
-                this.mass = mass;
-                inverseMass = 1.0f / mass;
-                this.inertiaTensor = inertiaTensor;
-                inverseInertiaTensor = 1.0f / inertiaTensor;
-            } else {
-                mass = 0;
-                inverseMass = 0;
-                inertiaTensor = 0;
-                inverseInertiaTensor = 0;
-            }
+            this.mass = mass;
+            inverseMass = mass != 0 ? 1.0f / mass : 0;
+            this.inertiaTensor = inertiaTensor;
+            inverseInertiaTensor = inertiaTensor != 0 ? 1.0f / inertiaTensor : 0;
         }
 
         public State(Vector2f position, float rotation, float mass, float inertiaTensor) {
@@ -77,17 +70,10 @@ namespace Pong {
             velocity = new Vector2f(0, 0);
             angularVelocity = 0;
 
-            if (mass != 0 && inertiaTensor != 0) {
-                this.mass = mass;
-                inverseMass = 1.0f / mass;
-                this.inertiaTensor = inertiaTensor;
-                inverseInertiaTensor = 1.0f / inertiaTensor;
-            } else {
-                mass = 0;
-                inverseMass = 0;
-                inertiaTensor = 0;
-                inverseInertiaTensor = 0;
-            }
+            this.mass = mass;
+            inverseMass = mass != 0 ? 1.0f / mass : 0;
+            this.inertiaTensor = inertiaTensor;
+            inverseInertiaTensor = inertiaTensor != 0 ? 1.0f / inertiaTensor : 0;
         }
 
         #endregion
