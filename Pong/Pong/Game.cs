@@ -168,13 +168,7 @@ namespace Pong {
 
         public void toggleSound()
         {
-            if(this.soundOn) {
-                this.soundOn = false;
-            }
-            else
-            {
-                this.soundOn = true;
-            }
+            this.soundOn = !this.soundOn;
 
         }
 
