@@ -39,13 +39,15 @@ namespace Pong {
             FillColor = color;
         }
 
-        public void SetBox(float hw, float hh, Vector2f position, float rotation) {
+        public void SetBox(Vector2f position, float hw, float hh, float rotation) {
             SetPointCount(4);
             vertices = new Vector2f[4];
             vertices[0] = new Vector2f(-hw, -hh);
             vertices[1] = new Vector2f( hw, -hh);
             vertices[2] = new Vector2f( hw,  hh);
             vertices[3] = new Vector2f(-hw,  hh);
+            for (uint i = 0; i < vertices.Length; ++i)
+                SetPoint(i, vertices[i]);
             normals = new Vector2f[4];
             normals[0] = new Vector2f( 0, -1);
             normals[1] = new Vector2f( 1,  0);
@@ -187,8 +189,10 @@ namespace Pong {
             }
 
             // Copy vertices into shape's vertices
-            for(uint i = 0; i < GetPointCount(); ++i)
+            for (uint i = 0; i < GetPointCount(); ++i) {
                 vertices[i] = buffer[hull[i]];
+                SetPoint(i, vertices[i]);
+            }
 
             // Compute face normals
             for (uint i1 = 0; i1 < vertices.Length; ++i1) {
@@ -210,6 +214,10 @@ namespace Pong {
 
         public Vector2f COM {
             get { return current.position; }
+        }
+
+        public float Orientation {
+            get { return current.orientation; }
         }
 
         public State Current {
@@ -271,6 +279,19 @@ namespace Pong {
 
         public void Pull(Vector2f n, float overlap) {
             current.position += n * overlap;
+        }
+
+        public Vector2f GetSupport(Vector2f n) {
+            float bestProjection = float.MinValue;
+            Vector2f bestVertex = new Vector2f();
+            for (uint i = 0; i < vertices.Length; ++i) {
+                float projection = vertices[i].Dot(n);
+                if(projection > bestProjection){
+                    bestVertex = vertices[i];
+                    bestProjection = projection;
+                }
+            }
+            return bestVertex;
         }
     }
 }

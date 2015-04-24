@@ -30,8 +30,8 @@ namespace Pong {
             random = new Random();
             physics = new Physics();
             // game elements
-            player = new Paddle(new Vector2f(50, height * 0.5f), new Vector2f(25, 100), Color.Cyan);
-            ai = new Paddle(new Vector2f(width - 50, height * 0.5f), new Vector2f(25, 100), Color.Green);
+            player = new Paddle(new Vector2f(50, height * 0.5f), 12.5f, 50, Color.Cyan);
+            ai = new Paddle(new Vector2f(width - 50, height * 0.5f), 12.5f, 50, Color.Green);
             ball = new Ball(new Vector2f(width * 0.5f, 50), 12.5f, Color.Red, 10);
             //determimes difficulty of the AI enemy 0.0=unbeatable, 1.0=easy 
             difficulty = 0.0f;
@@ -39,10 +39,15 @@ namespace Pong {
             AddObject(ai);
             AddObject(ball);
             // walls and obstacles
-            AddObject(new OBB(new Vector2f(width * 0.5f, 12.5f), new Vector2f(width, 25), 0, Color.White));
-            AddObject(new OBB(new Vector2f(width * 0.5f, height - 12.5f), new Vector2f(width, 25), 0, Color.White));
-            AddObject(new OBB(new Vector2f(12.5f, height * 0.5f), new Vector2f(25, height), 0, Color.White));
-            AddObject(new OBB(new Vector2f(width - 12.5f, height * 0.5f), new Vector2f(25, width), 0, Color.White));
+            Polygon wall = new Polygon(Color.White);
+            wall.SetBox(new Vector2f(width * 0.5f, 12.5f), width * .5f, 12.5f, 0);
+            AddObject(wall);
+            wall.SetBox(new Vector2f(width * 0.5f, height - 12.5f), width * .5f, 12.5f, 0);
+            AddObject(wall);
+            wall.SetBox(new Vector2f(12.5f, height * 0.5f), 12.5f, height * .5f, 0);
+            AddObject(wall);
+            wall.SetBox(new Vector2f(width - 12.5f, height * 0.5f), 12.5f, width * .5f, 0);
+            AddObject(wall);
             AddObstacles();
             // score
             font = new Font("../Content/arial.ttf");
@@ -67,10 +72,12 @@ namespace Pong {
         private void AddObstacles() {
             // static obstacles
             for (int i = 0; i < random.Next(5, 10); ++i)
-                AddObject(new OBB(new Vector2f(random.Next(WIDTH), random.Next(100, HEIGHT)), new Vector2f(random.Next(100), random.Next(100)), random.Next(360), Color.White));
+                AddObject(new Polygon(new Vector2f(random.Next(WIDTH), random.Next(100, HEIGHT)), random.Next(360), Color.White));
+                //AddObject(new OBB(new Vector2f(random.Next(WIDTH), random.Next(100, HEIGHT)), new Vector2f(random.Next(100), random.Next(100)), random.Next(360), Color.White));
             // moveable obstacles
             for (int i = 0; i < random.Next(3, 6); ++i)
-                AddObject(new OBB(new Vector2f(random.Next(WIDTH), random.Next(100, HEIGHT)), new Vector2f(random.Next(100), random.Next(100)), random.Next(360), Color.Yellow, random.Next(5, 10)));
+                AddObject(new Polygon(new Vector2f(random.Next(WIDTH), random.Next(100, HEIGHT)), random.Next(360), Color.Yellow, 1.0f));
+                //AddObject(new OBB(new Vector2f(random.Next(WIDTH), random.Next(100, HEIGHT)), new Vector2f(random.Next(100), random.Next(100)), random.Next(360), Color.Yellow, random.Next(5, 10)));
         }
 
         //resets obstacles, leaves 1 ball, 2 paddles and 4 walls

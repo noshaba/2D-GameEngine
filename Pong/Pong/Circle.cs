@@ -35,6 +35,10 @@ namespace Pong {
             get { return current.position; }
         }
 
+        public float Orientation {
+            get { return current.orientation; }
+        }
+
         public State Current {
             get { return current; }
             set { current = value; }

@@ -22,6 +22,7 @@ namespace Pong{
 
         //updates all objects in the list
         public void Update(float dt) {
+            frozen = true;
             if (!frozen) {
                 for (int i = 0; i < objects.Count(); ++i) {
                     objects[i].Update(dt);
