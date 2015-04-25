@@ -10,6 +10,8 @@ namespace Pong {
         Collision.Type Type{ get; }
         Vector2f COM { get; }
         float Orientation { get; }
+        Mat22f WorldTransform { get; }
+        Mat22f LocalTransform { get; }
         State Current { get; set; }
         State Previous { get; }
         float Mass { get; }

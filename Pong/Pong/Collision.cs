@@ -124,83 +124,13 @@ namespace Pong{
             Polygon poly1 = obj1 as Polygon;
             Polygon poly2 = obj2 as Polygon;
 
-            uint face1 = 0;
-            float penetration1 = FindAxisLeastPenetration(ref face1, poly1, poly2);
-            if (penetration1 >= 0) {
-                colli.collision = false;
-                return;
+            Vector2f T = poly2.COM - poly1.COM;
+            Collision c = new Collision();
+            for (uint i = 0; i < poly1.normals.Length; ++i) {
+               // c = PolyToSepAxis(poly1, poly2, poly1.Normal(i), T);
             }
-            uint face2 = 0;
-            float penetration2 = FindAxisLeastPenetration(ref face2, poly2, poly1);
-            if (penetration2 >= 0) {
-                colli.collision = false;
-                return;
-            }
-            uint referenceIndex = 0;
-            bool flip; // point from poly1 to poly2
-
-            Polygon refPoly;
-            Polygon incPoly;
-
-            if (BiasGreaterThan(penetration1, penetration2)) {
-                refPoly = poly1;
-                incPoly = poly2;
-                flip = false;
-            } else {
-                refPoly = poly2;
-                incPoly = poly1;
-                flip = true;
-            }
-
-            Vector2f[] incidentFaces = new Vector2f[2];
-            FindIncidentFace(ref incidentFaces, refPoly, incPoly, referenceIndex);
-            Vector2f v1 = refPoly.vertices[referenceIndex];
-            referenceIndex = (referenceIndex + 1) % (uint)refPoly.vertices.Length;
-            Vector2f v2 = refPoly.vertices[referenceIndex];
-            v1 = v1.Rotate(refPoly.Orientation) + refPoly.COM;
-            v2 = v2.Rotate(refPoly.Orientation) + refPoly.COM;
-            Vector2f sidePlaneNormal = (v2 - v1).Norm();
-            Vector2f refFaceNormal = new Vector2f(sidePlaneNormal.Y, -sidePlaneNormal.X); // orthogonalize
-            // ax + by = c
-            // c is distance from origin
-            float refC = refFaceNormal.Dot(v1);
-            float negSide = -sidePlaneNormal.Dot(v1);
-            float posSide = sidePlaneNormal.Dot(v2);
-            // Clip incident face to reference face side planes
-            if (Clip(-sidePlaneNormal, negSide, ref incidentFaces) < 2) {
-                colli.collision = false;
-                return;
-            }
-            if (Clip(sidePlaneNormal, posSide, ref incidentFaces) < 2) {
-                colli.collision = false;
-                return;
-            }
-            colli.normal = flip ? -refFaceNormal : refFaceNormal;
-            // Keep points behind reference face
-            uint cp = 0;
-            float separation = refFaceNormal.Dot(incidentFaces[0]) - refC;
-            Vector2f[] buffer = new Vector2f[2];
-            if (separation <= 0) {
-                buffer[cp] = incidentFaces[0];
-                colli.overlap = -separation;
-                ++cp;
-            } else {
-                colli.overlap = 0;
-            }
-            separation = refFaceNormal.Dot(incidentFaces[1]) - refC;
-            if (separation <= 0) {
-                buffer[cp] = incidentFaces[1];
-                colli.overlap = -separation;
-                ++cp;
-                colli.overlap /= (float)cp;
-            }
-            colli.contacts = new Vector2f[cp];
-            for (uint i = 0; i < cp; ++i)
-                colli.contacts[i] = buffer[i];
-            colli.collision = true;
-            PullApart(poly1, poly2, -colli.normal, colli.overlap, ref colli);
         }
-
+        /*
         private static bool BiasGreaterThan(float a, float b) {
             float biasRelative = 0.95f;
             float biasAbsolute = 0.01f;
@@ -264,7 +194,7 @@ namespace Pong{
                 // Console.WriteLine("NOOOOOOOOOOOOOOOOO");
             }
             return sp;
-        }
+        }*/
 
         private static void CircleToOBB(IShape obj1, IShape obj2, ref Collision colli) {
             Circle cir = obj1 as Circle;

@@ -213,6 +213,14 @@ namespace Pong {
             get { return current.orientation; }
         }
 
+        public Mat22f WorldTransform {
+            get { return current.worldTransform; }
+        }
+
+        public Mat22f LocalTransform {
+            get { return current.localTransform; }
+        }
+
         public State Current {
             get { return current; }
             set { current = value; }
