@@ -51,7 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Game\Objects\Ball.cs" />
+    <Compile Include="Game\GameObjects\Ball.cs" />
     <Compile Include="GUI\Button.cs" />
     <Compile Include="GUI\Checkbox.cs" />
     <Compile Include="Physics\Shapes\Circle.cs" />
@@ -62,7 +62,7 @@
     <Compile Include="Physics\Shapes\IShape.cs" />
     <Compile Include="Maths\Mat22f.cs" />
     <Compile Include="GUI\Menue.cs" />
-    <Compile Include="Game\Objects\Paddle.cs" />
+    <Compile Include="Game\GameObjects\Paddle.cs" />
     <Compile Include="Physics\Physics.cs" />
     <Compile Include="Physics\Shapes\Polygon.cs" />
     <Compile Include="Game\Program.cs" />
