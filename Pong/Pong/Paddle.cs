@@ -8,16 +8,15 @@ using SFML.Window;
 
 
 namespace Pong {
-    class Paddle : OBB {
+    class Paddle : Polygon {
 
         public uint score;
 
-        public Paddle(Vector2f position, Vector2f size, Color color) : base(position, size, 0, color) {
-            score = 0;
+        public Paddle(Vector2f position, float hw, float hh, Color color) : base(color) {
+            SetBox(position, hw, hh, 0);
         }
 
-        public void move(float y)
-        {
+        public void move(float y) {
             current.position = new Vector2f(COM.X, y); 
         }
 

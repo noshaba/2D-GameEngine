@@ -14,14 +14,15 @@ namespace Pong {
         protected State previous;
 
         public Circle(Vector2f position, float radius, Color color) : base(radius) {
-            Origin = new Vector2f(Position.X + radius * 0.5f, Position.Y + radius * 0.5f);
+            //Origin = new Vector2f(Position.X + radius * 0.5f, Position.Y + radius * 0.5f);
             current = new State(position, 0);
             previous = current;
             FillColor = color;
         }
-
+        
         public Circle(Vector2f position, float radius, Color color, float mass) : base(radius) {
-            Origin = new Vector2f(Position.X + radius * 0.5f, Position.Y + radius * 0.5f);
+            Origin = new Vector2f(radius * .5f, radius * .5f);
+            //Origin = new Vector2f(0 + GetGlobalBounds().Left ,0);
             current = new State(position, 0, mass, (float)(Math.PI * 0.25 * Math.Pow(radius, 4)));
             previous = current;
             FillColor = color;
@@ -33,6 +34,18 @@ namespace Pong {
 
         public Vector2f COM {
             get { return current.position; }
+        }
+
+        public float Orientation {
+            get { return current.orientation; }
+        }
+
+        public Mat22f WorldTransform {
+            get { return current.worldTransform; }
+        }
+
+        public Mat22f LocalTransform {
+            get { return current.localTransform; }
         }
 
         public State Current {

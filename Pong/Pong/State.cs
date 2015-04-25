@@ -11,6 +11,8 @@ namespace Pong {
         // primary physics state
         public Vector2f position;
         public float orientation;
+        public Mat22f worldTransform;
+        public Mat22f localTransform;
 
         // secondary physics state
         public Vector2f velocity;
@@ -27,6 +29,8 @@ namespace Pong {
         public State() {
             position = new Vector2f(0,0);
             orientation = 0;
+            worldTransform = Mat22f.Eye();
+            localTransform = Mat22f.Eye();
 
             velocity = new Vector2f(0,0);
             angularVelocity = 0;
@@ -40,6 +44,8 @@ namespace Pong {
         public State(Vector2f position, float rotation) {
             this.position = position;
             orientation = (float) (rotation * Math.PI / 180.0);
+            worldTransform = Mat22f.RotationMatrix(orientation);
+            localTransform = ~worldTransform;
 
             velocity = new Vector2f(0, 0);
             angularVelocity = 0;
@@ -53,41 +59,31 @@ namespace Pong {
         public State(float mass, float inertiaTensor) {
             position = new Vector2f(0, 0);
             orientation = 0;
+            worldTransform = Mat22f.Eye();
+            localTransform = Mat22f.Eye();
 
             velocity = new Vector2f(0, 0);
             angularVelocity = 0;
 
-            if (mass != 0 && inertiaTensor != 0) {
-                this.mass = mass;
-                inverseMass = 1.0f / mass;
-                this.inertiaTensor = inertiaTensor;
-                inverseInertiaTensor = 1.0f / inertiaTensor;
-            } else {
-                mass = 0;
-                inverseMass = 0;
-                inertiaTensor = 0;
-                inverseInertiaTensor = 0;
-            }
+            this.mass = mass;
+            inverseMass = mass != 0 ? 1.0f / mass : 0;
+            this.inertiaTensor = inertiaTensor;
+            inverseInertiaTensor = inertiaTensor != 0 ? 1.0f / inertiaTensor : 0;
         }
 
         public State(Vector2f position, float rotation, float mass, float inertiaTensor) {
             this.position = position;
             orientation = (float)(rotation * Math.PI / 180.0);
+            worldTransform = Mat22f.RotationMatrix(orientation);
+            localTransform = ~worldTransform;
 
             velocity = new Vector2f(0, 0);
             angularVelocity = 0;
 
-            if (mass != 0 && inertiaTensor != 0) {
-                this.mass = mass;
-                inverseMass = 1.0f / mass;
-                this.inertiaTensor = inertiaTensor;
-                inverseInertiaTensor = 1.0f / inertiaTensor;
-            } else {
-                mass = 0;
-                inverseMass = 0;
-                inertiaTensor = 0;
-                inverseInertiaTensor = 0;
-            }
+            this.mass = mass;
+            inverseMass = mass != 0 ? 1.0f / mass : 0;
+            this.inertiaTensor = inertiaTensor;
+            inverseInertiaTensor = inertiaTensor != 0 ? 1.0f / inertiaTensor : 0;
         }
 
         #endregion
@@ -108,6 +104,8 @@ namespace Pong {
 
             position += k * dt * (k1.velocity + 2.0f * (k2.velocity + k3.velocity) + k4.velocity);
             orientation += k * dt * (k1.angularVelocity + 2.0f * (k2.angularVelocity + k3.angularVelocity) + k4.angularVelocity);
+            worldTransform = Mat22f.RotationMatrix(orientation);
+            localTransform = ~worldTransform;
         }
 
         public void Reset() {
@@ -115,6 +113,8 @@ namespace Pong {
             orientation = 0;
             velocity = new Vector2f(0,0);
             angularVelocity = 0;
+            worldTransform = Mat22f.Eye();
+            localTransform = Mat22f.Eye();
         }
 
         // to interpolate between two states

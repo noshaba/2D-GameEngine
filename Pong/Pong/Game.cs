@@ -16,7 +16,6 @@ namespace Pong {
         private List<IShape> objects = new List<IShape>();
         private int WIDTH;
         private int HEIGHT;
-        private Random random;
         private Font font;
         private Text playerScore;
         private Text aiScore;
@@ -28,22 +27,29 @@ namespace Pong {
         public Game(int width, int height) {
             WIDTH = width;
             HEIGHT = height;
-            random = new Random();
             physics = new Physics();
             // game elements
-            player = new Paddle(new Vector2f(50, height * 0.5f), new Vector2f(25, 100), Color.Cyan);
-            ai = new Paddle(new Vector2f(width - 50, height * 0.5f), new Vector2f(25, 100), Color.Green);
+            player = new Paddle(new Vector2f(50, height * 0.5f), 12.5f, 50, Color.Cyan);
+            ai = new Paddle(new Vector2f(width - 50, height * 0.5f), 12.5f, 50, Color.Green);
             ball = new Ball(new Vector2f(width * 0.5f, 50), 12.5f, Color.Red, 10);
             //determimes difficulty of the AI enemy 0.0=unbeatable, 1.0=easy 
-            difficulty = 0.5f;
+            difficulty = 0;
             AddObject(player);
             AddObject(ai);
             AddObject(ball);
             // walls and obstacles
-            AddObject(new OBB(new Vector2f(width * 0.5f, 12.5f), new Vector2f(width, 25), 0, Color.White));
-            AddObject(new OBB(new Vector2f(width * 0.5f, height - 12.5f), new Vector2f(width, 25), 0, Color.White));
-            AddObject(new OBB(new Vector2f(12.5f, height * 0.5f), new Vector2f(25, height), 0, Color.White));
-            AddObject(new OBB(new Vector2f(width - 12.5f, height * 0.5f), new Vector2f(25, width), 0, Color.White));
+            Polygon wall1 = new Polygon(Color.White);
+            Polygon wall2 = new Polygon(Color.White);
+            Polygon wall3 = new Polygon(Color.White);
+            Polygon wall4 = new Polygon(Color.White);
+            wall1.SetBox(new Vector2f(width * 0.5f, 12.5f), width * .5f, 12.5f, 0);
+            AddObject(wall1);
+            wall2.SetBox(new Vector2f(width * 0.5f, height - 12.5f), width * .5f, 12.5f, 0);
+            AddObject(wall2);
+            wall3.SetBox(new Vector2f(12.5f, height * 0.5f), 12.5f, height * .5f, 0);
+            AddObject(wall3);
+            wall4.SetBox(new Vector2f(width - 12.5f, height * 0.5f), 12.5f, width * .5f, 0);
+            AddObject(wall4);
             AddObstacles();
             // score
             font = new Font("../Content/arial.ttf");
@@ -67,11 +73,13 @@ namespace Pong {
         //adds random obstacles
         private void AddObstacles() {
             // static obstacles
-            for (int i = 0; i < random.Next(5, 10); ++i)
-                AddObject(new OBB(new Vector2f(random.Next(WIDTH), random.Next(100, HEIGHT)), new Vector2f(random.Next(100), random.Next(100)), random.Next(360), Color.White));
+            for (int i = 0; i < EMath.random.Next(5, 10); ++i)
+                AddObject(new Polygon(new Vector2f(EMath.Random(0, WIDTH), EMath.Random(100, HEIGHT)), EMath.Random(0, 360), Color.White));
+                //AddObject(new OBB(new Vector2f(random.Next(WIDTH), random.Next(100, HEIGHT)), new Vector2f(random.Next(100), random.Next(100)), random.Next(360), Color.White));
             // moveable obstacles
-            for (int i = 0; i < random.Next(3, 6); ++i)
-                AddObject(new OBB(new Vector2f(random.Next(WIDTH), random.Next(100, HEIGHT)), new Vector2f(random.Next(100), random.Next(100)), random.Next(360), Color.Yellow, random.Next(5, 10)));
+            for (int i = 0; i < EMath.random.Next(3, 6); ++i)
+                AddObject(new Polygon(new Vector2f(EMath.Random(0, WIDTH), EMath.Random(100, HEIGHT)), EMath.Random(0, 360), Color.Yellow, 0.1f));
+                //AddObject(new OBB(new Vector2f(random.Next(WIDTH), random.Next(100, HEIGHT)), new Vector2f(random.Next(100), random.Next(100)), random.Next(360), Color.Yellow, random.Next(5, 10)));
         }
 
         //resets obstacles, leaves 1 ball, 2 paddles and 4 walls
@@ -101,7 +109,9 @@ namespace Pong {
                 ball.Current = ball.Previous;
                 ball.Velocity = new Vector2f(ball.Velocity.X, -ball.Velocity.Y);
             }
+
             ai.moveAi(ball.COM.Y, ball.Velocity.Y, difficulty, HEIGHT);
+
             ball.IncreaseVelocity(dt);
             physics.Update(dt);
             if (player.score > 4 || ai.score > 4) {
@@ -160,7 +170,6 @@ namespace Pong {
         public void MovePlayer(float y) {
             player.move(y);
         }
-
         public void ToggleFreeze(){
             physics.frozen = !physics.frozen;
         }
