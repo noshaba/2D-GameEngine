@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SFML.Window;
+using SFML.Graphics;
 
 namespace Pong {
     interface IShape {
         Collision.Type Type{ get; }
+        Color Colour { get; set; }
         Vector2f COM { get; }
         float Orientation { get; }
         Mat22f WorldTransform { get; }

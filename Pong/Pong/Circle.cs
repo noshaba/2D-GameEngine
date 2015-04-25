@@ -9,23 +9,28 @@ using SFML.Window;
 namespace Pong {
     class Circle : CircleShape, IShape {
         private Collision.Type type = Collision.Type.Circle;
+        private Color colour;
 
         protected State current;
         protected State previous;
 
         public Circle(Vector2f position, float radius, Color color) : base(radius) {
-            Origin = new Vector2f(Position.X + radius * 0.5f, Position.Y + radius * 0.5f);
+            //Origin = new Vector2f(Position.X + radius * 0.5f, Position.Y + radius * 0.5f);
             current = new State(position, 0);
             previous = current;
+            colour = color;
             FillColor = color;
         }
-
+        
         public Circle(Vector2f position, float radius, Color color, float mass) : base(radius) {
-            Origin = new Vector2f(Position.X + radius * 0.5f, Position.Y + radius * 0.5f);
+            Origin = new Vector2f(radius * .5f, radius * .5f);
+            //Origin = new Vector2f(0 + GetGlobalBounds().Left ,0);
             current = new State(position, 0, mass, (float)(Math.PI * 0.25 * Math.Pow(radius, 4)));
             previous = current;
+            colour = color;
             FillColor = color;
         }
+        public Color Colour { get { return colour; } set{ colour = value;} }
 
         public Collision.Type Type {
             get { return type; }
@@ -33,6 +38,7 @@ namespace Pong {
 
         public Vector2f COM {
             get { return current.position; }
+            set { current.position = value; }
         }
 
         public float Orientation {

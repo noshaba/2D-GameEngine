@@ -9,13 +9,14 @@ using SFML.Window;
 namespace Pong{
     class OBB : RectangleShape, IShape {
         private Collision.Type type = Collision.Type.OBB;
+        private Color colour;
 
         public Vector2f[] axis = { new Vector2f(1,0), new Vector2f(0,1) };
         public float[] hl = new float[2]; // half lengths of axis'
 
         protected State previous;
         protected State current;
-
+        public Color Colour { get { return colour; } set { colour = value; } }
         public OBB(Vector2f position, Vector2f size, float rotation, Color color) : base(size) {
             Origin = new Vector2f(size.X * 0.5f, size.Y * 0.5f);
             hl[0] = size.X * 0.5f;
@@ -23,6 +24,7 @@ namespace Pong{
             current = new State(position, rotation);
             previous = current;
             FillColor = color;
+            colour = color;
         }
 
         public OBB(Vector2f position, Vector2f size, float rotation, Color color, float mass) : base(size) {
@@ -32,6 +34,7 @@ namespace Pong{
             current = new State(position, rotation, mass, size.X * size.Y / 6.0f);
             previous = current;
             FillColor = color;
+            colour = color;
         }
 
         public Collision.Type Type {

@@ -17,26 +17,29 @@ namespace Pong {
 
         protected State previous;
         protected State current;
+        private Color colour;
 
         public Polygon(Color color) : base() {
             FillColor = color;
+            colour = color;
         }
 
         public Polygon(Vector2f position, float rotation, Color color) : base(){
             InitVertices();
-            foreach (Vector2f vertex in vertices)
-                Origin += vertex;
-            Origin /= (float)vertices.Length;
             current = new State(position, rotation);
             previous = current;
             FillColor = color;
+            colour = color;
         }
 
         public Polygon(Vector2f position, float rotation, Color color, float density) : base() {
             InitVertices();
             InitState(position, rotation, density);
             FillColor = color;
+            colour = color;
         }
+
+        public Color Colour { get { return colour; } set { colour = value; } }
 
         public void SetBox(Vector2f position, float hw, float hh, float rotation) {
             SetPointCount(4);
@@ -78,39 +81,28 @@ namespace Pong {
         }
 
         private void InitState(Vector2f position, float rotation, float density) { 
-            // Calculate centroid and moment of interia
-            Vector2f c = new Vector2f(); // centroid
+            // Calculate moment of interia
             float area = 0;
             float I = 0;
             const float kInv3 = 1.0f / 3.0f;
-            for (uint i1 = 0; i1 < vertices.Length; ++i1) {
+            for (int i1 = 0; i1 < vertices.Length; ++i1) {
                 // Triangle vertices, third vertex implied as (0, 0)
                 Vector2f p1 = vertices[i1];
-                uint i2 = (i1 + 1) % (uint) vertices.Length;
+                int i2 = (i1 + 1) % vertices.Length;
                 Vector2f p2 = vertices[i2];
 
                 float D = p1.CrossProduct(p2);
                 float triangleArea = .5f * D;
 
                 area += triangleArea;
-                // Use area to weight the centroid average, not just vertex position
-                c += triangleArea * kInv3 * (p1 + p2);
 
                 float intx2 = p1.X * p1.X + p2.X * p1.X + p2.X * p2.X;
                 float inty2 = p1.Y * p1.Y + p2.Y * p1.Y + p2.Y * p2.Y;
                 I += (0.25f * kInv3 * D) * (intx2 + inty2);
             }
 
-            c *= 1.0f / area;
-
-            // Translate vertices to centroid (make the centroid (0, 0) for the polygon in model space)
-            for (uint i = 0; i < vertices.Length; ++i) {
-                vertices[i] -= c;
-                SetPoint(i, vertices[i]);
-            }
-
-            for (uint i1 = 0; i1 < vertices.Length; ++i1) {
-                uint i2 = (i1 + 1) % (uint)vertices.Length;
+            for (int i1 = 0; i1 < vertices.Length; ++i1) {
+                int i2 = (i1 + 1) % vertices.Length;
                 Vector2f face = (vertices[i2] - vertices[i1]).Norm();
                 hl[i1] = Math.Abs(face.CrossProduct(-vertices[i1])); // (0,0) - vertex, since COM is at (0,0)
             }
@@ -187,15 +179,24 @@ namespace Pong {
                 }
             }
 
-            // Copy vertices into shape's vertices
+            Vector2f centroid = new Vector2f();
+
             for (uint i = 0; i < GetPointCount(); ++i) {
                 vertices[i] = buffer[hull[i]];
+                centroid += vertices[i];
+            }
+
+            centroid /= (float) vertices.Length;
+
+            // Translate vertices to centroid (make the centroid (0, 0) for the polygon in model space)
+            for (uint i = 0; i < GetPointCount(); ++i) {
+                vertices[i] -= centroid;
                 SetPoint(i, vertices[i]);
             }
 
             // Compute face normals
-            for (uint i1 = 0; i1 < vertices.Length; ++i1) {
-                uint i2 = (i1 + 1) % (uint) vertices.Length;
+            for (int i1 = 0; i1 < vertices.Length; ++i1) {
+                int i2 = (i1 + 1) % vertices.Length;
                 Vector2f face = vertices[i2] - vertices[i1];
                 normals[i1] = new Vector2f(face.Y, -face.X).Norm();
             }
@@ -257,15 +258,18 @@ namespace Pong {
         }
 
         public Vector2f Normal(uint i) {
-            if (current.orientation != 0)
-                return normals[i].Rotate(current.orientation);
-            return normals[i];
+            return current.worldTransform * normals[i];
         }
 
         public Vector2f Normal(int i) {
-            if (current.orientation != 0)
-                return normals[i].Rotate(current.orientation);
-            return normals[i];
+            return current.worldTransform * normals[i];
+        }
+
+        public Vector2f Vertex(uint i) {
+            return current.worldTransform * vertices[i] + current.position;
+        }
+        public Vector2f Vertex(int i) {
+            return current.worldTransform * vertices[i] + current.position;
         }
 
         public void Update(float dt) {
@@ -282,17 +286,37 @@ namespace Pong {
             current.position += n * overlap;
         }
 
-        public Vector2f GetSupport(Vector2f n) {
-            float bestProjection = float.MinValue;
-            Vector2f bestVertex = new Vector2f();
+        public List<Vector2f> GetSupport(Vector2f n) {
+            List<Vector2f> support = new List<Vector2f>();
+            float bestProjection = float.MaxValue;
+            float projection;
+            Vector2f vertex;
             for (uint i = 0; i < vertices.Length; ++i) {
-                float projection = vertices[i].Dot(n);
-                if(projection > bestProjection){
-                    bestVertex = vertices[i];
+                vertex = Vertex(i);
+                projection = vertex.Dot(n);
+                if (projection < bestProjection) {
+                    support.Clear();
                     bestProjection = projection;
+                    support.Add(vertex);
+                } else if (projection == bestProjection) {
+                    support.Add(vertex);
                 }
             }
-            return bestVertex;
+            return support;
+        }
+
+        public void GetIntersectedPoints(List<Vector2f> support, ref List<Vector2f> intersects) {
+            bool inside = true;
+            foreach (Vector2f vertex in support) {
+                for (uint i = 0; i < normals.Length; ++i) {
+                    if ((vertex - Vertex(i)).Dot(Normal(i)) > 0.1f) {
+                        inside = false;
+                        break;
+                    }
+                }
+                if (inside)
+                    intersects.Add(vertex);
+            }
         }
     }
 }

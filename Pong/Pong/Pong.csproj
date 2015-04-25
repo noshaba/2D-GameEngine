@@ -60,6 +60,7 @@
     <Compile Include="GUI.cs" />
     <Compile Include="IGraphic.cs" />
     <Compile Include="IShape.cs" />
+    <Compile Include="Mat22f.cs" />
     <Compile Include="Menue.cs" />
     <Compile Include="OBB.cs" />
     <Compile Include="Paddle.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Sounds.cs" />
     <Compile Include="State.cs" />
     <Compile Include="EMath.cs" />
+    <Compile Include="Vec2fMath.cs" />
     <Compile Include="View.cs" />
   </ItemGroup>
   <ItemGroup>

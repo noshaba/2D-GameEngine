@@ -45,156 +45,137 @@ namespace Pong{
             Circle cir = obj1 as Circle;
             Polygon poly = obj2 as Polygon;
 
-            Vector2f center = (cir.COM - poly.COM).TransRotate(poly.Orientation);
-            float separation = float.MinValue;
-            uint faceNormal = 0;
-            for (uint i = 0; i < poly.vertices.Length; ++i) {
-                float s = poly.normals[i].Dot(center - poly.vertices[i]);
-                if (s > cir.Radius) {
-                    colli.collision = false;
-                    return;
-                }
-                if (s > separation) {
-                    separation = s;
-                    faceNormal = i;
+            // Transform circle center to polygon model space
+            Vector2f center = poly.WorldTransform.Transponent * (cir.COM - poly.COM);
+
+            colli.collision = false;
+            colli.normal = new Vector2f(0, 0);
+            colli.overlap = 0;
+            float distance;
+            for (int i = 0; i < poly.normals.Length; ++i) {
+                distance = (center - poly.vertices[i]).Dot(poly.normals[i]);
+                distance = distance * distance;
+                if (distance <= cir.Radius * cir.Radius) {
+                    colli.normal += poly.normals[i];
+                    colli.normal = colli.normal.Norm();
+                    Vector2f v = center - colli.normal * cir.Radius;
+                    bool inside = true;
+                    for (uint j = 0; j < poly.normals.Length; ++j){
+                        if ((v - poly.vertices[j]).Dot(poly.normals[j]) > 0) {
+                            inside = false;
+                            break;
+                        }
+                    }
+                    if (inside) {
+                        colli.collision = true;
+                        // colli.overlap += (float) Math.Pow(cir.Radius - Math.Sqrt(distance), 2);
+                        colli.overlap += cir.Radius - (float) Math.Sqrt(distance);
+                        colli.rad1 = poly.Vertex(i);
+                        colli.rad2 = poly.Vertex((i + 1) % poly.vertices.Length);
+                    }
                 }
             }
-
-            // if circle entirely in polygon
-            if (separation < EMath.EPSILON) {
+            if (colli.collision) {
+                colli.normal = poly.WorldTransform * colli.normal.Norm();
+                colli.overlap = (float) Math.Sqrt(colli.overlap);
+                PullApart(cir, poly, colli.normal, colli.overlap);
                 colli.contacts = new Vector2f[1];
-                colli.normal = poly.Normal(faceNormal);
-                colli.contacts[0] = -colli.normal * cir.Radius + cir.COM;
-                colli.overlap = cir.Radius;
-                colli.collision = true;
-                //PullApart(cir, poly, colli.normal, colli.overlap, ref colli);
-                return;
-            }
-
-            Vector2f v1 = poly.vertices[faceNormal];
-            Vector2f v2 = poly.vertices[(faceNormal + 1) % (uint)poly.vertices.Length];
-            colli.overlap = cir.Radius - separation;
-
-            // Determine which voronoi region of the edge center of circle lies within
-            float dot1 = (center - v1).Dot( v2 - v1);
-            float dot2 = (center - v2).Dot( v1 - v2);
-            colli.overlap = cir.Radius - separation;
-            // closest to v1
-            if (dot1 <= 0) { 
-                if((center - v1).Length2() > cir.Radius * cir.Radius){
-                    colli.collision = false;
-                    return;
-                }
-                colli.contacts = new Vector2f[1];
-                colli.normal = (v1 - center).Rotate(poly.Orientation).Norm();
-                colli.contacts[0] = v1.Rotate(poly.Orientation) + poly.COM;
-                colli.collision = true;
-                //PullApart(poly, cir, -colli.normal, colli.overlap, ref colli);
-            // closest to v2
-            } else if (dot2 <= 0) {
-                if ((center - v2).Length2() > cir.Radius * cir.Radius) {
-                    colli.collision = false;
-                    return;
-                }
-                colli.contacts = new Vector2f[1];
-                colli.normal = (v2 - center).Rotate(poly.Orientation).Norm();
-                colli.contacts[0] = v2.Rotate(poly.Orientation) + poly.COM;
-                colli.collision = true;
-                //PullApart(poly, cir, -colli.normal, colli.overlap, ref colli);
-            // closest to face
-            } else {
-                if ((center - v1).Dot(poly.normals[faceNormal]) > cir.Radius) {
-                    colli.collision = false;
-                    return;
-                }
-                colli.contacts = new Vector2f[1];
-                colli.normal = poly.Normal(faceNormal);
-                colli.contacts[0] = -colli.normal * cir.Radius + cir.Position;
-                colli.collision = true;
-                //PullApart(cir, poly, colli.normal, colli.overlap, ref colli);
+                colli.contacts[0] = cir.COM - colli.normal * cir.Radius;
             }
         }
 
         private static void PolygonToCircle(IShape obj1, IShape obj2, ref Collision colli) {
+            colli.collision = false;
+            return;
             CircleToPolygon(obj2, obj1, ref colli);
-            colli.normal = -colli.normal;
         }
 
         private static void PolygonToPolygon(IShape obj1, IShape obj2, ref Collision colli) {
+            colli.collision = false;
+            return;
             Polygon poly1 = obj1 as Polygon;
             Polygon poly2 = obj2 as Polygon;
 
             Vector2f T = poly2.COM - poly1.COM;
+            colli.overlap = float.MaxValue;
             Collision c = new Collision();
+
             for (uint i = 0; i < poly1.normals.Length; ++i) {
-               // c = PolyToSepAxis(poly1, poly2, poly1.Normal(i), T);
+                c = PolyToSepAxis(poly1, poly2, poly1.Normal(i), T);
+                if(!c.collision) {
+                    colli.collision = false;
+                    return;
+                }
+                if (c.overlap < colli.overlap)
+                    colli = c;
+            }
+
+            for (uint i = 0; i < poly2.normals.Length; ++i) {
+                c = PolyToSepAxis(poly1, poly2, poly2.Normal(i), T);
+                if (!c.collision) {
+                    colli.collision = false;
+                    return;
+                }
+                if (c.overlap < colli.overlap)
+                    colli = c;
+            }
+
+            if (colli.collision) {
+                PullApart(poly1, poly2, colli.normal, colli.overlap);
+                ContactPoints(poly1, poly2, colli.normal, ref colli);
             }
         }
-        /*
-        private static bool BiasGreaterThan(float a, float b) {
-            float biasRelative = 0.95f;
-            float biasAbsolute = 0.01f;
-            return a >= b * biasRelative + a * biasAbsolute;
+
+        private static void ContactPoints(Polygon poly1, Polygon poly2, Vector2f n, ref Collision colli) {
+            List<Vector2f> support1 = poly1.GetSupport(n);
+            List<Vector2f> support2 = poly2.GetSupport(-n);
+            List<Vector2f> buffer = new List<Vector2f>();
+
+            poly1.GetIntersectedPoints(support2, ref buffer);
+            poly2.GetIntersectedPoints(support1, ref buffer);
+
+            if (buffer.Count >= 2) {
+                colli.contacts = new Vector2f[2];
+                colli.contacts[0] = buffer[0];
+                colli.contacts[1] = buffer[1];
+            } else if (buffer.Count == 1) {
+                colli.contacts = new Vector2f[1];
+                colli.contacts[0] = buffer[0];
+            } else {
+                colli.collision = false;
+            }
         }
 
-        private static float FindAxisLeastPenetration(ref uint faceIndex, Polygon poly1, Polygon poly2) {
-            float bestDistance = float.MinValue;
-            uint bestIndex = 0;
-            for (uint i = 0; i < poly1.vertices.Length; ++i) {
-                Vector2f n = poly1.Normal(i).TransRotate(poly2.Orientation);
-                Vector2f s = poly2.GetSupport(-n);
-                Vector2f v = poly1.vertices[i].Rotate(poly1.Orientation) + poly1.COM;
-                v -= poly2.COM;
-                v = v.TransRotate(poly2.Orientation);
-                float d = n.Dot(s - v);
-                if (d > bestDistance) {
-                    bestDistance = d;
-                    bestIndex = i;
+        private static float[] Projection(Polygon poly1, Vector2f n) {
+            float[] projection = new float[2];
+            float value;
+            projection[0] = projection[1] = n.Dot(poly1.Vertex(0));
+            for (uint i = 1; i < poly1.vertices.Length; ++i) {
+                value = n.Dot(poly1.Vertex(i));
+                projection[0] = Math.Min(value, projection[0]);
+                projection[1] = Math.Max(value, projection[1]);
+            }
+            return projection;
+        }
+
+        private static Collision PolyToSepAxis(Polygon poly1, Polygon poly2, Vector2f n, Vector2f T) {
+            Collision colli = new Collision();
+            colli.distance = T.Dot(n);
+            if (colli.distance > 0) n = -n;
+            colli.normal = n;
+            colli.distance = Math.Abs(colli.distance);
+            float[] proj1 = Projection(poly1, n);
+            float[] proj2 = Projection(poly2, n);
+            colli.collision = (proj1[1] >= proj2[0] && proj2[1] >= proj1[0]);
+            if (colli.collision) {
+                if (proj1[1] - proj2[0] <= proj2[1] - proj1[0]) {
+                    colli.overlap = proj1[1] - proj2[0];
+                } else {
+                    colli.overlap = proj2[1] - proj1[0];
                 }
             }
-            faceIndex = bestIndex;
-            return bestDistance;
+            return colli;
         }
-
-        private static void FindIncidentFace(ref Vector2f[] v, Polygon refPoly, Polygon incPoly, uint referenceIndex) { 
-            Vector2f referenceNormal = refPoly.normals[referenceIndex];
-            referenceNormal = referenceNormal.Rotate(refPoly.Orientation);
-            referenceNormal = referenceNormal.Rotate(incPoly.Orientation);
-            uint incidentFace = 0;
-            float minDot = float.MaxValue;
-            for (uint i = 0; i < incPoly.vertices.Length; ++i) {
-                float dot = referenceNormal.Dot(incPoly.normals[i]);
-                if (dot < minDot) {
-                    minDot = dot;
-                    incidentFace = i;
-                }
-            }
-            v[0] = incPoly.vertices[incidentFace].Rotate(incPoly.Orientation) + incPoly.Position;
-            incidentFace = (incidentFace + 1) % (uint) incPoly.vertices.Length;
-            v[1] = incPoly.vertices[incidentFace].Rotate(incPoly.Orientation) + incPoly.Position;
-        }
-
-        private static uint Clip(Vector2f n, float c, ref Vector2f[] faces) {
-            uint sp = 0;
-            Vector2f[] output = faces;
-            float d1 = n.Dot(faces[0]) - c;
-            float d2 = n.Dot(faces[1]) - c;
-            // If negative (behind plane) clip
-            if (d1 <= 0) output[sp++] = faces[0];
-            if (d2 <= 0) output[sp++] = faces[1];
-            // If the points are on different sides of the plane
-            if (d1 * d2 < 0) { 
-                float alpha = d1 / (d1 - d2);
-                output[sp] = faces[0] + alpha * (faces[1] - faces[0]);
-                ++sp;
-            }
-            faces[0] = output[0];
-            faces[1] = output[1];
-            if (sp != 3) {
-                // Console.WriteLine("NOOOOOOOOOOOOOOOOO");
-            }
-            return sp;
-        }*/
 
         private static void CircleToOBB(IShape obj1, IShape obj2, ref Collision colli) {
             Circle cir = obj1 as Circle;
@@ -273,19 +254,13 @@ namespace Pong{
             }
         }
 
-        private static void PullApart(IShape obj1, IShape obj2, Vector2f n, float overlap, ref Collision colli){
+        private static void PullApart(IShape obj1, IShape obj2, Vector2f n, float overlap){
             if (obj1.InverseMass > 0 && obj2.InverseMass > 0) {
                 obj1.Pull(n,  overlap * 0.5f);
                 obj2.Pull(n, -overlap * 0.5f);
-                for (uint i = 0; i < colli.contacts.Length; ++i)
-                    colli.contacts[i] += n * overlap * 0.5f;
             } else {
                 obj1.Pull(n,  overlap * obj1.InverseMass * obj1.Mass);
                 obj2.Pull(n, -overlap * obj2.InverseMass * obj2.Mass);
-                for(uint i = 0; i < colli.contacts.Length; ++i){
-                    colli.contacts[i] += n * overlap * obj1.InverseMass * obj1.Mass;
-                    colli.contacts[i] -= n * overlap * obj2.InverseMass * obj2.Mass;
-                }
             }
         }
 

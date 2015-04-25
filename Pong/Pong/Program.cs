@@ -30,6 +30,31 @@ namespace Pong {
         //create game and gui fitting for the window
         static Game pong = new Game(WIDTH, HEIGHT);
         static GUI gui = new GUI(WIDTH, HEIGHT, pong);
+        public static Vector2f colliPoint, e1, e2;
+        public static bool collision = false;
+
+        static void DisplayCollision() {
+            if (collision) {
+                RectangleShape p = new RectangleShape(new Vector2f(6, 6));
+                p.Origin = new Vector2f(3, 3);
+                p.Position = colliPoint;
+                p.FillColor = Color.Blue;
+
+                RectangleShape eg1 = new RectangleShape(new Vector2f(6, 6));
+                eg1.Origin = new Vector2f(3, 3);
+                eg1.Position = e1;
+                eg1.FillColor = Color.Blue;
+
+                RectangleShape eg2 = new RectangleShape(new Vector2f(6, 6));
+                eg2.Origin = new Vector2f(3, 3);
+                eg2.Position = e2;
+                eg2.FillColor = Color.Blue;
+                
+                window.Draw(p);
+                window.Draw(eg1);
+                window.Draw(eg2);
+            }
+        }
 
         //main method
         static void Main(string[] args) {
@@ -77,6 +102,7 @@ namespace Pong {
             pong.Draw(window, alpha);
             gui.Draw(window);
             mouseSprite.Draw(window, RenderStates.Default);
+            DisplayCollision();
         }
 
         #region Listener
@@ -84,6 +110,7 @@ namespace Pong {
         private static void window_MouseMoved(object sender, MouseMoveEventArgs e) {
             mouseSprite.Position = new Vector2f(e.X,e.Y);
             pong.MovePlayer(e.Y);
+            // pong.ball.COM = new Vector2f(e.X, e.Y);
             gui.OnHover(e.X, e.Y);
         }
 

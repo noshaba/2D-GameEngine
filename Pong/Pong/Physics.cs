@@ -22,6 +22,7 @@ namespace Pong{
 
         //updates all objects in the list
         public void Update(float dt) {
+            //frozen = true;
             if (!frozen) {
                 for (int i = 0; i < objects.Count(); ++i) {
                     objects[i].Update(dt);
@@ -43,6 +44,15 @@ namespace Pong{
                 if (i == j) continue;
                 Collision colli = Collision.CheckForCollision(objects[i], objects[j]);
                 if (colli.collision) {
+                    if (i == 2) { 
+                        (objects[j] as Shape).FillColor = Color.Magenta;
+                        Program.collision = true;
+                        Program.colliPoint = colli.contacts[0];
+                        Program.e1 = colli.rad1;
+                        Program.e2 = colli.rad2;
+                        Console.WriteLine(colli.normal);
+                        Console.WriteLine(objects[j].Mass);
+                    }
                     if (objects[i].InverseMass > 0 || objects[j].InverseMass > 0) {
                         for (uint k = 0; k < colli.contacts.Length; ++k) {
                             Vector2f rad1 = colli.contacts[k] - objects[i].COM;
@@ -51,6 +61,11 @@ namespace Pong{
                             objects[i].ApplyImpulse( J, rad1);
                             objects[j].ApplyImpulse(-J, rad2);
                         }
+                    }
+                } else {
+                    if (i == 2) { 
+                        (objects[j] as Shape).FillColor = objects[j].Colour;
+                        //Program.collision = false;
                     }
                 }
             }
