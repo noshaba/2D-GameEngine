@@ -55,9 +55,10 @@ namespace Pong{
             for (int i = 0; i < poly.normals.Length; ++i) {
                 distance = (center - poly.vertices[i]).Dot(poly.normals[i]);
                 distance = distance * distance;
-                if (distance <= cir.Radius * cir.Radius) {
+                if (distance < cir.Radius * cir.Radius) {
                     colli.normal += poly.normals[i];
                     colli.normal = colli.normal.Norm();
+                    colli.overlap += (float)Math.Pow(cir.Radius - Math.Sqrt(distance), 2);
                     Vector2f v = center - colli.normal * cir.Radius;
                     bool inside = true;
                     for (uint j = 0; j < poly.normals.Length; ++j){
@@ -68,8 +69,7 @@ namespace Pong{
                     }
                     if (inside) {
                         colli.collision = true;
-                        // colli.overlap += (float) Math.Pow(cir.Radius - Math.Sqrt(distance), 2);
-                        colli.overlap += cir.Radius - (float) Math.Sqrt(distance);
+                        // colli.overlap += cir.Radius - (float) Math.Sqrt(distance);
                         colli.rad1 = poly.Vertex(i);
                         colli.rad2 = poly.Vertex((i + 1) % poly.vertices.Length);
                     }
@@ -85,9 +85,10 @@ namespace Pong{
         }
 
         private static void PolygonToCircle(IShape obj1, IShape obj2, ref Collision colli) {
-            colli.collision = false;
-            return;
+            // colli.collision = false;
+            // return;
             CircleToPolygon(obj2, obj1, ref colli);
+            if(colli.collision) colli.normal = -colli.normal;
         }
 
         private static void PolygonToPolygon(IShape obj1, IShape obj2, ref Collision colli) {

@@ -44,30 +44,37 @@ namespace Pong{
                 if (i == j) continue;
                 Collision colli = Collision.CheckForCollision(objects[i], objects[j]);
                 if (colli.collision) {
-                    if (i == 2) { 
+                  /*  if (i == 2) { 
                         (objects[j] as Shape).FillColor = Color.Magenta;
                         Program.collision = true;
                         Program.colliPoint = colli.contacts[0];
                         Program.e1 = colli.rad1;
                         Program.e2 = colli.rad2;
                         Console.WriteLine(colli.normal);
-                        Console.WriteLine(objects[j].Mass);
-                    }
+                    }*/
                     if (objects[i].InverseMass > 0 || objects[j].InverseMass > 0) {
                         for (uint k = 0; k < colli.contacts.Length; ++k) {
                             Vector2f rad1 = colli.contacts[k] - objects[i].COM;
                             Vector2f rad2 = colli.contacts[k] - objects[j].COM;
                             Vector2f J = CollisionImpulse(objects[i], objects[j], rad1, rad2, colli.normal);
-                            objects[i].ApplyImpulse( J, rad1);
+                         /*   Console.WriteLine(i);
+                            Console.WriteLine(colli.normal);
+                            Console.WriteLine(colli.contacts[k]);
+                            Console.WriteLine(rad1);
+                            Console.WriteLine(rad2);
+                            Console.WriteLine(colli.contacts.Length);
+                            frozen = true;*/
+                            objects[i].ApplyImpulse(J, rad1);
                             objects[j].ApplyImpulse(-J, rad2);
                         }
+                       // Console.WriteLine();
                     }
-                } else {
+                }/* else {
                     if (i == 2) { 
                         (objects[j] as Shape).FillColor = objects[j].Colour;
                         //Program.collision = false;
                     }
-                }
+                }*/
             }
         }
 
