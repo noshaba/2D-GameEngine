@@ -92,14 +92,14 @@ namespace Pong {
                 ai.score++;
                 aiScore.DisplayedString = ai.score.ToString();
                 if (soundOn)
-                Sounds.scoreSound.Play();
+                SoundManager.scoreSound.Play();
                 Reset();
             }
             if (ball.COM.X > ai.COM.X) {
                 player.score++;
                 playerScore.DisplayedString = player.score.ToString();
                 if (soundOn)
-                Sounds.scoreSound.Play();
+                SoundManager.scoreSound.Play();
                 Reset();
             }
             // if ball too fast or FPS too low
