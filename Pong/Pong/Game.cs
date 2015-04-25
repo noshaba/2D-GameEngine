@@ -109,6 +109,7 @@ namespace Pong {
                 ball.Velocity = new Vector2f(ball.Velocity.X, -ball.Velocity.Y);
             }
             ai.moveAi(ball.COM.Y, ball.Velocity.Y, difficulty);
+            player.moveAi(ball.COM.Y, ball.Velocity.Y, difficulty);
             ball.IncreaseVelocity(dt);
             physics.Update(dt);
         }
@@ -142,7 +143,6 @@ namespace Pong {
         public void MovePlayer(float y) {
             player.move(y);
         }
-
         public void ToggleFreeze(){
             physics.frozen = !physics.frozen;
         }

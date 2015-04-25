@@ -109,7 +109,7 @@ namespace Pong {
 
         private static void window_MouseMoved(object sender, MouseMoveEventArgs e) {
             mouseSprite.Position = new Vector2f(e.X,e.Y);
-            pong.MovePlayer(e.Y);
+            // pong.MovePlayer(e.Y);
             // pong.ball.COM = new Vector2f(e.X, e.Y);
             gui.OnHover(e.X, e.Y);
         }

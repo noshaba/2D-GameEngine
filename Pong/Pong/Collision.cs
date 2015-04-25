@@ -85,15 +85,11 @@ namespace Pong{
         }
 
         private static void PolygonToCircle(IShape obj1, IShape obj2, ref Collision colli) {
-            // colli.collision = false;
-            // return;
-            CircleToPolygon(obj2, obj1, ref colli);
-            if(colli.collision) colli.normal = -colli.normal;
+            colli.collision = false;
+            return;
         }
 
         private static void PolygonToPolygon(IShape obj1, IShape obj2, ref Collision colli) {
-            colli.collision = false;
-            return;
             Polygon poly1 = obj1 as Polygon;
             Polygon poly2 = obj2 as Polygon;
 
