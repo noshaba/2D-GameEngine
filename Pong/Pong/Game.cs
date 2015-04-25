@@ -33,7 +33,7 @@ namespace Pong {
             ai = new Paddle(new Vector2f(width - 50, height * 0.5f), 12.5f, 50, Color.Green);
             ball = new Ball(new Vector2f(width * 0.5f, 50), 12.5f, Color.Red, 10);
             //determimes difficulty of the AI enemy 0.0=unbeatable, 1.0=easy 
-            difficulty = 0;
+            difficulty = 0.5f;
             AddObject(player);
             AddObject(ai);
             AddObject(ball);
@@ -75,11 +75,9 @@ namespace Pong {
             // static obstacles
             for (int i = 0; i < EMath.random.Next(5, 10); ++i)
                 AddObject(new Polygon(new Vector2f(EMath.Random(0, WIDTH), EMath.Random(100, HEIGHT)), EMath.Random(0, 360), Color.White));
-                //AddObject(new OBB(new Vector2f(random.Next(WIDTH), random.Next(100, HEIGHT)), new Vector2f(random.Next(100), random.Next(100)), random.Next(360), Color.White));
             // moveable obstacles
             for (int i = 0; i < EMath.random.Next(3, 6); ++i)
-                AddObject(new Polygon(new Vector2f(EMath.Random(0, WIDTH), EMath.Random(100, HEIGHT)), EMath.Random(0, 360), Color.Yellow, 0.1f));
-                //AddObject(new OBB(new Vector2f(random.Next(WIDTH), random.Next(100, HEIGHT)), new Vector2f(random.Next(100), random.Next(100)), random.Next(360), Color.Yellow, random.Next(5, 10)));
+                AddObject(new Polygon(new Vector2f(EMath.Random(0, WIDTH), EMath.Random(100, HEIGHT)), EMath.Random(0, 360), Color.Yellow, 0.01f));
         }
 
         //resets obstacles, leaves 1 ball, 2 paddles and 4 walls

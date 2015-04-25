@@ -21,14 +21,12 @@ namespace Pong {
         }
 
         public void moveAi(float y, float veloY, float diff, int height) {
-            if (veloY != 0) {
-                float expectedBall = y + veloY * diff;
-                if (expectedBall < 0)
-                    expectedBall = 0;
-                if (expectedBall > height)
-                    expectedBall = height;
-                current.position = new Vector2f(COM.X, expectedBall); 
-            }
+            float expectedBallY = y + veloY * diff;
+            if (expectedBallY < 0)
+                expectedBallY = 0;
+            if (expectedBallY > height)
+                expectedBallY = height;
+            current.position = new Vector2f(COM.X, expectedBallY); 
         }
     }
 }
