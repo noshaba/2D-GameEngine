@@ -7,17 +7,16 @@ using System.Text;
 
 namespace Pong
 {
-    class Menue : RectangleShape, IGraphic
+    class Menue : GUIElement, IGraphic
     {
         private List<IGraphic> elements = new List<IGraphic>();
         private bool displayed;
         private IGraphic parentView;
 
-        public Menue(Vector2f position, Vector2f size, Color c)
-            : base(size)
+        public Menue(Vector2f position, Vector2f size)
+            : base((uint)position.X, (uint)position.Y, (uint)size.X, (uint)size.Y, "../Content/ButtonActive.png")
         {
             displayed = false;
-            FillColor = c;
             Position = position;
         }
 

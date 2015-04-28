@@ -8,7 +8,7 @@ using SFML.Graphics;
 
 namespace Pong {
     // TODO: change rectangleshape to sprite later..
-    class Button : RectangleShape, IGraphic {
+    class Button : GUIElement, IGraphic {
         public enum Status {
             Pressed, Released, OnHover
         }
@@ -18,10 +18,8 @@ namespace Pong {
         private bool displayed;
         private IGraphic parentView;
 
-        public Button(Vector2f position, Vector2f size, Color color, ActionListener listener) : base(size) {
+        public Button(Vector2f position, Vector2f size, ActionListener listener) : base((uint)position.X, (uint)position.Y, (uint)size.X, (uint)size.Y, "../Content/ButtonActive.png") {
             this.listener = listener;
-            Position = position;
-            FillColor = color;
             status = Status.Released;
             displayed = true;
         }

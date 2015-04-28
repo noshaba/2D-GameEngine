@@ -54,6 +54,7 @@
     <Compile Include="Game\GameObjects\Ball.cs" />
     <Compile Include="GUI\Button.cs" />
     <Compile Include="GUI\Checkbox.cs" />
+    <Compile Include="GUI\GUIElement.cs" />
     <Compile Include="Physics\Shapes\Circle.cs" />
     <Compile Include="Physics\Collision.cs" />
     <Compile Include="Game\Game.cs" />
