@@ -23,7 +23,7 @@ namespace Pong {
         static ContextSettings context = new ContextSettings();
         static Stopwatch timer = new Stopwatch();
         static Stopwatch FPSClock = new Stopwatch();
-        static RenderWindow window = new RenderWindow(new VideoMode(WIDTH, HEIGHT), "Pong!", Styles.Default, context);
+        static RenderWindow window;
 
         static Sprite mouseSprite = new Sprite(new Texture("../Content/Mouse.png"));
 
@@ -49,6 +49,8 @@ namespace Pong {
 
         //initialize window and create event handlers
         private static void InitWindow() {
+            context.AntialiasingLevel = 8;
+            window = new RenderWindow(new VideoMode(WIDTH, HEIGHT), "Pong!", Styles.Default, context);
             window.Closed += window_Closed;
             window.KeyReleased += window_KeyReleased;
             window.MouseMoved += window_MouseMoved;
