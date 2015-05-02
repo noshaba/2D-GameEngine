@@ -11,11 +11,12 @@ namespace Pong {
         private int MAXVERTEXCOUNT = 8;
         private Collision.Type type = Collision.Type.Polygon;
 
-        public Vector2f[] vertices;
-        public Vector2f[] normals;
-
         protected State previous;
         protected State current;
+
+        public Vector2f[] vertices;
+        public Vector2f[] normals;
+        public Plane plane = null;
 
         public Polygon() {}
 
