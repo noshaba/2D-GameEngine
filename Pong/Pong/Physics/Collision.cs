@@ -10,14 +10,13 @@ using SFML.Audio;
 namespace Pong{
     class Collision {
         public enum Type {
-            Circle, Polygon
+            Circle, Polygon, Plane
         }
 
         public bool collision;
         public Vector2f normal;
         public float distance;
         public float overlap;
-        public Vector2f point;
         public Vector2f[] contacts;
         private const float TOLERANCE = 0;
 
@@ -37,6 +36,20 @@ namespace Pong{
         private static void CircleToCircle(IShape obj1, IShape obj2, ref Collision colli) {
             Circle cir1 = obj1 as Circle;
             Circle cir2 = obj2 as Circle;
+            float r = cir1.Radius + cir2.Radius;
+
+            colli.normal = cir1.COM - cir2.COM;
+            colli.distance = colli.normal.Length2();
+            colli.collision = colli.distance < r * r;
+
+            if (colli.collision) {
+                colli.distance = (float) Math.Sqrt(colli.distance);
+                colli.overlap = r - colli.distance;
+                colli.normal /= colli.distance;
+                PullApart(cir1, cir2, colli.normal, colli.overlap);
+                colli.contacts = new Vector2f[1];
+                colli.contacts[0] = cir2.COM + colli.normal * cir2.Radius;
+            }
         }
 
         private static void CircleToPolygon(IShape obj1, IShape obj2, ref Collision colli) {
