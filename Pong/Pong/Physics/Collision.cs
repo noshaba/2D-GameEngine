@@ -10,7 +10,7 @@ using SFML.Audio;
 namespace Pong{
     class Collision {
         public enum Type {
-            Circle, Polygon
+            Circle, Polygon, Plane
         }
 
         public bool collision;
