@@ -129,8 +129,7 @@ namespace Pong {
         }
 
         public void Draw(RenderWindow window, float alpha) {
-            if (phase == "end")
-            {
+            if (phase == "end") {
                 Text t = new Text();
                 t.Font = font;
                 t.CharacterSize = 70;
@@ -144,10 +143,7 @@ namespace Pong {
                     t.DisplayedString = "You Loose";
                 }
                 window.Draw(t);
-            }
-            else
-            {
-
+            } else {
                 State interpol;
                 Transform t;
                 RenderStates r = new RenderStates();
@@ -173,14 +169,12 @@ namespace Pong {
         }
 
 
-        public void toggleSound()
-        {
+        public void toggleSound() {
             this.soundOn = !this.soundOn;
 
         }
 
-        public void Restart()
-        {
+        public void Restart() {
             this.player.score = 0;
             this.ai.score = 0;
             this.playerScore.DisplayedString = this.player.score.ToString();

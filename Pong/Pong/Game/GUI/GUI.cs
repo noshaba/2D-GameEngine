@@ -30,9 +30,8 @@ namespace Pong {
 
 
 
-        private void StartNewGame()
-        {
-            this.game.toggleSound();
+        private void StartNewGame() {
+            this.game.Restart();
         }
     }
 }
