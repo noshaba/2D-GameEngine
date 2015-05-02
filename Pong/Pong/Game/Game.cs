@@ -134,12 +134,9 @@ namespace Pong {
                 t.Font = font;
                 t.CharacterSize = 70;
                 t.Position = new Vector2f(300,200);
-                if (player.score > 4)
-                {
+                if (player.score > 4) {
                     t.DisplayedString = "You Win!";
-                }
-                else
-                {
+                } else {
                     t.DisplayedString = "You Loose";
                 }
                 window.Draw(t);
@@ -147,8 +144,7 @@ namespace Pong {
                 State interpol;
                 Transform t;
                 RenderStates r = new RenderStates();
-                foreach (Shape obj in objects)
-                {
+                foreach (Shape obj in objects) {
                     interpol = (obj as IShape).Interpolation(alpha);
                     t = Transform.Identity;
                     t.Translate(interpol.position);

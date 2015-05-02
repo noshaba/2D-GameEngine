@@ -17,7 +17,7 @@ namespace Pong {
         protected State previous;
         protected State current;
 
-        public Polygon(Color color) : base() {
+        public Polygon(Color color) {
             FillColor = color;
         }
 
@@ -69,7 +69,7 @@ namespace Pong {
             previous = current;
         }
 
-        public void SetBox(float hw, float hh, Vector2f position, float rotation, float density) {
+        public void SetBox(Vector2f position, float hw, float hh, float rotation, float density) {
             SetPointCount(4);
             vertices = new Vector2f[4];
             vertices[0] = new Vector2f(-hw, -hh);
