@@ -25,12 +25,12 @@ namespace Pong{
             return colli;
         }
 
-        private delegate void ObjectCollision(IShape obj1, IShape obj2, ref Collision colli);
+        private delegate void CollisionType(IShape obj1, IShape obj2, ref Collision colli);
 
-        private static ObjectCollision[,] Dispatch = {
+        private static CollisionType[,] Dispatch = {
             { CircleToCircle, CircleToPolygon, CircleToPlane },
             { PolygonToCircle, PolygonToPolygon, PolygonToPlane },
-            { PlaneToCircle, PlaneToPolygon, PlaneToPlane}
+            { PlaneToCircle, PlaneToPolygon, PlaneToPlane }
         };
 
         private static float PointToPlaneDistance(Vector2f point, Plane plane) {
