@@ -17,11 +17,11 @@ namespace Pong {
         public float constant;
         public float thickness;
 
-        public Plane(Vector2f normal, Vector2f position, float orientation, Vector2f size) : base(size) {
+        public Plane(Vector2f normal, Vector2f position, Vector2f size, float orientation) : base(size) {
             Origin = new Vector2f(size.X * .5f, size.Y * .5f);
             current = new State(position, orientation);
             previous = current;
-            thickness = normal.Dot(size) * .5f;
+            thickness = Math.Abs(normal.Dot(size) * .5f);
             this.normal = current.worldTransform * normal;
             constant = position.Dot(this.normal);
         }

@@ -33,14 +33,19 @@ namespace Pong{
             { PlaneToCircle, PlaneToPolygon, PlaneToPlane}
         };
 
+        private static float PointToPlaneDistance(Vector2f point, Plane plane) {
+            return point.Dot(plane.normal) - plane.constant;
+        }
+
         private static void CircleToPlane(IShape obj1, IShape obj2, ref Collision colli) {
             Circle cir = obj1 as Circle;
             Plane plane = obj2 as Plane;
-            colli.distance = cir.COM.Dot(plane.normal) - plane.constant;
-            colli.collision = colli.distance < cir.Radius;
+            float r = cir.Radius + plane.thickness;
+            colli.distance = PointToPlaneDistance(cir.COM, plane);
+            colli.collision = colli.distance < r;
             if (colli.collision) {
                 colli.normal = plane.normal;
-                colli.overlap = cir.Radius - colli.distance;
+                colli.overlap = r - colli.distance;
                 cir.Pull(colli.normal, colli.overlap);
                 colli.contacts = new Vector2f[1];
                 colli.contacts[0] = cir.COM - colli.normal * cir.Radius;
@@ -50,40 +55,45 @@ namespace Pong{
         private static void PolygonToPlane(IShape obj1, IShape obj2, ref Collision colli) {
             Polygon poly = obj1 as Polygon;
             Plane plane = obj2 as Plane;
-            // Transform plane to polygon model space
-            // colli.normal = poly.LocalTransform * (plane.normal - poly.COM) + poly.COM;
             colli.normal = plane.normal;
+            colli.collision = false;
+            float distance = float.MaxValue;
+            colli.distance = float.MaxValue;
+            int v = 0;
+            // look for closest vertex
             for (int i = 0; i < poly.vertices.Length; ++i) {
-                colli.distance = poly.Vertex(i).Dot(colli.normal) - plane.constant;
-                colli.collision = colli.distance < 0;
-                if (colli.collision) {
-                    colli.normal = plane.normal;
-                    colli.overlap = -colli.distance;
-                    poly.Pull(colli.normal, colli.overlap);
-                    if ((poly.Vertex((i + 1) % poly.vertices.Length).Dot(colli.normal) - plane.constant) < 0) {
-                        colli.contacts = new Vector2f[2];
-                        colli.contacts[0] = poly.Vertex(i);
-                        colli.contacts[1] = poly.Vertex((i + 1) % poly.vertices.Length);
-                    }
-                    else if ((poly.Vertex((i - 1 + poly.vertices.Length) % poly.vertices.Length).Dot(colli.normal) - plane.constant) < 0) {
-                        colli.contacts = new Vector2f[2];
-                        colli.contacts[0] = poly.Vertex(i);
-                        colli.contacts[1] = poly.Vertex((i - 1 + poly.vertices.Length) % poly.vertices.Length);
-                    } else {
-                        colli.contacts = new Vector2f[1];
-                        colli.contacts[0] = poly.Vertex(i);
-                    }
-                    break;
+                distance = PointToPlaneDistance(poly.Vertex(i), plane);
+                if (distance < colli.distance && distance < plane.thickness) {
+                    v = i;
+                    colli.collision = true;
+                    colli.distance = distance;
+                    colli.overlap = plane.thickness - colli.distance;
+                }
+            }
+            if (colli.collision) {
+                poly.Pull(colli.normal, colli.overlap);
+                if ((poly.Vertex((v + 1) % poly.vertices.Length).Dot(colli.normal) - plane.constant) < plane.thickness) {
+                    colli.contacts = new Vector2f[2];
+                    colli.contacts[0] = poly.Vertex(v);
+                    colli.contacts[1] = poly.Vertex((v + 1) % poly.vertices.Length);
+                }
+                else if ((poly.Vertex((v - 1 + poly.vertices.Length) % poly.vertices.Length).Dot(colli.normal) - plane.constant) < plane.thickness) {
+                    colli.contacts = new Vector2f[2];
+                    colli.contacts[0] = poly.Vertex(v);
+                    colli.contacts[1] = poly.Vertex((v - 1 + poly.vertices.Length) % poly.vertices.Length);
+                } else {
+                    colli.contacts = new Vector2f[1];
+                    colli.contacts[0] = poly.Vertex(v);
                 }
             }
         }
 
         private static void PlaneToCircle(IShape obj1, IShape obj2, ref Collision colli) {
-            colli.collision = false;
+            CircleToPlane(obj2, obj1, ref colli);
         }
 
         private static void PlaneToPolygon(IShape obj1, IShape obj2, ref Collision colli) {
-            colli.collision = false;
+            PolygonToCircle(obj2, obj1, ref colli);
         }
 
         private static void PlaneToPlane(IShape obj1, IShape obj2, ref Collision colli) {
@@ -119,7 +129,7 @@ namespace Pong{
             float distance;
             for (int i = 0; i < poly.normals.Length; ++i) {
                 distance = (center - poly.vertices[i]).Dot(poly.normals[i]);
-                distance = distance * distance;
+                distance *= distance;
                 if (distance < cir.Radius * cir.Radius) {
                     colli.normal += poly.normals[i];
                     colli.normal = colli.normal.Norm();

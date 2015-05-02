@@ -38,10 +38,10 @@ namespace Pong {
             AddObject(ai);
             AddObject(ball);
             // walls and obstacles
-            AddObject(new Wall(new Vector2f(width * 0.5f, 12.5f), width * .5f, 12.5f, Color.White));
-            AddObject(new Wall(new Vector2f(width * 0.5f, height - 12.5f), width * .5f, 12.5f, Color.White));
-            AddObject(new Wall(new Vector2f(12.5f, height * 0.5f), 12.5f, height * .5f, Color.White));
-            AddObject(new Wall(new Vector2f(width - 12.5f, height * 0.5f), 12.5f, width * .5f, Color.White));
+            AddObject(new Wall(new Vector2f( 0, 1), new Vector2f(width * 0.5f, 12.5f), new Vector2f(width, 25.0f), Color.White));
+            AddObject(new Wall(new Vector2f( 0,-1), new Vector2f(width * 0.5f, height - 12.5f), new Vector2f(width, 25.0f), Color.White));
+            AddObject(new Wall(new Vector2f( 1, 0), new Vector2f(12.5f, height * 0.5f), new Vector2f(25.0f, height), Color.White));
+            AddObject(new Wall(new Vector2f(-1, 0), new Vector2f(width - 12.5f, height * 0.5f), new Vector2f(25.0f, width), Color.White));
             AddObstacles();
             // score
             font = new Font("../Content/arial.ttf");
@@ -94,13 +94,8 @@ namespace Pong {
                 SoundManager.scoreSound.Play();
                 Reset();
             }
-            // if ball too fast or FPS too low
-            if (ball.COM.Y > HEIGHT - 25 || ball.COM.Y < 25) {
-                ball.Current = ball.Previous;
-                ball.Velocity = new Vector2f(ball.Velocity.X, -ball.Velocity.Y);
-            }
 
-            ai.moveAi(ball.COM.Y, ball.Velocity.Y, difficulty, HEIGHT);
+            ai.moveAi(ball.COM.Y, ball.Velocity.Y, difficulty);
 
             ball.IncreaseVelocity(dt);
             physics.Update(dt);

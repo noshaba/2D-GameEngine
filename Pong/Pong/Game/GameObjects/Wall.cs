@@ -7,9 +7,13 @@ using SFML.Graphics;
 using SFML.Window;
 
 namespace Pong {
-    class Wall : Polygon {
-        public Wall(Vector2f position, float hw, float hh, Color color) : base() {
-            SetBox(position, hw, hh, 0);
+    class Wall : Plane {
+
+        public Wall(Vector2f normal, Vector2f position, Vector2f size, Color color) : base(normal, position, size, 0) {
+            FillColor = color;
+        }
+
+        public Wall(Vector2f normal, Vector2f position, Vector2f size, Color color, float orientation) : base(normal, position, size, orientation) {
             FillColor = color;
         }
     }
