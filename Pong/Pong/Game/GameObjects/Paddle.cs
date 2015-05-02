@@ -12,8 +12,9 @@ namespace Pong {
 
         public uint score;
 
-        public Paddle(Vector2f position, float hw, float hh, Color color) : base(color) {
+        public Paddle(Vector2f position, float hw, float hh, Color color) : base() {
             SetBox(position, hw, hh, 0);
+            FillColor = color;
         }
 
         public void move(float y) {

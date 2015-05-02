@@ -7,7 +7,7 @@ using SFML.Graphics;
 using SFML.Window;
 
 namespace Pong {
-    class Polygon : ConvexShape, IShape{
+    class Polygon : ConvexShape, IShape {
         private int MAXVERTEXCOUNT = 8;
         private Collision.Type type = Collision.Type.Polygon;
 
@@ -17,38 +17,32 @@ namespace Pong {
         protected State previous;
         protected State current;
 
-        public Polygon(Color color) {
-            FillColor = color;
-        }
+        public Polygon() {}
 
-        public Polygon(Vector2f position, float rotation, Color color) : base(){
+        public Polygon(Vector2f position, float rotation) : base(){
             InitVertices();
             current = new State(position, rotation);
             previous = current;
-            FillColor = color;
         }
 
-        public Polygon(Vector2f position, float rotation, Color color, float density) : base() {
+        public Polygon(Vector2f position, float rotation, float density) : base() {
             InitVertices();
             InitState(position, rotation, density);
-            FillColor = color;
         }
 
-        public Polygon(Vector2f[] vertices, Vector2f position, float rotation, Color color) : base() {
+        public Polygon(Vector2f[] vertices, Vector2f position, float rotation) : base() {
             this.vertices = vertices;
             for (uint i = 0; i < vertices.Length; ++i)
                 SetPoint(i, vertices[i]);
             current = new State(position, rotation);
             previous = current;
-            FillColor = color;
         }
 
-        public Polygon(Vector2f[] vertices, Vector2f position, float rotation, Color color, float density) : base() {
+        public Polygon(Vector2f[] vertices, Vector2f position, float rotation, float density) : base() {
             this.vertices = vertices;
             for (uint i = 0; i < vertices.Length; ++i)
                 SetPoint(i, vertices[i]);
             InitState(position, rotation, density);
-            FillColor = color;
         }
 
         public void SetBox(Vector2f position, float hw, float hh, float rotation) {

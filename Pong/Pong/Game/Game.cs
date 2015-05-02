@@ -38,18 +38,10 @@ namespace Pong {
             AddObject(ai);
             AddObject(ball);
             // walls and obstacles
-            Polygon wall1 = new Polygon(Color.White);
-            Polygon wall2 = new Polygon(Color.White);
-            Polygon wall3 = new Polygon(Color.White);
-            Polygon wall4 = new Polygon(Color.White);
-            wall1.SetBox(new Vector2f(width * 0.5f, 12.5f), width * .5f, 12.5f, 0);
-            AddObject(wall1);
-            wall2.SetBox(new Vector2f(width * 0.5f, height - 12.5f), width * .5f, 12.5f, 0);
-            AddObject(wall2);
-            wall3.SetBox(new Vector2f(12.5f, height * 0.5f), 12.5f, height * .5f, 0);
-            AddObject(wall3);
-            wall4.SetBox(new Vector2f(width - 12.5f, height * 0.5f), 12.5f, width * .5f, 0);
-            AddObject(wall4);
+            AddObject(new Wall(new Vector2f(width * 0.5f, 12.5f), width * .5f, 12.5f, Color.White));
+            AddObject(new Wall(new Vector2f(width * 0.5f, height - 12.5f), width * .5f, 12.5f, Color.White));
+            AddObject(new Wall(new Vector2f(12.5f, height * 0.5f), 12.5f, height * .5f, Color.White));
+            AddObject(new Wall(new Vector2f(width - 12.5f, height * 0.5f), 12.5f, width * .5f, Color.White));
             AddObstacles();
             // score
             font = new Font("../Content/arial.ttf");
@@ -74,10 +66,10 @@ namespace Pong {
         private void AddObstacles() {
             // static obstacles
             for (int i = 0; i < EMath.random.Next(5, 10); ++i)
-                AddObject(new Polygon(new Vector2f(EMath.Random(0, WIDTH), EMath.Random(100, HEIGHT)), EMath.Random(0, 360), Color.White));
+                AddObject(new Obstacle(new Vector2f(EMath.Random(0, WIDTH), EMath.Random(100, HEIGHT)), EMath.Random(0, 360), Color.White));
             // moveable obstacles
             for (int i = 0; i < EMath.random.Next(3, 6); ++i)
-                AddObject(new Polygon(new Vector2f(EMath.Random(0, WIDTH), EMath.Random(100, HEIGHT)), EMath.Random(0, 360), Color.Yellow, 0.01f));
+                AddObject(new Obstacle(new Vector2f(EMath.Random(0, WIDTH), EMath.Random(100, HEIGHT)), EMath.Random(0, 360), Color.Yellow, 0.01f));
         }
 
         //resets obstacles, leaves 1 ball, 2 paddles and 4 walls
