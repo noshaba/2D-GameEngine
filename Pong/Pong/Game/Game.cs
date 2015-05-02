@@ -96,6 +96,7 @@ namespace Pong {
             }
 
             ai.moveAi(ball.COM.Y, ball.Velocity.Y, difficulty);
+           // player.moveAi(ball.COM.Y, ball.Velocity.Y, 0);
 
             ball.IncreaseVelocity(dt);
             physics.Update(dt);

@@ -33,9 +33,14 @@ namespace Pong{
 
         #region Physical Methods
 
-        //why have dt in parameters when its not in use?
         private void ApplyForces(float dt, int i) {
+            Damping(dt, i);
             AddCollisionImpulse(i);
+        }
+
+        private void Damping(float dt, int i) {
+            objects[i].Velocity -= dt * 0.1f * objects[i].Velocity;
+            objects[i].AngularVelocity -= dt * 0.1f * objects[i].AngularVelocity;
         }
 
         //checks for collision between all objects
