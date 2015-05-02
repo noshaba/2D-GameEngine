@@ -34,6 +34,23 @@ namespace Pong {
             FillColor = color;
         }
 
+        public Polygon(Vector2f[] vertices, Vector2f position, float rotation, Color color) : base() {
+            this.vertices = vertices;
+            for (uint i = 0; i < vertices.Length; ++i)
+                SetPoint(i, vertices[i]);
+            current = new State(position, rotation);
+            previous = current;
+            FillColor = color;
+        }
+
+        public Polygon(Vector2f[] vertices, Vector2f position, float rotation, Color color, float density) : base() {
+            this.vertices = vertices;
+            for (uint i = 0; i < vertices.Length; ++i)
+                SetPoint(i, vertices[i]);
+            InitState(position, rotation, density);
+            FillColor = color;
+        }
+
         public void SetBox(Vector2f position, float hw, float hh, float rotation) {
             SetPointCount(4);
             vertices = new Vector2f[4];
