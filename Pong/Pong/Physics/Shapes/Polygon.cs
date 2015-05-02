@@ -16,7 +16,6 @@ namespace Pong {
 
         public Vector2f[] vertices;
         public Vector2f[] normals;
-        public Plane plane = null;
 
         public Polygon() {}
 

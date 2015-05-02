@@ -10,7 +10,7 @@ using SFML.Audio;
 namespace Pong{
     class Collision {
         public enum Type {
-            Circle, Polygon
+            Circle, Polygon, Plane
         }
 
         public bool collision;
@@ -19,32 +19,24 @@ namespace Pong{
         public float overlap;
         public Vector2f[] contacts;
 
-        public static Collision CheckForCollision(IShape obj, Plane plane) {
-            Collision colli = new Collision();
-            DispatchPlaneCollision[(int) obj.Type](obj, plane, ref colli);
-            return colli;
-        }
-
         public static Collision CheckForCollision(IShape obj1, IShape obj2) {
             Collision colli = new Collision();
-            DispatchObjectCollision[(int) obj1.Type, (int) obj2.Type](obj1, obj2, ref colli);
+            Dispatch[(int)obj1.Type, (int)obj2.Type](obj1, obj2, ref colli);
             return colli;
         }
 
-        private delegate void PlaneCollision(IShape obj, Plane plane, ref Collision colli);
         private delegate void ObjectCollision(IShape obj1, IShape obj2, ref Collision colli);
 
-        private static PlaneCollision[] DispatchPlaneCollision = {
-            CircleToPlane, PolygonToPlane                 
-        };
-        private static ObjectCollision[,] DispatchObjectCollision = {
-            { CircleToCircle, CircleToPolygon },
-            { PolygonToCircle, PolygonToPolygon }
+        private static ObjectCollision[,] Dispatch = {
+            { CircleToCircle, CircleToPolygon, CircleToPlane },
+            { PolygonToCircle, PolygonToPolygon, PolygonToPlane },
+            { PlaneToCircle, PlaneToPolygon, PlaneToPlane}
         };
 
-        private static void CircleToPlane(IShape obj, Plane plane, ref Collision colli) {
-            Circle cir = obj as Circle;
-            colli.distance = obj.COM.Dot(plane.normal) - plane.constant;
+        private static void CircleToPlane(IShape obj1, IShape obj2, ref Collision colli) {
+            Circle cir = obj1 as Circle;
+            Plane plane = obj2 as Plane;
+            colli.distance = cir.COM.Dot(plane.normal) - plane.constant;
             colli.collision = colli.distance < cir.Radius;
             if (colli.collision) {
                 colli.normal = plane.normal;
@@ -55,12 +47,49 @@ namespace Pong{
             }
         }
 
-        private static void PolygonToPlane(IShape obj, Plane plane, ref Collision colli) {
-            Polygon poly = obj as Polygon;
-            for (uint i = 0; i < poly.vertices.Length; ++i) { 
-                
+        private static void PolygonToPlane(IShape obj1, IShape obj2, ref Collision colli) {
+            Polygon poly = obj1 as Polygon;
+            Plane plane = obj2 as Plane;
+            // Transform plane to polygon model space
+            // colli.normal = poly.LocalTransform * (plane.normal - poly.COM) + poly.COM;
+            colli.normal = plane.normal;
+            for (int i = 0; i < poly.vertices.Length; ++i) {
+                colli.distance = poly.Vertex(i).Dot(colli.normal) - plane.constant;
+                colli.collision = colli.distance < 0;
+                if (colli.collision) {
+                    colli.normal = plane.normal;
+                    colli.overlap = -colli.distance;
+                    poly.Pull(colli.normal, colli.overlap);
+                    if ((poly.Vertex((i + 1) % poly.vertices.Length).Dot(colli.normal) - plane.constant) < 0) {
+                        colli.contacts = new Vector2f[2];
+                        colli.contacts[0] = poly.Vertex(i);
+                        colli.contacts[1] = poly.Vertex((i + 1) % poly.vertices.Length);
+                    }
+                    else if ((poly.Vertex((i - 1 + poly.vertices.Length) % poly.vertices.Length).Dot(colli.normal) - plane.constant) < 0) {
+                        colli.contacts = new Vector2f[2];
+                        colli.contacts[0] = poly.Vertex(i);
+                        colli.contacts[1] = poly.Vertex((i - 1 + poly.vertices.Length) % poly.vertices.Length);
+                    } else {
+                        colli.contacts = new Vector2f[1];
+                        colli.contacts[0] = poly.Vertex(i);
+                    }
+                    break;
+                }
             }
         }
+
+        private static void PlaneToCircle(IShape obj1, IShape obj2, ref Collision colli) {
+            colli.collision = false;
+        }
+
+        private static void PlaneToPolygon(IShape obj1, IShape obj2, ref Collision colli) {
+            colli.collision = false;
+        }
+
+        private static void PlaneToPlane(IShape obj1, IShape obj2, ref Collision colli) {
+            colli.collision = false;
+        }
+
 
         private static void CircleToCircle(IShape obj1, IShape obj2, ref Collision colli) {
             Circle cir1 = obj1 as Circle;
@@ -118,7 +147,6 @@ namespace Pong{
 
         private static void PolygonToCircle(IShape obj1, IShape obj2, ref Collision colli) {
             colli.collision = false;
-            return;
         }
 
         private static void PolygonToPolygon(IShape obj1, IShape obj2, ref Collision colli) {
