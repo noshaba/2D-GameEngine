@@ -10,7 +10,7 @@ namespace Pong {
     class Polygon : ConvexShape, IShape {
         private int MAXVERTEXCOUNT = 8;
         private Collision.Type type = Collision.Type.Polygon;
-        private float restitution = 1.0f;
+        private float restitution = (float) EMath.random.NextDouble(); 
         private float staticFriction = (float) EMath.random.NextDouble();
         private float kineticFriction;
 

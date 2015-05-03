@@ -9,7 +9,7 @@ using SFML.Window;
 namespace Pong {
     class Circle : CircleShape, IShape {
         private Collision.Type type = Collision.Type.Circle;
-        private float restitution = 1.0f;
+        private float restitution = (float) EMath.random.NextDouble();
         private float staticFriction = (float) EMath.random.NextDouble();
         private float kineticFriction;
 
@@ -17,14 +17,14 @@ namespace Pong {
         protected State previous;
 
         public Circle(Vector2f position, float radius) : base(radius) {
-            Origin = new Vector2f(radius * .5f, radius * .5f);
+            Origin = new Vector2f(radius, radius);
             current = new State(position, 0);
             previous = current;
             kineticFriction = EMath.Random(0, staticFriction);
         }
         
         public Circle(Vector2f position, float radius, float mass) : base(radius) {
-            Origin = new Vector2f(radius * .5f, radius * .5f);
+            Origin = new Vector2f(radius, radius);
             current = new State(position, 0, mass, mass * radius * radius);
             previous = current;
             kineticFriction = EMath.Random(0, staticFriction);

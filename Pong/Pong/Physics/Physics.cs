@@ -9,8 +9,16 @@ using SFML.Window;
 namespace Pong{
     class Physics {
         private List<IShape> objects = new List<IShape>();
-        private Vector2f gravity = new Vector2f(0, 9.81f);
+        private Vector2f gravity;
+        private float damping;
+        private bool friction;
         public bool frozen = false;
+
+        public Physics(Vector2f gravity, float damping, bool friction) {
+            this.gravity = gravity;
+            this.damping = damping;
+            this.friction = friction;
+        }
 
         public void AddObject(IShape obj) {
             objects.Add(obj);
@@ -35,14 +43,14 @@ namespace Pong{
         #region Physical Methods
 
         private void ApplyForces(float dt, int i) {
-           // Gravity(dt, i);
+            Gravity(dt, i);
             Damping(dt, i);
             AddCollisionImpulse(i);
         }
 
         private void Damping(float dt, int i) {
-            objects[i].Velocity -= dt * 0.1f * objects[i].Velocity;
-            objects[i].AngularVelocity -= dt * 0.1f * objects[i].AngularVelocity;
+            objects[i].Velocity -= dt * damping * objects[i].Velocity;
+            objects[i].AngularVelocity -= dt * damping * objects[i].AngularVelocity;
         }
 
         private void Gravity(float dt, int i) {
@@ -94,27 +102,26 @@ namespace Pong{
             obj1.ApplyImpulse( J, r1);
             obj2.ApplyImpulse(-J, r2);
 
-            // no friction force added yet, because still in "beta"... having SFML problems with the ball's origin
-            return;
+            if (friction) {
+                // aplly friction impule
+                Vector2f t = (rv - n * rv.Dot(n)).Norm();
+                // j tangent magnitude
+                float jt = -rv.Dot(t);
+                jt /= invMassSum;
+                jt /= (float)contacts;
 
-            // aplly friction impule
-            Vector2f t = (rv - n * rv.Dot(n)).Norm();
-            // j tangent magnitude
-            float jt = -rv.Dot(t);
-            jt /= invMassSum;
-            jt /= (float) contacts;
-
-            // Don't apply tiny friction impulses
-            if (Math.Abs(jt) < EMath.EPSILON)
-                return;
-            // Coulumb's law
-            Vector2f T;
-            if (Math.Abs(jt) < j * sf)
-                T = t * jt;
-            else
-                T = t * -j * kf;
-            obj1.ApplyImpulse( T, r1);
-            obj2.ApplyImpulse(-T, r2);
+                // Don't apply tiny friction impulses
+                if (Math.Abs(jt) < EMath.EPSILON)
+                    return;
+                // Coulumb's law
+                Vector2f T;
+                if (Math.Abs(jt) < j * sf)
+                    T = t * jt;
+                else
+                    T = t * -j * kf;
+                obj1.ApplyImpulse(T, r1);
+                obj2.ApplyImpulse(-T, r2);
+            }
         }
 
         #endregion
