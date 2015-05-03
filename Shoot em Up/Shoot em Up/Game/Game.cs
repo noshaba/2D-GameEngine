@@ -32,10 +32,10 @@ namespace Shoot_em_Up {
             MIN_OBJECTS = 1;
             physics = new Physic(new Vector2f(0, 0), .1f, false);
             //this.top = new Wall(new Vector2f(0,width), 1,1,Color.Black);
-            this.right = new Wall(new Vector2f(-1, 0), new Vector2f(width - 2.5f, height * 0.5f), new Vector2f(5.0f, height), Color.White);
-            //this.left = new Wall(new Vector2f( 1, 0), new Vector2f(2.5f, height * 0.5f), new Vector2f(5.0f, height), Color.White);
-            AddObject(this.right);
-            //AddObject(this.left);
+            //this.right = new Wall(new Vector2f(-1, 0), new Vector2f(width - 12.5f, height * 0.5f), new Vector2f(25.0f, height), Color.White);
+            this.left = new Wall(new Vector2f( 1, 0), new Vector2f(2.5f, height * 0.5f), new Vector2f(5.0f, height), Color.White);
+            //AddObject(this.right);
+            AddObject(this.left);
             this.startGame();
         }
 

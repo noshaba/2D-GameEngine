@@ -13,12 +13,11 @@ namespace Shoot_em_Up
     {
         public int life;
         public Astroid(int x, int y)
-            : base(new Vector2f(20.0f, 20.0f), 200)
+            : base(new Vector2f(x, y), 200)
         {
-            this.Position = new Vector2f(x, y);
             this.Texture = new Texture("../Content/dirt.png");
             this.life = 100;
-            this.Velocity = new Vector2f(50,50);
+            this.Velocity = new Vector2f(-50,50);
         }
     }
 }
