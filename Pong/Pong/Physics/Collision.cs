@@ -123,32 +123,69 @@ namespace Physics {
             Polygon poly = obj2 as Polygon;
             // Transform circle center to polygon model space
             Vector2f center = poly.WorldTransform.Transponent * (cir.COM - poly.COM);
-            colli.collision = false;
-            colli.normal = new Vector2f(0, 0);
-            colli.overlap = 0;
-            float distance;
-            for (int i = 0; i < poly.normals.Length; ++i) {
-                distance = (center - poly.vertices[i]).Dot(poly.normals[i]);
-                distance *= distance;
-                if (distance < cir.Radius * cir.Radius) {
-                    colli.normal += poly.normals[i];
-                    colli.normal = colli.normal.Norm();
-                    colli.overlap += (float)Math.Pow(cir.Radius - Math.Sqrt(distance), 2);
-                    Vector2f v = center - colli.normal * cir.Radius;
-                    bool inside = true;
-                    for (uint j = 0; j < poly.normals.Length; ++j){
-                        if ((v - poly.vertices[j]).Dot(poly.normals[j]) > 0) {
-                            inside = false;
-                            break;
-                        }
-                    }
-                    if (inside)
-                        colli.collision = true;
+            colli.distance = float.MinValue;
+            float value;
+            int normal = 0;
+            for (int i = 0; i < poly.vertices.Length; ++i) {
+                value = poly.normals[i].Dot(center - poly.vertices[i]);
+                if (value >= cir.Radius) {
+                    colli.collision = false;
+                    return;
+                }
+                if (value > colli.distance) {
+                    colli.distance = value;
+                    normal = i;
                 }
             }
+            // if center is within polygon
+            if (colli.distance < EMath.EPSILON) {
+                colli.collision = true;
+                colli.overlap = cir.Radius - colli.distance;
+                colli.normal = poly.Normal(normal);
+                PullApart(cir, poly, colli.normal, colli.overlap);
+                colli.contacts = new Vector2f[1];
+                colli.contacts[0] = cir.COM - colli.normal * cir.Radius;
+                return;
+            }
+            // Determine which voronoi region of the edge center of circle lies within
+            Vector2f v1 = poly.vertices[normal];
+            Vector2f v2 = poly.vertices[(normal + 1)%poly.vertices.Length];
+            float dot1 = (center - v1).Dot(v2 - v1);
+            float dot2 = (center - v2).Dot(v1 - v2);
+            // closest to v1
+            if (dot1 < 0) {
+                colli.distance = (center - v1).Length2();
+                if (colli.distance >= cir.Radius * cir.Radius) {
+                    colli.collision = false;
+                    return;
+                }
+                colli.collision = true;
+                colli.distance = (float) Math.Sqrt(colli.distance);
+                colli.normal = (poly.WorldTransform * (center - v1)).Norm();
+            }
+            // closest to v2
+            else if (dot2 < 0) {
+                colli.distance = (center - v2).Length2();
+                if (colli.distance >= cir.Radius * cir.Radius) {
+                    colli.collision = false;
+                    return;
+                }
+                colli.collision = true;
+                colli.distance = (float) Math.Sqrt(colli.distance);
+                colli.normal = (poly.WorldTransform * (center - v2)).Norm();
+            }
+            // closest to edge
+            else {
+                colli.distance = (center - v1).Dot(poly.normals[normal]);
+                if ((center - v1).Dot(poly.normals[normal]) >= cir.Radius) {
+                    colli.collision = false;
+                    return;
+                }
+                colli.collision = true;
+                colli.normal = poly.Normal(normal);
+            }
             if (colli.collision) {
-                colli.normal = poly.WorldTransform * colli.normal.Norm();
-                colli.overlap = (float) Math.Sqrt(colli.overlap);
+                colli.overlap = cir.Radius - colli.distance;
                 PullApart(cir, poly, colli.normal, colli.overlap);
                 colli.contacts = new Vector2f[1];
                 colli.contacts[0] = cir.COM - colli.normal * cir.Radius;

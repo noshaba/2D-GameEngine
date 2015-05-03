@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Game\GameObjects\Ball.cs" />
     <Compile Include="Game\GameObjects\Obstacle.cs" />
+    <Compile Include="Game\GameObjects\RoundObstacle.cs" />
     <Compile Include="Game\GameObjects\Wall.cs" />
     <Compile Include="GUI\Button.cs" />
     <Compile Include="GUI\Checkbox.cs" />

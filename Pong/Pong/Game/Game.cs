@@ -69,9 +69,13 @@ namespace Pong {
             // static obstacles
             for (int i = 0; i < EMath.random.Next(5, 10); ++i)
                 AddObject(new Obstacle(new Vector2f(EMath.Random(0, WIDTH), EMath.Random(100, HEIGHT)), EMath.Random(0, 360), Color.White));
+            for (int i = 0; i < EMath.random.Next(5, 10); ++i)
+                AddObject(new RoundObstacle(new Vector2f(EMath.Random(0, WIDTH), EMath.Random(100, HEIGHT)), EMath.Random(10, 50), Color.White));
             // moveable obstacles
             for (int i = 0; i < EMath.random.Next(3, 6); ++i)
                 AddObject(new Obstacle(new Vector2f(EMath.Random(0, WIDTH), EMath.Random(100, HEIGHT)), EMath.Random(0, 360), Color.Yellow, 0.01f));
+            for (int i = 0; i < EMath.random.Next(3, 6); ++i)
+                AddObject(new RoundObstacle(new Vector2f(EMath.Random(0, WIDTH), EMath.Random(100, HEIGHT)), EMath.Random(10, 50), Color.Yellow, 0.01f));
         }
 
         //resets obstacles, leaves 1 ball, 2 paddles and 4 walls
