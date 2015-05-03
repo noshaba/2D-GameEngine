@@ -80,6 +80,7 @@ namespace GUI {
         public void Draw(RenderWindow window) {
             if (displayed)
                 window.Draw(this);
+                if (this.label != null)
                 window.Draw(this.label);
         }
 
