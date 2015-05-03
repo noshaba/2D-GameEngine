@@ -42,8 +42,14 @@ namespace Shoot_em_Up {
 
         public void Draw(RenderWindow window, float alpha) {
             //all the drawing
+            State interpol;
+            Transform t;
             foreach (Shape obj in objects) {
-                window.Draw(obj);
+                interpol = (obj as IShape).Interpolation(alpha);
+                t = Transform.Identity;
+                t.Translate(interpol.position);
+                t.Rotate(interpol.DegOrientation);
+                window.Draw(obj, new RenderStates(t));
             }
         }
 

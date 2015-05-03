@@ -17,7 +17,7 @@ namespace Shoot_em_Up
             this.Position = new Vector2f(x, y);
             this.Texture = new Texture("../Content/dirt.png");
             this.life = 100;
-            this.current.velocity = new Vector2f(50,50);
+            this.Velocity = new Vector2f(50,50);
         }
     }
 }
