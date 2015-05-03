@@ -24,7 +24,7 @@ namespace Shoot_em_Up {
 
         private void startGame()
         {
-            Console.WriteLine("start Game");
+            game.startGame();
         }
 
     }

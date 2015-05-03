@@ -25,8 +25,7 @@ namespace Shoot_em_Up {
             WIDTH = width;
             HEIGHT = height;
             physics = new Physics();
-            a = new Astroid();
-
+            this.startGame();
         }
 
 
@@ -39,7 +38,17 @@ namespace Shoot_em_Up {
 
         public void Draw(RenderWindow window, float alpha) {
             //all the drawing
-            window.Draw(a);
+            foreach (Shape obj in objects) {
+                window.Draw(obj);
+            }
+        }
+
+        public void startGame()
+        {
+            objects.Clear();
+            a = new Astroid();
+            objects.Add(a);
+
         }
 
     }

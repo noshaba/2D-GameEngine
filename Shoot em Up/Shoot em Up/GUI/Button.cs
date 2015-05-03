@@ -15,12 +15,16 @@ namespace Shoot_em_Up {
         }
         public delegate void ActionListener();
         public Status status;
+        public Text label;
         public ActionListener listener;
         private bool displayed;
         private IGraphic parentView;
 
         public Button(Vector2f position, Vector2f size, ActionListener listener) : base((uint)position.X, (uint)position.Y, (uint)size.X, (uint)size.Y, "../Content/ButtonActive.png") {
             this.listener = listener;
+            this.label = new Text("lalalalalala", new Font("../Content/arial.ttf"));
+            this.label.Position = new Vector2f(position.X+size.X/2, position.Y+size.Y/2);
+           
             status = Status.Released;
             displayed = true;
         }
