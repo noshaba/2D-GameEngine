@@ -18,7 +18,7 @@ namespace Shoot_em_Up{
 
         //why 7? - remove all additional objects except ball, 2 paddles and 4 walls? replace 7 with variable in future
         public void Reset() {
-            objects.RemoveRange(7, objects.Count - 7);
+            objects.Clear();
         }
 
         //updates all objects in the list

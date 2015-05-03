@@ -10,9 +10,9 @@ namespace Shoot_em_Up
 {
     class GUIElement : Transformable, Drawable
     {
-        private Texture img;
-        private uint width;
-        private uint height;
+        protected Texture img;
+        protected uint width;
+        protected uint height;
         private IGraphic parentView;
         private RectangleShape topLeftDest;
         private RectangleShape topCenterDest;
@@ -23,15 +23,20 @@ namespace Shoot_em_Up
         private RectangleShape bottomLeftDest;
         private RectangleShape bottomCenterDest;
         private RectangleShape bottomRightDest;
-        private String path;
+        protected String path;
 
+
+        public GUIElement(uint x, uint y)
+        {
+            this.Position = new Vector2f(x, y);
+        }
         public GUIElement(uint x, uint y, uint w, uint h, String path)
         {
-            if (w <80) {
-                w = 80;
+            if (w <10) {
+                w = 10;
             }
-            if (h <80) {
-                h = 80;
+            if (h <10) {
+                h = 10;
             }
             this.width = w;
             this.height = h;
@@ -40,6 +45,7 @@ namespace Shoot_em_Up
             this.Position = new Vector2f(x,y);
             this.scaleImage();
         }
+
 
         public virtual void Draw(RenderTarget target, RenderStates states)
         {
@@ -84,9 +90,10 @@ namespace Shoot_em_Up
         public void scaleImage()
         {
             Vector2u size = this.img.Size;
+
             uint width = size.X;
             uint height = size.Y;
-            uint margin = 40;
+            uint margin = 4;
 
             //calculate slice coordinates on Image
 
@@ -121,7 +128,7 @@ namespace Shoot_em_Up
             IntRect centerRightSrc = new IntRect((int)rightX, (int)centerY, (int)rightWidth, (int)centerHeight);
 
             //calculate slice positions on the GUI element
-
+           
             //x positions for left, right and center slices
             leftX = 0 + (uint)this.Position.X;
             rightX = this.width - margin + (uint)this.Position.X;
@@ -140,7 +147,7 @@ namespace Shoot_em_Up
             //widths for top, bottom and center slices
             leftWidth = margin;
             rightWidth = margin;
-            centerWidth = this.width - margin*2; 
+            centerWidth = this.width - margin*2;
 
             //determine slice bounds on GUIElement
             this.topLeftDest = new RectangleShape(new Vector2f(leftWidth, topHeight));
@@ -163,7 +170,7 @@ namespace Shoot_em_Up
             this.centerCenterDest.Position = new Vector2f(centerX, centerY);
             this.centerRightDest = new RectangleShape(new Vector2f(rightWidth, centerHeight));
             this.centerRightDest.Position = new Vector2f(rightX, centerY);
-
+            
             //place slices on GUIElement
             this.topLeftDest.Texture = new Texture(path, topLeftSrc);
             this.topCenterDest.Texture = new Texture(path, topCenterSrc);
@@ -174,7 +181,6 @@ namespace Shoot_em_Up
             this.bottomLeftDest.Texture = new Texture(path, bottomLeftSrc);
             this.bottomCenterDest.Texture = new Texture(path, bottomCenterSrc);
             this.bottomRightDest.Texture = new Texture(path, bottomRightSrc);
-
         }
 
         public FloatRect GetGlobalBounds()

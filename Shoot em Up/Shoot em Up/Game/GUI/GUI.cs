@@ -15,9 +15,9 @@ namespace Shoot_em_Up {
 
         public GUI(int width, int height, Game g) : base(new Vector2f(0, 0), new Vector2f(width, height)) {
             game = g;
-            menue = new Menue(new Vector2f(0,0), new Vector2f(480, 20));
+            menue = new Menue(new Vector2f(0,0), new Vector2f(480, 60));
             menue.Displayed = true;
-            start = new Button(new Vector2f(10,10), new Vector2f(30,10), startGame);
+            start = new Button(10, 10, "Start Game!", startGame);
             menue.Add(start);
             Add(menue);
         }
