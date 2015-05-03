@@ -6,13 +6,16 @@ using System.Threading.Tasks;
 using SFML.System;
 using SFML.Graphics;
 using SFML.Audio;
+using Maths;
+using Physics;
+using FileManager;
 
 namespace Pong {
     class Game {
         private Paddle ai;
         private Paddle player;
         private Ball ball;
-        private Physics physics;
+        private Physic physics;
         private List<IShape> objects = new List<IShape>();
         private int WIDTH;
         private int HEIGHT;
@@ -27,7 +30,7 @@ namespace Pong {
         public Game(int width, int height) {
             WIDTH = width;
             HEIGHT = height;
-            physics = new Physics(new Vector2f(0, 0), .1f, false);
+            physics = new Physic(new Vector2f(0, 0), .1f, false);
             // game elements
             player = new Paddle(new Vector2f(50, height * 0.5f), 12.5f, 50, Color.Cyan);
             ai = new Paddle(new Vector2f(width - 50, height * 0.5f), 12.5f, 50, Color.Green);

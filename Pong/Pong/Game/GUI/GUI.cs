@@ -5,9 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using SFML.System;
 using SFML.Graphics;
+using GUI;
 
 namespace Pong {
-    class GUI : View {
+    class GUI : GUIView {
         Button options;
         Button restart;
         GUIElement test;

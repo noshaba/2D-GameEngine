@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using SFML.System;
 using SFML.Graphics;
+using Maths;
 
-namespace Pong {
+namespace Physics {
     class Plane : RectangleShape, IShape {
         private Collision.Type type = Collision.Type.Plane;
         private float restitution = (float) EMath.random.NextDouble();

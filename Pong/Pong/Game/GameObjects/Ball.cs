@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
+using Maths;
+using Physics;
 
 namespace Pong {
     class Ball : Circle {

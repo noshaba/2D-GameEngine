@@ -5,7 +5,7 @@ using System.Text;
 using SFML.Graphics;
 using SFML.System;
 
-namespace Pong {
+namespace GUI {
     class Menue : GUIElement, IGraphic {
         private List<IGraphic> elements = new List<IGraphic>();
         private bool displayed;

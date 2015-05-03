@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
 
-namespace Pong {
+namespace GUI {
     interface IGraphic{
         bool Displayed { get; set; }
         void Draw(RenderWindow window);

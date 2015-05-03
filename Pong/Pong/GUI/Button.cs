@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using SFML.System;
 using SFML.Graphics;
 
-namespace Pong {
+namespace GUI {
     // TODO: change rectangleshape to sprite later..
     class Button : GUIElement, IGraphic {
         public enum Status {

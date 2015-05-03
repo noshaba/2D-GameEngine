@@ -5,16 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using SFML.System;
 using SFML.Graphics;
+using Maths;
 
-namespace Pong{
-    class Physics {
+namespace Physics {
+    class Physic {
         private List<IShape> objects = new List<IShape>();
         private Vector2f gravity;
         private float damping;
         private bool friction;
         public bool frozen = false;
 
-        public Physics(Vector2f gravity, float damping, bool friction) {
+        public Physic(Vector2f gravity, float damping, bool friction) {
             this.gravity = gravity;
             this.damping = damping;
             this.friction = friction;

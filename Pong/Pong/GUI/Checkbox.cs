@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
 
-namespace Pong {
+namespace GUI {
     class Checkbox : RectangleShape, IGraphic {
         public enum Status {
             Pressed, Released, OnHover

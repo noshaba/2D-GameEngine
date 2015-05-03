@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
+using Maths;
 
-namespace Pong{
+namespace Physics {
     class Collision {
         public enum Type {
             Circle, Polygon, Plane
@@ -206,12 +207,12 @@ namespace Pong{
             }
         }
 
-        private static float[] Projection(Polygon poly1, Vector2f n) {
+        private static float[] Projection(Polygon poly, Vector2f n) {
             float[] projection = new float[2];
             float value;
-            projection[0] = projection[1] = n.Dot(poly1.Vertex(0));
-            for (uint i = 1; i < poly1.vertices.Length; ++i) {
-                value = n.Dot(poly1.Vertex(i));
+            projection[0] = projection[1] = n.Dot(poly.Vertex(0));
+            for (uint i = 1; i < poly.vertices.Length; ++i) {
+                value = n.Dot(poly.Vertex(i));
                 projection[0] = Math.Min(value, projection[0]);
                 projection[1] = Math.Max(value, projection[1]);
             }

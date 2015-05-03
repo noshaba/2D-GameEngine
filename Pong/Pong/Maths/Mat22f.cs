@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SFML.System;
 
-namespace Pong {
+namespace Maths {
     class Mat22f {
         private float[,] mat = new float[2, 2];
         public Mat22f(float m00, float m01, float m10, float m11){

@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SFML.System;
+using Maths;
 
-namespace Pong {
+namespace Physics {
     class State {
 
         // primary physics state

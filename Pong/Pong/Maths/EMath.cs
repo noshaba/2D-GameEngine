@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pong {
+namespace Maths {
     public static class EMath {
         public static float EPSILON = 0.0001f;
         public static Random random = new Random();

@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
 
-namespace Pong {
-    class View : RectangleShape, IGraphic{
+namespace GUI {
+    class GUIView : RectangleShape, IGraphic{
         private List<IGraphic> children = new List<IGraphic>();
         private bool displayed;
         private IGraphic parentView;
 
-        public View(Vector2f position, Vector2f size) : base(size) {
+        public GUIView (Vector2f position, Vector2f size) : base(size) {
             displayed = true;
             parentView = null;
         }

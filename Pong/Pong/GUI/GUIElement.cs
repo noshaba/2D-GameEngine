@@ -5,7 +5,7 @@ using System.Text;
 using SFML.Graphics;
 using SFML.System;
 
-namespace Pong {
+namespace GUI {
     class GUIElement : Transformable, Drawable {
         private Texture img;
         private uint width;

@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
+using Maths;
 
-namespace Pong {
+namespace Physics {
     class Circle : CircleShape, IShape {
         private Collision.Type type = Collision.Type.Circle;
         private float restitution = (float) EMath.random.NextDouble();

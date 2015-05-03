@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
+using Maths;
 
-namespace Pong {
+namespace Physics {
     class Polygon : ConvexShape, IShape {
         private int MAXVERTEXCOUNT = 8;
         private Collision.Type type = Collision.Type.Polygon;

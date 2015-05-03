@@ -72,7 +72,7 @@
     <Compile Include="Maths\Mat22f.cs" />
     <Compile Include="GUI\Menue.cs" />
     <Compile Include="Game\GameObjects\Paddle.cs" />
-    <Compile Include="Physics\Physics.cs" />
+    <Compile Include="Physics\Physic.cs" />
     <Compile Include="Physics\Shapes\Plane.cs" />
     <Compile Include="Physics\Shapes\Polygon.cs" />
     <Compile Include="Game\Program.cs" />
@@ -81,7 +81,7 @@
     <Compile Include="Physics\State.cs" />
     <Compile Include="Maths\EMath.cs" />
     <Compile Include="Maths\Vec2fMath.cs" />
-    <Compile Include="GUI\View.cs" />
+    <Compile Include="GUI\GUIView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
