@@ -22,11 +22,44 @@ namespace Shoot_em_Up {
 
         public Button(Vector2f position, Vector2f size, ActionListener listener) : base((uint)position.X, (uint)position.Y, (uint)size.X, (uint)size.Y, "../Content/ButtonActive.png") {
             this.listener = listener;
-            this.label = new Text("lalalalalala", new Font("../Content/arial.ttf"));
-            this.label.Position = new Vector2f(position.X+size.X/2, position.Y+size.Y/2);
            
             status = Status.Released;
             displayed = true;
+        }
+
+        public Button(uint x, uint y, String text, ActionListener listener) : base(x,y)
+        {
+            this.listener = listener;
+            status = Status.Released;
+            displayed = true;
+
+            this.label = new Text(text, new Font("../Content/arial.ttf"));
+            this.label.CharacterSize = 12;
+            FloatRect labelPos = this.label.GetLocalBounds();
+
+            uint margin = 5;
+
+            this.height = (uint)labelPos.Height + margin*2;
+            this.width = (uint)labelPos.Width + margin*2;
+
+            if (this.height < 10)
+                this.height = 10 + margin*2;
+
+            if (this.width < 10)
+                this.width = 10 + margin * 2;
+
+            this.path = "../Content/ButtonActive.png";
+            this.img = new Texture(path);
+            
+            this.label.Color = Color.Black;
+
+            float py = (this.height - labelPos.Height) / 2 - 2;
+            float px = (this.width - labelPos.Width) / 2;
+
+            this.label.Position = new Vector2f(x+px, y+py);
+
+            this.scaleImage();
+            
         }
 
         public IGraphic ParentView {
@@ -46,6 +79,7 @@ namespace Shoot_em_Up {
         public void Draw(RenderWindow window) {
             if (displayed)
                 window.Draw(this);
+                window.Draw(this.label);
         }
 
         public void Released(float X, float Y) {
