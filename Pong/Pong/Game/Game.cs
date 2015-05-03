@@ -8,7 +8,6 @@ using SFML.Graphics;
 using SFML.Audio;
 using Maths;
 using Physics;
-using FileManager;
 
 namespace Pong {
     class Game {
