@@ -29,12 +29,12 @@ namespace Shoot_em_Up {
         public Game(int width, int height) {
             WIDTH = width;
             HEIGHT = height;
-            MIN_OBJECTS = 1;
+            MIN_OBJECTS = 2;
             physics = new Physic(new Vector2f(0, 0), .1f, false);
             //this.top = new Wall(new Vector2f(0,width), 1,1,Color.Black);
-            //this.right = new Wall(new Vector2f(-1, 0), new Vector2f(width - 12.5f, height * 0.5f), new Vector2f(25.0f, height), Color.White);
-            this.left = new Wall(new Vector2f( 1, 0), new Vector2f(2.5f, height * 0.5f), new Vector2f(5.0f, height), Color.White);
-            //AddObject(this.right);
+            this.right = new Wall(new Vector2f(-1, 0), new Vector2f(width - 0.5f, height * 0.5f), new Vector2f(1.0f, height), Color.Black);
+            this.left = new Wall(new Vector2f( 1, 0), new Vector2f(0.5f, height * 0.5f), new Vector2f(1.0f, height), Color.Black);
+            AddObject(this.right);
             AddObject(this.left);
             this.startGame();
         }
