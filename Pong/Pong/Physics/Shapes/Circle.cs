@@ -24,8 +24,9 @@ namespace Physics {
             kineticFriction = EMath.Random(0, staticFriction);
         }
         
-        public Circle(Vector2f position, float radius, float mass) : base(radius) {
+        public Circle(Vector2f position, float radius, float density) : base(radius) {
             Origin = new Vector2f(radius, radius);
+            float mass = (float) Math.PI * radius * radius * density;
             current = new State(position, 0, mass, mass * radius * radius);
             previous = current;
             kineticFriction = EMath.Random(0, staticFriction);

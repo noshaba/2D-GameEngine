@@ -16,7 +16,7 @@ namespace Pong {
         private Vector2f initPosition;
         private const float MAXVELOCITY2 = 40000;
 
-        public Ball(Vector2f position, float radius, Color color, float mass) : base(position, radius, mass) {
+        public Ball(Vector2f position, float radius, Color color, float density) : base(position, radius, density) {
             initPosition = position;
             FillColor = color;
             Restitution = 1.0f;
