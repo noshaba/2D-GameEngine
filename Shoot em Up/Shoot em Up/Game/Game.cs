@@ -28,11 +28,15 @@ namespace Shoot_em_Up {
             this.startGame();
         }
 
-
+        private void AddObject(IShape obj)
+        {
+            objects.Add(obj);
+            physics.AddObject(obj);
+        }
 
         public void Update(float dt) {
             //all the updating
-            a.Update(dt);
+            physics.Update(dt);
         }
 
 
@@ -46,8 +50,9 @@ namespace Shoot_em_Up {
         public void startGame()
         {
             objects.Clear();
-            a = new Astroid();
-            objects.Add(a);
+            physics.Reset();
+            this.AddObject(new Astroid(350, 140));
+            this.AddObject(new Astroid(50, 200));
 
         }
 
