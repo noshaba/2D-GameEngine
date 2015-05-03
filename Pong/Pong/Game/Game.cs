@@ -31,7 +31,7 @@ namespace Pong {
             // game elements
             player = new Paddle(new Vector2f(50, height * 0.5f), 12.5f, 50, Color.Cyan);
             ai = new Paddle(new Vector2f(width - 50, height * 0.5f), 12.5f, 50, Color.Green);
-            ball = new Ball(new Vector2f(width * 0.5f, 50), 12.5f, Color.Red, 10);
+            ball = new Ball(new Vector2f(width * 0.5f, 50), 12.5f, Color.Red, 1);
             //determimes difficulty of the AI enemy 0.0=unbeatable, 1.0=easy 
             difficulty = 0.5f;
             AddObject(player);

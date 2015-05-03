@@ -9,6 +9,9 @@ using SFML.Graphics;
 namespace Pong {
     class Plane : RectangleShape, IShape {
         private Collision.Type type = Collision.Type.Plane;
+        private float restitution = (float) EMath.random.NextDouble();
+        private float staticFriction = (float) EMath.random.NextDouble();
+        private float kineticFriction;
 
         protected State previous;
         protected State current;
@@ -24,6 +27,7 @@ namespace Pong {
             thickness = Math.Abs(normal.Dot(size) * .5f);
             this.normal = current.worldTransform * normal;
             constant = position.Dot(this.normal);
+            kineticFriction = EMath.Random(0, staticFriction);
         }
 
         public Collision.Type Type {
@@ -69,6 +73,21 @@ namespace Pong {
 
         public float InverseInertia {
             get { return current.inverseInertiaTensor; }
+        }
+
+        public float Restitution {
+            get { return restitution; }
+            set { restitution = value; }
+        }
+
+        public float StaticFriction {
+            get { return staticFriction; }
+            set { staticFriction = value; }
+        }
+
+        public float KineticFriction {
+            get { return kineticFriction; }
+            set { kineticFriction = value; }
         }
 
         public Vector2f Velocity {

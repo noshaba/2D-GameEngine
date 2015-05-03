@@ -9,6 +9,9 @@ using SFML.Window;
 namespace Pong {
     class Circle : CircleShape, IShape {
         private Collision.Type type = Collision.Type.Circle;
+        private float restitution = 1.0f;
+        private float staticFriction = (float) EMath.random.NextDouble();
+        private float kineticFriction;
 
         protected State current;
         protected State previous;
@@ -17,12 +20,15 @@ namespace Pong {
             Origin = new Vector2f(radius * .5f, radius * .5f);
             current = new State(position, 0);
             previous = current;
+            kineticFriction = EMath.Random(0, staticFriction);
         }
         
         public Circle(Vector2f position, float radius, float mass) : base(radius) {
             Origin = new Vector2f(radius * .5f, radius * .5f);
-            current = new State(position, 0, mass, (float)(Math.PI * 0.25 * Math.Pow(radius, 4)));
+            current = new State(position, 0, mass, mass * radius * radius);
             previous = current;
+            kineticFriction = EMath.Random(0, staticFriction);
+            // Console.WriteLine("Ball " + mass);
         }
 
         public Collision.Type Type {
@@ -68,6 +74,21 @@ namespace Pong {
 
         public float InverseInertia {
             get { return current.inverseInertiaTensor; }
+        }
+
+        public float Restitution {
+            get { return restitution; }
+            set { restitution = value; }
+        }
+
+        public float StaticFriction {
+            get { return staticFriction; }
+            set { staticFriction = value; }
+        }
+
+        public float KineticFriction {
+            get { return kineticFriction; }
+            set { kineticFriction = value; }
         }
 
         public Vector2f Velocity {
