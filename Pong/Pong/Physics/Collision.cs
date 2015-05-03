@@ -21,11 +21,11 @@ namespace Physics {
 
         public static Collision CheckForCollision(IShape obj1, IShape obj2) {
             Collision colli = new Collision();
-            Dispatch[(int)obj1.Type, (int)obj2.Type](obj1, obj2, ref colli);
+            Dispatch[(int)obj1.Type, (int)obj2.Type](obj1, obj2, colli);
             return colli;
         }
 
-        private delegate void CollisionType(IShape obj1, IShape obj2, ref Collision colli);
+        private delegate void CollisionType(IShape obj1, IShape obj2, Collision colli);
 
         private static CollisionType[,] Dispatch = {
             { CircleToCircle, CircleToPolygon, CircleToPlane },
@@ -37,7 +37,7 @@ namespace Physics {
             return point.Dot(plane.normal) - plane.constant;
         }
 
-        private static void CircleToPlane(IShape obj1, IShape obj2, ref Collision colli) {
+        private static void CircleToPlane(IShape obj1, IShape obj2, Collision colli) {
             Circle cir = obj1 as Circle;
             Plane plane = obj2 as Plane;
             float r = cir.Radius + plane.thickness;
@@ -52,7 +52,7 @@ namespace Physics {
             }
         }
 
-        private static void PolygonToPlane(IShape obj1, IShape obj2, ref Collision colli) {
+        private static void PolygonToPlane(IShape obj1, IShape obj2, Collision colli) {
             Polygon poly = obj1 as Polygon;
             Plane plane = obj2 as Plane;
             colli.normal = plane.normal;
@@ -88,20 +88,20 @@ namespace Physics {
             }
         }
 
-        private static void PlaneToCircle(IShape obj1, IShape obj2, ref Collision colli) {
-            CircleToPlane(obj2, obj1, ref colli);
+        private static void PlaneToCircle(IShape obj1, IShape obj2, Collision colli) {
+            CircleToPlane(obj2, obj1,  colli);
         }
 
-        private static void PlaneToPolygon(IShape obj1, IShape obj2, ref Collision colli) {
-            PolygonToPlane(obj2, obj1, ref colli);
+        private static void PlaneToPolygon(IShape obj1, IShape obj2, Collision colli) {
+            PolygonToPlane(obj2, obj1,  colli);
         }
 
-        private static void PlaneToPlane(IShape obj1, IShape obj2, ref Collision colli) {
+        private static void PlaneToPlane(IShape obj1, IShape obj2, Collision colli) {
             colli.collision = false;
         }
 
 
-        private static void CircleToCircle(IShape obj1, IShape obj2, ref Collision colli) {
+        private static void CircleToCircle(IShape obj1, IShape obj2, Collision colli) {
             Circle cir1 = obj1 as Circle;
             Circle cir2 = obj2 as Circle;
             float r = cir1.Radius + cir2.Radius;
@@ -118,7 +118,7 @@ namespace Physics {
             }
         }
 
-        private static void CircleToPolygon(IShape obj1, IShape obj2, ref Collision colli) {
+        private static void CircleToPolygon(IShape obj1, IShape obj2, Collision colli) {
             Circle cir = obj1 as Circle;
             Polygon poly = obj2 as Polygon;
             // Transform circle center to polygon model space
@@ -192,11 +192,11 @@ namespace Physics {
             }
         }
 
-        private static void PolygonToCircle(IShape obj1, IShape obj2, ref Collision colli) {
-            CircleToPolygon(obj2, obj1, ref colli);
+        private static void PolygonToCircle(IShape obj1, IShape obj2,  Collision colli) {
+            CircleToPolygon(obj2, obj1,  colli);
         }
 
-        private static void PolygonToPolygon(IShape obj1, IShape obj2, ref Collision colli) {
+        private static void PolygonToPolygon(IShape obj1, IShape obj2,  Collision colli) {
             Polygon poly1 = obj1 as Polygon;
             Polygon poly2 = obj2 as Polygon;
             Vector2f T = poly2.COM - poly1.COM;
@@ -222,11 +222,11 @@ namespace Physics {
             }
             if (colli.collision) {
                 PullApart(poly1, poly2, colli.normal, colli.overlap);
-                ContactPoints(poly1, poly2, colli.normal, ref colli);
+                ContactPoints(poly1, poly2, colli.normal,  colli);
             }
         }
 
-        private static void ContactPoints(Polygon poly1, Polygon poly2, Vector2f n, ref Collision colli) {
+        private static void ContactPoints(Polygon poly1, Polygon poly2, Vector2f n,  Collision colli) {
             List<Vector2f> support1 = poly1.GetSupport(n);
             List<Vector2f> support2 = poly2.GetSupport(-n);
             List<Vector2f> buffer = new List<Vector2f>();

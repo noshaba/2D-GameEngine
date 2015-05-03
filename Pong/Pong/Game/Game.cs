@@ -29,22 +29,16 @@ namespace Pong {
         public Game(int width, int height) {
             WIDTH = width;
             HEIGHT = height;
-            physics = new Physic(new Vector2f(0, 0), .1f, false);
             // game elements
             player = new Paddle(new Vector2f(50, height * 0.5f), 12.5f, 50, Color.Cyan);
             ai = new Paddle(new Vector2f(width - 50, height * 0.5f), 12.5f, 50, Color.Green);
             ball = new Ball(new Vector2f(width * 0.5f, 50), 12.5f, Color.Red, 0.01f);
             //determimes difficulty of the AI enemy 0.0=unbeatable, 1.0=easy 
             difficulty = 0.5f;
-            AddObject(player);
-            AddObject(ai);
-            AddObject(ball);
-            // walls and obstacles
-            AddObject(new Wall(new Vector2f( 0, 1), new Vector2f(width * 0.5f, 12.5f), new Vector2f(width, 25.0f), Color.White));
-            AddObject(new Wall(new Vector2f( 0,-1), new Vector2f(width * 0.5f, height - 12.5f), new Vector2f(width, 25.0f), Color.White));
-            AddObject(new Wall(new Vector2f( 1, 0), new Vector2f(12.5f, height * 0.5f), new Vector2f(25.0f, height), Color.White));
-            AddObject(new Wall(new Vector2f(-1, 0), new Vector2f(width - 12.5f, height * 0.5f), new Vector2f(25.0f, width), Color.White));
+            AddGameObjects();
+            AddWalls();
             AddObstacles();
+            physics = new Physic(new Vector2f(0, 0), .1f, false, objects);
             // score
             font = new Font("../Content/arial.ttf");
             playerScore = new Text(player.score.ToString(), font, 50);
@@ -61,7 +55,19 @@ namespace Pong {
 
         private void AddObject(IShape obj) {
             objects.Add(obj);
-            physics.AddObject(obj);
+        }
+
+        private void AddGameObjects() {
+            AddObject(player);
+            AddObject(ai);
+            AddObject(ball);
+        }
+
+        private void AddWalls() {
+            AddObject(new Wall(new Vector2f(0, 1), new Vector2f(WIDTH * 0.5f, 12.5f), new Vector2f(WIDTH, 25.0f), Color.White));
+            AddObject(new Wall(new Vector2f(0, -1), new Vector2f(WIDTH * 0.5f, HEIGHT - 12.5f), new Vector2f(WIDTH, 25.0f), Color.White));
+            AddObject(new Wall(new Vector2f(1, 0), new Vector2f(12.5f, HEIGHT * 0.5f), new Vector2f(25.0f, HEIGHT), Color.White));
+            AddObject(new Wall(new Vector2f(-1, 0), new Vector2f(WIDTH - 12.5f, HEIGHT * 0.5f), new Vector2f(25.0f, WIDTH), Color.White));
         }
 
         //adds random obstacles
@@ -81,7 +87,6 @@ namespace Pong {
         //resets obstacles, leaves 1 ball, 2 paddles and 4 walls
         private void ResetObstacles() {
             objects.RemoveRange(7, objects.Count - 7);
-            physics.Reset();
             AddObstacles();
         }
 

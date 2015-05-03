@@ -9,25 +9,17 @@ using Maths;
 
 namespace Physics {
     class Physic {
-        private List<IShape> objects = new List<IShape>();
+        private List<IShape> objects;
         private Vector2f gravity;
         private float damping;
         private bool friction;
         public bool frozen = false;
 
-        public Physic(Vector2f gravity, float damping, bool friction) {
+        public Physic(Vector2f gravity, float damping, bool friction, List<IShape> objects) {
             this.gravity = gravity;
             this.damping = damping;
             this.friction = friction;
-        }
-
-        public void AddObject(IShape obj) {
-            objects.Add(obj);
-        }
-
-        //why 7? - remove all additional objects except ball, 2 paddles and 4 walls? replace 7 with variable in future
-        public void Reset() {
-            objects.RemoveRange(7, objects.Count - 7);
+            this.objects = objects;
         }
 
         //updates all objects in the list
