@@ -12,7 +12,6 @@ namespace Shoot_em_Up {
     class GUI : GUIView {
         Menue menue;
         Button start;
-        Button test;
         Game game;
 
         public GUI(int width, int height, Game g) : base(new Vector2f(0, 0), new Vector2f(width, height)) {
@@ -20,9 +19,7 @@ namespace Shoot_em_Up {
             menue = new Menue(new Vector2f(0,0), new Vector2f(480, 60));
             menue.Displayed = true;
             start = new Button(10, 10, "Start Game!", startGame);
-            test = new Button(new Vector2f(200,10), new Vector2f(50,50), startGame);
             menue.Add(start);
-            menue.Add(test);
             Add(menue);
         }
 

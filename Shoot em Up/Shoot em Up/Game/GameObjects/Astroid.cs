@@ -15,7 +15,7 @@ namespace Shoot_em_Up
         public Astroid(int x, int y)
             : base(new Vector2f(x, y), 200, 0.01f)
         {
-            this.Texture = new Texture("../Content/dirt.png");
+            this.Texture = new Texture("../Content/astroid.png");
             this.life = 100;
             this.Velocity = new Vector2f(50,10);
         }
