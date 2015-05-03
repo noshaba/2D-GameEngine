@@ -17,12 +17,15 @@ namespace Shoot_em_Up {
         private List<IShape> objects = new List<IShape>();
         private int WIDTH;
         private int HEIGHT;
+
+        private Astroid a;
         
         //constructor
         public Game(int width, int height) {
             WIDTH = width;
             HEIGHT = height;
             physics = new Physics();
+            a = new Astroid();
 
         }
 
@@ -30,11 +33,13 @@ namespace Shoot_em_Up {
 
         public void Update(float dt) {
             //all the updating
+            a.Update(dt);
         }
 
 
         public void Draw(RenderWindow window, float alpha) {
             //all the drawing
+            window.Draw(a);
         }
 
     }
