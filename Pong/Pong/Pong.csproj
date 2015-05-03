@@ -67,6 +67,7 @@
     <Compile Include="GUI\Menue.cs" />
     <Compile Include="Game\GameObjects\Paddle.cs" />
     <Compile Include="Physics\Physics.cs" />
+    <Compile Include="Physics\Shapes\Plane.cs" />
     <Compile Include="Physics\Shapes\Polygon.cs" />
     <Compile Include="Game\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

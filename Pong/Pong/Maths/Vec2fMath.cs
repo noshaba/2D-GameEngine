@@ -29,14 +29,14 @@ namespace Pong {
         }
 
         public static Vector2f Rotate(this Vector2f vec, float radians) {
-            float c = (float)Math.Cos(radians);
-            float s = (float)Math.Sin(radians);
+            float c = (float) Math.Cos(radians);
+            float s = (float) Math.Sin(radians);
             return new Vector2f(c * vec.X - s * vec.Y, s * vec.X + c * vec.Y);
         }
 
         public static Vector2f TransRotate(this Vector2f vec, float radians) {
-            float c = (float)Math.Cos(radians);
-            float s = (float)Math.Sin(radians);
+            float c = (float) Math.Cos(radians);
+            float s = (float) Math.Sin(radians);
             return new Vector2f(c * vec.X + s * vec.Y, -s * vec.X + c * vec.Y);
         }
 
