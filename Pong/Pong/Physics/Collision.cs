@@ -93,7 +93,7 @@ namespace Physics {
         }
 
         private static void PlaneToPolygon(IShape obj1, IShape obj2, ref Collision colli) {
-            PolygonToCircle(obj2, obj1, ref colli);
+            PolygonToPlane(obj2, obj1, ref colli);
         }
 
         private static void PlaneToPlane(IShape obj1, IShape obj2, ref Collision colli) {
@@ -193,7 +193,7 @@ namespace Physics {
         }
 
         private static void PolygonToCircle(IShape obj1, IShape obj2, ref Collision colli) {
-            colli.collision = false;
+            CircleToPolygon(obj2, obj1, ref colli);
         }
 
         private static void PolygonToPolygon(IShape obj1, IShape obj2, ref Collision colli) {
