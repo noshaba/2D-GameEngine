@@ -13,7 +13,7 @@ namespace Shoot_em_Up
     {
         public int life;
         public Astroid(int x, int y)
-            : base(new Vector2f(x, y), 200)
+            : base(new Vector2f(x, y), 200, 0.01f)
         {
             this.Texture = new Texture("../Content/dirt.png");
             this.life = 100;
