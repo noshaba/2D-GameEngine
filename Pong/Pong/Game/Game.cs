@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SFML.Window;
+using SFML.System;
 using SFML.Graphics;
 using SFML.Audio;
 
@@ -131,14 +131,12 @@ namespace Pong {
             } else {
                 State interpol;
                 Transform t;
-                RenderStates r = new RenderStates();
                 foreach (Shape obj in objects) {
                     interpol = (obj as IShape).Interpolation(alpha);
                     t = Transform.Identity;
                     t.Translate(interpol.position);
                     t.Rotate(interpol.DegOrientation);
-                    r.Transform = t;
-                    window.Draw(obj, r);
+                    window.Draw(obj, new RenderStates(t));
                 }
                 window.Draw(playerScore);
                 window.Draw(aiScore);

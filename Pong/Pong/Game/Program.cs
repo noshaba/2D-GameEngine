@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Diagnostics;
 using SFML.Graphics;
+using SFML.System;
 using SFML.Window;
 using SFML.Audio;
 
@@ -38,7 +39,7 @@ namespace Pong {
             timer.Start();
             float frameStart = timer.ElapsedMilliseconds / 1000.0f;
             //game loop
-            while (window.IsOpen()) {
+            while (window.IsOpen) {
                 window.DispatchEvents();
                 window.Clear();
                 Update(ref frameStart);

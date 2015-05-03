@@ -1,14 +1,12 @@
-﻿using SFML.Graphics;
-using SFML.Window;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SFML.Graphics;
+using SFML.System;
 
-namespace Pong
-{
-    class GUIElement : Transformable, Drawable
-    {
+namespace Pong {
+    class GUIElement : Transformable, Drawable {
         private Texture img;
         private uint width;
         private uint height;
@@ -24,8 +22,7 @@ namespace Pong
         private RectangleShape bottomRightDest;
         private String path;
 
-        public GUIElement(uint x, uint y, uint w, uint h, String path)
-        {
+        public GUIElement(uint x, uint y, uint w, uint h, String path) {
             if (w <80) {
                 w = 80;
             }
@@ -40,8 +37,7 @@ namespace Pong
             this.scaleImage();
         }
 
-        public virtual void Draw(RenderTarget target, RenderStates states)
-        {
+        public virtual void Draw(RenderTarget target, RenderStates states) {
 
             target.Draw(this.topLeftDest, states);
             target.Draw(this.topCenterDest, states);
@@ -55,33 +51,27 @@ namespace Pong
         }
 
         public bool Displayed { get; set; }
-        public void Draw(RenderWindow window)
-        {
+        public void Draw(RenderWindow window) {
             RenderStates r = new RenderStates(BlendMode.Alpha);
             RenderTarget t = window;
             this.Draw(t,r);
         }
-        public void Released(float X, float Y)
-        {
+        public void Released(float X, float Y) {
 
         }
-        public void Pressed(float X, float Y)
-        {
+        public void Pressed(float X, float Y) {
 
         }
-        public void OnHover(float X, float Y)
-        {
+        public void OnHover(float X, float Y) {
 
         }
         Vector2f Position { get; set; }
-        public IGraphic ParentView
-        {
+        public IGraphic ParentView {
             get { return parentView; }
             set { parentView = value; }
         }
 
-        public void scaleImage()
-        {
+        public void scaleImage() {
             Vector2u size = this.img.Size;
             uint width = size.X;
             uint height = size.Y;
@@ -176,8 +166,7 @@ namespace Pong
 
         }
 
-        public FloatRect GetGlobalBounds()
-        {
+        public FloatRect GetGlobalBounds() {
             return new FloatRect(this.Position.X, this.Position.Y, this.width, this.height);
         }
     }

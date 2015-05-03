@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SFML.Graphics;
-using SFML.Window;
+using SFML.System;
 
 namespace Pong {
     interface IGraphic{
