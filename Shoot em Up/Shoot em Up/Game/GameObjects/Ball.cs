@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.Window;
+using Physics;
+using Maths;
 using SFML.System;
 
 namespace Shoot_em_Up {

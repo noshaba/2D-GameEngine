@@ -7,24 +7,35 @@ using SFML.Window;
 using SFML.Graphics;
 using SFML.Audio;
 using SFML.System;
+using Physics;
 
 namespace Shoot_em_Up {
     class Game {
         private Paddle ai;
         private Paddle player;
         private Ball ball;
-        private Physics physics;
+        private Physic physics;
         private List<IShape> objects = new List<IShape>();
         private int WIDTH;
         private int HEIGHT;
+        private int MIN_OBJECTS;
 
-        private Astroid a;
+        private Wall top;
+        private Wall left;
+        private Wall right;
+        private Wall bottom;
         
         //constructor
         public Game(int width, int height) {
             WIDTH = width;
             HEIGHT = height;
-            physics = new Physics();
+            MIN_OBJECTS = 1;
+            physics = new Physic(new Vector2f(0, 0), .1f, false);
+            //this.top = new Wall(new Vector2f(0,width), 1,1,Color.Black);
+            this.right = new Wall(new Vector2f(-1, 0), new Vector2f(width - 2.5f, height * 0.5f), new Vector2f(5.0f, height), Color.White);
+            //this.left = new Wall(new Vector2f( 1, 0), new Vector2f(2.5f, height * 0.5f), new Vector2f(5.0f, height), Color.White);
+            AddObject(this.right);
+            //AddObject(this.left);
             this.startGame();
         }
 
@@ -55,11 +66,16 @@ namespace Shoot_em_Up {
 
         public void startGame()
         {
-            objects.Clear();
-            physics.Reset();
+            this.reset();
             this.AddObject(new Astroid(350, 140));
             this.AddObject(new Astroid(50, 200));
 
+        }
+
+        public void reset()
+        {
+            objects.RemoveRange(MIN_OBJECTS, objects.Count - MIN_OBJECTS);
+            physics.Reset(MIN_OBJECTS);
         }
 
     }

@@ -7,7 +7,7 @@ using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
 
-namespace Shoot_em_Up {
+namespace GUI {
     interface IGraphic{
         bool Displayed { get; set; }
         void Draw(RenderWindow window);

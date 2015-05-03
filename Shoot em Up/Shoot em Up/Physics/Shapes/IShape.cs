@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SFML.Window;
 using SFML.System;
+using Maths;
 
-namespace Shoot_em_Up {
+namespace Physics {
     interface IShape {
         Collision.Type Type{ get; }
         Vector2f COM { get; }
@@ -18,6 +18,9 @@ namespace Shoot_em_Up {
         float Mass { get; }
         float InverseMass { get; }
         float InverseInertia { get; }
+        float Restitution { get; set; }
+        float StaticFriction { get; set; }
+        float KineticFriction { get; set; }
         void ApplyImpulse(Vector2f J, Vector2f r);
         Vector2f Velocity { get; set; }
         float AngularVelocity { get; set; }

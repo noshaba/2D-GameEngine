@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 using SFML.Window;
 using SFML.Graphics;
 using SFML.System;
+using GUI;
 
 namespace Shoot_em_Up {
-    class GUI : View {
+    class GUI : GUIView {
         Menue menue;
         Button start;
         Game game;

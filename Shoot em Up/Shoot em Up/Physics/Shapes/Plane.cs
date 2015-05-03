@@ -3,34 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SFML.Graphics;
 using SFML.System;
+using SFML.Graphics;
 using Maths;
 
 namespace Physics {
-    class Circle : CircleShape, IShape {
-        private Collision.Type type = Collision.Type.Circle;
+    class Plane : RectangleShape, IShape {
+        private Collision.Type type = Collision.Type.Plane;
         private float restitution = (float) EMath.random.NextDouble();
         private float staticFriction = (float) EMath.random.NextDouble();
         private float kineticFriction;
 
-        protected State current;
         protected State previous;
+        protected State current;
 
-        public Circle(Vector2f position, float radius) : base(radius) {
-            Origin = new Vector2f(radius, radius);
-            current = new State(position, 0);
+        public Vector2f normal;
+        public float constant;
+        public float thickness;
+
+        public Plane(Vector2f normal, Vector2f position, Vector2f size, float orientation) : base(size) {
+            Origin = new Vector2f(size.X * .5f, size.Y * .5f);
+            current = new State(position, orientation);
             previous = current;
+            thickness = Math.Abs(normal.Dot(size) * .5f);
+            this.normal = current.worldTransform * normal;
+            constant = position.Dot(this.normal);
             kineticFriction = EMath.Random(0, staticFriction);
-        }
-        
-        public Circle(Vector2f position, float radius, float density) : base(radius) {
-            Origin = new Vector2f(radius, radius);
-            float mass = (float) Math.PI * radius * radius * density;
-            current = new State(position, 0, mass, mass * radius * radius);
-            previous = current;
-            kineticFriction = EMath.Random(0, staticFriction);
-            // Console.WriteLine("Ball " + mass);
         }
 
         public Collision.Type Type {

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SFML.Window;
 using SFML.System;
+using Maths;
 
-namespace Shoot_em_Up {
+namespace Physics {
     class State {
 
         // primary physics state

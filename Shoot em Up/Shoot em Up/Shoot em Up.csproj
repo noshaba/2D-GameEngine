@@ -67,14 +67,15 @@
     <Compile Include="GUI\GUIElement.cs" />
     <Compile Include="GUI\IGraphic.cs" />
     <Compile Include="GUI\Menue.cs" />
-    <Compile Include="GUI\View.cs" />
+    <Compile Include="GUI\GUIView.cs" />
     <Compile Include="Maths\EMath.cs" />
     <Compile Include="Maths\Mat22f.cs" />
     <Compile Include="Maths\Vec2fMath.cs" />
     <Compile Include="Physics\Collision.cs" />
-    <Compile Include="Physics\Physics.cs" />
+    <Compile Include="Physics\Physic.cs" />
     <Compile Include="Physics\Shapes\Circle.cs" />
     <Compile Include="Physics\Shapes\IShape.cs" />
+    <Compile Include="Physics\Shapes\Plane.cs" />
     <Compile Include="Physics\Shapes\Polygon.cs" />
     <Compile Include="Physics\State.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

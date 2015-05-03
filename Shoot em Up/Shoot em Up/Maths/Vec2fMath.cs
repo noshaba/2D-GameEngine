@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using SFML.Window;
 using SFML.System;
 
-namespace Shoot_em_Up {
+namespace Maths {
     public static class Vec2fMath {
         public static float Dot(this Vector2f vec1, Vector2f vec2) {
             return vec1.X * vec2.X + vec1.Y * vec2.Y;

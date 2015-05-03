@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
+using Shoot_em_Up;
 
-namespace Shoot_em_Up {
+namespace GUI {
     class Checkbox : RectangleShape, IGraphic {
         public enum Status {
             Pressed, Released, OnHover

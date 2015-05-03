@@ -4,19 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SFML.Graphics;
-using SFML.Window;
 using SFML.System;
+using Maths;
 
-namespace Shoot_em_Up {
+namespace Physics {
     class Polygon : ConvexShape, IShape {
         private int MAXVERTEXCOUNT = 8;
         private Collision.Type type = Collision.Type.Polygon;
-
-        public Vector2f[] vertices;
-        public Vector2f[] normals;
+        private float restitution = (float) EMath.random.NextDouble(); 
+        private float staticFriction = (float) EMath.random.NextDouble();
+        private float kineticFriction;
 
         protected State previous;
         protected State current;
+
+        public Vector2f[] vertices;
+        public Vector2f[] normals;
 
         public Polygon() {}
 
@@ -24,11 +27,13 @@ namespace Shoot_em_Up {
             InitVertices();
             current = new State(position, rotation);
             previous = current;
+            kineticFriction = EMath.Random(0, staticFriction);
         }
 
         public Polygon(Vector2f position, float rotation, float density) : base() {
             InitVertices();
             InitState(position, rotation, density);
+            kineticFriction = EMath.Random(0, staticFriction);
         }
 
         public Polygon(Vector2f[] vertices, Vector2f position, float rotation) : base() {
@@ -37,6 +42,7 @@ namespace Shoot_em_Up {
                 SetPoint(i, vertices[i]);
             current = new State(position, rotation);
             previous = current;
+            kineticFriction = EMath.Random(0, staticFriction);
         }
 
         public Polygon(Vector2f[] vertices, Vector2f position, float rotation, float density) : base() {
@@ -44,6 +50,7 @@ namespace Shoot_em_Up {
             for (uint i = 0; i < vertices.Length; ++i)
                 SetPoint(i, vertices[i]);
             InitState(position, rotation, density);
+            kineticFriction = EMath.Random(0, staticFriction);
         }
 
         public void SetBox(Vector2f position, float hw, float hh, float rotation) {
@@ -107,6 +114,7 @@ namespace Shoot_em_Up {
 
             current = new State(position, rotation, density * area, density * I);
             previous = current;
+           // Console.WriteLine(Mass);
         }
 
         private void InitVertices() {
@@ -242,6 +250,21 @@ namespace Shoot_em_Up {
 
         public float InverseInertia {
             get { return current.inverseInertiaTensor; }
+        }
+
+        public float Restitution {
+            get { return restitution; }
+            set { restitution = value; }
+        }
+
+        public float StaticFriction {
+            get { return staticFriction; }
+            set { staticFriction = value; }
+        }
+
+        public float KineticFriction {
+            get { return kineticFriction; }
+            set { kineticFriction = value; }
         }
 
         public Vector2f Velocity {

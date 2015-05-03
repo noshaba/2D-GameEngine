@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using SFML.Window;
 using SFML.System;
 
-namespace Shoot_em_Up
+namespace Maths
 {
     class Mat22f {
         private float[,] mat = new float[2, 2];
