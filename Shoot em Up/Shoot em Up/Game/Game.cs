@@ -34,11 +34,8 @@ namespace Shoot_em_Up {
         public Game(int width, int height) {
             WIDTH = width;
             HEIGHT = height;
-            MIN_OBJECTS = 3; //1 player and 2 walls
+            MIN_OBJECTS = 2; //2 walls
             physics = new Physic(new Vector2f(0, 0), .1f, false);
-
-            this.p = new Player(new Vector2f(width/2,600), 20, 10, Color.Yellow);
-            AddObject(p);
 
             //this.top = new Wall(new Vector2f(0,width), 1,1,Color.Black);
             this.right = new Wall(new Vector2f(-1, 0), new Vector2f(width - 0.5f, height * 0.5f), new Vector2f(1.0f, height), Color.Black);
@@ -88,6 +85,10 @@ namespace Shoot_em_Up {
         public void startGame()
         {
             this.reset();
+
+            this.p = new Player(new Vector2f(this.WIDTH / 2, 600), 20, 10, Color.Yellow);
+            AddObject(p);
+
             this.clock.Start();
             this.chance = 10;
             this.generateAstroid();
