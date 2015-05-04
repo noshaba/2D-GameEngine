@@ -21,6 +21,8 @@ namespace Shoot_em_Up {
         private int HEIGHT;
         private int MIN_OBJECTS;
 
+        private Player p;
+
         private Wall left;
         private Wall right;
 
@@ -32,13 +34,18 @@ namespace Shoot_em_Up {
         public Game(int width, int height) {
             WIDTH = width;
             HEIGHT = height;
-            MIN_OBJECTS = 2;
+            MIN_OBJECTS = 3; //1 player and 2 walls
             physics = new Physic(new Vector2f(0, 0), .1f, false);
+
+            this.p = new Player(new Vector2f(width/2,600), 20, 10, Color.Yellow);
+            AddObject(p);
+
             //this.top = new Wall(new Vector2f(0,width), 1,1,Color.Black);
             this.right = new Wall(new Vector2f(-1, 0), new Vector2f(width - 0.5f, height * 0.5f), new Vector2f(1.0f, height), Color.Black);
             this.left = new Wall(new Vector2f( 1, 0), new Vector2f(0.5f, height * 0.5f), new Vector2f(1.0f, height), Color.Black);
             AddObject(this.right);
             AddObject(this.left);
+
             this.rand = new Random();
             this.clock = new Stopwatch();
             this.startGame();
@@ -94,7 +101,7 @@ namespace Shoot_em_Up {
         public void lookForNewAstroids()
         {
             //every second try to create a new astroid, if not raise chance to create one next time
-            if (rand.Next(1, 100) < this.chance && this.objects.Count < 20 && this.clock.ElapsedMilliseconds > 600)
+            if (rand.Next(1, 100) < this.chance && this.clock.ElapsedMilliseconds > 600)
             {
                 this.clock.Restart();
                 this.generateAstroid();
@@ -105,6 +112,11 @@ namespace Shoot_em_Up {
                 this.clock.Restart();
                 this.chance += 10;
             }
+        }
+
+        public void movePlayer(Keyboard.Key k)
+        {
+            this.p.move(k);
         }
 
         public void reset()

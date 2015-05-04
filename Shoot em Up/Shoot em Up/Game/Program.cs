@@ -57,6 +57,7 @@ namespace Shoot_em_Up
             window = new RenderWindow(new VideoMode(WIDTH, HEIGHT), "Shoot em Up!", Styles.Default, context);
             window.Closed += window_Closed;
             window.KeyReleased += window_KeyReleased;
+            window.KeyPressed += window_KeyPressed;
             window.MouseMoved += window_MouseMoved;
             window.MouseEntered += window_MouseEntered;
             window.MouseLeft += window_MouseLeft;
@@ -128,8 +129,20 @@ namespace Shoot_em_Up
                 case Keyboard.Key.P:
                     break;
                 case Keyboard.Key.Space:
+                    sEmUp.startGame();
                     break;
                 default:
+                    break;
+            }
+        }
+
+        static void window_KeyPressed(object sender, KeyEventArgs e) {
+            switch(e.Code) {
+                case Keyboard.Key.Left:
+                    sEmUp.movePlayer(e.Code);
+                    break;
+                case Keyboard.Key.Right:
+                    sEmUp.movePlayer(e.Code);
                     break;
             }
         }
