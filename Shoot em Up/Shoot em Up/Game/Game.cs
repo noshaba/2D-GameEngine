@@ -59,12 +59,17 @@ namespace Shoot_em_Up {
             physics.Update(dt);
             lookForNewAstroids();
             //each astroid has to check if it has left the screen, when it does the player looses points(colliding with player is a different matter)
-           /* foreach (Object obj in objects) {
-                if (obj is Astroid && (Astroid)obj.Position.Y > this.HEIGHT)
+            for (int i = 0; i < objects.Count; i++ )
+            {
+                if (objects[i] is Astroid && (objects[i] as Astroid).COM.Y > this.HEIGHT)
                 {
-                    Console.WriteLine("left");
+                    objects.RemoveAt(i);
+                    if (this.p.score >= 100)
+                    {
+                        this.p.score -= 100;
+                    }
                 }
-            }*/
+            }
 
         }
 

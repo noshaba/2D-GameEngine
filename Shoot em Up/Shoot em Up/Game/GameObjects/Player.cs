@@ -15,10 +15,11 @@ namespace Shoot_em_Up
         public uint score;
         private float speed;
 
-        public Player(Vector2f position, float hw, float hh, Color color) : base(position, 1, 30) {
+        public Player(Vector2f position, float hw, float hh, Color color) : base(position, 1, 0.01f) {
             SetBox(position, hw, hh, 0);
             FillColor = color;
             this.speed = 25;
+            this.score = 200;
         }
 
         public void move(Keyboard.Key k)
