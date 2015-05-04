@@ -1,0 +1,45 @@
+Note: 1-
+
+Positiv:
+
+Compiliert & Startet sofort! (jetzt wirklich)
+Physik!
+Physik!
+Physik!
+
+Kritik & Tips:
+
+Die Präsentation... naja, wir sind ja alle Programmierer.
+
+Fährt man mit der Maus über das Menü (?) dann flackert das Paddle.
+
+Wenn ihr die Debug-Konsole nicht benutzt, dann macht sie doch einfach aus! Unter Project-Settings/Application Output type von Console Application auf Windows Application umstellen. :)
+
+Sowohl "mass" als auch "inverseMass" im Physics.State vorzuhalten und synchron zu halten ist keine gute Idee. Mass braucht man so gut wie nie (ihr benutzt es auch nicht) und so kann der Getter bei z.B. Circle einfach so implementiert werden:
+
+	public float Mass {
+		get { return 1 / current.inverseMass; }
+	}
+
+Das ist ja der Vorteil von Properties.
+
+Das Spiel treibt die Physik-Simulation an und rendert die Shapes aber was mir fehlt ist eine Reaktion auf die physikalischen Ereignisse sprich Kollisionen und ähnliches.
+
+Z.B. könnte man bei Kollisionen einen Sound abspielen um das ganze plastischer wirken zu lassen. Wenigstens wenn man mit dem Paddle den Ball reflektiert. Und auch der Test, ob sich der Ball noch im Spielfeld befindet oder gerade die Ziellinie überquert hat ist eigentlich Aufgabe der Physikengine, wenn man denn eine hat.
+
+Sprich, wenn man die Physikengine zum Kernfeature der Aufgabe macht, dann ist der folgende Code eigentlich zu pragmatisch:
+
+	if (ball.COM.X < player.COM.X) {
+		ai.score++;
+		aiScore.DisplayedString = ai.score.ToString();
+		if (soundOn)
+		SoundManager.scoreSound.Play();
+		Reset();
+	}
+	if (ball.COM.X > ai.COM.X) {
+		player.score++;
+		playerScore.DisplayedString = player.score.ToString();
+		if (soundOn)
+		SoundManager.scoreSound.Play();
+		Reset();
+	}
