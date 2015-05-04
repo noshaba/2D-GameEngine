@@ -8,6 +8,7 @@ using SFML.Graphics;
 using SFML.Audio;
 using SFML.System;
 using Physics;
+using System.Diagnostics;
 
 namespace Shoot_em_Up {
     class Game {
@@ -20,10 +21,12 @@ namespace Shoot_em_Up {
         private int HEIGHT;
         private int MIN_OBJECTS;
 
-        private Wall top;
         private Wall left;
         private Wall right;
-        private Wall bottom;
+
+        private Random rand;
+        private Stopwatch clock;
+        private int chance;
         
         //constructor
         public Game(int width, int height) {
@@ -36,6 +39,8 @@ namespace Shoot_em_Up {
             this.left = new Wall(new Vector2f( 1, 0), new Vector2f(0.5f, height * 0.5f), new Vector2f(1.0f, height), Color.Black);
             AddObject(this.right);
             AddObject(this.left);
+            this.rand = new Random();
+            this.clock = new Stopwatch();
             this.startGame();
         }
 
@@ -48,6 +53,15 @@ namespace Shoot_em_Up {
         public void Update(float dt) {
             //all the updating
             physics.Update(dt);
+            lookForNewAstroids();
+            //each astroid has to check if it has left the screen, when it does the player looses points(colliding with player is a different matter)
+           /* foreach (Object obj in objects) {
+                if (obj is Astroid && (Astroid)obj.Position.Y > this.HEIGHT)
+                {
+                    Console.WriteLine("left");
+                }
+            }*/
+
         }
 
 
@@ -67,9 +81,30 @@ namespace Shoot_em_Up {
         public void startGame()
         {
             this.reset();
-            this.AddObject(new Astroid(350, 140));
-            this.AddObject(new Astroid(50, 200));
+            this.clock.Start();
+            this.chance = 10;
+            this.generateAstroid();
+            
+        }
 
+        public void generateAstroid() {
+            this.AddObject(new Astroid(this.WIDTH/2, 0));
+        }
+
+        public void lookForNewAstroids()
+        {
+            //every second try to create a new astroid, if not raise chance to create one next time
+            if (rand.Next(1, 100) < this.chance && this.objects.Count < 20 && this.clock.ElapsedMilliseconds > 600)
+            {
+                this.clock.Restart();
+                this.generateAstroid();
+                this.chance = 0;
+            }
+            else if (this.chance < 100 && this.clock.ElapsedMilliseconds > 6000)
+            {
+                this.clock.Restart();
+                this.chance += 10;
+            }
         }
 
         public void reset()
