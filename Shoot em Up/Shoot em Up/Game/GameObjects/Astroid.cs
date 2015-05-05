@@ -22,5 +22,10 @@ namespace Shoot_em_Up
             this.Velocity = new Vector2f(rand.Next(-50,50),rand.Next(10,30));
 
         }
+
+        public override void reactToCollision(IShape obj)
+        {
+            Console.WriteLine("Astroid hit something");
+        }
     }
 }

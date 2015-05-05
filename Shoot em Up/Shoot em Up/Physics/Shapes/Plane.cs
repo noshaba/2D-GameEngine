@@ -17,7 +17,6 @@ namespace Physics {
         protected State previous;
         protected State current;
 
-        protected bool colli;
 
         public Vector2f normal;
         public float constant;
@@ -34,11 +33,10 @@ namespace Physics {
             kineticFriction = EMath.Random(0, staticFriction);
         }
 
-        public bool collision
+        public virtual void reactToCollision(IShape obj)
         {
-            get { return colli; }
-            set { colli = value; }
-        }
+
+        } 
 
         public Collision.Type Type {
             get { return type; }

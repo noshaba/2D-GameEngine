@@ -65,8 +65,8 @@ namespace Physics {
                 Collision colli = Collision.CheckForCollision(objects[i], objects[j]);
                 if (colli.collision)
                 {
-                    objects[i].collision = true;
-                    objects[j].collision = true;
+                    objects[i].reactToCollision(objects[j]);
+                    objects[j].reactToCollision(objects[i]);
                     if (objects[i].InverseMass > 0)
                     {
                         for (uint k = 0; k < colli.contacts.Length; ++k)
@@ -77,11 +77,6 @@ namespace Physics {
 
                         }
                     }
-                }
-                else
-                {
-                    objects[i].collision = false;
-                    objects[j].collision = false;
                 }
             }
         }

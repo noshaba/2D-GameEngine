@@ -18,7 +18,7 @@ namespace Physics {
         protected State previous;
         protected State current;
 
-        protected bool colli;
+
 
         public Vector2f[] vertices;
         public Vector2f[] normals;
@@ -210,11 +210,10 @@ namespace Physics {
             }
         }
 
-        public bool collision
+        public virtual void reactToCollision(IShape obj)
         {
-            get { return colli; }
-            set { colli = value; }
-        }
+
+        } 
 
         public Collision.Type Type {
             get { return type; }

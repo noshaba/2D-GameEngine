@@ -17,7 +17,6 @@ namespace Physics {
         protected State current;
         protected State previous;
 
-        protected bool colli;
 
         public Circle(Vector2f position, float radius) : base(radius) {
             Origin = new Vector2f(radius, radius);
@@ -35,11 +34,10 @@ namespace Physics {
             // Console.WriteLine("Ball " + mass);
         }
 
-        public bool collision
+        public virtual void reactToCollision(IShape obj)
         {
-            get { return collision; }
-            set { collision = value; }
-        }
+
+        } 
 
         public Collision.Type Type {
             get { return type; }
