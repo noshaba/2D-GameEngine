@@ -12,6 +12,7 @@ namespace Shoot_em_Up {
     class GUI : GUIView {
         Menue menue;
         Button start;
+        Label label;
         Game game;
 
         public GUI(int width, int height, Game g) : base(new Vector2f(0, 0), new Vector2f(width, height)) {

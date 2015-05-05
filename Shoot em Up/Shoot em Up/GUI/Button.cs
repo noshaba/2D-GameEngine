@@ -16,7 +16,7 @@ namespace GUI {
         }
         public delegate void ActionListener();
         public Status status;
-        public Text label;
+        public Label label;
         public ActionListener listener;
         private bool displayed;
         private IGraphic parentView;
@@ -34,8 +34,7 @@ namespace GUI {
             status = Status.Released;
             displayed = true;
 
-            this.label = new Text(text, new Font("../Content/arial.ttf"));
-            this.label.CharacterSize = 12;
+            this.label = new Label(text);
             FloatRect labelPos = this.label.GetLocalBounds();
 
             uint margin = 5;

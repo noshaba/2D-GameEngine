@@ -18,8 +18,11 @@ namespace Physics {
         protected State previous;
         protected State current;
 
+        protected bool colli;
+
         public Vector2f[] vertices;
         public Vector2f[] normals;
+
 
         public Polygon() {}
 
@@ -205,6 +208,12 @@ namespace Physics {
                 Vector2f face = vertices[i2] - vertices[i1];
                 normals[i1] = new Vector2f(face.Y, -face.X).Norm();
             }
+        }
+
+        public bool collision
+        {
+            get { return colli; }
+            set { colli = value; }
         }
 
         public Collision.Type Type {

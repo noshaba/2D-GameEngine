@@ -17,9 +17,12 @@ namespace Physics {
         protected State previous;
         protected State current;
 
+        protected bool colli;
+
         public Vector2f normal;
         public float constant;
         public float thickness;
+
 
         public Plane(Vector2f normal, Vector2f position, Vector2f size, float orientation) : base(size) {
             Origin = new Vector2f(size.X * .5f, size.Y * .5f);
@@ -29,6 +32,12 @@ namespace Physics {
             this.normal = current.worldTransform * normal;
             constant = position.Dot(this.normal);
             kineticFriction = EMath.Random(0, staticFriction);
+        }
+
+        public bool collision
+        {
+            get { return colli; }
+            set { colli = value; }
         }
 
         public Collision.Type Type {

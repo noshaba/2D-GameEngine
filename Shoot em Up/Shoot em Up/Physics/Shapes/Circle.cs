@@ -17,6 +17,8 @@ namespace Physics {
         protected State current;
         protected State previous;
 
+        protected bool colli;
+
         public Circle(Vector2f position, float radius) : base(radius) {
             Origin = new Vector2f(radius, radius);
             current = new State(position, 0);
@@ -31,6 +33,12 @@ namespace Physics {
             previous = current;
             kineticFriction = EMath.Random(0, staticFriction);
             // Console.WriteLine("Ball " + mass);
+        }
+
+        public bool collision
+        {
+            get { return collision; }
+            set { collision = value; }
         }
 
         public Collision.Type Type {

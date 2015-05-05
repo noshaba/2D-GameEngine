@@ -8,6 +8,8 @@ using Maths;
 
 namespace Physics {
     interface IShape {
+
+        bool collision { get; set; }
         Collision.Type Type{ get; }
         Vector2f COM { get; }
         float Orientation { get; }

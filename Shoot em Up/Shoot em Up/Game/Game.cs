@@ -29,6 +29,8 @@ namespace Shoot_em_Up {
         private Random rand;
         private Stopwatch clock;
         private int chance;
+
+
         
         //constructor
         public Game(int width, int height) {
@@ -61,6 +63,9 @@ namespace Shoot_em_Up {
             //each astroid has to check if it has left the screen, when it does the player looses points(colliding with player is a different matter)
             for (int i = 0; i < objects.Count; i++ )
             {
+                if (objects[i] is Astroid && objects[i].collision) {
+                    Console.WriteLine("Bam");
+                }
                 if (objects[i] is Astroid && (objects[i] as Astroid).COM.Y > this.HEIGHT)
                 {
                     objects.RemoveAt(i);
