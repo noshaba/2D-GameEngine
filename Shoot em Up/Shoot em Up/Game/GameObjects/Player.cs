@@ -34,5 +34,10 @@ namespace Shoot_em_Up
                     break;
             }
         }
+
+        public override void reactToCollision(IShape obj)
+        {
+            Console.WriteLine("Oh no the ship got hit!");
+        }
     }
 }
