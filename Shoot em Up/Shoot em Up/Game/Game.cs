@@ -46,7 +46,7 @@ namespace Shoot_em_Up {
             AddObject(this.left);
 
             this.clock = new Stopwatch();
-            this.startGame();
+            this.StartGame();
         }
 
         private void AddObject(IShape obj)
@@ -57,7 +57,7 @@ namespace Shoot_em_Up {
         public void Update(float dt) {
             //all the updating
             physics.Update(dt);
-            lookForNewAstroids();
+            LookForNewAstroids();
             //each astroid has to check if it has left the screen, when it does the player looses points(colliding with player is a different matter)
             for (int i = 0; i < objects.Count; i++ )
             {
@@ -87,30 +87,30 @@ namespace Shoot_em_Up {
             }
         }
 
-        public void startGame()
+        public void StartGame()
         {
-            this.reset();
+            this.Reset();
 
             this.p = new Player(new Vector2f(this.WIDTH / 2, 600), 20, 10, Color.Yellow);
             AddObject(p);
 
             this.clock.Start();
             this.chance = 10;
-            this.generateAstroid();
+            this.GenerateAstroid();
             
         }
 
-        public void generateAstroid() {
+        public void GenerateAstroid() {
             this.AddObject(new Astroid(this.WIDTH/2, 0));
         }
 
-        public void lookForNewAstroids()
+        public void LookForNewAstroids()
         {
             //every second try to create a new astroid, if not raise chance to create one next time
             if (EMath.random.Next(1, 100) < this.chance && this.clock.ElapsedMilliseconds > 600)
             {
                 this.clock.Restart();
-                this.generateAstroid();
+                this.GenerateAstroid();
                 this.chance = 0;
             }
             else if (this.chance < 100 && this.clock.ElapsedMilliseconds > 6000)
@@ -120,16 +120,16 @@ namespace Shoot_em_Up {
             }
         }
 
-        public void movePlayer(Keyboard.Key k)
+        public void MovePlayer(Keyboard.Key k)
         {
-            this.p.move(k);
+            this.p.Move(k);
         }
 
-        public void stopPlayer() {
-            this.p.stop();
+        public void StopPlayer() {
+            this.p.Stop();
         }
 
-        public void reset()
+        public void Reset()
         {
             objects.RemoveRange(MIN_OBJECTS, objects.Count - MIN_OBJECTS);
         }

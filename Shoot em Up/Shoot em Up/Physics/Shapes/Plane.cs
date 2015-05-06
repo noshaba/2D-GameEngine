@@ -33,7 +33,7 @@ namespace Physics {
             kineticFriction = EMath.Random(0, staticFriction);
         }
 
-        public virtual void reactToCollision(Collision colliInfo) { }
+        public virtual void ReactToCollision(Collision colliInfo) { }
 
         public Collision.Type Type {
             get { return type; }

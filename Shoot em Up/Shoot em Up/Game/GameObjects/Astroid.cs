@@ -23,7 +23,7 @@ namespace Shoot_em_Up
             this.life = 100;
         }
 
-        public override void reactToCollision(Collision colliInfo)
+        public override void ReactToCollision(Collision colliInfo)
         {
             Console.WriteLine("Astroid hit something");
 

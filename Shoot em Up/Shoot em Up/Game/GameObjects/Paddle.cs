@@ -20,11 +20,11 @@ namespace Shoot_em_Up {
             Restitution = 1.0f;
         }
 
-        public void move(float y) {
+        public void Move(float y) {
             current.position = new Vector2f(COM.X, y); 
         }
 
-        public void moveAi(float y, float veloY, float diff, int height) {
+        public void MoveAi(float y, float veloY, float diff, int height) {
             float expectedBallY = y + veloY * diff;
             if (expectedBallY < 0)
                 expectedBallY = 0;

@@ -56,7 +56,7 @@ namespace Physics {
                 if (i == j) continue;
                 Collision colli = Collision.CheckForCollision(objects[i], objects[j]);
                 if (colli.collision) {
-                    objects[i].reactToCollision(colli);
+                    objects[i].ReactToCollision(colli);
                     if (objects[i].InverseMass > 0) {
                         for (uint k = 0; k < colli.contacts.Length; ++k) {
                             Vector2f rad1 = colli.contacts[k] - objects[i].COM;

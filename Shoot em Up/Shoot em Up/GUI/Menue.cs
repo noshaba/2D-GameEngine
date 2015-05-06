@@ -21,12 +21,12 @@ namespace GUI
             Position = position;
         }
 
-        public bool Displayed
+        new public bool Displayed
         {
             get { return displayed; }
             set { displayed = value; }
         }
-        public void Draw(RenderWindow window)
+        new public void Draw(RenderWindow window)
         {
             if (this.displayed) {
                 window.Draw(this);
@@ -35,7 +35,7 @@ namespace GUI
             }
         }
 
-        public void Released(float X, float Y)
+        new public void Released(float X, float Y)
         {
             if (displayed && GetGlobalBounds().Contains(X, Y))
             {
@@ -44,7 +44,7 @@ namespace GUI
             }
         }
 
-        public void Pressed(float X, float Y)
+        new public void Pressed(float X, float Y)
         {
             if (displayed && GetGlobalBounds().Contains(X, Y))
             {
@@ -53,7 +53,7 @@ namespace GUI
             }
         }
 
-        public void OnHover(float X, float Y)
+        new public void OnHover(float X, float Y)
         {
             if (displayed && GetGlobalBounds().Contains(X, Y))
             {
@@ -61,7 +61,7 @@ namespace GUI
                     elem.OnHover(X, Y);
             }
         }
-        public IGraphic ParentView
+        new public IGraphic ParentView
         {
             get { return parentView; }
             set { parentView = value; }

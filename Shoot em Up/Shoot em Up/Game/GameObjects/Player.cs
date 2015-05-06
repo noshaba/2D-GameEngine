@@ -23,7 +23,7 @@ namespace Shoot_em_Up
             this.score = 200;
         }
 
-        public void move(Keyboard.Key k)
+        public void Move(Keyboard.Key k)
         {
             switch (k)
             {
@@ -36,12 +36,12 @@ namespace Shoot_em_Up
             }
         }
 
-        public void stop()
+        public void Stop()
         {
             Velocity = new Vector2f(0,0);
         }
 
-        public override void reactToCollision(Collision colliInfo)
+        public override void ReactToCollision(Collision colliInfo)
         {
             Console.WriteLine("Oh no the ship got hit!");
         }
