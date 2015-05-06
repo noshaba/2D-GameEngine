@@ -210,10 +210,7 @@ namespace Physics {
             }
         }
 
-        public virtual void reactToCollision(IShape obj)
-        {
-
-        } 
+        public virtual void reactToCollision(Collision colliInfo) { } 
 
         public Collision.Type Type {
             get { return type; }
@@ -237,7 +234,6 @@ namespace Physics {
 
         public State Current {
             get { return current; }
-            set { current = value; }
         }
 
         public State Previous {

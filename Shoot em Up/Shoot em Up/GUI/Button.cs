@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using SFML.Window;
 using SFML.Graphics;
 using SFML.System;
-using Shoot_em_Up;
 
 namespace GUI {
     // TODO: change rectangleshape to sprite later..

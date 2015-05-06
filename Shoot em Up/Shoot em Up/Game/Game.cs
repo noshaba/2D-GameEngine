@@ -7,6 +7,7 @@ using SFML.Window;
 using SFML.Graphics;
 using SFML.Audio;
 using SFML.System;
+using Maths;
 using Physics;
 using System.Diagnostics;
 
@@ -26,7 +27,6 @@ namespace Shoot_em_Up {
         private Wall left;
         private Wall right;
 
-        private Random rand;
         private Stopwatch clock;
         private int chance;
 
@@ -37,7 +37,7 @@ namespace Shoot_em_Up {
             WIDTH = width;
             HEIGHT = height;
             MIN_OBJECTS = 2; //2 walls
-            physics = new Physic(new Vector2f(0, 0), .1f, false);
+            physics = new Physic(ref this.objects, new Vector2f(0, 0), .1f, false);
 
             //this.top = new Wall(new Vector2f(0,width), 1,1,Color.Black);
             this.right = new Wall(new Vector2f(-1, 0), new Vector2f(width - 0.5f, height * 0.5f), new Vector2f(1.0f, height), Color.Black);
@@ -45,7 +45,6 @@ namespace Shoot_em_Up {
             AddObject(this.right);
             AddObject(this.left);
 
-            this.rand = new Random();
             this.clock = new Stopwatch();
             this.startGame();
         }
@@ -53,7 +52,6 @@ namespace Shoot_em_Up {
         private void AddObject(IShape obj)
         {
             objects.Add(obj);
-            physics.AddObject(obj);
         }
 
         public void Update(float dt) {
@@ -109,7 +107,7 @@ namespace Shoot_em_Up {
         public void lookForNewAstroids()
         {
             //every second try to create a new astroid, if not raise chance to create one next time
-            if (rand.Next(1, 100) < this.chance && this.clock.ElapsedMilliseconds > 600)
+            if (EMath.random.Next(1, 100) < this.chance && this.clock.ElapsedMilliseconds > 600)
             {
                 this.clock.Restart();
                 this.generateAstroid();
@@ -127,10 +125,13 @@ namespace Shoot_em_Up {
             this.p.move(k);
         }
 
+        public void stopPlayer() {
+            this.p.stop();
+        }
+
         public void reset()
         {
             objects.RemoveRange(MIN_OBJECTS, objects.Count - MIN_OBJECTS);
-            physics.Reset(MIN_OBJECTS);
         }
 
     }

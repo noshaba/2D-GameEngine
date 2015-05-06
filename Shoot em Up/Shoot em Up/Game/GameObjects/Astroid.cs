@@ -1,4 +1,5 @@
-﻿using Physics;
+﻿using Maths;
+using Physics;
 using SFML.Graphics;
 using SFML.System;
 using System;
@@ -15,15 +16,14 @@ namespace Shoot_em_Up
         public Astroid(int x, int y)
             : base(new Vector2f(x, y), 200, 0.01f)
         {
-            Random rand = new Random();
 
             this.Texture = new Texture("../Content/astroid.png");
             this.life = 100;
-            this.Velocity = new Vector2f(rand.Next(-50,50),rand.Next(10,30));
+            this.Velocity = new Vector2f(EMath.random.Next(-50,50),EMath.random.Next(10,30));
 
         }
 
-        public override void reactToCollision(IShape obj)
+        public override void reactToCollision(Collision colliInfo)
         {
             Console.WriteLine("Astroid hit something");
 

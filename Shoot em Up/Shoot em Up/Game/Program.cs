@@ -131,6 +131,10 @@ namespace Shoot_em_Up
                 case Keyboard.Key.Space:
                     sEmUp.startGame();
                     break;
+                case Keyboard.Key.Left:
+                case Keyboard.Key.Right:
+                    sEmUp.stopPlayer();
+                    break;
                 default:
                     break;
             }
