@@ -17,10 +17,10 @@ namespace Shoot_em_Up
             : base(new Vector2f(x, y), 200, 0.01f)
         {
 
-            this.Texture = new Texture("../Content/astroid.png");
+            Texture = new Texture("../Content/astroid.png");
+            Velocity = new Vector2f(EMath.random.Next(-50,50),EMath.random.Next(10,30));
+            Restitution = 1.0f;
             this.life = 100;
-            this.Velocity = new Vector2f(EMath.random.Next(-50,50),EMath.random.Next(10,30));
-
         }
 
         public override void reactToCollision(Collision colliInfo)

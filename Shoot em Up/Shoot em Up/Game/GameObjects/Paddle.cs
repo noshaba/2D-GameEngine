@@ -17,6 +17,7 @@ namespace Shoot_em_Up {
         public Paddle(Vector2f position, float hw, float hh, Color color) : base() {
             SetBox(position, hw, hh, 0);
             FillColor = color;
+            Restitution = 1.0f;
         }
 
         public void move(float y) {

@@ -18,6 +18,7 @@ namespace Shoot_em_Up
         public Player(Vector2f position, float hw, float hh, Color color) : base(position, 1, 0.01f) {
             SetBox(position, hw, hh, 0);
             FillColor = color;
+            Restitution = 1.0f;
             this.speed = new Vector2f(25,0);
             this.score = 200;
         }
