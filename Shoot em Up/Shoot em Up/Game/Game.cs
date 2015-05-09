@@ -62,12 +62,6 @@ namespace Shoot_em_Up {
             //each astroid has to check if it has left the screen, when it does the player looses points(colliding with player is a different matter)
             for (int i = 0; i < objects.Count; i++ )
             {
-                
-                if (shapes[i].Collision.collision) {
-                    Console.WriteLine("y");
-                }
-                //Console.WriteLine("Shapes: " + i + " an" + shapes[i].GetHashCode());
-                objects[i].shape = shapes[i];
                 objects[i].Update();
                 if (objects[i] is Astroid && (objects[i] as Astroid).shape.COM.Y > this.HEIGHT)
                 {

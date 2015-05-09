@@ -8,8 +8,7 @@ using Maths;
 
 namespace Physics {
     interface IShape {
-       // void ReactToCollision(Collision colliInfo);
-        //bool Alive { get; set;}
+
         Collision.Type Type{ get; }
         Collision Collision { get; set; }
         Vector2f COM { get; }

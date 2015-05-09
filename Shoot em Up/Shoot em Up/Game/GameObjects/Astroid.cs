@@ -23,7 +23,13 @@ namespace Shoot_em_Up
             this.life = 100;
         }
 
-
+        public override void Update()
+        {
+            if(shape.Collision.collision) {
+                Console.WriteLine("ahhhhhhhhhh");
+            }
+            base.Update();
+        }
 
     }
 }

@@ -129,6 +129,7 @@ namespace Physics {
            // Console.WriteLine(Mass);
         }
 
+
         private void InitVertices() {
             uint count = (uint) EMath.Random(3, MAXVERTEXCOUNT);
             float e = EMath.Random(50, 100);

@@ -40,7 +40,7 @@ namespace Shoot_em_Up
             /*if (shape.Collision.collision) {
                 Console.WriteLine("nnn");
             }*/
-           
+            shape.Collision.collision = false;
         }
     }
 }
