@@ -25,7 +25,7 @@ namespace Shoot_em_Up
 
         public override void reactToCollision(IShape obj)
         {
-            Console.WriteLine("Astroid hit something");
+            //Console.WriteLine("Astroid hit something");
 
         }
     }

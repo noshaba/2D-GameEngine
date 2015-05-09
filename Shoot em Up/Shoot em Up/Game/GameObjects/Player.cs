@@ -37,7 +37,7 @@ namespace Shoot_em_Up
 
         public override void reactToCollision(IShape obj)
         {
-            Console.WriteLine("Oh no the ship got hit!");
+            //Console.WriteLine("Oh no the ship got hit!");
         }
     }
 }
