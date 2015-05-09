@@ -7,6 +7,7 @@ using SFML.Window;
 using SFML.Graphics;
 using SFML.Audio;
 using SFML.System;
+using Maths;
 using Physics;
 using System.Diagnostics;
 
@@ -26,7 +27,6 @@ namespace Shoot_em_Up {
         private Wall left;
         private Wall right;
 
-        private Random rand;
         private Stopwatch clock;
         private int chance;
 
@@ -37,7 +37,7 @@ namespace Shoot_em_Up {
             WIDTH = width;
             HEIGHT = height;
             MIN_OBJECTS = 2; //2 walls
-            physics = new Physic(new Vector2f(0, 0), .1f, false);
+            physics = new Physic(ref this.objects, new Vector2f(0, 0), .1f, false);
 
             //this.top = new Wall(new Vector2f(0,width), 1,1,Color.Black);
             this.right = new Wall(new Vector2f(-1, 0), new Vector2f(width - 0.5f, height * 0.5f), new Vector2f(1.0f, height), Color.Black);
@@ -45,21 +45,19 @@ namespace Shoot_em_Up {
             AddObject(this.right);
             AddObject(this.left);
 
-            this.rand = new Random();
             this.clock = new Stopwatch();
-            this.startGame();
+            this.StartGame();
         }
 
         private void AddObject(IShape obj)
         {
             objects.Add(obj);
-            physics.AddObject(obj);
         }
 
         public void Update(float dt) {
             //all the updating
             physics.Update(dt);
-            lookForNewAstroids();
+            LookForNewAstroids();
             //each astroid has to check if it has left the screen, when it does the player looses points(colliding with player is a different matter)
             for (int i = 0; i < objects.Count; i++ )
             {
@@ -89,30 +87,30 @@ namespace Shoot_em_Up {
             }
         }
 
-        public void startGame()
+        public void StartGame()
         {
-            this.reset();
+            this.Reset();
 
             this.p = new Player(new Vector2f(this.WIDTH / 2, 600), 20, 10, Color.Yellow);
             AddObject(p);
 
             this.clock.Start();
             this.chance = 10;
-            this.generateAstroid();
+            this.GenerateAstroid();
             
         }
 
-        public void generateAstroid() {
+        public void GenerateAstroid() {
             this.AddObject(new Astroid(this.WIDTH/2, 0));
         }
 
-        public void lookForNewAstroids()
+        public void LookForNewAstroids()
         {
             //every second try to create a new astroid, if not raise chance to create one next time
-            if (rand.Next(1, 100) < this.chance && this.clock.ElapsedMilliseconds > 600)
+            if (EMath.random.Next(1, 100) < this.chance && this.clock.ElapsedMilliseconds > 600)
             {
                 this.clock.Restart();
-                this.generateAstroid();
+                this.GenerateAstroid();
                 this.chance = 0;
             }
             else if (this.chance < 100 && this.clock.ElapsedMilliseconds > 6000)
@@ -122,15 +120,18 @@ namespace Shoot_em_Up {
             }
         }
 
-        public void movePlayer(Keyboard.Key k)
+        public void MovePlayer(Keyboard.Key k)
         {
-            this.p.move(k);
+            this.p.Move(k);
         }
 
-        public void reset()
+        public void StopPlayer() {
+            this.p.Stop();
+        }
+
+        public void Reset()
         {
             objects.RemoveRange(MIN_OBJECTS, objects.Count - MIN_OBJECTS);
-            physics.Reset(MIN_OBJECTS);
         }
 
     }

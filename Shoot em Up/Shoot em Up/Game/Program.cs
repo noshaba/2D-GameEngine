@@ -129,7 +129,11 @@ namespace Shoot_em_Up
                 case Keyboard.Key.P:
                     break;
                 case Keyboard.Key.Space:
-                    sEmUp.startGame();
+                    sEmUp.StartGame();
+                    break;
+                case Keyboard.Key.Left:
+                case Keyboard.Key.Right:
+                    sEmUp.StopPlayer();
                     break;
                 default:
                     break;
@@ -139,10 +143,10 @@ namespace Shoot_em_Up
         static void window_KeyPressed(object sender, KeyEventArgs e) {
             switch(e.Code) {
                 case Keyboard.Key.Left:
-                    sEmUp.movePlayer(e.Code);
+                    sEmUp.MovePlayer(e.Code);
                     break;
                 case Keyboard.Key.Right:
-                    sEmUp.movePlayer(e.Code);
+                    sEmUp.MovePlayer(e.Code);
                     break;
             }
         }

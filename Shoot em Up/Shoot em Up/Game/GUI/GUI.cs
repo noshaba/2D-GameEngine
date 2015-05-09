@@ -19,14 +19,14 @@ namespace Shoot_em_Up {
             game = g;
             menue = new Menue(new Vector2f(0,0), new Vector2f(480, 60));
             menue.Displayed = true;
-            start = new Button(10, 10, "Start Game!", startGame);
+            start = new Button(10, 10, "Start Game!", StartGame);
             menue.Add(start);
             Add(menue);
         }
 
-        private void startGame()
+        private void StartGame()
         {
-            game.startGame();
+            game.StartGame();
         }
 
     }

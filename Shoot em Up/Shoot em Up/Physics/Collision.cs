@@ -18,6 +18,7 @@ namespace Physics {
         public float distance;
         public float overlap;
         public Vector2f[] contacts;
+        public IShape obj;
 
         public static Collision CheckForCollision(IShape obj1, IShape obj2) {
             Collision colli = new Collision();
@@ -49,6 +50,7 @@ namespace Physics {
                 cir.Pull(colli.normal, colli.overlap);
                 colli.contacts = new Vector2f[1];
                 colli.contacts[0] = cir.COM - colli.normal * cir.Radius;
+                colli.obj = obj2;
             }
         }
 
@@ -72,6 +74,7 @@ namespace Physics {
             }
             if (colli.collision) {
                 poly.Pull(colli.normal, colli.overlap);
+                colli.obj = obj2;
                 if ((poly.Vertex((v + 1) % poly.vertices.Length).Dot(colli.normal) - plane.constant) < plane.thickness) {
                     colli.contacts = new Vector2f[2];
                     colli.contacts[0] = poly.Vertex(v);
@@ -90,10 +93,12 @@ namespace Physics {
 
         private static void PlaneToCircle(IShape obj1, IShape obj2, ref Collision colli) {
             CircleToPlane(obj2, obj1, ref colli);
+            colli.obj = obj2;
         }
 
         private static void PlaneToPolygon(IShape obj1, IShape obj2, ref Collision colli) {
             PolygonToPlane(obj2, obj1, ref colli);
+            colli.obj = obj2;
         }
 
         private static void PlaneToPlane(IShape obj1, IShape obj2, ref Collision colli) {
@@ -115,6 +120,7 @@ namespace Physics {
                 PullApart(cir1, cir2, colli.normal, colli.overlap);
                 colli.contacts = new Vector2f[1];
                 colli.contacts[0] = cir2.COM + colli.normal * cir2.Radius;
+                colli.obj = obj2;
             }
         }
 
@@ -145,6 +151,7 @@ namespace Physics {
                 PullApart(cir, poly, colli.normal, colli.overlap);
                 colli.contacts = new Vector2f[1];
                 colli.contacts[0] = cir.COM - colli.normal * cir.Radius;
+                colli.obj = obj2;
                 return;
             }
             // Determine which voronoi region of the edge center of circle lies within
@@ -189,11 +196,13 @@ namespace Physics {
                 PullApart(cir, poly, colli.normal, colli.overlap);
                 colli.contacts = new Vector2f[1];
                 colli.contacts[0] = cir.COM - colli.normal * cir.Radius;
+                colli.obj = obj2;
             }
         }
 
         private static void PolygonToCircle(IShape obj1, IShape obj2, ref Collision colli) {
             CircleToPolygon(obj2, obj1, ref colli);
+            colli.obj = obj2;
         }
 
         private static void PolygonToPolygon(IShape obj1, IShape obj2, ref Collision colli) {
@@ -223,6 +232,7 @@ namespace Physics {
             if (colli.collision) {
                 PullApart(poly1, poly2, colli.normal, colli.overlap);
                 ContactPoints(poly1, poly2, colli.normal, ref colli);
+                colli.obj = obj2;
             }
         }
 

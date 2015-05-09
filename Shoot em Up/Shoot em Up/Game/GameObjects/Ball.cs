@@ -20,6 +20,7 @@ namespace Shoot_em_Up {
         public Ball(Vector2f position, float radius, Color color, float mass) : base(position, radius, mass) {
             initPosition = position;
             FillColor = color;
+            Restitution = 1.0f;
         }
 
         public void Reset() {

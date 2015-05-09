@@ -43,7 +43,7 @@ namespace GUI
             this.path = path;
             this.img = new Texture(path);
             this.Position = new Vector2f(x,y);
-            this.scaleImage();
+            this.ScaleImage();
         }
 
 
@@ -80,14 +80,13 @@ namespace GUI
         {
 
         }
-        Vector2f Position { get; set; }
         public IGraphic ParentView
         {
             get { return parentView; }
             set { parentView = value; }
         }
 
-        public void scaleImage()
+        protected void ScaleImage()
         {
             Vector2u size = this.img.Size;
 

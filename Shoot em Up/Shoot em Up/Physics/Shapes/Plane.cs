@@ -33,10 +33,7 @@ namespace Physics {
             kineticFriction = EMath.Random(0, staticFriction);
         }
 
-        public virtual void reactToCollision(IShape obj)
-        {
-
-        } 
+        public virtual void ReactToCollision(Collision colliInfo) { }
 
         public Collision.Type Type {
             get { return type; }
@@ -60,7 +57,6 @@ namespace Physics {
 
         public State Current {
             get { return current; }
-            set { current = value; }
         }
 
         public State Previous {

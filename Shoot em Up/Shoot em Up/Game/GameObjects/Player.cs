@@ -13,29 +13,35 @@ namespace Shoot_em_Up
     class Player : Polygon
     {
         public uint score;
-        private float speed;
+        private Vector2f speed;
 
         public Player(Vector2f position, float hw, float hh, Color color) : base(position, 1, 0.01f) {
             SetBox(position, hw, hh, 0);
             FillColor = color;
-            this.speed = 25;
+            Restitution = 1.0f;
+            this.speed = new Vector2f(25,0);
             this.score = 200;
         }
 
-        public void move(Keyboard.Key k)
+        public void Move(Keyboard.Key k)
         {
             switch (k)
             {
                 case Keyboard.Key.Right:
-                    current.velocity = new Vector2f(this.speed,0);
+                    Velocity = this.speed;
                     break;
                 case Keyboard.Key.Left:
-                    current.velocity = new Vector2f(this.speed*-1, 0);
+                    Velocity = -this.speed;
                     break;
             }
         }
 
-        public override void reactToCollision(IShape obj)
+        public void Stop()
+        {
+            Velocity = new Vector2f(0,0);
+        }
+
+        public override void ReactToCollision(Collision colliInfo)
         {
             //Console.WriteLine("Oh no the ship got hit!");
         }

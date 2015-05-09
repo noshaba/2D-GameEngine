@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 using SFML.Window;
 using SFML.Graphics;
 using SFML.System;
-using Shoot_em_Up;
 
 namespace GUI {
-    // TODO: change rectangleshape to sprite later..
     class Button : GUIElement, IGraphic {
         public enum Status {
             Pressed, Released, OnHover
@@ -58,32 +56,28 @@ namespace GUI {
 
             this.label.Position = new Vector2f(x+px, y+py);
 
-            this.scaleImage();
+            this.ScaleImage();
             
         }
 
-        public IGraphic ParentView {
+        new public IGraphic ParentView {
             get { return parentView; }
             set { parentView = value; }
         }
 
-        public bool Displayed {
+        new public bool Displayed {
             get { return displayed; }
             set { displayed = value; }
         }
 
-        // for sprite
-        // public Button(Vector2f position, string file) : base() {  
-        // }
-
-        public void Draw(RenderWindow window) {
+        new public void Draw(RenderWindow window) {
             if (displayed)
                 window.Draw(this);
                 if (this.label != null)
                 window.Draw(this.label);
         }
 
-        public void Released(float X, float Y) {
+        new public void Released(float X, float Y) {
             if (displayed && GetGlobalBounds().Contains(X, Y)) {
                 status = Status.Released;
                 if (listener != null)
@@ -91,12 +85,12 @@ namespace GUI {
             }
         }
 
-        public void Pressed(float X, float Y) {
+        new public void Pressed(float X, float Y) {
             if (displayed && GetGlobalBounds().Contains(X, Y))
                 status = Status.Pressed;
         }
 
-        public void OnHover(float X, float Y) {
+        new public void OnHover(float X, float Y) {
             if (displayed) {
                 if (GetGlobalBounds().Contains(X, Y))
                     status = Status.OnHover;

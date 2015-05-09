@@ -20,10 +20,10 @@ namespace Physics {
         public float angularVelocity;
 
         // constant state
-        public float mass;
-        public float inverseMass;
-        public float inertiaTensor;
-        public float inverseInertiaTensor;
+        public readonly float mass;
+        public readonly float inverseMass;
+        public readonly float inertiaTensor;
+        public readonly float inverseInertiaTensor;
 
         #region Constructors
 

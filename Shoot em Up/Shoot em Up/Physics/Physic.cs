@@ -9,25 +9,17 @@ using Maths;
 
 namespace Physics {
     class Physic {
-        private List<IShape> objects = new List<IShape>();
+        private List<IShape> objects;
         private Vector2f gravity;
         private float damping;
         private bool friction;
         public bool frozen = false;
 
-        public Physic(Vector2f gravity, float damping, bool friction) {
+        public Physic(ref List<IShape> objects, Vector2f gravity, float damping, bool friction) {
+            this.objects = objects;
             this.gravity = gravity;
             this.damping = damping;
             this.friction = friction;
-        }
-
-        public void AddObject(IShape obj) {
-            objects.Add(obj);
-        }
-
-        //why 7? - remove all additional objects except ball, 2 paddles and 4 walls? replace 7 with variable in future
-        public void Reset(int min) {
-            objects.RemoveRange(min, objects.Count - min);
         }
 
         //updates all objects in the list
@@ -63,18 +55,13 @@ namespace Physics {
             for (int j = 0; j < objects.Count(); ++j) {
                 if (i == j) continue;
                 Collision colli = Collision.CheckForCollision(objects[i], objects[j]);
-                if (colli.collision)
-                {
-                    objects[i].reactToCollision(objects[j]);
-                    //objects[j].reactToCollision(objects[i]);
-                    if (objects[i].InverseMass > 0)
-                    {
-                        for (uint k = 0; k < colli.contacts.Length; ++k)
-                        {
+                if (colli.collision) {
+                    objects[i].ReactToCollision(colli);
+                    if (objects[i].InverseMass > 0) {
+                        for (uint k = 0; k < colli.contacts.Length; ++k) {
                             Vector2f rad1 = colli.contacts[k] - objects[i].COM;
                             Vector2f rad2 = colli.contacts[k] - objects[j].COM;
                             CollisionImpulse(objects[i], objects[j], rad1, rad2, colli.normal, colli.contacts.Length);
-
                         }
                     }
                 }
