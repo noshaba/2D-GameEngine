@@ -13,11 +13,9 @@ using System.Diagnostics;
 
 namespace Shoot_em_Up {
     class Game {
-        private Paddle ai;
-        private Paddle player;
-        private Ball ball;
         private Physic physics;
-        private List<IShape> objects = new List<IShape>();
+        private List<GameObject> objects = new List<GameObject>();
+        private List <IShape> shapes = new List<IShape>();
         private int WIDTH;
         private int HEIGHT;
         private int MIN_OBJECTS;
@@ -37,11 +35,12 @@ namespace Shoot_em_Up {
             WIDTH = width;
             HEIGHT = height;
             MIN_OBJECTS = 2; //2 walls
-            physics = new Physic(ref this.objects, new Vector2f(0, 0), .1f, false);
+            physics = new Physic(shapes, new Vector2f(0, 0), .1f, false);
 
             //this.top = new Wall(new Vector2f(0,width), 1,1,Color.Black);
             this.right = new Wall(new Vector2f(-1, 0), new Vector2f(width - 0.5f, height * 0.5f), new Vector2f(1.0f, height), Color.Black);
             this.left = new Wall(new Vector2f( 1, 0), new Vector2f(0.5f, height * 0.5f), new Vector2f(1.0f, height), Color.Black);
+
             AddObject(this.right);
             AddObject(this.left);
 
@@ -49,9 +48,11 @@ namespace Shoot_em_Up {
             this.StartGame();
         }
 
-        private void AddObject(IShape obj)
+        private void AddObject(GameObject obj)
         {
+
             objects.Add(obj);
+            shapes.Add(obj.shape);
         }
 
         public void Update(float dt) {
@@ -61,9 +62,16 @@ namespace Shoot_em_Up {
             //each astroid has to check if it has left the screen, when it does the player looses points(colliding with player is a different matter)
             for (int i = 0; i < objects.Count; i++ )
             {
-                if (objects[i] is Astroid && (objects[i] as Astroid).COM.Y > this.HEIGHT)
+                
+                if (shapes[i].Collision.collision) {
+                    Console.WriteLine("y");
+                }
+                //Console.WriteLine("Shapes: " + i + " an" + shapes[i].GetHashCode());
+                objects[i].shape = shapes[i];
+                objects[i].Update();
+                if (objects[i] is Astroid && (objects[i] as Astroid).shape.COM.Y > this.HEIGHT)
                 {
-                    objects.RemoveAt(i);
+                    //objects.RemoveAt(i);
                     if (this.p.score >= 100)
                     {
                         this.p.score -= 100;
@@ -78,12 +86,12 @@ namespace Shoot_em_Up {
             //all the drawing
             State interpol;
             Transform t;
-            foreach (Shape obj in objects) {
-                interpol = (obj as IShape).Interpolation(alpha);
+            foreach (GameObject obj in objects) {
+                interpol = obj.shape.Interpolation(alpha);
                 t = Transform.Identity;
                 t.Translate(interpol.position);
                 t.Rotate(interpol.DegOrientation);
-                window.Draw(obj, new RenderStates(t));
+                window.Draw(obj.shape as Shape, new RenderStates(t));
             }
         }
 

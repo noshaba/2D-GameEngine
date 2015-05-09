@@ -15,11 +15,11 @@ namespace Physics {
         private bool friction;
         public bool frozen = false;
 
-        public Physic(ref List<IShape> objects, Vector2f gravity, float damping, bool friction) {
-            this.objects = objects;
+        public Physic(List<IShape> shapes, Vector2f gravity, float damping, bool friction) {
             this.gravity = gravity;
             this.damping = damping;
             this.friction = friction;
+            this.objects = shapes;
         }
 
         //updates all objects in the list
@@ -31,6 +31,12 @@ namespace Physics {
                     ApplyForces(dt, i);
                 }
             }
+        }
+
+        public void Add(IShape obj)
+        {
+            objects.Add(obj);
+
         }
 
         #region Physical Methods
@@ -55,8 +61,9 @@ namespace Physics {
             for (int j = 0; j < objects.Count(); ++j) {
                 if (i == j) continue;
                 Collision colli = Collision.CheckForCollision(objects[i], objects[j]);
-                if (colli.collision) {
-                    objects[i].ReactToCollision(colli);
+                objects[i].Collision = colli;
+                if (objects[i].Collision.collision) {
+                    Console.WriteLine("t");
                     if (objects[i].InverseMass > 0) {
                         for (uint k = 0; k < colli.contacts.Length; ++k) {
                             Vector2f rad1 = colli.contacts[k] - objects[i].COM;

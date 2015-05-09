@@ -8,14 +8,16 @@ using Maths;
 
 namespace Physics {
     interface IShape {
-        void ReactToCollision(Collision colliInfo);    
+       // void ReactToCollision(Collision colliInfo);
+        //bool Alive { get; set;}
         Collision.Type Type{ get; }
+        Collision Collision { get; set; }
         Vector2f COM { get; }
         float Orientation { get; }
         Mat22f WorldTransform { get; }
         Mat22f LocalTransform { get; }
         State Current { get; }
-        State Previous { get; }
+        State Previous { get; set; }
         float Mass { get; }
         float InverseMass { get; }
         float InverseInertia { get; }

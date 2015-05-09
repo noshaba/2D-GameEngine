@@ -14,6 +14,7 @@ namespace Physics {
         private float restitution = (float) EMath.random.NextDouble(); 
         private float staticFriction = (float) EMath.random.NextDouble();
         private float kineticFriction;
+        private Collision collision;
 
         protected State previous;
         protected State current;
@@ -31,12 +32,16 @@ namespace Physics {
             current = new State(position, rotation);
             previous = current;
             kineticFriction = EMath.Random(0, staticFriction);
+            collision = new Collision();
+            collision.collision = false;
         }
 
         public Polygon(Vector2f position, float rotation, float density) : base() {
             InitVertices();
             InitState(position, rotation, density);
             kineticFriction = EMath.Random(0, staticFriction);
+            collision = new Collision();
+            collision.collision = false;
         }
 
         public Polygon(Vector2f[] vertices, Vector2f position, float rotation) : base() {
@@ -46,6 +51,8 @@ namespace Physics {
             current = new State(position, rotation);
             previous = current;
             kineticFriction = EMath.Random(0, staticFriction);
+            collision = new Collision();
+            collision.collision = false;
         }
 
         public Polygon(Vector2f[] vertices, Vector2f position, float rotation, float density) : base() {
@@ -54,6 +61,8 @@ namespace Physics {
                 SetPoint(i, vertices[i]);
             InitState(position, rotation, density);
             kineticFriction = EMath.Random(0, staticFriction);
+            collision = new Collision();
+            collision.collision = false;
         }
 
         public void SetBox(Vector2f position, float hw, float hh, float rotation) {
@@ -210,7 +219,12 @@ namespace Physics {
             }
         }
 
-        public virtual void ReactToCollision(Collision colliInfo) { } 
+
+        public Collision Collision
+        {
+            get { return collision; }
+            set { collision = value; }
+        }
 
         public Collision.Type Type {
             get { return type; }
@@ -238,6 +252,7 @@ namespace Physics {
 
         public State Previous {
             get { return previous; }
+            set { previous = value; }
         }
 
         public State Interpolation(float alpha) {

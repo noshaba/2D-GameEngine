@@ -10,32 +10,32 @@ using Maths;
 using SFML.System;
 
 namespace Shoot_em_Up {
-    class Ball : Circle {
+    class Ball : GameObject {
 
         public Collision.Type type = Collision.Type.Circle;
 
         private Vector2f initPosition;
         private const float MAXVELOCITY2 = 40000;
 
-        public Ball(Vector2f position, float radius, Color color, float mass) : base(position, radius, mass) {
+        public Ball(Vector2f position, float radius, Color color, float mass) : base(Collision.Type.Circle, position, radius, mass) {
             initPosition = position;
-            FillColor = color;
-            Restitution = 1.0f;
+            (shape as Circle).FillColor = color;
+            shape.Restitution = 1.0f;
         }
 
         public void Reset() {
-            current.Reset();
-            current.position = initPosition;
-            previous = current;
+            shape.Current.Reset();
+            shape.Current.position = initPosition;
+            shape.Previous = shape.Current;
         }
 
         public void Impulse() {
-            current.velocity = new Vector2f(-50, 50);
+            shape.Current.velocity = new Vector2f(-50, 50);
         }
 
         public void IncreaseVelocity(float dt) {
-            if (current.velocity.Length2() < MAXVELOCITY2)
-                current.velocity += dt * current.velocity.Norm() * 50;
+            if (shape.Current.velocity.Length2() < MAXVELOCITY2)
+                shape.Current.velocity += dt * shape.Current.velocity.Norm() * 50;
         }
     }
 }

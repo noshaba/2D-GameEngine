@@ -8,16 +8,16 @@ using SFML.System;
 using Physics;
 
 namespace Shoot_em_Up {
-    class Wall : Plane {
+    class Wall : GameObject {
 
         public Wall(Vector2f normal, Vector2f position, Vector2f size, Color color) : base(normal, position, size, 0) {
-            FillColor = color;
-            Restitution = 1.0f;
+            (shape as Plane).FillColor = color;
+            shape.Restitution = 1.0f;
         }
 
         public Wall(Vector2f normal, Vector2f position, Vector2f size, Color color, float orientation) : base(normal, position, size, orientation) {
-            FillColor = color;
-            Restitution = 1.0f;
+           (shape as Plane).FillColor = color;
+           shape.Restitution = 1.0f;
         }
     }
 }

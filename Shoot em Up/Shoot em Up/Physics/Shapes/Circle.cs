@@ -10,6 +10,7 @@ using Maths;
 namespace Physics {
     class Circle : CircleShape, IShape {
         private Collision.Type type = Collision.Type.Circle;
+        private Collision collision;
         private float restitution = (float) EMath.random.NextDouble();
         private float staticFriction = (float) EMath.random.NextDouble();
         private float kineticFriction;
@@ -23,6 +24,9 @@ namespace Physics {
             current = new State(position, 0);
             previous = current;
             kineticFriction = EMath.Random(0, staticFriction);
+            collision = new Collision();
+            collision.collision = false;
+
         }
         
         public Circle(Vector2f position, float radius, float density) : base(radius) {
@@ -31,13 +35,21 @@ namespace Physics {
             current = new State(position, 0, mass, mass * radius * radius);
             previous = current;
             kineticFriction = EMath.Random(0, staticFriction);
+            collision = new Collision();
+            collision.collision = false;
+
             // Console.WriteLine("Ball " + mass);
         }
 
-        public virtual void ReactToCollision(Collision colliInfo) { }
 
         public Collision.Type Type {
             get { return type; }
+        }
+
+        public Collision Collision
+        {
+            get { return collision; }
+            set { collision = value; }
         }
 
         public Vector2f COM {
@@ -62,6 +74,7 @@ namespace Physics {
 
         public State Previous {
             get { return previous; }
+            set { previous = value; }
         }
 
         public State Interpolation(float alpha) {

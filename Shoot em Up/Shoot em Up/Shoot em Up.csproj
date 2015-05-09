@@ -57,8 +57,7 @@
     <Compile Include="Game\Game.cs" />
     <Compile Include="Game\GameObjects\Astroid.cs" />
     <Compile Include="Game\GameObjects\Ball.cs" />
-    <Compile Include="Game\GameObjects\Obstacle.cs" />
-    <Compile Include="Game\GameObjects\Paddle.cs" />
+    <Compile Include="Game\GameObjects\GameObject.cs" />
     <Compile Include="Game\GameObjects\Player.cs" />
     <Compile Include="Game\GameObjects\Wall.cs" />
     <Compile Include="Game\GUI\GUI.cs" />
@@ -77,6 +76,7 @@
     <Compile Include="Physics\Physic.cs" />
     <Compile Include="Physics\Shapes\Circle.cs" />
     <Compile Include="Physics\Shapes\IShape.cs" />
+    <Compile Include="Physics\Shapes\PhysicsObject.cs" />
     <Compile Include="Physics\Shapes\Plane.cs" />
     <Compile Include="Physics\Shapes\Polygon.cs" />
     <Compile Include="Physics\State.cs" />
