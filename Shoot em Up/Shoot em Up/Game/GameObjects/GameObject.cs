@@ -18,6 +18,7 @@ namespace Shoot_em_Up
         public GameObject(IShape shape)
         {
             this.shape = shape;
+            this.shape.Parent = this; 
         }
         //change name of "radius"
         public GameObject(Collision.Type type, Vector2f position, float var, float density)
@@ -31,11 +32,13 @@ namespace Shoot_em_Up
                     this.shape = new Polygon(position, var, density);
                     break;
             }
+            this.shape.Parent = this;
         }
 
         public GameObject(Vector2f normal, Vector2f position, Vector2f size, float rotation)
         {
             this.shape = new Plane(normal, position, size, rotation);
+            this.shape.Parent = this;
         }
 
         public GameObject GetGameObject(IShape shape)

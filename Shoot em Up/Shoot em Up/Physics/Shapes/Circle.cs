@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
 using Maths;
+using Shoot_em_Up;
 
 namespace Physics {
     class Circle : CircleShape, IShape {
@@ -18,6 +19,7 @@ namespace Physics {
         protected State current;
         protected State previous;
 
+        private Object parent;
 
         public Circle(Vector2f position, float radius) : base(radius) {
             Origin = new Vector2f(radius, radius);
@@ -44,6 +46,12 @@ namespace Physics {
 
         public Collision.Type Type {
             get { return type; }
+        }
+
+        public Object Parent
+        {
+            get { return parent; }
+            set { parent = value; }
         }
 
         public Collision Collision

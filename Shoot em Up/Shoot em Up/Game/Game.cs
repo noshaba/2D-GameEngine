@@ -68,6 +68,12 @@ namespace Shoot_em_Up {
                     objects.RemoveAt(i);
                 }
             }
+            if (p.ready)
+            {
+                AddObject(new Ball(p.shape.COM + new Vector2f(0, -30), 2, Color.Yellow, 0));
+                p.ready = false;
+                Console.WriteLine(objects[objects.Count - 1].alive);
+            }
 
         }
 

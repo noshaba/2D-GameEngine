@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SFML.System;
 using SFML.Graphics;
 using Maths;
+using Shoot_em_Up;
 
 namespace Physics {
     class Plane : RectangleShape, IShape {
@@ -18,6 +19,7 @@ namespace Physics {
         protected State previous;
         protected State current;
 
+        private Object parent;
 
         public Vector2f normal;
         public float constant;
@@ -41,6 +43,12 @@ namespace Physics {
         {
             get { return collision; }
             set { collision = value; }
+        }
+
+        public Object Parent
+        {
+            get { return parent; }
+            set { parent = value; }
         }
 
         public Collision.Type Type {

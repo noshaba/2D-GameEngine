@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
 using Maths;
+using Shoot_em_Up;
 
 namespace Physics {
     class Polygon : ConvexShape, IShape {
@@ -19,7 +20,7 @@ namespace Physics {
         protected State previous;
         protected State current;
 
-
+        private Object parent;
 
         public Vector2f[] vertices;
         public Vector2f[] normals;
@@ -225,6 +226,12 @@ namespace Physics {
         {
             get { return collision; }
             set { collision = value; }
+        }
+
+        public Object Parent
+        {
+            get { return parent; }
+            set { parent = value; }
         }
 
         public Collision.Type Type {

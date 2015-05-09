@@ -26,13 +26,15 @@ namespace Shoot_em_Up
         {
             
             if(shape.Collision.collision) {
-                Console.WriteLine(this.shape.Collision.obj);
-                if (this.shape.Collision.obj is Astroid) {
+                if (this.shape.Collision.obj.Parent is Astroid) {
                     
-                    this.hp = 0;
+                    this.hp -= 20;
                 }
                 if (this.hp <= 0) {
                     this.alive = false;
+                }
+                if (this.hp <= 50) {
+                    (this.shape as Polygon).FillColor = Color.Red;
                 }
             }
             base.Update();
