@@ -12,6 +12,8 @@ namespace Shoot_em_Up
     class GameObject
     {
         public IShape shape;
+        public bool alive = true;
+        public int hp;
 
         public GameObject(IShape shape)
         {
@@ -28,7 +30,7 @@ namespace Shoot_em_Up
                 case Collision.Type.Polygon:
                     this.shape = new Polygon(position, var, density);
                     break;
-            }  
+            }
         }
 
         public GameObject(Vector2f normal, Vector2f position, Vector2f size, float rotation)
@@ -36,10 +38,12 @@ namespace Shoot_em_Up
             this.shape = new Plane(normal, position, size, rotation);
         }
 
+        public GameObject GetGameObject(IShape shape)
+        {
+            return this.shape.Equals(shape) ? this : null;
+        }
+
         public virtual void Update() {
-            /*if (shape.Collision.collision) {
-                Console.WriteLine("nnn");
-            }*/
             shape.Collision.collision = false;
         }
     }

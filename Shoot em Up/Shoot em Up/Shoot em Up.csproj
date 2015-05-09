@@ -76,7 +76,6 @@
     <Compile Include="Physics\Physic.cs" />
     <Compile Include="Physics\Shapes\Circle.cs" />
     <Compile Include="Physics\Shapes\IShape.cs" />
-    <Compile Include="Physics\Shapes\PhysicsObject.cs" />
     <Compile Include="Physics\Shapes\Plane.cs" />
     <Compile Include="Physics\Shapes\Polygon.cs" />
     <Compile Include="Physics\State.cs" />

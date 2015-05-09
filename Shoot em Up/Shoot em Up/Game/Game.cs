@@ -63,13 +63,9 @@ namespace Shoot_em_Up {
             for (int i = 0; i < objects.Count; i++ )
             {
                 objects[i].Update();
-                if (objects[i] is Astroid && (objects[i] as Astroid).shape.COM.Y > this.HEIGHT)
+                if (!objects[i].alive)
                 {
-                    //objects.RemoveAt(i);
-                    if (this.p.score >= 100)
-                    {
-                        this.p.score -= 100;
-                    }
+                    objects.RemoveAt(i);
                 }
             }
 
