@@ -30,9 +30,9 @@ namespace Shoot_em_Up
                     
                     this.hp -= 20;
                 }
-                if (this.hp <= 0) {
+              /*  if (this.hp <= 0) {
                     this.alive = false;
-                }
+                }*/
                 if (this.hp <= 50) {
                     (this.shape as Polygon).FillColor = Color.Red;
                 }

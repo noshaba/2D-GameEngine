@@ -59,6 +59,12 @@ namespace Shoot_em_Up {
             //all the updating
             physics.Update(dt);
             LookForNewAstroids();
+            if (p.ready)
+            {
+                this.AddObject(new Ball(p.shape.COM + new Vector2f(0, -30), 2, Color.Yellow, 0));
+                p.ready = false;
+            }
+            Console.WriteLine(objects.Count);
             //each astroid has to check if it has left the screen, when it does the player looses points(colliding with player is a different matter)
             for (int i = 0; i < objects.Count; i++ )
             {
@@ -68,12 +74,7 @@ namespace Shoot_em_Up {
                     objects.RemoveAt(i);
                 }
             }
-            if (p.ready)
-            {
-                AddObject(new Ball(p.shape.COM + new Vector2f(0, -30), 2, Color.Yellow, 0));
-                p.ready = false;
-                Console.WriteLine(objects[objects.Count - 1].alive);
-            }
+
 
         }
 
@@ -96,7 +97,7 @@ namespace Shoot_em_Up {
             this.Reset();
 
             this.p = new Player(new Vector2f(this.WIDTH / 2, 600), 20, 10, Color.Yellow);
-            AddObject(p);
+            this.AddObject(p);
 
             this.clock.Start();
             this.chance = 10;
@@ -136,6 +137,7 @@ namespace Shoot_em_Up {
         public void Reset()
         {
             objects.RemoveRange(MIN_OBJECTS, objects.Count - MIN_OBJECTS);
+            shapes.RemoveRange(MIN_OBJECTS, objects.Count - MIN_OBJECTS);
         }
 
     }

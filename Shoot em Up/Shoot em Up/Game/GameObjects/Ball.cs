@@ -16,11 +16,13 @@ namespace Shoot_em_Up {
 
         private Vector2f initPosition;
         private const float MAXVELOCITY2 = 40000;
+        private int damage = 20;
 
         public Ball(Vector2f position, float radius, Color color, float mass) : base(Collision.Type.Circle, position, radius, mass) {
             initPosition = position;
             (shape as Circle).FillColor = color;
             shape.Restitution = 1.0f;
+            shape.Velocity = new Vector2f(0,-50);
         }
 
         public void Reset() {
@@ -36,6 +38,19 @@ namespace Shoot_em_Up {
         public void IncreaseVelocity(float dt) {
             if (shape.Current.velocity.Length2() < MAXVELOCITY2)
                 shape.Current.velocity += dt * shape.Current.velocity.Norm() * 50;
+        }
+
+        public override void Update()
+        {
+            if (shape.Collision.collision)
+            {
+                if (this.shape.Collision.obj.Parent is Astroid)
+                {
+                    (this.shape.Collision.obj.Parent as Astroid).hp -= this.damage;
+                    this.alive = false;
+                }
+            }
+            base.Update();
         }
     }
 }
