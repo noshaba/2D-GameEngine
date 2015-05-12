@@ -19,9 +19,9 @@ namespace Shoot_em_Up
         public bool ready;
 
         public Player(Vector2f position, float hw, float hh, Color color) : base(Collision.Type.Polygon, position, 1, 0.01f) {
-            (shape as Polygon).SetBox(position, hw, hh, 0);
-            (shape as Polygon).FillColor = color;
-            shape.Restitution = 1.0f;
+            (state as Polygon).SetBox(position, hw, hh, 0);
+            (state as Polygon).FillColor = color;
+            state.Restitution = 1.0f;
             this.speed = new Vector2f(50,0);
             this.score = 200;
             this.charge = new Stopwatch();
@@ -34,17 +34,17 @@ namespace Shoot_em_Up
             switch (k)
             {
                 case Keyboard.Key.Right:
-                    shape.Velocity = this.speed;
+                    state.Velocity = this.speed;
                     break;
                 case Keyboard.Key.Left:
-                    shape.Velocity = -this.speed;
+                    state.Velocity = -this.speed;
                     break;
             }
         }
 
         public void Stop()
         {
-            shape.Velocity = new Vector2f(0,0);
+            state.Velocity = new Vector2f(0,0);
         }
 
         public void shoot()

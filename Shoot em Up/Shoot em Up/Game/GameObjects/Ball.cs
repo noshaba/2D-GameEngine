@@ -20,34 +20,34 @@ namespace Shoot_em_Up {
 
         public Ball(Vector2f position, float radius, Color color, float mass) : base(Collision.Type.Circle, position, radius, mass) {
             initPosition = position;
-            (shape as Circle).FillColor = color;
-            shape.Restitution = 1.0f;
-            shape.Velocity = new Vector2f(0,-50);
+            (state as Circle).FillColor = color;
+            state.Restitution = 1.0f;
+            state.Velocity = new Vector2f(0,-50);
         }
 
         public void Reset() {
-            shape.Current.Reset();
-            shape.Current.position = initPosition;
-            shape.Previous = shape.Current;
+            state.Current.Reset();
+            state.Current.position = initPosition;
+            state.Previous = state.Current;
         }
 
         public void Impulse() {
-            shape.Current.velocity = new Vector2f(-50, 50);
+            state.Current.velocity = new Vector2f(-50, 50);
         }
 
         public void IncreaseVelocity(float dt) {
-            if (shape.Current.velocity.Length2() < MAXVELOCITY2)
-                shape.Current.velocity += dt * shape.Current.velocity.Norm() * 50;
+            if (state.Current.velocity.Length2() < MAXVELOCITY2)
+                state.Current.velocity += dt * state.Current.velocity.Norm() * 50;
         }
 
         public override void Update()
         {
-            if (shape.Collision.collision)
+            if (state.Collision.collision)
             {
                 this.alive = false;
-                if (this.shape.Collision.obj.Parent is Astroid)
+                if (this.state.Collision.obj.Parent is Astroid)
                 {
-                    (this.shape.Collision.obj.Parent as Astroid).hp -= this.damage;
+                    (this.state.Collision.obj.Parent as Astroid).hp -= this.damage;
                 }
             }
             base.Update();

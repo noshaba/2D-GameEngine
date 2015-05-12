@@ -5,10 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using SFML.System;
 using Maths;
-using Shoot_em_Up;
 
 namespace Physics {
-    interface IShape {
+    interface IState {
         Object Parent { get; set; }
         Collision.Type Type{ get; }
         Collision Collision { get; set; }

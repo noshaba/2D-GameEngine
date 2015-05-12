@@ -18,15 +18,15 @@ namespace Physics {
         public float distance;
         public float overlap;
         public Vector2f[] contacts;
-        public IShape obj;
+        public IState obj;
 
-        public static Collision CheckForCollision(IShape obj1, IShape obj2) {
+        public static Collision CheckForCollision(IState obj1, IState obj2) {
             Collision colli = new Collision();
             Dispatch[(int)obj1.Type, (int)obj2.Type](obj1, obj2, ref colli);
             return colli;
         }
 
-        private delegate void CollisionType(IShape obj1, IShape obj2, ref Collision colli);
+        private delegate void CollisionType(IState obj1, IState obj2, ref Collision colli);
 
         private static CollisionType[,] Dispatch = {
             { CircleToCircle, CircleToPolygon, CircleToPlane },
@@ -38,7 +38,7 @@ namespace Physics {
             return point.Dot(plane.normal) - plane.constant;
         }
 
-        private static void CircleToPlane(IShape obj1, IShape obj2, ref Collision colli) {
+        private static void CircleToPlane(IState obj1, IState obj2, ref Collision colli) {
             Circle cir = obj1 as Circle;
             Plane plane = obj2 as Plane;
             float r = cir.Radius + plane.thickness;
@@ -54,7 +54,7 @@ namespace Physics {
             }
         }
 
-        private static void PolygonToPlane(IShape obj1, IShape obj2, ref Collision colli) {
+        private static void PolygonToPlane(IState obj1, IState obj2, ref Collision colli) {
             Polygon poly = obj1 as Polygon;
             Plane plane = obj2 as Plane;
             colli.normal = plane.normal;
@@ -91,22 +91,22 @@ namespace Physics {
             }
         }
 
-        private static void PlaneToCircle(IShape obj1, IShape obj2, ref Collision colli) {
+        private static void PlaneToCircle(IState obj1, IState obj2, ref Collision colli) {
             CircleToPlane(obj2, obj1, ref colli);
             colli.obj = obj2;
         }
 
-        private static void PlaneToPolygon(IShape obj1, IShape obj2, ref Collision colli) {
+        private static void PlaneToPolygon(IState obj1, IState obj2, ref Collision colli) {
             PolygonToPlane(obj2, obj1, ref colli);
             colli.obj = obj2;
         }
 
-        private static void PlaneToPlane(IShape obj1, IShape obj2, ref Collision colli) {
+        private static void PlaneToPlane(IState obj1, IState obj2, ref Collision colli) {
             colli.collision = false;
         }
 
 
-        private static void CircleToCircle(IShape obj1, IShape obj2, ref Collision colli) {
+        private static void CircleToCircle(IState obj1, IState obj2, ref Collision colli) {
             Circle cir1 = obj1 as Circle;
             Circle cir2 = obj2 as Circle;
             float r = cir1.Radius + cir2.Radius;
@@ -124,7 +124,7 @@ namespace Physics {
             }
         }
 
-        private static void CircleToPolygon(IShape obj1, IShape obj2, ref Collision colli) {
+        private static void CircleToPolygon(IState obj1, IState obj2, ref Collision colli) {
             Circle cir = obj1 as Circle;
             Polygon poly = obj2 as Polygon;
             // Transform circle center to polygon model space
@@ -200,12 +200,12 @@ namespace Physics {
             }
         }
 
-        private static void PolygonToCircle(IShape obj1, IShape obj2, ref Collision colli) {
+        private static void PolygonToCircle(IState obj1, IState obj2, ref Collision colli) {
             CircleToPolygon(obj2, obj1, ref colli);
             colli.obj = obj2;
         }
 
-        private static void PolygonToPolygon(IShape obj1, IShape obj2, ref Collision colli) {
+        private static void PolygonToPolygon(IState obj1, IState obj2, ref Collision colli) {
             Polygon poly1 = obj1 as Polygon;
             Polygon poly2 = obj2 as Polygon;
             Vector2f T = poly2.COM - poly1.COM;
@@ -285,7 +285,7 @@ namespace Physics {
             return colli;
         }
 
-        private static void PullApart(IShape obj1, IShape obj2, Vector2f n, float overlap){
+        private static void PullApart(IState obj1, IState obj2, Vector2f n, float overlap){
             if (obj1.InverseMass > 0 && obj2.InverseMass > 0) {
                 obj1.Pull(n,  overlap * 0.5f);
                 obj2.Pull(n, -overlap * 0.5f);

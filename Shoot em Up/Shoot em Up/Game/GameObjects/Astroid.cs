@@ -16,27 +16,25 @@ namespace Shoot_em_Up
             : base(Collision.Type.Polygon, new Vector2f(x, y), 200, 0.01f)
         {
 
-            (shape as Polygon).Texture = new Texture("../Content/astroid.png");
-            shape.Velocity = new Vector2f(EMath.random.Next(-50,50),EMath.random.Next(10,30));
-            shape.Restitution = 1.0f;
+            (state as Polygon).Texture = new Texture("../Content/astroid.png");
+            state.Velocity = new Vector2f(EMath.random.Next(-50,50),EMath.random.Next(10,30));
+            state.Restitution = 1.0f;
             this.hp = 100;
         }
 
         public override void Update()
         {
-            if (this.hp <= 0)
-            {
-                this.alive = false;
-            }
+            this.alive = this.hp > 0;
+
             if (this.hp <= 50)
             {
-                (this.shape as Polygon).FillColor = Color.Red;
+                this.shape.FillColor = Color.Red;
             }
-            if(shape.Collision.collision) {
-                if (this.shape.Collision.obj.Parent is Ball)
+            if(state.Collision.collision) {
+                if (this.state.Collision.obj.Parent is Ball)
                 {
-                    this.hp -= (this.shape.Collision.obj.Parent as Ball).damage;
-                    (this.shape.Collision.obj.Parent as Ball).alive = false;
+                    this.hp -= (this.state.Collision.obj.Parent as Ball).damage;
+                    (this.state.Collision.obj.Parent as Ball).alive = false;
                 }
             }
             base.Update();

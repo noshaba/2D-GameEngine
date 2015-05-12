@@ -15,7 +15,7 @@ namespace Shoot_em_Up {
     class Game {
         private Physic physics;
         private List<GameObject> objects = new List<GameObject>();
-        private List<IShape> shapes = new List<IShape>();
+        private List<IState> shapes = new List<IState>();
         private int WIDTH;
         private int HEIGHT;
         private int MIN_OBJECTS;
@@ -52,7 +52,7 @@ namespace Shoot_em_Up {
         {
 
             objects.Add(obj);
-            shapes.Add(obj.shape);
+            shapes.Add(obj.state);
         }
 
         public void Update(float dt) {
@@ -61,7 +61,7 @@ namespace Shoot_em_Up {
             LookForNewAstroids();
             if (p.ready)
             {
-                this.AddObject(new Ball(p.shape.COM + new Vector2f(0, -30), 2, Color.Yellow, 0.01f));
+                this.AddObject(new Ball(p.state.COM + new Vector2f(0, -30), 2, Color.Yellow, 0.01f));
                 p.ready = false;
             }
             //Console.WriteLine(this.shapes.Count);
@@ -85,11 +85,11 @@ namespace Shoot_em_Up {
             State interpol;
             Transform t;
             foreach (GameObject obj in objects) {
-                interpol = obj.shape.Interpolation(alpha);
+                interpol = obj.state.Interpolation(alpha);
                 t = Transform.Identity;
                 t.Translate(interpol.position);
                 t.Rotate(interpol.DegOrientation);
-                window.Draw(obj.shape as Shape, new RenderStates(t));
+                window.Draw(obj.shape, new RenderStates(t));
             }
         }
 

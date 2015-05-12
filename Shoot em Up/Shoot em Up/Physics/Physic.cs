@@ -9,13 +9,13 @@ using Maths;
 
 namespace Physics {
     class Physic {
-        public List<IShape> objects;
+        public List<IState> objects;
         private Vector2f gravity;
         private float damping;
         private bool friction;
         public bool frozen = false;
 
-        public Physic(List<IShape> shapes, Vector2f gravity, float damping, bool friction) {
+        public Physic(List<IState> shapes, Vector2f gravity, float damping, bool friction) {
             this.gravity = gravity;
             this.damping = damping;
             this.friction = friction;
@@ -33,7 +33,7 @@ namespace Physics {
             }
         }
 
-        public void Add(IShape obj)
+        public void Add(IState obj)
         {
             objects.Add(obj);
 
@@ -76,7 +76,7 @@ namespace Physics {
             }
         }
 
-        private void CollisionImpulse(IShape obj1, IShape obj2, Vector2f r1, Vector2f r2, Vector2f n, int contacts) {
+        private void CollisionImpulse(IState obj1, IState obj2, Vector2f r1, Vector2f r2, Vector2f n, int contacts) {
             // init collision stats
             Vector2f v1 = obj1.Velocity;
             Vector2f v2 = obj2.Velocity;

@@ -11,14 +11,16 @@ namespace Shoot_em_Up
 {
     class GameObject
     {
-        public IShape shape;
+        public IState state;
+        public Shape shape;
         public bool alive = true;
         public int hp;
 
-        public GameObject(IShape shape)
+        public GameObject(IState state)
         {
-            this.shape = shape;
-            this.shape.Parent = this; 
+            this.state = state;
+            this.shape = state as Shape;
+            this.state.Parent = this; 
         }
         //change name of "radius"
         public GameObject(Collision.Type type, Vector2f position, float var, float density)
@@ -26,28 +28,26 @@ namespace Shoot_em_Up
             switch (type)
             {
                 case Collision.Type.Circle: 
-                    this.shape = new Circle(position, var, density); 
+                    this.state = new Circle(position, var, density);
+                    this.shape = this.state as Shape;
                     break;
                 case Collision.Type.Polygon:
-                    this.shape = new Polygon(position, var, density);
+                    this.state = new Polygon(position, var, density);
+                    this.shape = this.state as Shape;
                     break;
             }
-            this.shape.Parent = this;
+            this.state.Parent = this;
         }
 
         public GameObject(Vector2f normal, Vector2f position, Vector2f size, float rotation)
         {
-            this.shape = new Plane(normal, position, size, rotation);
-            this.shape.Parent = this;
-        }
-
-        public GameObject GetGameObject(IShape shape)
-        {
-            return this.shape.Equals(shape) ? this : null;
+            this.state = new Plane(normal, position, size, rotation);
+            this.shape = this.state as Shape;
+            this.state.Parent = this;
         }
 
         public virtual void Update() {
-            shape.Collision.collision = false;
+            state.Collision.collision = false;
         }
     }
 }

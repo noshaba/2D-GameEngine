@@ -9,7 +9,7 @@ using Maths;
 using Shoot_em_Up;
 
 namespace Physics {
-    class Polygon : ConvexShape, IShape {
+    class Polygon : ConvexShape, IState {
         private int MAXVERTEXCOUNT = 8;
         private Collision.Type type = Collision.Type.Polygon;
         private float restitution = (float) EMath.random.NextDouble(); 

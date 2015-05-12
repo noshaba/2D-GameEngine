@@ -9,7 +9,7 @@ using Maths;
 using Shoot_em_Up;
 
 namespace Physics {
-    class Plane : RectangleShape, IShape {
+    class Plane : RectangleShape, IState {
         private Collision.Type type = Collision.Type.Plane;
         private float restitution = (float) EMath.random.NextDouble();
         private float staticFriction = (float) EMath.random.NextDouble();
