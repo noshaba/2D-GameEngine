@@ -31,10 +31,10 @@ namespace Shoot_em_Up
                 this.shape.FillColor = Color.Red;
             }
             if(state.Collision.collision) {
-                if (this.state.Collision.obj.Parent is Ball)
+                if (this.state.Collision.obj.Parent is Bullet)
                 {
-                    this.hp -= (this.state.Collision.obj.Parent as Ball).damage;
-                    (this.state.Collision.obj.Parent as Ball).alive = false;
+                    this.hp -= (this.state.Collision.obj.Parent as Bullet).damage;
+                    (this.state.Collision.obj.Parent as Bullet).alive = false;
                 }
             }
             base.Update();

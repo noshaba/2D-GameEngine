@@ -56,7 +56,7 @@
     <Compile Include="Game\FileManager\SoundManager.cs" />
     <Compile Include="Game\Game.cs" />
     <Compile Include="Game\GameObjects\Astroid.cs" />
-    <Compile Include="Game\GameObjects\Ball.cs" />
+    <Compile Include="Game\GameObjects\Bullet.cs" />
     <Compile Include="Game\GameObjects\GameObject.cs" />
     <Compile Include="Game\GameObjects\Player.cs" />
     <Compile Include="Game\GameObjects\Wall.cs" />
