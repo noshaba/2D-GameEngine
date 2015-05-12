@@ -61,7 +61,7 @@ namespace Shoot_em_Up {
             LookForNewAstroids();
             if (p.ready)
             {
-                this.AddObject(new Ball(p.shape.COM + new Vector2f(0, -30), 2, Color.Yellow, 0));
+                this.AddObject(new Ball(p.shape.COM + new Vector2f(0, -30), 2, Color.Yellow, 0.01f));
                 p.ready = false;
             }
             Console.WriteLine(objects.Count);
