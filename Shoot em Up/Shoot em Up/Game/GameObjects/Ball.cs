@@ -16,7 +16,7 @@ namespace Shoot_em_Up {
 
         private Vector2f initPosition;
         private const float MAXVELOCITY2 = 40000;
-        private int damage = 20;
+        public int damage = 20;
 
         public Ball(Vector2f position, float radius, Color color, float mass) : base(Collision.Type.Circle, position, radius, mass) {
             initPosition = position;
@@ -44,10 +44,10 @@ namespace Shoot_em_Up {
         {
             if (shape.Collision.collision)
             {
+                this.alive = false;
                 if (this.shape.Collision.obj.Parent is Astroid)
                 {
                     (this.shape.Collision.obj.Parent as Astroid).hp -= this.damage;
-                    this.alive = false;
                 }
             }
             base.Update();

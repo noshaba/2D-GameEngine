@@ -9,7 +9,7 @@ using Maths;
 
 namespace Physics {
     class Physic {
-        private List<IShape> objects;
+        public List<IShape> objects;
         private Vector2f gravity;
         private float damping;
         private bool friction;

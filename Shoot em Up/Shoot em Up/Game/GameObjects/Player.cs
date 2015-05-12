@@ -49,7 +49,7 @@ namespace Shoot_em_Up
 
         public void shoot()
         {
-            if (this.charge.ElapsedMilliseconds > 1000)
+            if (this.charge.ElapsedMilliseconds > 500)
             {
                 this.ready = true;
                 this.charge.Restart();

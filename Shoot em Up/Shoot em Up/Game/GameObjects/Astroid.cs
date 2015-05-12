@@ -24,13 +24,19 @@ namespace Shoot_em_Up
 
         public override void Update()
         {
-            
+            if (this.hp <= 0)
+            {
+                this.alive = false;
+            }
+            if (this.hp <= 50)
+            {
+                (this.shape as Polygon).FillColor = Color.Red;
+            }
             if(shape.Collision.collision) {
-                if (this.hp <= 0) {
-                    this.alive = false;
-                }
-                if (this.hp <= 50) {
-                    (this.shape as Polygon).FillColor = Color.Red;
+                if (this.shape.Collision.obj.Parent is Ball)
+                {
+                    this.hp -= (this.shape.Collision.obj.Parent as Ball).damage;
+                    (this.shape.Collision.obj.Parent as Ball).alive = false;
                 }
             }
             base.Update();

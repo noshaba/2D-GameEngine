@@ -15,7 +15,7 @@ namespace Shoot_em_Up {
     class Game {
         private Physic physics;
         private List<GameObject> objects = new List<GameObject>();
-        private List <IShape> shapes = new List<IShape>();
+        private List<IShape> shapes = new List<IShape>();
         private int WIDTH;
         private int HEIGHT;
         private int MIN_OBJECTS;
@@ -64,7 +64,7 @@ namespace Shoot_em_Up {
                 this.AddObject(new Ball(p.shape.COM + new Vector2f(0, -30), 2, Color.Yellow, 0.01f));
                 p.ready = false;
             }
-            Console.WriteLine(objects.Count);
+            //Console.WriteLine(this.shapes.Count);
             //each astroid has to check if it has left the screen, when it does the player looses points(colliding with player is a different matter)
             for (int i = 0; i < objects.Count; i++ )
             {
@@ -72,6 +72,7 @@ namespace Shoot_em_Up {
                 if (!objects[i].alive)
                 {
                     objects.RemoveAt(i);
+                    shapes.RemoveAt(i);
                 }
             }
 
@@ -136,8 +137,9 @@ namespace Shoot_em_Up {
 
         public void Reset()
         {
-            objects.RemoveRange(MIN_OBJECTS, objects.Count - MIN_OBJECTS);
-            shapes.RemoveRange(MIN_OBJECTS, objects.Count - MIN_OBJECTS);
+            this.objects.RemoveRange(MIN_OBJECTS, objects.Count - MIN_OBJECTS);
+            this.shapes.RemoveRange(MIN_OBJECTS, shapes.Count - MIN_OBJECTS); // why does this one fail to work?
+            Console.WriteLine(this.shapes.Count);
         }
 
     }
