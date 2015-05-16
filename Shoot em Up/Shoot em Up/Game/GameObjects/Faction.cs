@@ -13,10 +13,10 @@ namespace Shoot_em_Up
         public enum Type { None, Player, AI}
 
         [DataMember]
-        public Type Type { get; set; }
+        public Type ID { get; set; }
         [DataMember]
         public bool GainableRep { get; set; }
         [DataMember]
-        public Dictionary<Type, int> Reputation { get; set; }
+        public int[] Reputation { get; set; }
     }
 }

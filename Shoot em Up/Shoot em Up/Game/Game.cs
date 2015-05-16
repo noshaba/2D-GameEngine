@@ -44,13 +44,14 @@ namespace Shoot_em_Up {
             AddObject(this.right);
             AddObject(this.left);
 
+            FactionManager.LoadJSON();
+
             this.clock = new Stopwatch();
             this.StartGame();
         }
 
         private void AddObject(GameObject obj)
         {
-
             objects.Add(obj);
             shapes.Add(obj.state);
         }
@@ -138,8 +139,7 @@ namespace Shoot_em_Up {
         public void Reset()
         {
             this.objects.RemoveRange(MIN_OBJECTS, objects.Count - MIN_OBJECTS);
-            this.shapes.RemoveRange(MIN_OBJECTS, shapes.Count - MIN_OBJECTS); // why does this one fail to work?
-            Console.WriteLine(this.shapes.Count);
+            this.shapes.RemoveRange(MIN_OBJECTS, shapes.Count - MIN_OBJECTS);
         }
 
     }

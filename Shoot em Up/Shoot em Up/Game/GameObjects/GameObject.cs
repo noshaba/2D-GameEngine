@@ -2,8 +2,6 @@
 using SFML.Graphics;
 using SFML.System;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,7 +20,7 @@ namespace Shoot_em_Up
             this.shape = state as Shape;
             this.state.Parent = this; 
         }
-        //change name of "radius"
+
         public GameObject(Collision.Type type, Vector2f position, float var, float density)
         {
             switch (type)
