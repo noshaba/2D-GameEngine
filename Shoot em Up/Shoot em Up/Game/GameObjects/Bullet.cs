@@ -12,8 +12,6 @@ using SFML.System;
 namespace Shoot_em_Up {
     class Bullet : GameObject {
 
-        public Collision.Type type = Collision.Type.Circle;
-
         private Vector2f initPosition;
         private const float MAXVELOCITY2 = 40000;
         public int damage = 20;
