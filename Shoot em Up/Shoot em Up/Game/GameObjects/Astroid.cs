@@ -26,10 +26,7 @@ namespace Shoot_em_Up
 
         public override void LateUpdate()
         {
-            if (this.hp <= 25)
-            {
-                this.shape.FillColor = Color.Red;
-            }
+            this.shape.FillColor = this.hp <= 25 ? Color.Red : Color.White;
             base.LateUpdate();
         }
     }

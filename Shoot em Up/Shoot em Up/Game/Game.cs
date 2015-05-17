@@ -81,7 +81,6 @@ namespace Shoot_em_Up {
             }
         }
 
-
         public void Draw(RenderWindow window, float alpha) {
             //all the drawing
             State interpol;
