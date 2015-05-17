@@ -9,10 +9,9 @@ namespace Shoot_em_Up
 {
     class GameObject
     {
+        public bool display = true;
         public IState state;
         public Shape shape;
-        public bool alive = true;
-        public int hp;
 
         public GameObject(IState state)
         {
@@ -44,8 +43,11 @@ namespace Shoot_em_Up
             this.state.Parent = this;
         }
 
-        public virtual void Update() {
+        public virtual void EarlyUpdate() {
             state.Collision.collision = false;
+        }
+
+        public virtual void LateUpdate() { 
         }
     }
 }

@@ -10,35 +10,27 @@ using System.Threading.Tasks;
 
 namespace Shoot_em_Up
 {
-    class Astroid : GameObject
+    class Astroid : PvPObject
     {
-        public Astroid(int x, int y)
-            : base(Collision.Type.Polygon, new Vector2f(x, y), 200, 0.01f)
+        public Astroid(Faction faction, int x, int y)
+            : base(faction, Collision.Type.Polygon, new Vector2f(x, y), 200, 0.01f)
         {
 
             (state as Polygon).Texture = new Texture("../Content/astroid.png");
             state.Velocity = new Vector2f(EMath.random.Next(-50,50),EMath.random.Next(10,30));
             state.Restitution = 1.0f;
-            this.hp = 100;
+            this.hp = 50;
+            this.maxDamage = 20;
+            this.maxPoints = 20;
         }
 
-        public override void Update()
+        public override void LateUpdate()
         {
-            this.alive = this.hp > 0;
-
-            if (this.hp <= 50)
+            if (this.hp <= 25)
             {
                 this.shape.FillColor = Color.Red;
             }
-            if(state.Collision.collision) {
-                if (this.state.Collision.obj.Parent is Bullet)
-                {
-                    this.hp -= (this.state.Collision.obj.Parent as Bullet).damage;
-                    (this.state.Collision.obj.Parent as Bullet).alive = false;
-                }
-            }
-            base.Update();
+            base.LateUpdate();
         }
-
     }
 }

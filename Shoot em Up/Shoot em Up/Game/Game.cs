@@ -62,22 +62,23 @@ namespace Shoot_em_Up {
             LookForNewAstroids();
             if (p.ready)
             {
-                this.AddObject(new Bullet(p.state.COM + new Vector2f(0, -30), 2, Color.Yellow, 0.01f));
+                this.AddObject(new Bullet(FactionManager.factions[(int) Faction.Type.Player], p.state.COM + new Vector2f(0, -30), 2, Color.Yellow, 0.01f));
                 p.ready = false;
             }
             //Console.WriteLine(this.shapes.Count);
             //each astroid has to check if it has left the screen, when it does the player looses points(colliding with player is a different matter)
-            for (int i = 0; i < objects.Count; i++ )
+            for (int i = 0; i < objects.Count; ++i) 
+                objects[i].EarlyUpdate();
+
+            for (int i = 0; i < objects.Count; ++i)
             {
-                objects[i].Update();
-                if (!objects[i].alive)
+                objects[i].LateUpdate();
+                if (!objects[i].display)
                 {
                     objects.RemoveAt(i);
                     shapes.RemoveAt(i);
                 }
             }
-
-
         }
 
 
@@ -98,7 +99,7 @@ namespace Shoot_em_Up {
         {
             this.Reset();
 
-            this.p = new Player(new Vector2f(this.WIDTH / 2, 600), 20, 10, Color.Yellow);
+            this.p = new Player(FactionManager.factions[(int) Faction.Type.Player],new Vector2f(this.WIDTH / 2, 600), 20, 10, Color.Yellow);
             this.AddObject(p);
 
             this.clock.Start();
@@ -108,7 +109,7 @@ namespace Shoot_em_Up {
         }
 
         public void GenerateAstroid() {
-            this.AddObject(new Astroid(this.WIDTH/2, 0));
+            this.AddObject(new Astroid(FactionManager.factions[(int) Faction.Type.None], this.WIDTH/2, 0));
         }
 
         public void LookForNewAstroids()

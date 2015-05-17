@@ -11,22 +11,25 @@ using System.Threading.Tasks;
 
 namespace Shoot_em_Up
 {
-    class Player : GameObject
+    class Player : PvPObject
     {
         public uint score;
         private Vector2f speed;
         private Stopwatch charge;
         public bool ready;
 
-        public Player(Vector2f position, float hw, float hh, Color color) : base(Collision.Type.Polygon, position, 1, 0.01f) {
+        public Player(Faction faction, Vector2f position, float hw, float hh, Color color) : base(faction, Collision.Type.Polygon, position, 1, 0.01f) {
             (state as Polygon).SetBox(position, hw, hh, 0);
             (state as Polygon).FillColor = color;
             state.Restitution = 1.0f;
             this.speed = new Vector2f(50,0);
-            this.score = 200;
+            this.score = 0;
             this.charge = new Stopwatch();
             this.charge.Start();
             this.ready = false;
+            this.hp = 1000;
+            this.maxDamage = 0;
+            this.maxPoints = 1000;
         }
 
         public void Move(Keyboard.Key k)
@@ -56,10 +59,17 @@ namespace Shoot_em_Up
             }
         }
 
-        public override void Update()
+        public override void EarlyUpdate()
         {
             this.shoot();
-            base.Update();
+            base.EarlyUpdate();
+        }
+
+        public override void LateUpdate()
+        {
+            // TODO: an bullets anpassen...
+            this.score += attacked != null ? (uint)((1 - attacked.Faction.Reputation[(int)this.Faction.ID]) * attacked.maxPoints) : 0;
+            base.LateUpdate();
         }
     }
 }
