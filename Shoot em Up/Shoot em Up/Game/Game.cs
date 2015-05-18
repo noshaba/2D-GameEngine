@@ -20,7 +20,7 @@ namespace Shoot_em_Up {
         private int HEIGHT;
         private int MIN_OBJECTS;
 
-        private Player p;
+        private Player player;
 
         private Wall left;
         private Wall right;
@@ -35,9 +35,8 @@ namespace Shoot_em_Up {
             WIDTH = width;
             HEIGHT = height;
             MIN_OBJECTS = 2; //2 walls
-            physics = new Physic(shapes, new Vector2f(0, 0), .1f, false);
+            physics = new Physic(shapes, new Vector2f(0, 0), 0, false);
 
-            //this.top = new Wall(new Vector2f(0,width), 1,1,Color.Black);
             this.right = new Wall(new Vector2f(-1, 0), new Vector2f(width - 0.5f, height * 0.5f), new Vector2f(1.0f, height), Color.Black);
             this.left = new Wall(new Vector2f( 1, 0), new Vector2f(0.5f, height * 0.5f), new Vector2f(1.0f, height), Color.Black);
 
@@ -92,8 +91,8 @@ namespace Shoot_em_Up {
         {
             this.Reset();
 
-            this.p = new Player(FactionManager.factions[(int) Faction.Type.Player],new Vector2f(this.WIDTH / 2, 600), 20, 10, Color.Yellow);
-            AddObject(p);
+            this.player = new Player(FactionManager.factions[(int) Faction.Type.Player],new Vector2f(this.WIDTH / 2, 600), 20, 10, Color.Yellow);
+            AddObject(player);
 
             this.clock.Start();
             this.chance = 10;
@@ -123,11 +122,11 @@ namespace Shoot_em_Up {
 
         public void MovePlayer(Keyboard.Key k)
         {
-            this.p.Move(k);
+            this.player.Move(k);
         }
 
         public void StopPlayer() {
-            this.p.Stop();
+            this.player.Stop();
         }
 
         public void Reset()

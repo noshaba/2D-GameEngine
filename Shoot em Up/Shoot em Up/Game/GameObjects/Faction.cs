@@ -17,6 +17,6 @@ namespace Shoot_em_Up
         [DataMember]
         public bool GainableRep { get; set; }
         [DataMember]
-        public float[] Reputation { get; set; }
+        public int[] Reputation { get; set; }
     }
 }

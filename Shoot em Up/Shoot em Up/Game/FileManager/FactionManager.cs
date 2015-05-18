@@ -14,17 +14,17 @@ namespace Shoot_em_Up
             {
                 ""ID"" : 0,
                 ""GainableRep"" : false,
-                ""Reputation"" : [1.0, 0.5, 1.0]
+                ""Reputation"" : [100, 50, 100]
             },
             {
                 ""ID"" : 1,
                 ""GainableRep"" : true,
-                ""Reputation"" : [0.5, 1.0, 0.0]
+                ""Reputation"" : [50, 100, 0]
             },
             {
                 ""ID"" : 2,
                 ""GainableRep"" : true,
-                ""Reputation"" : [1.0, 0.0, 1.0]
+                ""Reputation"" : [100, 0, 100]
             }
         ]";
 

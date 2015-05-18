@@ -16,11 +16,11 @@ namespace Shoot_em_Up {
         private const float MAXVELOCITY2 = 40000;
         private Vector2f bend;
 
-        public Bullet(Faction faction, Vector2f position, float radius, Color color, float mass, Vector2f bend, int dmg) : base(faction, Collision.Type.Circle, position, radius, mass) {
-            initPosition = position;
+        public Bullet(Faction faction, Vector2f position, float radius, Color color, float mass, int dmg, Vector2f speed, Vector2f bend) : base(faction, Collision.Type.Circle, position + speed + bend, radius, mass) {
+            initPosition = position + speed + bend;
             (state as Circle).FillColor = color;
             state.Restitution = 1.0f;
-            state.Velocity = new Vector2f(0,-50);
+            state.Velocity = speed;
             this.hp = 1;
             this.maxDamage = dmg;
             this.maxPoints = 0;

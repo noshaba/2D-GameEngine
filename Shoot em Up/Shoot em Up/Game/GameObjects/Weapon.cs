@@ -11,8 +11,7 @@ namespace Shoot_em_Up
 {
     class Weapon
     {
-        private Vector2f bulletSpeed;
-        private Vector2f bulletBend;
+        private int bulletSpeed;
         private Stopwatch charge;
         private int fireRate;
         private int maxDamage;
@@ -21,15 +20,15 @@ namespace Shoot_em_Up
         private delegate void Shot(Vector2f position);
         private Dictionary<string, Shot> weapons;
 
-        public Weapon(int maxDamage, int fireRate, Vector2f bulletSpeed, Vector2f bulletBend) {
+        public Weapon(int maxDamage, int fireRate, int bulletSpeed) {
             this.fireRate = fireRate;
             this.bulletSpeed = bulletSpeed;
-            this.bulletBend = bulletBend;
             this.maxDamage = maxDamage;
-            this.type = "singleShot";
+            this.type = "tripleBentShot";
             this.weapons = new Dictionary<string, Shot>();
             this.weapons["singleShot"] = singleShot;
             this.weapons["tripleShot"] = tripleShot;
+            this.weapons["tripleBentShot"] = tripleBentShot;
             this.charge = new Stopwatch();
             this.charge.Start();
         }
@@ -42,14 +41,21 @@ namespace Shoot_em_Up
         }
 
         private void singleShot(Vector2f position) {
-            Game.AddObject(new Bullet(FactionManager.factions[(int)Faction.Type.Player], position + bulletSpeed, 2, Color.Yellow, 0.01f, new Vector2f(0, 0), maxDamage));
+            Game.AddObject(new Bullet(FactionManager.factions[(int)Faction.Type.Player], position, 2, Color.Yellow, 0.01f, maxDamage, new Vector2f(0, -bulletSpeed), new Vector2f(0, 0)));
         }
 
         private void tripleShot(Vector2f position)
         {
-            Game.AddObject(new Bullet(FactionManager.factions[(int)Faction.Type.Player], position + bulletSpeed, 2, Color.Yellow, 0.01f, new Vector2f(-2, 0), maxDamage));
-            Game.AddObject(new Bullet(FactionManager.factions[(int)Faction.Type.Player], position + bulletSpeed, 2, Color.Yellow, 0.01f, new Vector2f(0, 0), maxDamage));
-            Game.AddObject(new Bullet(FactionManager.factions[(int)Faction.Type.Player], position + bulletSpeed, 2, Color.Yellow, 0.01f, new Vector2f(2, 0), maxDamage));
+            Game.AddObject(new Bullet(FactionManager.factions[(int)Faction.Type.Player], position, 2, Color.Yellow, 0.01f, maxDamage, new Vector2f(-10, -bulletSpeed), new Vector2f(0, 0)));
+            Game.AddObject(new Bullet(FactionManager.factions[(int)Faction.Type.Player], position, 2, Color.Yellow, 0.01f, maxDamage, new Vector2f(  0, -bulletSpeed), new Vector2f(0, 0)));
+            Game.AddObject(new Bullet(FactionManager.factions[(int)Faction.Type.Player], position, 2, Color.Yellow, 0.01f, maxDamage, new Vector2f( 10, -bulletSpeed), new Vector2f(0, 0)));
+        }
+
+        private void tripleBentShot(Vector2f position)
+        {
+            Game.AddObject(new Bullet(FactionManager.factions[(int)Faction.Type.Player], position, 2, Color.Yellow, 0.01f, maxDamage, new Vector2f(-5, -bulletSpeed*2), new Vector2f(-1, 0)));
+            Game.AddObject(new Bullet(FactionManager.factions[(int)Faction.Type.Player], position, 2, Color.Yellow, 0.01f, maxDamage, new Vector2f( 0, -bulletSpeed  ), new Vector2f( 0, 0)));
+            Game.AddObject(new Bullet(FactionManager.factions[(int)Faction.Type.Player], position, 2, Color.Yellow, 0.01f, maxDamage, new Vector2f( 5, -bulletSpeed*2), new Vector2f( 1, 0)));
         }
     }
 }
