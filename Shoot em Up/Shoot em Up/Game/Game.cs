@@ -129,6 +129,16 @@ namespace Shoot_em_Up {
             this.player.Stop();
         }
 
+        public void Fire()
+        {
+            this.player.fire = true;
+        }
+
+        public void StopFire()
+        {
+            this.player.fire = false;
+        }
+
         public void Reset()
         {
             objects.RemoveRange(MIN_OBJECTS, objects.Count - MIN_OBJECTS);

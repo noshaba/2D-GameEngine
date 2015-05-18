@@ -125,11 +125,12 @@ namespace Shoot_em_Up
                     window.Close();
                     break;
                 case Keyboard.Key.Return:
-                    break;
-                case Keyboard.Key.P:
+                    sEmUp.StartGame();
                     break;
                 case Keyboard.Key.Space:
-                    sEmUp.StartGame();
+                    sEmUp.StopFire();
+                    break;
+                case Keyboard.Key.P:
                     break;
                 case Keyboard.Key.Left:
                 case Keyboard.Key.Right:
@@ -147,6 +148,9 @@ namespace Shoot_em_Up
                     break;
                 case Keyboard.Key.Right:
                     sEmUp.MovePlayer(e.Code);
+                    break;
+                case Keyboard.Key.Space:
+                    sEmUp.Fire();
                     break;
             }
         }

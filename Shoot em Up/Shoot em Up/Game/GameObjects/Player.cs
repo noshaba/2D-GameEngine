@@ -15,19 +15,16 @@ namespace Shoot_em_Up
     {
         public uint score;
         private Vector2f speed;
-        private Stopwatch charge;
         private Weapon weapon;
-        public bool ready;
+        public bool fire;
 
         public Player(Faction faction, Vector2f position, float hw, float hh, Color color) : base(faction, Collision.Type.Polygon, position, 1, 0.01f) {
             (state as Polygon).SetBox(position, hw, hh, 0);
             (state as Polygon).FillColor = color;
             state.Restitution = 1.0f;
             this.speed = new Vector2f(50,0);
+            this.fire = false;
             this.score = 0;
-            this.charge = new Stopwatch();
-            this.charge.Start();
-            this.ready = false;
             this.hp = 1000;
             this.maxDamage = 0;
             this.maxPoints = 1000;
@@ -52,9 +49,9 @@ namespace Shoot_em_Up
             state.Velocity = new Vector2f(0,0);
         }
 
-        public void shoot()
+        private void shoot()
         {
-            this.weapon.shoot(this.state.COM);
+            if(fire) this.weapon.shoot(this.state.COM);
         }
 
         public override void Update()
