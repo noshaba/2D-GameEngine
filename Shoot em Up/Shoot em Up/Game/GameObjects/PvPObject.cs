@@ -39,8 +39,18 @@ namespace Shoot_em_Up
                 attacked = this.state.Collision.obj.Parent as PvPObject;
                 if (attacked != null)
                 {
+                    // decrease HP
                     attacked.hp -= this.maxDamage * (100 - this.Faction.Reputation[(int)attacked.Faction.ID]) / 100;
                     this.hp -= attacked.maxDamage * (100 - attacked.Faction.Reputation[(int)this.Faction.ID]) / 100;
+                    // decrease reputation when hp <= 0
+                    attacked.Faction.Reputation[(int)this.Faction.ID] +=
+                        this.Faction.GainableRep && this.hp <= 0 &&
+                        1 <= attacked.Faction.Reputation[(int)this.Faction.ID] ?
+                        -1 : 0;
+                    this.Faction.Reputation[(int)attacked.Faction.ID] +=
+                        attacked.Faction.GainableRep && attacked.hp <= 0 &&
+                        1 <= this.Faction.Reputation[(int)attacked.Faction.ID] ?
+                        -1 : 0;
                 }
             }
             base.Update();
@@ -48,14 +58,7 @@ namespace Shoot_em_Up
 
         public override void LateUpdate()
         {
-            if (attacked != null)
-            {
-                this.Faction.Reputation[(int)attacked.Faction.ID] -= 
-                    attacked.Faction.GainableRep && attacked.hp <= 0 && 
-                    1 <= this.Faction.Reputation[(int)attacked.Faction.ID] ? 
-                    1 : 0;
-                attacked = null;
-            }
+            attacked = null;
             this.display = this.hp > 0;
             base.LateUpdate();
         }
