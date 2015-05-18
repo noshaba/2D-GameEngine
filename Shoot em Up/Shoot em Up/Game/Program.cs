@@ -131,6 +131,7 @@ namespace Shoot_em_Up
                     sEmUp.StopFire();
                     break;
                 case Keyboard.Key.P:
+                    sEmUp.Pause();
                     break;
                 case Keyboard.Key.Left:
                 case Keyboard.Key.Right:

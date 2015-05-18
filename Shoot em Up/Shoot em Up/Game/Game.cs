@@ -107,7 +107,7 @@ namespace Shoot_em_Up {
         public void LookForNewAstroids()
         {
             //every second try to create a new astroid, if not raise chance to create one next time
-            if (EMath.random.Next(1, 100) < this.chance && this.clock.ElapsedMilliseconds > 600)
+            if (EMath.random.Next(1, 100) < this.chance && this.clock.ElapsedMilliseconds > 600 && !this.physics.frozen)
             {
                 this.clock.Restart();
                 this.GenerateAstroid();
@@ -131,7 +131,7 @@ namespace Shoot_em_Up {
 
         public void Fire()
         {
-            this.player.fire = true;
+            this.player.fire = !this.physics.frozen;
         }
 
         public void StopFire()
@@ -143,6 +143,12 @@ namespace Shoot_em_Up {
         {
             objects.RemoveRange(MIN_OBJECTS, objects.Count - MIN_OBJECTS);
             shapes.RemoveRange(MIN_OBJECTS, shapes.Count - MIN_OBJECTS);
+        }
+
+        public void Pause()
+        {
+            this.player.fire = false;
+            this.physics.frozen = !this.physics.frozen;
         }
 
     }
