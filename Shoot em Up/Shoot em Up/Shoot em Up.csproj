@@ -65,6 +65,7 @@
     <Compile Include="Game\GameObjects\Player.cs" />
     <Compile Include="Game\GameObjects\PvPObject.cs" />
     <Compile Include="Game\GameObjects\Wall.cs" />
+    <Compile Include="Game\GameObjects\Weapon.cs" />
     <Compile Include="Game\GUI\GUI.cs" />
     <Compile Include="Game\Program.cs" />
     <Compile Include="GUI\Button.cs" />

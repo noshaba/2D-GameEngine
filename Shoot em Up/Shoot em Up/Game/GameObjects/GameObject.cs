@@ -43,7 +43,7 @@ namespace Shoot_em_Up
             this.state.Parent = this;
         }
 
-        public virtual void EarlyUpdate() {
+        public virtual void Update() {
             state.Collision.collision = false;
         }
 

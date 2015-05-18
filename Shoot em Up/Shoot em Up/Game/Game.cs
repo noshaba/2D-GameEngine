@@ -14,8 +14,8 @@ using System.Diagnostics;
 namespace Shoot_em_Up {
     class Game {
         private Physic physics;
-        private List<GameObject> objects = new List<GameObject>();
-        private List<IState> shapes = new List<IState>();
+        private static List<GameObject> objects = new List<GameObject>();
+        private static List<IState> shapes = new List<IState>();
         private int WIDTH;
         private int HEIGHT;
         private int MIN_OBJECTS;
@@ -50,7 +50,7 @@ namespace Shoot_em_Up {
             this.StartGame();
         }
 
-        private void AddObject(GameObject obj)
+        public static void AddObject(GameObject obj)
         {
             objects.Add(obj);
             shapes.Add(obj.state);
@@ -58,17 +58,11 @@ namespace Shoot_em_Up {
 
         public void Update(float dt) {
             //all the updating
-            physics.Update(dt);
             LookForNewAstroids();
-            if (p.ready)
-            {
-                this.AddObject(new Bullet(FactionManager.factions[(int) Faction.Type.Player], p.state.COM + new Vector2f(0, -30), 2, Color.Yellow, 0.01f));
-                p.ready = false;
-            }
-            //Console.WriteLine(this.shapes.Count);
-            //each astroid has to check if it has left the screen, when it does the player looses points(colliding with player is a different matter)
+            physics.Update(dt);
+
             for (int i = 0; i < objects.Count; ++i) 
-                objects[i].EarlyUpdate();
+                objects[i].Update();
 
             for (int i = 0; i < objects.Count; ++i)
             {
@@ -99,7 +93,7 @@ namespace Shoot_em_Up {
             this.Reset();
 
             this.p = new Player(FactionManager.factions[(int) Faction.Type.Player],new Vector2f(this.WIDTH / 2, 600), 20, 10, Color.Yellow);
-            this.AddObject(p);
+            AddObject(p);
 
             this.clock.Start();
             this.chance = 10;
@@ -108,7 +102,7 @@ namespace Shoot_em_Up {
         }
 
         public void GenerateAstroid() {
-            this.AddObject(new Astroid(FactionManager.factions[(int) Faction.Type.None], this.WIDTH/2, 0));
+            AddObject(new Astroid(FactionManager.factions[(int) Faction.Type.None], this.WIDTH/2, 0));
         }
 
         public void LookForNewAstroids()
@@ -138,8 +132,8 @@ namespace Shoot_em_Up {
 
         public void Reset()
         {
-            this.objects.RemoveRange(MIN_OBJECTS, objects.Count - MIN_OBJECTS);
-            this.shapes.RemoveRange(MIN_OBJECTS, shapes.Count - MIN_OBJECTS);
+            objects.RemoveRange(MIN_OBJECTS, objects.Count - MIN_OBJECTS);
+            shapes.RemoveRange(MIN_OBJECTS, shapes.Count - MIN_OBJECTS);
         }
 
     }

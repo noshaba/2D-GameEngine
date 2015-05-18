@@ -97,19 +97,18 @@ namespace Physics {
             // apply collision force
             float cv = n.Dot(rv);
             float j = -(1 + e) * cv;
-            j /= invMassSum;
-            j /= (float) contacts;
+            j /= (invMassSum * contacts);
+
             Vector2f J = j*n;
             obj1.ApplyImpulse( J, r1);
             obj2.ApplyImpulse(-J, r2);
 
             if (friction) {
-                // aplly friction impule
+                // apply friction impule
                 Vector2f t = (rv - n * rv.Dot(n)).Norm();
                 // j tangent magnitude
                 float jt = -rv.Dot(t);
-                jt /= invMassSum;
-                jt /= (float)contacts;
+                jt /= (invMassSum * contacts);
 
                 // Don't apply tiny friction impulses
                 if (Math.Abs(jt) < EMath.EPSILON)

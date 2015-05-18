@@ -32,7 +32,7 @@ namespace Shoot_em_Up
             this.Faction = faction;
         }
 
-        public override void EarlyUpdate()
+        public override void Update()
         {
             if (state.Collision.collision)
             {
@@ -43,7 +43,7 @@ namespace Shoot_em_Up
                     this.hp -= (int)((1 - attacked.Faction.Reputation[(int)this.Faction.ID]) * attacked.maxDamage);
                 }
             }
-            base.EarlyUpdate();
+            base.Update();
         }
 
         public override void LateUpdate()

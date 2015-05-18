@@ -16,6 +16,7 @@ namespace Shoot_em_Up
         public uint score;
         private Vector2f speed;
         private Stopwatch charge;
+        private Weapon weapon;
         public bool ready;
 
         public Player(Faction faction, Vector2f position, float hw, float hh, Color color) : base(faction, Collision.Type.Polygon, position, 1, 0.01f) {
@@ -30,6 +31,7 @@ namespace Shoot_em_Up
             this.hp = 1000;
             this.maxDamage = 0;
             this.maxPoints = 1000;
+            this.weapon = new Weapon(20, 500, new Vector2f(0, -30), new Vector2f(0, 0));
         }
 
         public void Move(Keyboard.Key k)
@@ -52,17 +54,13 @@ namespace Shoot_em_Up
 
         public void shoot()
         {
-            if (this.charge.ElapsedMilliseconds > 500)
-            {
-                this.ready = true;
-                this.charge.Restart();
-            }
+            this.weapon.shoot(this.state.COM);
         }
 
-        public override void EarlyUpdate()
+        public override void Update()
         {
             this.shoot();
-            base.EarlyUpdate();
+            base.Update();
         }
 
         public override void LateUpdate()
