@@ -18,10 +18,9 @@ namespace Shoot_em_Up
         private Weapon weapon;
         public bool fire;
 
-        public Player(Faction faction, Vector2f position, Vector2f[] vertices, Color color)
+        public Player(Faction faction, Vector2f position, Vector2f[] vertices)
             : base(faction, vertices, position, 1)
         {
-            (state as Polygon).FillColor = color;
             state.Restitution = 1.0f;
             this.speed = new Vector2f(50,0);
             this.fire = false;
@@ -30,7 +29,7 @@ namespace Shoot_em_Up
             this.maxDamage = 0;
             this.maxPoints = 1000;
             this.weapon = new Weapon(20, 500, 30, "tripleBentShot");
-            //this.shape.Texture = new Texture("../Content/ship.png");
+            this.shape.Texture = new Texture("../Content/ship.png");
         }
 
         public void Move(Keyboard.Key k)

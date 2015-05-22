@@ -66,17 +66,25 @@ namespace Shoot_em_Up {
                 physics.Update(dt);
 
                 for (int i = 0; i < objects.Count; ++i)
+                {
                     objects[i].Update();
+                }
 
                 for (int i = 0; i < objects.Count; ++i)
                 {
                     objects[i].LateUpdate();
+                    if (objects[i].state.COM.Y < 0 || objects[i].state.COM.Y > this.HEIGHT || objects[i].state.COM.X < 0 || objects[i].state.COM.X > this.WIDTH)
+                    {
+                        //add pooling later
+                        objects[i].display = false;
+                    }
                     if (!objects[i].display)
                     {
                         objects.RemoveAt(i);
                         shapes.RemoveAt(i);
                     }
                 }
+                Console.WriteLine(objects.Count);
             }
         }
 
@@ -97,7 +105,7 @@ namespace Shoot_em_Up {
         {
             this.Reset();
 
-            this.player = new Player(FactionManager.factions[(int) Faction.Type.Player],new Vector2f(this.WIDTH / 2, this.HEIGHT-40), new []{new Vector2f(10,25), new Vector2f(25,10), new Vector2f(10,10), new Vector2f(25,25)}, Color.Yellow);
+            this.player = new Player(FactionManager.factions[(int) Faction.Type.Player],new Vector2f(this.WIDTH / 2, this.HEIGHT-40), new []{new Vector2f(40,100), new Vector2f(80,60), new Vector2f(60,60), new Vector2f(100,100)});
             AddObject(player);
 
             this.clock.Start();
