@@ -46,7 +46,9 @@ namespace Physics {
         }
 
         public Polygon(Vector2f[] vertices, Vector2f position, float rotation) : base() {
+
             this.vertices = vertices;
+            Console.WriteLine(vertices[3]);
             for (uint i = 0; i < vertices.Length; ++i)
                 SetPoint(i, vertices[i]);
             current = new State(position, rotation);
@@ -54,6 +56,7 @@ namespace Physics {
             kineticFriction = EMath.Random(0, staticFriction);
             collision = new Collision();
             collision.collision = false;
+         
         }
 
         public Polygon(Vector2f[] vertices, Vector2f position, float rotation, float density) : base() {

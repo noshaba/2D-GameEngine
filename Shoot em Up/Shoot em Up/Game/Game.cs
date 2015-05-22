@@ -94,7 +94,7 @@ namespace Shoot_em_Up {
         {
             this.Reset();
 
-            this.player = new Player(FactionManager.factions[(int) Faction.Type.Player],new Vector2f(this.WIDTH / 2, this.HEIGHT-40), 20, 10, Color.Yellow);
+            this.player = new Player(FactionManager.factions[(int) Faction.Type.Player],new Vector2f(this.WIDTH / 2, this.HEIGHT-40), new []{new Vector2f(2,2), new Vector2f(2,1), new Vector2f(2,1), new Vector2f(1,1)}, Color.Yellow);
             AddObject(player);
 
             this.clock.Start();

@@ -18,8 +18,9 @@ namespace Shoot_em_Up
         private Weapon weapon;
         public bool fire;
 
-        public Player(Faction faction, Vector2f position, float hw, float hh, Color color) : base(faction, Collision.Type.Polygon, position, 1, 0.01f) {
-            (state as Polygon).SetBox(position, hw, hh, 0);
+        public Player(Faction faction, Vector2f position, Vector2f[] vertices, Color color)
+            : base(faction, vertices, position, 1)
+        {
             (state as Polygon).FillColor = color;
             state.Restitution = 1.0f;
             this.speed = new Vector2f(50,0);

@@ -43,6 +43,13 @@ namespace Shoot_em_Up
             this.state.Parent = this;
         }
 
+        public GameObject(Vector2f[] vertices, Vector2f position, float rotation)
+        {
+            this.state = new Polygon(vertices, position, rotation);
+            this.shape = this.state as Shape;
+            this.state.Parent = this;
+        }
+
         public virtual void Update() {
             state.Collision.collision = false;
         }
