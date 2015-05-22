@@ -71,7 +71,7 @@ namespace Shoot_em_Up {
                         this.Reset();
                 }
                 //all the updating
-                LookForNewAstroids();
+                //LookForNewAstroids();
                 physics.Update(dt);
 
                 for (int i = 0; i < objects.Count; ++i)
@@ -144,21 +144,21 @@ namespace Shoot_em_Up {
 
         public void MovePlayer(Keyboard.Key k)
         {
-            this.player.Move(k);
+            if(status == GameStatus.Active) this.player.Move(k);
         }
 
         public void StopPlayer() {
-            this.player.Stop();
+            if (status == GameStatus.Active) this.player.Stop();
         }
 
         public void Fire()
         {
-            this.player.fire = !this.physics.frozen;
+            if (status == GameStatus.Active) this.player.fire = !this.physics.frozen;
         }
 
         public void StopFire()
         {
-            this.player.fire = false;
+            if (status == GameStatus.Active) this.player.fire = false;
         }
 
         public void Reset()
@@ -169,8 +169,11 @@ namespace Shoot_em_Up {
 
         public void Pause()
         {
-            this.player.fire = false;
-            this.physics.frozen = !this.physics.frozen;
+            if (status == GameStatus.Active)
+            {
+                this.player.fire = false;
+                this.physics.frozen = !this.physics.frozen;
+            }
         }
 
     }

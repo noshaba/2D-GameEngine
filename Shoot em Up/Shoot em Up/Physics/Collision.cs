@@ -19,9 +19,6 @@ namespace Physics {
         public float overlap;
         public Vector2f[] contacts;
         public IState obj;
-        
-        public delegate void OnCollisionHandler(object other);
-        public event OnCollisionHandler Collided;
 
         public static Collision CheckForCollision(IState obj1, IState obj2) {
             Collision colli = new Collision();
@@ -54,8 +51,6 @@ namespace Physics {
                 colli.contacts = new Vector2f[1];
                 colli.contacts[0] = cir.COM - colli.normal * cir.Radius;
                 colli.obj = obj2;
-                if (colli.Collided != null)
-                    colli.Collided(obj2);
             }
             
         }

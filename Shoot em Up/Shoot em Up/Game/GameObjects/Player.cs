@@ -28,7 +28,7 @@ namespace Shoot_em_Up
             this.hp = 1000;
             this.maxDamage = 0;
             this.maxPoints = 1000;
-            this.weapon = new Weapon(20, 500, 30, "tripleBentShot");
+            this.weapon = new Weapon(20, 500, 30, "singleShot");
             this.shape.Texture = new Texture("../Content/ship.png");
         }
 
@@ -57,7 +57,6 @@ namespace Shoot_em_Up
 
         public override void Update()
         {
-            Console.WriteLine(this.hp);
             this.shoot();
             base.Update();
         }
@@ -66,8 +65,6 @@ namespace Shoot_em_Up
         {
             // TODO: an bullets anpassen...
             this.score += attacked != null ? (uint)((1 - attacked.Faction.Reputation[(int)this.Faction.ID]) * attacked.maxPoints) : 0;
-            if(this.hp <0)
-                //change scenery
             base.LateUpdate();
         }
     }

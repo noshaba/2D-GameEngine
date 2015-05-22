@@ -24,19 +24,18 @@ namespace Physics {
 
         //updates all objects in the list
         public void Update(float dt) {
-            //frozen = true;
             if (!frozen) {
-                for (int i = 0; i < objects.Count(); ++i) {
+                for (int i = 0; i < objects.Count; ++i) {
                     objects[i].Update(dt);
                     ApplyForces(dt, i);
                 }
+                // frozen = true;
             }
         }
 
         public void Add(IState obj)
         {
             objects.Add(obj);
-
         }
 
         #region Physical Methods
@@ -58,12 +57,15 @@ namespace Physics {
 
         //checks for collision between all objects
         private void AddCollisionImpulse(int i) {
-            for (int j = 0; j < objects.Count(); ++j) {
+            for (int j = 0; j < objects.Count; ++j) {
                 if (i == j) continue;
                 Collision colli = Collision.CheckForCollision(objects[i], objects[j]);
                 if (colli.collision) {
-                    if (!objects[i].Collision.collision) {
+                    frozen = true;
+                    if (!objects[i].Collision.collision && !objects[j].Collision.collision) {
                         objects[i].Collision = colli;
+                        objects[j].Collision = colli;
+                        objects[j].Collision.obj = objects[i];
                     }
                     if (objects[i].InverseMass > 0) {
                         for (uint k = 0; k < colli.contacts.Length; ++k) {

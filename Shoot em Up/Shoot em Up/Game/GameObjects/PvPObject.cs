@@ -30,12 +30,6 @@ namespace Shoot_em_Up
         public PvPObject(Faction faction, Vector2f normal, Vector2f position, Vector2f size, float rotation) : base(normal, position, size, rotation)
         {
             this.Faction = faction;
-            state.Collision.Collided += OnCollision;
-        }
-
-        public void OnCollision(object other)
-        {
-            //collision happened!
         }
         
         public PvPObject(Faction faction,  Vector2f[] vertices, Vector2f position, float rotation) : base(vertices, position, rotation)
@@ -47,21 +41,23 @@ namespace Shoot_em_Up
         {
             if (state.Collision.collision)
             {
+                Console.WriteLine(this);
                 attacked = this.state.Collision.obj.Parent as PvPObject;
                 if (attacked != null)
                 {
                     // decrease HP
-                    attacked.hp -= this.maxDamage * (100 - this.Faction.Reputation[(int)attacked.Faction.ID]) / 100;
+                    // attacked.hp -= this.maxDamage * (100 - this.Faction.Reputation[(int)attacked.Faction.ID]) / 100;
                     this.hp -= attacked.maxDamage * (100 - attacked.Faction.Reputation[(int)this.Faction.ID]) / 100;
                     // decrease reputation when hp <= 0
-                    attacked.Faction.Reputation[(int)this.Faction.ID] +=
+                   /* attacked.Faction.Reputation[(int)this.Faction.ID] +=
                         this.Faction.GainableRep && this.hp <= 0 &&
                         1 <= attacked.Faction.Reputation[(int)this.Faction.ID] ?
-                        -1 : 0;
+                        -1 : 0;*/
                     this.Faction.Reputation[(int)attacked.Faction.ID] +=
                         attacked.Faction.GainableRep && attacked.hp <= 0 &&
                         1 <= this.Faction.Reputation[(int)attacked.Faction.ID] ?
                         -1 : 0;
+                    Console.WriteLine("hi");
                 }
             }
             base.Update();
