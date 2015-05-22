@@ -10,20 +10,19 @@ using GUI;
 
 namespace Shoot_em_Up {
     class GUI : GUIView {
-        Menue menue;
         Button start;
-        Label label;
+        Button restart;
         Game game;
         private List<IGraphic> welcome = new List<IGraphic>();
         private List<IGraphic> inGame = new List<IGraphic>();
+        private List<IGraphic> credits = new List<IGraphic>();
 
         public GUI(int width, int height, Game g) : base(new Vector2f(0, 0), new Vector2f(width, height)) {
             game = g;
-            menue = new Menue(new Vector2f(0,0), new Vector2f(480, 60));
-            menue.Displayed = true;
-            start = new Button(10, 10, "Start Game!", StartGame);
-            menue.Add(start);
-            this.welcome.Add(menue);
+            start = new Button(new Vector2f(150, 350), new Vector2f(200,50), "Start Game!", 24, StartGame);
+            this.welcome.Add(start);
+            restart = new Button(new Vector2f(150, 350), new Vector2f(200, 50), "Play Again!", 24, StartGame);
+            this.credits.Add(restart);
             this.children = this.welcome;
         }
 
@@ -39,6 +38,8 @@ namespace Shoot_em_Up {
                 case Game.GameStatus.Active: this.children = this.inGame;
                     break;
                 case Game.GameStatus.Welcome: this.children = this.welcome;
+                    break;
+                case Game.GameStatus.Credits: this.children = this.credits;
                     break;
             }
             base.Draw(window);

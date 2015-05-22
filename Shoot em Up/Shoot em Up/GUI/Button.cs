@@ -19,13 +19,19 @@ namespace GUI {
         private bool displayed;
         private IGraphic parentView;
 
-        public Button(Vector2f position, Vector2f size, ActionListener listener) : base((uint)position.X, (uint)position.Y, (uint)size.X, (uint)size.Y, "../Content/ButtonActive.png") {
+        //Button manual size
+        public Button(Vector2f position, Vector2f size, String text, uint cSize, ActionListener listener) : base((uint)position.X, (uint)position.Y, (uint)size.X, (uint)size.Y, "../Content/ButtonActive.png") {
             this.listener = listener;
-           
+            this.label = new Label(text);
+            this.label.Color = Color.Black;
+            this.label.CharacterSize = cSize;
+            this.centerLabel(this.label.GetLocalBounds(), position, size);
+            //this.label.Position = position;
             status = Status.Released;
             displayed = true;
         }
 
+        //Button auto-size
         public Button(uint x, uint y, String text, ActionListener listener) : base(x,y)
         {
             this.listener = listener;
@@ -58,6 +64,13 @@ namespace GUI {
 
             this.ScaleImage();
             
+        }
+
+        private void centerLabel(FloatRect labelSize, Vector2f btnPos, Vector2f btnSize)
+        {
+            float y = ((btnSize.Y / 2)-(labelSize.Height/2+labelSize.Top)) + btnPos.Y;
+            float x = ((btnSize.X / 2) - (labelSize.Width / 2 + labelSize.Left)) + btnPos.X;
+            this.label.Position = new Vector2f(x, y);
         }
 
         new public IGraphic ParentView {
