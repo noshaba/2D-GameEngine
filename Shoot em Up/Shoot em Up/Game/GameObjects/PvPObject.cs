@@ -62,7 +62,6 @@ namespace Shoot_em_Up
                         attacked.Faction.GainableRep && attacked.hp <= 0 &&
                         1 <= this.Faction.Reputation[(int)attacked.Faction.ID] ?
                         -1 : 0;
-                    Console.WriteLine("hi");
                 }
             }
             base.Update();
