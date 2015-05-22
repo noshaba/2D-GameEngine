@@ -61,36 +61,37 @@ namespace Shoot_em_Up {
         }
 
         public void Update(float dt) {
-            //all the updating
-            //LookForNewAstroids();
             if (!this.physics.frozen)
             {
                 if (this.status == GameStatus.Active)
                 {
                     if (!this.player.display)
+                    {
+                        this.status = GameStatus.Credits;
                         this.Reset();
-                }
-                //all the updating
-                //LookForNewAstroids();
-                physics.Update(dt);
-
-                for (int i = 0; i < objects.Count; ++i)
-                {
-                    objects[i].Update();
-                }
-
-                for (int i = 0; i < objects.Count; ++i)
-                {
-                    objects[i].LateUpdate();
-                    if (objects[i].state.COM.Y < 0 || objects[i].state.COM.Y > this.HEIGHT || objects[i].state.COM.X < 0 || objects[i].state.COM.X > this.WIDTH)
-                    {
-                        //add pooling later
-                        objects[i].display = false;
                     }
-                    if (!objects[i].display)
+                    //all the updating
+                    LookForNewAstroids();
+                    physics.Update(dt);
+
+                    for (int i = 0; i < objects.Count; ++i)
                     {
-                        objects.RemoveAt(i);
-                        shapes.RemoveAt(i);
+                        objects[i].Update();
+                    }
+
+                    for (int i = 0; i < objects.Count; ++i)
+                    {
+                        objects[i].LateUpdate();
+                        if (objects[i].state.COM.Y < 0 || objects[i].state.COM.Y > this.HEIGHT || objects[i].state.COM.X < 0 || objects[i].state.COM.X > this.WIDTH)
+                        {
+                            //add pooling later
+                            objects[i].display = false;
+                        }
+                        if (!objects[i].display)
+                        {
+                            objects.RemoveAt(i);
+                            shapes.RemoveAt(i);
+                        }
                     }
                 }
             }

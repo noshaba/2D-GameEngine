@@ -41,23 +41,21 @@ namespace Shoot_em_Up
         {
             if (state.Collision.collision)
             {
-                Console.WriteLine(this);
                 attacked = this.state.Collision.obj.Parent as PvPObject;
                 if (attacked != null)
                 {
                     // decrease HP
-                    // attacked.hp -= this.maxDamage * (100 - this.Faction.Reputation[(int)attacked.Faction.ID]) / 100;
+                    attacked.hp -= this.maxDamage * (100 - this.Faction.Reputation[(int)attacked.Faction.ID]) / 100;
                     this.hp -= attacked.maxDamage * (100 - attacked.Faction.Reputation[(int)this.Faction.ID]) / 100;
                     // decrease reputation when hp <= 0
-                   /* attacked.Faction.Reputation[(int)this.Faction.ID] +=
+                    attacked.Faction.Reputation[(int)this.Faction.ID] +=
                         this.Faction.GainableRep && this.hp <= 0 &&
                         1 <= attacked.Faction.Reputation[(int)this.Faction.ID] ?
-                        -1 : 0;*/
+                        -1 : 0;
                     this.Faction.Reputation[(int)attacked.Faction.ID] +=
                         attacked.Faction.GainableRep && attacked.hp <= 0 &&
                         1 <= this.Faction.Reputation[(int)attacked.Faction.ID] ?
                         -1 : 0;
-                    Console.WriteLine("hi");
                 }
             }
             base.Update();
