@@ -20,11 +20,11 @@ namespace Shoot_em_Up
         private delegate void Shot(Vector2f position);
         private Dictionary<string, Shot> weapons;
 
-        public Weapon(int maxDamage, int fireRate, int bulletSpeed) {
+        public Weapon(int maxDamage, int fireRate, int bulletSpeed, String type) {
             this.fireRate = fireRate;
             this.bulletSpeed = bulletSpeed;
             this.maxDamage = maxDamage;
-            this.type = "tripleBentShot";
+            this.type = type;
             this.weapons = new Dictionary<string, Shot>();
             this.weapons["singleShot"] = singleShot;
             this.weapons["tripleShot"] = tripleShot;
@@ -46,16 +46,16 @@ namespace Shoot_em_Up
 
         private void tripleShot(Vector2f position)
         {
-            Game.AddObject(new Bullet(FactionManager.factions[(int)Faction.Type.Player], position, 2, Color.Yellow, 0.01f, maxDamage, new Vector2f(-10, -bulletSpeed), new Vector2f(0, 0)));
-            Game.AddObject(new Bullet(FactionManager.factions[(int)Faction.Type.Player], position, 2, Color.Yellow, 0.01f, maxDamage, new Vector2f(  0, -bulletSpeed), new Vector2f(0, 0)));
-            Game.AddObject(new Bullet(FactionManager.factions[(int)Faction.Type.Player], position, 2, Color.Yellow, 0.01f, maxDamage, new Vector2f( 10, -bulletSpeed), new Vector2f(0, 0)));
+            Game.AddObject(new Bullet(FactionManager.factions[(int)Faction.Type.Player], position, 1.5f, Color.Yellow, 0.01f, maxDamage, new Vector2f(-10, -bulletSpeed), new Vector2f(0, 0)));
+            Game.AddObject(new Bullet(FactionManager.factions[(int)Faction.Type.Player], position, 1.5f, Color.Yellow, 0.01f, maxDamage, new Vector2f(  0, -bulletSpeed), new Vector2f(0, 0)));
+            Game.AddObject(new Bullet(FactionManager.factions[(int)Faction.Type.Player], position, 1.5f, Color.Yellow, 0.01f, maxDamage, new Vector2f( 10, -bulletSpeed), new Vector2f(0, 0)));
         }
 
         private void tripleBentShot(Vector2f position)
         {
-            Game.AddObject(new Bullet(FactionManager.factions[(int)Faction.Type.Player], position, 2, Color.Yellow, 0.01f, maxDamage, new Vector2f(-5, -bulletSpeed*2), new Vector2f(-1, 0)));
-            Game.AddObject(new Bullet(FactionManager.factions[(int)Faction.Type.Player], position, 2, Color.Yellow, 0.01f, maxDamage, new Vector2f( 0, -bulletSpeed  ), new Vector2f( 0, 0)));
-            Game.AddObject(new Bullet(FactionManager.factions[(int)Faction.Type.Player], position, 2, Color.Yellow, 0.01f, maxDamage, new Vector2f( 5, -bulletSpeed*2), new Vector2f( 1, 0)));
+            Game.AddObject(new Bullet(FactionManager.factions[(int)Faction.Type.Player], position, 1.5f, Color.Yellow, 0.01f, maxDamage, new Vector2f(-5, -bulletSpeed*2), new Vector2f(-1, 0)));
+            Game.AddObject(new Bullet(FactionManager.factions[(int)Faction.Type.Player], position, 1.5f, Color.Yellow, 0.01f, maxDamage, new Vector2f( 0, -bulletSpeed  ), new Vector2f( 0, 0)));
+            Game.AddObject(new Bullet(FactionManager.factions[(int)Faction.Type.Player], position, 1.5f, Color.Yellow, 0.01f, maxDamage, new Vector2f( 5, -bulletSpeed*2), new Vector2f( 1, 0)));
         }
     }
 }

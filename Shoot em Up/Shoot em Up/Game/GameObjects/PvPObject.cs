@@ -14,7 +14,7 @@ namespace Shoot_em_Up
         public int hp;
         public int maxDamage;
         public int maxPoints;
-        protected PvPObject attacked;
+        protected PvPObject attacked; 
 
         public Faction Faction { get; private set; }
 
