@@ -14,7 +14,7 @@ namespace Shoot_em_Up
         public int hp;
         public int maxDamage;
         public int maxPoints;
-        protected PvPObject attacked;
+        protected PvPObject attacked; 
 
         public Faction Faction { get; private set; }
 
@@ -36,6 +36,11 @@ namespace Shoot_em_Up
         public void OnCollision(object other)
         {
             //collision happened!
+        }
+        
+        public PvPObject(Faction faction,  Vector2f[] vertices, Vector2f position, float rotation) : base(vertices, position, rotation)
+        {
+            this.Faction = Faction;
         }
 
         public override void Update()

@@ -59,17 +59,23 @@ namespace Shoot_em_Up {
             //all the updating
             //LookForNewAstroids();
             physics.Update(dt);
-
-            for (int i = 0; i < objects.Count; ++i) 
-                objects[i].Update();
-
-            for (int i = 0; i < objects.Count; ++i)
+            if (!this.physics.frozen)
             {
-                objects[i].LateUpdate();
-                if (!objects[i].display)
+                //all the updating
+                LookForNewAstroids();
+                physics.Update(dt);
+
+                for (int i = 0; i < objects.Count; ++i)
+                    objects[i].Update();
+
+                for (int i = 0; i < objects.Count; ++i)
                 {
-                    objects.RemoveAt(i);
-                    shapes.RemoveAt(i);
+                    objects[i].LateUpdate();
+                    if (!objects[i].display)
+                    {
+                        objects.RemoveAt(i);
+                        shapes.RemoveAt(i);
+                    }
                 }
             }
         }
@@ -91,7 +97,7 @@ namespace Shoot_em_Up {
         {
             this.Reset();
 
-            this.player = new Player(FactionManager.factions[(int) Faction.Type.Player],new Vector2f(this.WIDTH / 2, 600), 20, 10, Color.Yellow);
+            this.player = new Player(FactionManager.factions[(int) Faction.Type.Player],new Vector2f(this.WIDTH / 2, this.HEIGHT-40), new []{new Vector2f(2,2), new Vector2f(2,1), new Vector2f(2,1), new Vector2f(1,1)}, Color.Yellow);
             AddObject(player);
 
             this.clock.Start();

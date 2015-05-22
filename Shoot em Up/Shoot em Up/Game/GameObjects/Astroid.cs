@@ -17,6 +17,7 @@ namespace Shoot_em_Up
         {
 
             (state as Polygon).Texture = new Texture("../Content/astroid.png");
+            (state as Polygon).Texture.Repeated = true;
             state.Velocity = new Vector2f(EMath.random.Next(-50,50),EMath.random.Next(10,30));
             state.Restitution = 1.0f;
             this.hp = 50;
