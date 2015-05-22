@@ -14,6 +14,8 @@ namespace Shoot_em_Up {
         Button start;
         Label label;
         Game game;
+        private List<IGraphic> welcome = new List<IGraphic>();
+        private List<IGraphic> inGame = new List<IGraphic>();
 
         public GUI(int width, int height, Game g) : base(new Vector2f(0, 0), new Vector2f(width, height)) {
             game = g;
@@ -21,7 +23,8 @@ namespace Shoot_em_Up {
             menue.Displayed = true;
             start = new Button(10, 10, "Start Game!", StartGame);
             menue.Add(start);
-            Add(menue);
+            this.welcome.Add(menue);
+            this.children = this.welcome;
         }
 
         private void StartGame()
@@ -29,5 +32,16 @@ namespace Shoot_em_Up {
             game.StartGame();
         }
 
+        public void Draw(RenderWindow window)
+        {
+            //decide which elements to draw depending on game status
+            switch(this.game.status) {
+                case Game.GameStatus.Active: this.children = this.inGame;
+                    break;
+                case Game.GameStatus.Welcome: this.children = this.welcome;
+                    break;
+            }
+            base.Draw(window);
+        }
     }
 }

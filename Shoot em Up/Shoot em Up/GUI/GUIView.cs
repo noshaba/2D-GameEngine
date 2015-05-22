@@ -9,7 +9,7 @@ using SFML.System;
 
 namespace GUI {
     class GUIView : RectangleShape, IGraphic{
-        private List<IGraphic> children = new List<IGraphic>();
+        protected List<IGraphic> children = new List<IGraphic>();
         private bool displayed;
         private IGraphic parentView;
 
