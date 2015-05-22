@@ -28,7 +28,7 @@ namespace Shoot_em_Up
             this.hp = 1000;
             this.maxDamage = 0;
             this.maxPoints = 1000;
-            this.weapon = new Weapon(20, 500, 30, "singleShot");
+            this.weapon = new Weapon(20, 500, 30, "tripleBentShot");
             this.shape.Texture = new Texture("../Content/ship.png");
         }
 

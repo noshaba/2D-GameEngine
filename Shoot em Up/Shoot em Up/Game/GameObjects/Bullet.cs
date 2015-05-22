@@ -29,8 +29,10 @@ namespace Shoot_em_Up {
 
         public override void Update()
         {
-            state.Velocity += bend;
+            if (state.Collision.collision)
+                this.hp = 0;
             base.Update();
+            state.Velocity += bend;
         }
     }
 }

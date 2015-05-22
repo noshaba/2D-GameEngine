@@ -45,13 +45,8 @@ namespace Shoot_em_Up
                 if (attacked != null)
                 {
                     // decrease HP
-                    attacked.hp -= this.maxDamage * (100 - this.Faction.Reputation[(int)attacked.Faction.ID]) / 100;
                     this.hp -= attacked.maxDamage * (100 - attacked.Faction.Reputation[(int)this.Faction.ID]) / 100;
-                    // decrease reputation when hp <= 0
-                    attacked.Faction.Reputation[(int)this.Faction.ID] +=
-                        this.Faction.GainableRep && this.hp <= 0 &&
-                        1 <= attacked.Faction.Reputation[(int)this.Faction.ID] ?
-                        -1 : 0;
+                    // decrease reputation with the opponent's faction if the opponent is dead
                     this.Faction.Reputation[(int)attacked.Faction.ID] +=
                         attacked.Faction.GainableRep && attacked.hp <= 0 &&
                         1 <= this.Faction.Reputation[(int)attacked.Faction.ID] ?

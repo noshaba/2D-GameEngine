@@ -26,6 +26,17 @@ namespace Physics {
             return colli;
         }
 
+        public Collision other(IState other) {
+            Collision colli = new Collision();
+            colli.collision = this.collision;
+            colli.distance = this.distance;
+            colli.overlap = this.overlap;
+            colli.normal = -this.normal;
+            colli.contacts = this.contacts;
+            colli.obj = other;
+            return colli;
+        }
+
         private delegate void CollisionType(IState obj1, IState obj2, ref Collision colli);
 
         private static CollisionType[,] Dispatch = {
