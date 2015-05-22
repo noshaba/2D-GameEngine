@@ -50,16 +50,15 @@ namespace GUI {
                 this.height = 10 + margin*2;
 
             if (this.width < 10)
-                this.width = 10 + margin * 2;
+                this.width = 10 + margin*2;
 
             this.path = "../Content/ButtonActive.png";
             this.img = new Texture(path);
             
             this.label.Color = Color.Black;
 
-            float py = (this.height - labelPos.Height) / 2 - 2;
-            float px = (this.width - labelPos.Width) / 2;
-
+            float py = this.height/2 - (labelPos.Height/2+labelPos.Top);
+            float px = this.width/2 - (labelPos.Width/2+labelPos.Left);
             this.label.Position = new Vector2f(x+px, y+py);
 
             this.ScaleImage();
