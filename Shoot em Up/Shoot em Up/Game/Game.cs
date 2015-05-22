@@ -65,8 +65,11 @@ namespace Shoot_em_Up {
             //LookForNewAstroids();
             if (!this.physics.frozen)
             {
-                if(!this.player.display)
-                    this.Reset();
+                if (this.status == GameStatus.Active)
+                {
+                    if (!this.player.display)
+                        this.Reset();
+                }
                 //all the updating
                 LookForNewAstroids();
                 physics.Update(dt);
@@ -116,7 +119,7 @@ namespace Shoot_em_Up {
             this.clock.Start();
             this.chance = 10;
             this.GenerateAstroid();
-            
+            this.status = GameStatus.Active;
         }
 
         public void GenerateAstroid() {
