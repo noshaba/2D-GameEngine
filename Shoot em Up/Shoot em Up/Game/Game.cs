@@ -27,8 +27,12 @@ namespace Shoot_em_Up {
 
         private Stopwatch clock;
         private int chance;
+        public GameStatus status;
 
-
+        public enum GameStatus
+        {
+            Active, Welcome, Credits
+        }
         
         //constructor
         public Game(int width, int height) {
@@ -46,7 +50,8 @@ namespace Shoot_em_Up {
             FactionManager.LoadJSON();
 
             this.clock = new Stopwatch();
-            this.StartGame();
+            this.status = GameStatus.Welcome;
+            //this.StartGame();
         }
 
         public static void AddObject(GameObject obj)
@@ -58,9 +63,10 @@ namespace Shoot_em_Up {
         public void Update(float dt) {
             //all the updating
             //LookForNewAstroids();
-            physics.Update(dt);
             if (!this.physics.frozen)
             {
+                if(!this.player.display)
+                    this.Reset();
                 //all the updating
                 LookForNewAstroids();
                 physics.Update(dt);
@@ -84,7 +90,6 @@ namespace Shoot_em_Up {
                         shapes.RemoveAt(i);
                     }
                 }
-                Console.WriteLine(objects.Count);
             }
         }
 

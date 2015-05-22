@@ -21,7 +21,7 @@ namespace Shoot_em_Up
             state.Velocity = new Vector2f(EMath.random.Next(-50,50),EMath.random.Next(10,30));
             state.Restitution = 1.0f;
             this.hp = 50;
-            this.maxDamage = 20;
+            this.maxDamage = 500;
             this.maxPoints = 20;
         }
 

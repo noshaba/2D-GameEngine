@@ -57,6 +57,7 @@ namespace Shoot_em_Up
 
         public override void Update()
         {
+            Console.WriteLine(this.hp);
             this.shoot();
             base.Update();
         }
@@ -65,6 +66,8 @@ namespace Shoot_em_Up
         {
             // TODO: an bullets anpassen...
             this.score += attacked != null ? (uint)((1 - attacked.Faction.Reputation[(int)this.Faction.ID]) * attacked.maxPoints) : 0;
+            if(this.hp <0)
+                //change scenery
             base.LateUpdate();
         }
     }
