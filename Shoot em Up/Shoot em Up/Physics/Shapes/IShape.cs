@@ -8,7 +8,7 @@ using Maths;
 
 namespace Physics {
     interface IState {
-        Object Parent { get; set; }
+        object Parent { get; set; }
         Collision.Type Type{ get; }
         Collision Collision { get; set; }
         Vector2f COM { get; }

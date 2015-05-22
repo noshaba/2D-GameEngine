@@ -57,7 +57,7 @@ namespace Shoot_em_Up {
 
         public void Update(float dt) {
             //all the updating
-            LookForNewAstroids();
+            //LookForNewAstroids();
             physics.Update(dt);
 
             for (int i = 0; i < objects.Count; ++i) 

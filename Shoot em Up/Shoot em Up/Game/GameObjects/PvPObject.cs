@@ -30,6 +30,12 @@ namespace Shoot_em_Up
         public PvPObject(Faction faction, Vector2f normal, Vector2f position, Vector2f size, float rotation) : base(normal, position, size, rotation)
         {
             this.Faction = faction;
+            state.Collision.Collided += OnCollision;
+        }
+
+        public void OnCollision(object other)
+        {
+            //collision happened!
         }
 
         public override void Update()
@@ -51,6 +57,7 @@ namespace Shoot_em_Up
                         attacked.Faction.GainableRep && attacked.hp <= 0 &&
                         1 <= this.Faction.Reputation[(int)attacked.Faction.ID] ?
                         -1 : 0;
+                    Console.WriteLine("hi");
                 }
             }
             base.Update();
