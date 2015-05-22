@@ -12,6 +12,8 @@ namespace Shoot_em_Up {
     class GUI : GUIView {
         Button start;
         Button restart;
+        Button toMain;
+        Menue menue;
         Game game;
         private List<IGraphic> welcome = new List<IGraphic>();
         private List<IGraphic> inGame = new List<IGraphic>();
@@ -19,16 +21,30 @@ namespace Shoot_em_Up {
 
         public GUI(int width, int height, Game g) : base(new Vector2f(0, 0), new Vector2f(width, height)) {
             game = g;
+
+            menue = new Menue(new Vector2f(0,0), new Vector2f(480,50));
+            toMain = new Button(10,10, "Main Menue", ShowWelcome);
+            menue.Add(toMain);
+            this.inGame.Add(menue);
+
             start = new Button(new Vector2f(150, 350), new Vector2f(200,50), "Start Game!", 24, StartGame);
             this.welcome.Add(start);
+
             restart = new Button(new Vector2f(150, 350), new Vector2f(200, 50), "Play Again!", 24, StartGame);
             this.credits.Add(restart);
+
             this.children = this.welcome;
         }
 
         private void StartGame()
         {
             game.StartGame();
+        }
+
+        private void ShowWelcome()
+        {
+            game.Reset();
+            game.status = Game.GameStatus.Welcome;
         }
 
         public void Draw(RenderWindow window)

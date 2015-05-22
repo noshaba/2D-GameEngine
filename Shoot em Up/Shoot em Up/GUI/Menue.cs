@@ -17,7 +17,7 @@ namespace GUI
         public Menue(Vector2f position, Vector2f size)
             : base((uint)position.X, (uint)position.Y, (uint)size.X, (uint)size.Y, "../Content/ButtonActive.png")
         {
-            displayed = false;
+            displayed = true;
             Position = position;
         }
 
