@@ -40,7 +40,7 @@ namespace Shoot_em_Up
         
         public PvPObject(Faction faction,  Vector2f[] vertices, Vector2f position, float rotation) : base(vertices, position, rotation)
         {
-            this.Faction = Faction;
+            this.Faction = faction;
         }
 
         public override void Update()

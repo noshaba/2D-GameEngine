@@ -46,11 +46,7 @@ namespace Physics {
         }
 
         public Polygon(Vector2f[] vertices, Vector2f position, float rotation) : base() {
-
-            this.vertices = vertices;
-            Console.WriteLine(vertices[3]);
-            for (uint i = 0; i < vertices.Length; ++i)
-                SetPoint(i, vertices[i]);
+            GenerateConvexHull(vertices);
             current = new State(position, rotation);
             previous = current;
             kineticFriction = EMath.Random(0, staticFriction);
@@ -60,9 +56,7 @@ namespace Physics {
         }
 
         public Polygon(Vector2f[] vertices, Vector2f position, float rotation, float density) : base() {
-            this.vertices = vertices;
-            for (uint i = 0; i < vertices.Length; ++i)
-                SetPoint(i, vertices[i]);
+            GenerateConvexHull(vertices);
             InitState(position, rotation, density);
             kineticFriction = EMath.Random(0, staticFriction);
             collision = new Collision();
@@ -133,24 +127,20 @@ namespace Physics {
            // Console.WriteLine(Mass);
         }
 
-
-        private void InitVertices() {
-            uint count = (uint) EMath.Random(3, MAXVERTEXCOUNT);
-            float e = EMath.Random(50, 100);
-            Vector2f[] buffer = new Vector2f[count];
-            for (uint i = 0; i < buffer.Length; ++i) {
-                buffer[i] = new Vector2f(EMath.Random(-e, e), EMath.Random(-e, e));
-            }
-
+        private void GenerateConvexHull(Vector2f[] buffer) {
             // find right most vertex in hull
             uint rightMost = 0;
             float highestXCoord = buffer[0].X;
-            for (uint i = 1; i < buffer.Length; ++i) {
+            for (uint i = 1; i < buffer.Length; ++i)
+            {
                 float x = buffer[i].X;
-                if (x > highestXCoord) {
+                if (x > highestXCoord)
+                {
                     highestXCoord = x;
                     rightMost = i;
-                } else if(x == highestXCoord){
+                }
+                else if (x == highestXCoord)
+                {
                     // If matching x then take farthest negative y
                     if (buffer[i].Y < buffer[rightMost].Y)
                         rightMost = i;
@@ -161,16 +151,19 @@ namespace Physics {
             uint outCount = 0;
             uint indexHull = rightMost;
 
-            while (true) {
+            while (true)
+            {
                 hull[outCount] = indexHull;
                 // Search for next index that wraps around the hull
                 // by computing cross products to find the most counter-clockwise
                 // vertex in the set, given the previous hull index
                 uint nextHullIndex = 0;
-                for (uint i = 0; i < count; ++i) {
+                for (uint i = 0; i < buffer.Length; ++i)
+                {
                     // Skip if same coordinate as we need three unique
                     // points in the set to perform a cross product
-                    if (nextHullIndex == indexHull) {
+                    if (nextHullIndex == indexHull)
+                    {
                         nextHullIndex = i;
                         continue;
                     }
@@ -193,7 +186,8 @@ namespace Physics {
                 indexHull = nextHullIndex;
 
                 // Conclude algorithm upon wrap-around
-                if (nextHullIndex == rightMost) {
+                if (nextHullIndex == rightMost)
+                {
                     SetPointCount(outCount);
                     vertices = new Vector2f[outCount];
                     normals = new Vector2f[outCount];
@@ -203,25 +197,39 @@ namespace Physics {
 
             Vector2f centroid = new Vector2f();
 
-            for (uint i = 0; i < GetPointCount(); ++i) {
+            for (uint i = 0; i < GetPointCount(); ++i)
+            {
                 vertices[i] = buffer[hull[i]];
                 centroid += vertices[i];
             }
 
-            centroid /= (float) vertices.Length;
+            centroid /= (float)vertices.Length;
 
             // Translate vertices to centroid (make the centroid (0, 0) for the polygon in model space)
-            for (uint i = 0; i < GetPointCount(); ++i) {
+            for (uint i = 0; i < GetPointCount(); ++i)
+            {
                 vertices[i] -= centroid;
                 SetPoint(i, vertices[i]);
             }
 
             // Compute face normals
-            for (int i1 = 0; i1 < vertices.Length; ++i1) {
+            for (int i1 = 0; i1 < vertices.Length; ++i1)
+            {
                 int i2 = (i1 + 1) % vertices.Length;
                 Vector2f face = vertices[i2] - vertices[i1];
                 normals[i1] = new Vector2f(face.Y, -face.X).Norm();
             }
+        }
+
+        private void InitVertices() {
+            uint count = (uint) EMath.Random(3, MAXVERTEXCOUNT);
+            float e = EMath.Random(50, 100);
+            Vector2f[] buffer = new Vector2f[count];
+            for (uint i = 0; i < buffer.Length; ++i) {
+                buffer[i] = new Vector2f(EMath.Random(-e, e), EMath.Random(-e, e));
+            }
+
+            GenerateConvexHull(buffer);
         }
 
 
