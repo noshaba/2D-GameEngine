@@ -31,10 +31,10 @@ namespace Shoot_em_Up
             this.maxPoints = 1000;
             this.weapon = new Weapon(this, 20, 500, 30, "tripleBentShot");
             this.drawable.Texture = new Texture("../Content/ship.png");
-           /* Image im = this.drawable.Texture.CopyToImage();
-            byte[] px = new byte[im.Size.X * im.Size.Y * 4];
-            CV.alphaThresholding(ref px, im.Pixels, im.Size.X, im.Size.Y, 0);
-            drawable.Texture.Update(px);*/
+            Image im = this.drawable.Texture.CopyToImage();
+            byte[] edge = new byte[im.Size.X * im.Size.Y * 4];
+            CV.AlphaEdgeDetection(ref edge, im.Pixels, im.Size.X, im.Size.Y, 0);
+            drawable.Texture.Update(edge);
         }
 
         public void Move(Keyboard.Key k)
