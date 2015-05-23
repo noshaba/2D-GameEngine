@@ -29,7 +29,7 @@ namespace ImageProcessing
 
         public static void AlphaEdgeDetection(ref byte[] dst, byte[] src, uint cols, uint rows, uint threshold) {
 
-            AlphaThresholding(ref src, src, cols, cols, threshold);
+            AlphaThresholding(ref src, src, cols, rows, threshold);
 
             // first row
             for (uint x = 0; x < cols * 4; x += 4)
@@ -40,45 +40,50 @@ namespace ImageProcessing
                 dst[x + 3] = 0;     //A
             }
 
+            // bit shifting
+            // num << x = num * x^2
+            // num >> x = floor(num / x^2)
+            uint pxCols = cols << 2;
+
             for (uint y = 1; y < rows - 1; ++y)
             {
                 // first pixel in row
-                dst[cols * 4 * y + 0] = 255;  //R
-                dst[cols * 4 * y + 1] = 255;  //G
-                dst[cols * 4 * y + 2] = 255;  //B
-                dst[cols * 4 * y + 3] = 0;    //A
+                dst[pxCols * y + 0] = 255;  //R
+                dst[pxCols * y + 1] = 255;  //G
+                dst[pxCols * y + 2] = 255;  //B
+                dst[pxCols * y + 3] = 0;    //A
 
-                for (uint x = 7; x < (cols - 1) * 4; x+=4)
+                for (uint x = 7; x < pxCols - 4; x+=4)
                 {
-                    dst[cols * 4 * y + x - 3] = 255;    //R
-                    dst[cols * 4 * y + x - 2] = 255;    //G
-                    dst[cols * 4 * y + x - 1] = 255;    //B
+                    dst[pxCols * y + x - 3] = 255;    //R
+                    dst[pxCols * y + x - 2] = 255;    //G
+                    dst[pxCols * y + x - 1] = 255;    //B
 
                     // detect horizontal edges
-                    int sX = -src[cols * 4 * (y - 1) + x - 4] - (src[cols * 4 * y + x - 4] << 1) - src[cols * 4 * (y + 1) + x - 4]
-                             + src[cols * 4 * (y - 1) + x + 4] + (src[cols * 4 * y + x + 4] << 1) + src[cols * 4 * (y + 1) + x + 4];
+                    int sX = -src[pxCols * (y - 1) + x - 4] - (src[pxCols * y + x - 4] << 1) - src[pxCols * (y + 1) + x - 4]
+                            + src[pxCols * (y - 1) + x + 4] + (src[pxCols * y + x + 4] << 1) + src[pxCols * (y + 1) + x + 4];
 
                     // detect vertical edges
-                    int sY = -src[cols * 4 * (y - 1) + x - 4] - (src[cols * 4 * (y - 1) + x] << 1) - src[cols * 4 * (y - 1) + x + 4]
-                            + src[cols * 4 * (y + 1) + x - 4] + (src[cols * 4 * (y + 1) + x] << 1) + src[cols * 4 * (y + 1) + x + 4];
+                    int sY = -src[pxCols * (y - 1) + x - 4] - (src[pxCols * (y - 1) + x] << 1) - src[pxCols * (y - 1) + x + 4]
+                            + src[pxCols * (y + 1) + x - 4] + (src[pxCols * (y + 1) + x] << 1) + src[pxCols * (y + 1) + x + 4];
 
-                    dst[cols * 4 * y + x] = SobelCode(sX, sY);  //A
+                    dst[pxCols * y + x] = SobelCode(sX, sY);  //A
                 }
 
                 // last pixel in row
-                dst[cols * 4 * y + cols * 4 - 4] = 255;   //R
-                dst[cols * 4 * y + cols * 4 - 3] = 255;   //G
-                dst[cols * 4 * y + cols * 4 - 2] = 255;   //B
-                dst[cols * 4 * y + cols * 4 - 1] = 0;     //A
+                dst[pxCols * y + pxCols - 4] = 255;   //R
+                dst[pxCols * y + pxCols - 3] = 255;   //G
+                dst[pxCols * y + pxCols - 2] = 255;   //B
+                dst[pxCols * y + pxCols - 1] = 0;     //A
             }
 
             // last row
-            for (uint x = 0; x < cols * 4; x+=4)
+            for (uint x = 0; x < pxCols; x+=4)
             {
-                dst[cols * 4 * (rows - 1) + x + 0] = 255;   //R
-                dst[cols * 4 * (rows - 1) + x + 1] = 255;   //G
-                dst[cols * 4 * (rows - 1) + x + 2] = 255;   //B
-                dst[cols * 4 * (rows - 1) + x + 3] = 0;     //A
+                dst[pxCols * (rows - 1) + x + 0] = 255;   //R
+                dst[pxCols * (rows - 1) + x + 1] = 255;   //G
+                dst[pxCols * (rows - 1) + x + 2] = 255;   //B
+                dst[pxCols * (rows - 1) + x + 3] = 0;     //A
             }
         }
 
