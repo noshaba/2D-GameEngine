@@ -136,7 +136,9 @@ namespace Shoot_em_Up
                     break;
                 case Keyboard.Key.Left:
                 case Keyboard.Key.Right:
-                    sEmUp.StopPlayer();
+                case Keyboard.Key.Up:
+                case Keyboard.Key.Down:
+                    //sEmUp.StopPlayer();
                     break;
                 default:
                     break;
@@ -149,6 +151,12 @@ namespace Shoot_em_Up
                     sEmUp.MovePlayer(e.Code);
                     break;
                 case Keyboard.Key.Right:
+                    sEmUp.MovePlayer(e.Code);
+                    break;
+                case Keyboard.Key.Up:
+                    sEmUp.MovePlayer(e.Code);
+                    break;
+                case Keyboard.Key.Down:
                     sEmUp.MovePlayer(e.Code);
                     break;
                 case Keyboard.Key.Space:

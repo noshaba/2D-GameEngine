@@ -14,7 +14,7 @@ namespace Shoot_em_Up
     class Player : PvPObject
     {
         public int score;
-        private Vector2f speed;
+        private float speed;
         private Weapon weapon;
         public bool fire;
 
@@ -22,7 +22,7 @@ namespace Shoot_em_Up
             : base(faction, texture, position, 1)
         {
             rigidBody.Restitution = 1.0f;
-            this.speed = new Vector2f(50,0);
+            this.speed = 25;
             this.fire = false;
             this.score = 0;
             this.hp = 1000;
@@ -37,10 +37,16 @@ namespace Shoot_em_Up
             switch (k)
             {
                 case Keyboard.Key.Right:
-                    rigidBody.Velocity = this.speed;
+                    rigidBody.Velocity = new Vector2f(this.speed, rigidBody.Velocity.Y);
                     break;
                 case Keyboard.Key.Left:
-                    rigidBody.Velocity = -this.speed;
+                    rigidBody.Velocity = new Vector2f(-this.speed, rigidBody.Velocity.Y);
+                    break;
+                case Keyboard.Key.Up:
+                    rigidBody.Velocity = new Vector2f(rigidBody.Velocity.X, -this.speed);
+                    break;
+                case Keyboard.Key.Down:
+                    rigidBody.Velocity = new Vector2f(rigidBody.Velocity.X, this.speed);
                     break;
             }
         }
