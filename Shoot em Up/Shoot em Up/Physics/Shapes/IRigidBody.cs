@@ -7,7 +7,7 @@ using SFML.System;
 using Maths;
 
 namespace Physics {
-    interface IState {
+    interface IRigidBody {
         object Parent { get; set; }
         Collision.Type Type{ get; }
         Collision Collision { get; set; }

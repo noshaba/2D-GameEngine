@@ -15,7 +15,7 @@ namespace Shoot_em_Up {
     class Game {
         private Physic physics;
         private static List<GameObject> objects = new List<GameObject>();
-        private static List<IState> shapes = new List<IState>();
+        private static List<IRigidBody> shapes = new List<IRigidBody>();
         private int WIDTH;
         private int HEIGHT;
         private int MIN_OBJECTS;
@@ -57,7 +57,7 @@ namespace Shoot_em_Up {
         public static void AddObject(GameObject obj)
         {
             objects.Add(obj);
-            shapes.Add(obj.state);
+            shapes.Add(obj.rigidBody);
         }
 
         public void Update(float dt) {
@@ -82,7 +82,7 @@ namespace Shoot_em_Up {
                     for (int i = 0; i < objects.Count; ++i)
                     {
                         objects[i].LateUpdate();
-                        if (objects[i].state.COM.Y < 0 || objects[i].state.COM.Y > this.HEIGHT || objects[i].state.COM.X < 0 || objects[i].state.COM.X > this.WIDTH)
+                        if (objects[i].rigidBody.COM.Y < 0 || objects[i].rigidBody.COM.Y > this.HEIGHT || objects[i].rigidBody.COM.X < 0 || objects[i].rigidBody.COM.X > this.WIDTH)
                         {
                             //add pooling later
                             objects[i].display = false;
@@ -102,11 +102,11 @@ namespace Shoot_em_Up {
             State interpol;
             Transform t;
             foreach (GameObject obj in objects) {
-                interpol = obj.state.Interpolation(alpha);
+                interpol = obj.rigidBody.Interpolation(alpha);
                 t = Transform.Identity;
                 t.Translate(interpol.position);
                 t.Rotate(interpol.DegOrientation);
-                window.Draw(obj.shape, new RenderStates(t));
+                window.Draw(obj.drawable, new RenderStates(t));
             }
         }
 

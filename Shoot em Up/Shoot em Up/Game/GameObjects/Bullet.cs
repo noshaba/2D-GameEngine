@@ -15,12 +15,14 @@ namespace Shoot_em_Up {
         private Vector2f initPosition;
         private const float MAXVELOCITY2 = 40000;
         private Vector2f bend;
+        private Player shooter;
 
-        public Bullet(Faction faction, Vector2f position, float radius, Color color, float mass, int dmg, Vector2f speed, Vector2f bend) : base(faction, Collision.Type.Circle, position + speed + bend, radius, mass) {
+        public Bullet(Player shooter, Faction faction, Vector2f position, float radius, Color color, float mass, int dmg, Vector2f speed, Vector2f bend) : base(faction, Collision.Type.Circle, position + speed + bend, radius, mass) {
             initPosition = position + speed + bend;
-            (state as Circle).FillColor = color;
-            state.Restitution = 1.0f;
-            state.Velocity = speed;
+            (rigidBody as Circle).FillColor = color;
+            rigidBody.Restitution = 1.0f;
+            rigidBody.Velocity = speed;
+            this.shooter = shooter;
             this.hp = 1;
             this.maxDamage = dmg;
             this.maxPoints = 0;
@@ -29,10 +31,25 @@ namespace Shoot_em_Up {
 
         public override void Update()
         {
-            if (state.Collision.collision)
-                this.hp = 0;
             base.Update();
-            state.Velocity += bend;
+            if (rigidBody.Collision.collision)
+            {
+                this.hp = 0;
+                this.alive = false;
+                if (opponent != null)
+                {
+                    if(opponent.hp <= 0 && opponent.alive) {
+                        shooter.score += (100 - opponent.Faction.Reputation[(int)this.Faction.ID]) * opponent.maxPoints / 100;
+                        opponent.alive = false;
+                    }
+                }
+            }
+        }
+
+        public override void LateUpdate()
+        {
+            base.LateUpdate();
+            rigidBody.Velocity += bend;
         }
     }
 }

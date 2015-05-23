@@ -13,7 +13,7 @@ namespace Shoot_em_Up
 {
     class Player : PvPObject
     {
-        public uint score;
+        public int score;
         private Vector2f speed;
         private Weapon weapon;
         public bool fire;
@@ -21,15 +21,15 @@ namespace Shoot_em_Up
         public Player(Faction faction, Vector2f position, Vector2f[] vertices)
             : base(faction, vertices, position, 1)
         {
-            state.Restitution = 1.0f;
+            rigidBody.Restitution = 1.0f;
             this.speed = new Vector2f(50,0);
             this.fire = false;
             this.score = 0;
             this.hp = 1000;
             this.maxDamage = 0;
             this.maxPoints = 1000;
-            this.weapon = new Weapon(20, 500, 30, "tripleBentShot");
-            this.shape.Texture = new Texture("../Content/ship.png");
+            this.weapon = new Weapon(this, 20, 500, 30, "tripleBentShot");
+            this.drawable.Texture = new Texture("../Content/ship.png");
         }
 
         public void Move(Keyboard.Key k)
@@ -37,35 +37,28 @@ namespace Shoot_em_Up
             switch (k)
             {
                 case Keyboard.Key.Right:
-                    state.Velocity = this.speed;
+                    rigidBody.Velocity = this.speed;
                     break;
                 case Keyboard.Key.Left:
-                    state.Velocity = -this.speed;
+                    rigidBody.Velocity = -this.speed;
                     break;
             }
         }
 
         public void Stop()
         {
-            state.Velocity = new Vector2f(0,0);
+            rigidBody.Velocity = new Vector2f(0,0);
         }
 
         private void shoot()
         {
-            if(fire) this.weapon.shoot(this.state.COM);
+            if(fire) this.weapon.shoot(this.rigidBody.COM);
         }
 
         public override void Update()
         {
             this.shoot();
             base.Update();
-        }
-
-        public override void LateUpdate()
-        {
-            // TODO: an bullets anpassen...
-            this.score += attacked != null ? (uint)((1 - attacked.Faction.Reputation[(int)this.Faction.ID]) * attacked.maxPoints) : 0;
-            base.LateUpdate();
         }
     }
 }

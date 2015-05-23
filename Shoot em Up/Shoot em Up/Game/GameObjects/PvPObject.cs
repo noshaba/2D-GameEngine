@@ -14,11 +14,12 @@ namespace Shoot_em_Up
         public int hp;
         public int maxDamage;
         public int maxPoints;
-        protected PvPObject attacked; 
+        protected PvPObject opponent;
+        public bool alive = true;
 
         public Faction Faction { get; private set; }
 
-        public PvPObject(Faction faction, IState state) : base(state) {
+        public PvPObject(Faction faction, IRigidBody state) : base(state) {
             this.Faction = faction;
         }
 
@@ -39,17 +40,17 @@ namespace Shoot_em_Up
 
         public override void Update()
         {
-            if (state.Collision.collision)
+            if (rigidBody.Collision.collision)
             {
-                attacked = this.state.Collision.obj.Parent as PvPObject;
-                if (attacked != null)
+                opponent = this.rigidBody.Collision.obj.Parent as PvPObject;
+                if (opponent != null)
                 {
                     // decrease HP
-                    this.hp -= attacked.maxDamage * (100 - attacked.Faction.Reputation[(int)this.Faction.ID]) / 100;
+                    this.hp -= opponent.maxDamage * (100 - opponent.Faction.Reputation[(int)this.Faction.ID]) / 100;
                     // decrease reputation with the opponent's faction if the opponent is dead
-                    this.Faction.Reputation[(int)attacked.Faction.ID] +=
-                        attacked.Faction.GainableRep && attacked.hp <= 0 &&
-                        1 <= this.Faction.Reputation[(int)attacked.Faction.ID] ?
+                    this.Faction.Reputation[(int)opponent.Faction.ID] +=
+                        opponent.Faction.GainableRep && !opponent.alive &&
+                        1 <= this.Faction.Reputation[(int)opponent.Faction.ID] ?
                         -1 : 0;
                 }
             }
@@ -58,7 +59,8 @@ namespace Shoot_em_Up
 
         public override void LateUpdate()
         {
-            attacked = null;
+            opponent = null;
+            this.drawable.FillColor = this.hp <= .5f * this.hp ? Color.Red : drawable.FillColor;
             this.display = this.hp > 0;
             base.LateUpdate();
         }

@@ -9,7 +9,7 @@ using Maths;
 using Shoot_em_Up;
 
 namespace Physics {
-    class Circle : CircleShape, IState {
+    class Circle : CircleShape, IRigidBody {
         private Collision.Type type = Collision.Type.Circle;
         private Collision collision;
         private float restitution = (float) EMath.random.NextDouble();
