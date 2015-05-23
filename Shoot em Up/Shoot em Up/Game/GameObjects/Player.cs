@@ -19,8 +19,8 @@ namespace Shoot_em_Up
         private Weapon weapon;
         public bool fire;
 
-        public Player(Faction faction, Vector2f position, Vector2f[] vertices)
-            : base(faction, vertices, position, 1)
+        public Player(Faction faction, Vector2f position, Texture texture)
+            : base(faction, texture, position, 1)
         {
             rigidBody.Restitution = 1.0f;
             this.speed = new Vector2f(50,0);
@@ -30,11 +30,7 @@ namespace Shoot_em_Up
             this.maxDamage = 0;
             this.maxPoints = 1000;
             this.weapon = new Weapon(this, 20, 500, 30, "tripleBentShot");
-            this.drawable.Texture = new Texture("../Content/ship.png");
-            Image im = this.drawable.Texture.CopyToImage();
-            byte[] edge = new byte[im.Size.X * im.Size.Y * 4];
-            CV.AlphaEdgeDetection(ref edge, im.Pixels, im.Size.X, im.Size.Y, 0);
-            drawable.Texture.Update(edge);
+            this.drawable.Texture = texture;
         }
 
         public void Move(Keyboard.Key k)

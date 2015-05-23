@@ -15,19 +15,23 @@ namespace ImageProcessing
             {
                 // R, G, B
                 dst[i] = dst[i + 1] = dst[i + 2] = 255;
+                // A
                 if (src[i + 3] > threshold) {
-                    dst[i + 3] = 255;   //A
+                    dst[i + 3] = 255;
                 }
                 else
                 {
-                    dst[i + 3] = 0;     //A
+                    dst[i + 3] = 0;
                 }
             }
         }
 
-        public static void AlphaEdgeDetection(ref byte[] dst, byte[] src, uint cols, uint rows, uint threshold) {
+        // also initializes dst image to show (for debugging)
+        public static Vector2f[] AlphaEdgeDetection(ref byte[] dst, byte[] src, uint cols, uint rows, uint threshold) {
 
             AlphaThresholding(ref src, src, cols, rows, threshold);
+
+            List<Vector2f> indexBuffer = new List<Vector2f>();
 
             // bit shifting
             // num << x = num * x^2
@@ -64,6 +68,7 @@ namespace ImageProcessing
                     else
                     {
                         dst[pxCols * y + x] = 255;
+                        indexBuffer.Add(new Vector2f(x,y));
                     }
                 }
 
@@ -80,6 +85,37 @@ namespace ImageProcessing
                 dst[pxCols * (rows - 1) + x + 1] =    //G
                 dst[pxCols * (rows - 1) + x + 2] =    //B
                 dst[pxCols * (rows - 1) + x + 3] = 0; //A
+
+            return indexBuffer.ToArray();
+        }
+
+        // just returns the needed index buffer and no dst image to show
+        public static Vector2f[] AlphaEdgeDetection(byte[] src, uint cols, uint rows, uint threshold)
+        {
+            AlphaThresholding(ref src, src, cols, rows, threshold);
+
+            List<Vector2f> indexBuffer = new List<Vector2f>();
+
+            uint pxCols = cols << 2;
+
+            for (uint y = 1; y < rows - 1; ++y)
+            {
+                for (uint x = 7; x < pxCols - 4; x += 4)
+                {
+                    // detect horizontal edges
+                    int sX = -src[pxCols * (y - 1) + x - 4] - (src[pxCols * y + x - 4] << 1) - src[pxCols * (y + 1) + x - 4]
+                            + src[pxCols * (y - 1) + x + 4] + (src[pxCols * y + x + 4] << 1) + src[pxCols * (y + 1) + x + 4];
+
+                    // detect vertical edges
+                    int sY = -src[pxCols * (y - 1) + x - 4] - (src[pxCols * (y - 1) + x] << 1) - src[pxCols * (y - 1) + x + 4]
+                            + src[pxCols * (y + 1) + x - 4] + (src[pxCols * (y + 1) + x] << 1) + src[pxCols * (y + 1) + x + 4];
+
+                    //A
+                    if (sX != 0 && sY != 0)
+                        indexBuffer.Add(new Vector2f(x >> 2, y));
+                }
+            }
+            return indexBuffer.ToArray();
         }
     }
 }

@@ -4,6 +4,7 @@ using SFML.System;
 using System;
 using System.Text;
 using System.Threading.Tasks;
+using ImageProcessing;
 
 namespace Shoot_em_Up
 {
@@ -48,6 +49,14 @@ namespace Shoot_em_Up
             this.rigidBody = new Polygon(vertices, position, rotation);
             this.drawable = this.rigidBody as Shape;
             this.rigidBody.Parent = this;
+        }
+
+        public GameObject(Texture texture, Vector2f position, float rotation)
+        {
+            this.rigidBody = new Polygon(CV.AlphaEdgeDetection(texture.CopyToImage().Pixels, texture.Size.X, texture.Size.Y, 0), position, rotation);
+            this.rigidBody.Parent = this;
+            this.drawable = new RectangleShape((Vector2f)texture.Size);
+            this.drawable.Origin = new Vector2f(texture.Size.X * .5f, texture.Size.Y * .5f);
         }
 
         public virtual void Update() {

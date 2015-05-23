@@ -10,7 +10,7 @@ using Shoot_em_Up;
 
 namespace Physics {
     class Polygon : ConvexShape, IRigidBody {
-        private int MAXVERTEXCOUNT = 8;
+        private int MAXPOLYVERTEXCOUNT = 8;
         private Collision.Type type = Collision.Type.Polygon;
         private float restitution = (float) EMath.random.NextDouble(); 
         private float staticFriction = (float) EMath.random.NextDouble();
@@ -147,7 +147,7 @@ namespace Physics {
                 }
             }
 
-            uint[] hull = new uint[MAXVERTEXCOUNT];
+            uint[] hull = new uint[buffer.Length];
             uint outCount = 0;
             uint indexHull = rightMost;
 
@@ -222,7 +222,7 @@ namespace Physics {
         }
 
         private void InitVertices() {
-            uint count = (uint) EMath.Random(3, MAXVERTEXCOUNT);
+            uint count = (uint) EMath.Random(3, MAXPOLYVERTEXCOUNT);
             float e = EMath.Random(50, 100);
             Vector2f[] buffer = new Vector2f[count];
             for (uint i = 0; i < buffer.Length; ++i) {
