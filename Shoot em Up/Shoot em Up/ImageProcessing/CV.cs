@@ -11,19 +11,17 @@ namespace ImageProcessing
     {
         public static void AlphaThresholding(ref byte[] dst, byte[] src, uint cols, uint rows, uint threshold)
         {
-            for (uint i = 3; i < cols * rows * 4; i+=4) 
+            for (uint i = 0; i < cols * rows * 4; i+=4) 
             {
-                if (src[i] > threshold) {
-                    dst[i] = 255;   //A
+                // R, G, B
+                dst[i] = dst[i + 1] = dst[i + 2] = 255;
+                if (src[i + 3] > threshold) {
+                    dst[i + 3] = 255;   //A
                 }
                 else
                 {
-                    dst[i] = 0;     //A
+                    dst[i + 3] = 0;     //A
                 }
-
-                dst[i - 1] = 255;   //B
-                dst[i - 2] = 255;   //G
-                dst[i - 3] = 255;   //R
             }
         }
 
@@ -38,26 +36,17 @@ namespace ImageProcessing
 
             // first row
             for (uint x = 0; x < pxCols; x += 4)
-            {
-                dst[x + 0] = 255;   //R
-                dst[x + 1] = 255;   //G
-                dst[x + 2] = 255;   //B
-                dst[x + 3] = 0;     //A
-            }
+                dst[x] = dst[x + 1] = dst[x + 2] = dst[x + 3] = 0;
 
             for (uint y = 1; y < rows - 1; ++y)
             {
                 // first pixel in row
-                dst[pxCols * y + 0] = 255;  //R
-                dst[pxCols * y + 1] = 255;  //G
-                dst[pxCols * y + 2] = 255;  //B
-                dst[pxCols * y + 3] = 0;    //A
+                dst[pxCols * y] = dst[pxCols * y + 1] = dst[pxCols * y + 2] = dst[pxCols * y + 3] = 0;
 
                 for (uint x = 7; x < pxCols - 4; x+=4)
                 {
-                    dst[pxCols * y + x - 3] = 255;    //R
-                    dst[pxCols * y + x - 2] = 255;    //G
-                    dst[pxCols * y + x - 1] = 255;    //B
+                    // R, G, B
+                    dst[pxCols * y + x - 3] = dst[pxCols * y + x - 2] = dst[pxCols * y + x - 1] = 255;
 
                     // detect horizontal edges
                     int sX = -src[pxCols * (y - 1) + x - 4] - (src[pxCols * y + x - 4] << 1) - src[pxCols * (y + 1) + x - 4]
@@ -71,20 +60,18 @@ namespace ImageProcessing
                 }
 
                 // last pixel in row
-                dst[pxCols * y + pxCols - 4] = 255;   //R
-                dst[pxCols * y + pxCols - 3] = 255;   //G
-                dst[pxCols * y + pxCols - 2] = 255;   //B
-                dst[pxCols * y + pxCols - 1] = 0;     //A
+                dst[pxCols * y + pxCols - 4] = 
+                dst[pxCols * y + pxCols - 3] = 
+                dst[pxCols * y + pxCols - 2] = 
+                dst[pxCols * y + pxCols - 1] = 0;
             }
 
             // last row
             for (uint x = 0; x < pxCols; x+=4)
-            {
-                dst[pxCols * (rows - 1) + x + 0] = 255;   //R
-                dst[pxCols * (rows - 1) + x + 1] = 255;   //G
-                dst[pxCols * (rows - 1) + x + 2] = 255;   //B
-                dst[pxCols * (rows - 1) + x + 3] = 0;     //A
-            }
+                dst[pxCols * (rows - 1) + x] = 
+                dst[pxCols * (rows - 1) + x + 1] = 
+                dst[pxCols * (rows - 1) + x + 2] = 
+                dst[pxCols * (rows - 1) + x + 3] = 0;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
