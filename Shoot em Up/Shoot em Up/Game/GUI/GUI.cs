@@ -28,7 +28,7 @@ namespace Shoot_em_Up {
             menue.Add(toMain);
             this.inGame.Add(menue);
 
-            start = new Button(new Vector2f(150, 350), new Vector2f(200,50), "Start Game!", 24, StartGame);
+            start = new Button(new Vector2f(150, 640), new Vector2f(200,50), "Start Game!", 24, StartGame);
             title = new Screen(0,0,"../Content/title.png");
             this.welcome.Add(title);
             this.welcome.Add(start);
