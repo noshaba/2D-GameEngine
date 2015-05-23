@@ -31,19 +31,19 @@ namespace ImageProcessing
 
             AlphaThresholding(ref src, src, cols, rows, threshold);
 
+            // bit shifting
+            // num << x = num * x^2
+            // num >> x = floor(num / x^2)
+            uint pxCols = cols << 2;
+
             // first row
-            for (uint x = 0; x < cols * 4; x += 4)
+            for (uint x = 0; x < pxCols; x += 4)
             {
                 dst[x + 0] = 255;   //R
                 dst[x + 1] = 255;   //G
                 dst[x + 2] = 255;   //B
                 dst[x + 3] = 0;     //A
             }
-
-            // bit shifting
-            // num << x = num * x^2
-            // num >> x = floor(num / x^2)
-            uint pxCols = cols << 2;
 
             for (uint y = 1; y < rows - 1; ++y)
             {
