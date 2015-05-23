@@ -78,6 +78,7 @@
     <Compile Include="GUI\Label.cs" />
     <Compile Include="GUI\Menue.cs" />
     <Compile Include="GUI\GUIView.cs" />
+    <Compile Include="ImageProcessing\CV.cs" />
     <Compile Include="Maths\EMath.cs" />
     <Compile Include="Maths\Mat22f.cs" />
     <Compile Include="Maths\Vec2fMath.cs" />

@@ -60,7 +60,8 @@ namespace Shoot_em_Up
         public override void LateUpdate()
         {
             opponent = null;
-            this.drawable.FillColor = this.hp <= .5f * this.hp ? Color.Red : drawable.FillColor;
+            // change color with hp / MAXHP
+            this.drawable.FillColor = this.hp <= 25 ? Color.Red : drawable.FillColor;
             this.display = this.hp > 0;
             base.LateUpdate();
         }
