@@ -70,6 +70,7 @@
     <Compile Include="Game\GameObjects\Wall.cs" />
     <Compile Include="Game\GameObjects\Weapon.cs" />
     <Compile Include="Game\GUI\GUI.cs" />
+    <Compile Include="GUI\Screen.cs" />
     <Compile Include="Game\Program.cs" />
     <Compile Include="GUI\Button.cs" />
     <Compile Include="GUI\Checkbox.cs" />

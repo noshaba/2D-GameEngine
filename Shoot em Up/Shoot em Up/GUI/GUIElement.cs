@@ -23,6 +23,7 @@ namespace GUI
         private RectangleShape bottomLeftDest;
         private RectangleShape bottomCenterDest;
         private RectangleShape bottomRightDest;
+        protected RectangleShape image;
         protected String path;
 
 
@@ -49,16 +50,22 @@ namespace GUI
 
         public virtual void Draw(RenderTarget target, RenderStates states)
         {
-
-            target.Draw(this.topLeftDest, states);
-            target.Draw(this.topCenterDest, states);
-            target.Draw(this.topRightDest, states);
-            target.Draw(this.centerLeftDest, states);
-            target.Draw(this.centerCenterDest, states);
-            target.Draw(this.centerRightDest, states);
-            target.Draw(this.bottomLeftDest, states);
-            target.Draw(this.bottomCenterDest, states);
-            target.Draw(this.bottomRightDest, states);
+            if (this.topLeftDest != null)
+            {
+                target.Draw(this.topLeftDest, states);
+                target.Draw(this.topCenterDest, states);
+                target.Draw(this.topRightDest, states);
+                target.Draw(this.centerLeftDest, states);
+                target.Draw(this.centerCenterDest, states);
+                target.Draw(this.centerRightDest, states);
+                target.Draw(this.bottomLeftDest, states);
+                target.Draw(this.bottomCenterDest, states);
+                target.Draw(this.bottomRightDest, states);
+            }
+            else
+            {
+                target.Draw(this.image, states);
+            }
         }
 
         public bool Displayed { get; set; }

@@ -14,6 +14,7 @@ namespace Shoot_em_Up {
         Button restart;
         Button toMain;
         Menue menue;
+        Screen title;
         Game game;
         private List<IGraphic> welcome = new List<IGraphic>();
         private List<IGraphic> inGame = new List<IGraphic>();
@@ -28,6 +29,8 @@ namespace Shoot_em_Up {
             this.inGame.Add(menue);
 
             start = new Button(new Vector2f(150, 350), new Vector2f(200,50), "Start Game!", 24, StartGame);
+            title = new Screen(0,0,"../Content/title.png");
+            this.welcome.Add(title);
             this.welcome.Add(start);
 
             restart = new Button(new Vector2f(150, 350), new Vector2f(200, 50), "Play Again!", 24, StartGame);
