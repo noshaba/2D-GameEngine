@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Runtime.CompilerServices;
+using SFML.System;
 
 namespace ImageProcessing
 {
@@ -56,7 +56,15 @@ namespace ImageProcessing
                     int sY = -src[pxCols * (y - 1) + x - 4] - (src[pxCols * (y - 1) + x] << 1) - src[pxCols * (y - 1) + x + 4]
                             + src[pxCols * (y + 1) + x - 4] + (src[pxCols * (y + 1) + x] << 1) + src[pxCols * (y + 1) + x + 4];
 
-                    dst[pxCols * y + x] = SobelLength(sX, sY);  //A
+                    //A
+                    if (sX == 0 && sY == 0)
+                    {
+                        dst[pxCols * y + x] = 0;
+                    }
+                    else
+                    {
+                        dst[pxCols * y + x] = 255;
+                    }
                 }
 
                 // last pixel in row
@@ -72,15 +80,6 @@ namespace ImageProcessing
                 dst[pxCols * (rows - 1) + x + 1] =    //G
                 dst[pxCols * (rows - 1) + x + 2] =    //B
                 dst[pxCols * (rows - 1) + x + 3] = 0; //A
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static byte SobelLength(int sobelX, int sobelY)
-        {
-            int sobelLength = (int)(Math.Sqrt(sobelX * sobelX + sobelY * sobelY));
-            if (sobelLength < 0) sobelLength = 0;
-            if (sobelLength > 255) sobelLength = 255;
-            return (byte) sobelLength;
         }
     }
 }
