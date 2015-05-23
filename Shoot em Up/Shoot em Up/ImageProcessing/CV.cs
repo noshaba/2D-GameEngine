@@ -36,11 +36,11 @@ namespace ImageProcessing
 
             // first row
             for (uint x = 0; x < pxCols; x += 4)
-                dst[x] = dst[x + 1] = dst[x + 2] = dst[x + 3] = 0;
+                dst[x] = dst[x + 1] = dst[x + 2] = dst[x + 3] = 0; //R,G,B,A
 
             for (uint y = 1; y < rows - 1; ++y)
             {
-                // first pixel in row
+                // first pixel in row R, G, B, A
                 dst[pxCols * y] = dst[pxCols * y + 1] = dst[pxCols * y + 2] = dst[pxCols * y + 3] = 0;
 
                 for (uint x = 7; x < pxCols - 4; x+=4)
@@ -60,18 +60,18 @@ namespace ImageProcessing
                 }
 
                 // last pixel in row
-                dst[pxCols * y + pxCols - 4] = 
-                dst[pxCols * y + pxCols - 3] = 
-                dst[pxCols * y + pxCols - 2] = 
-                dst[pxCols * y + pxCols - 1] = 0;
+                dst[pxCols * y + pxCols - 4] =    //R
+                dst[pxCols * y + pxCols - 3] =    //G
+                dst[pxCols * y + pxCols - 2] =    //B
+                dst[pxCols * y + pxCols - 1] = 0; //A
             }
 
             // last row
             for (uint x = 0; x < pxCols; x+=4)
-                dst[pxCols * (rows - 1) + x] = 
-                dst[pxCols * (rows - 1) + x + 1] = 
-                dst[pxCols * (rows - 1) + x + 2] = 
-                dst[pxCols * (rows - 1) + x + 3] = 0;
+                dst[pxCols * (rows - 1) + x] =        //R
+                dst[pxCols * (rows - 1) + x + 1] =    //G
+                dst[pxCols * (rows - 1) + x + 2] =    //B
+                dst[pxCols * (rows - 1) + x + 3] = 0; //A
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
