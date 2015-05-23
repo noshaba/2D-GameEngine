@@ -56,7 +56,7 @@ namespace ImageProcessing
                     int sY = -src[pxCols * (y - 1) + x - 4] - (src[pxCols * (y - 1) + x] << 1) - src[pxCols * (y - 1) + x + 4]
                             + src[pxCols * (y + 1) + x - 4] + (src[pxCols * (y + 1) + x] << 1) + src[pxCols * (y + 1) + x + 4];
 
-                    dst[pxCols * y + x] = SobelCode(sX, sY);  //A
+                    dst[pxCols * y + x] = SobelLength(sX, sY);  //A
                 }
 
                 // last pixel in row
@@ -75,12 +75,12 @@ namespace ImageProcessing
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static byte SobelCode(int sobelX, int sobelY)
+        private static byte SobelLength(int sobelX, int sobelY)
         {
-            int sobelLen = (int)(Math.Sqrt(sobelX * sobelX + sobelY * sobelY));
-            if (sobelLen < 0) sobelLen = 0;
-            if (sobelLen > 255) sobelLen = 255;
-            return (byte) sobelLen;
+            int sobelLength = (int)(Math.Sqrt(sobelX * sobelX + sobelY * sobelY));
+            if (sobelLength < 0) sobelLength = 0;
+            if (sobelLength > 255) sobelLength = 255;
+            return (byte) sobelLength;
         }
     }
 }
