@@ -43,13 +43,13 @@ namespace Shoot_em_Up
         }
 
         private void singleShot(Vector2f position) {
-            Game.AddObject(new Bullet(this.owner, FactionManager.factions[(int)Faction.Type.Player], position, 2, Color.Yellow, 0.01f, maxDamage, new Vector2f(0, -bulletSpeed), new Vector2f(0, 0)));
+            Game.AddObject(new Bullet(this.owner, FactionManager.factions[(int)Faction.Type.Player], new Vector2f(position.X, position.Y - 40), 2, Color.Yellow, 0.01f, maxDamage, new Vector2f(0, -bulletSpeed), new Vector2f(0, 0)));
         }
 
         private void tripleShot(Vector2f position)
         {
             Game.AddObject(new Bullet(this.owner, FactionManager.factions[(int)Faction.Type.Player], position, 1.5f, Color.Yellow, 0.01f, maxDamage, new Vector2f(-10, -bulletSpeed), new Vector2f(0, 0)));
-            Game.AddObject(new Bullet(this.owner, FactionManager.factions[(int)Faction.Type.Player], position, 1.5f, Color.Yellow, 0.01f, maxDamage, new Vector2f(  0, -bulletSpeed), new Vector2f(0, 0)));
+            Game.AddObject(new Bullet(this.owner, FactionManager.factions[(int)Faction.Type.Player], position, 1.5f, Color.Yellow, 0.01f, maxDamage, new Vector2f(0, -bulletSpeed), new Vector2f(0, 0)));
             Game.AddObject(new Bullet(this.owner, FactionManager.factions[(int)Faction.Type.Player], position, 1.5f, Color.Yellow, 0.01f, maxDamage, new Vector2f( 10, -bulletSpeed), new Vector2f(0, 0)));
         }
 

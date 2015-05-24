@@ -28,7 +28,7 @@ namespace Shoot_em_Up
             this.hp = 1000;
             this.maxDamage = 0;
             this.maxPoints = 1000;
-            this.weapon = new Weapon(this, 20, 500, 30, "tripleBentShot");
+            this.weapon = new Weapon(this, 20, 500, 30, "tripleShot");
             this.drawable.Texture = texture;
         }
 
