@@ -28,7 +28,7 @@ namespace Shoot_em_Up
             this.hp = 1000;
             this.maxDamage = 0;
             this.maxPoints = 1000;
-            this.weapon = new Weapon(this, 20, 500, 30, "tripleShot");
+            this.weapon = new Weapon(this, 20, 500, 30, "singleShot");
             this.drawable.Texture = texture;
         }
 
@@ -58,7 +58,7 @@ namespace Shoot_em_Up
 
         private void shoot()
         {
-            if(fire) this.weapon.shoot(this.rigidBody.COM);
+            if(fire) this.weapon.shoot(new Vector2f(this.rigidBody.COM.X, this.rigidBody.COM.Y-20));
         }
 
         public override void Update()
