@@ -23,11 +23,6 @@ namespace Shoot_em_Up {
         public GUI(int width, int height, Game g) : base(new Vector2f(0, 0), new Vector2f(width, height)) {
             game = g;
 
-            menue = new Menue(new Vector2f(0,0), new Vector2f(480,50));
-            toMain = new Button(10,10, "Main Menue", ShowWelcome);
-            menue.Add(toMain);
-            this.inGame.Add(menue);
-
             start = new Button(new Vector2f(150, 640), new Vector2f(200,50), "Start Game!", 24, StartGame);
             title = new Screen(0,0,"../Content/title.png");
             this.welcome.Add(title);
@@ -55,6 +50,7 @@ namespace Shoot_em_Up {
             //decide which elements to draw depending on game status
             switch(this.game.status) {
                 case Game.GameStatus.Active: this.children = this.inGame;
+                    this.createInGame();
                     break;
                 case Game.GameStatus.Welcome: this.children = this.welcome;
                     break;
@@ -62,6 +58,18 @@ namespace Shoot_em_Up {
                     break;
             }
             base.Draw(window);
+        }
+
+        public void createInGame()
+        {
+            this.inGame = new List<IGraphic>();
+            menue = new Menue(new Vector2f(0, 0), new Vector2f(480, 50));
+            toMain = new Button(10, 10, "Main Menue", ShowWelcome);
+            int i = this.game.player.score;
+            Label l = new Label(new Vector2f(200, 10), i.ToString());
+            menue.Add(toMain);
+            menue.Add(l);
+            this.inGame.Add(menue);
         }
     }
 }

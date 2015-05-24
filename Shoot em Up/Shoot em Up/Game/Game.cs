@@ -20,7 +20,7 @@ namespace Shoot_em_Up {
         private int HEIGHT;
         private int MIN_OBJECTS;
 
-        private Player player;
+        public Player player;
 
         private Wall left;
         private Wall right;

@@ -85,8 +85,8 @@ namespace GUI {
         new public void Draw(RenderWindow window) {
             if (displayed)
                 window.Draw(this);
-                if (this.label != null)
-                window.Draw(this.label);
+            if (this.label != null)
+                this.label.Draw(window);
         }
 
         new public void Released(float X, float Y) {
