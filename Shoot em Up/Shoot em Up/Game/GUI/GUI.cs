@@ -65,7 +65,6 @@ namespace Shoot_em_Up {
         {
             if (this.inGame.Count == 0)
             {
-                Console.WriteLine("1");
                 menue = new Menue(new Vector2f(0, 0), new Vector2f(480, 50));
                 toMain = new Button(10, 10, "Main Menue", ShowWelcome);
                 Label l = new Label(new Vector2f(250,15), "Score: ");

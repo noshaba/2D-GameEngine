@@ -17,6 +17,24 @@ namespace Shoot_em_Up
             this.maxDamage = 0;
             this.maxPoints = 1000;
             this.drawable.Texture = texture;
+            this.rigidBody.Velocity = new Vector2f(50, 0);
         }
+
+         public void move()
+         {
+             if (this.rigidBody.COM.X >= 300 && this.rigidBody.Velocity.X > 0) {
+                 this.rigidBody.Velocity = new Vector2f(-50,0);
+             }
+             else if (this.rigidBody.COM.X <= 100 )
+             {
+                this.rigidBody.Velocity = new Vector2f(50, 0);
+             }
+         }
+
+         public override void Update()
+         {
+             this.move();
+             base.Update();
+         }
     }
 }
