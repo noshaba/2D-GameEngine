@@ -116,7 +116,7 @@ namespace Shoot_em_Up {
 
             this.player = new Player(FactionManager.factions[(int) Faction.Type.Player],new Vector2f(this.WIDTH / 2, this.HEIGHT-40), new Texture("../Content/ship.png"));
             AddObject(player);
-
+            AddObject(new Enemy(FactionManager.factions[(int) Faction.Type.AI], new Vector2f(100,100), new Texture("../Content/enemy.png")));
             this.clock.Start();
             this.chance = 10;
             this.GenerateAstroid();

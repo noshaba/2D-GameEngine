@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Game\Enemy.cs" />
     <Compile Include="Game\FileManager\JSONManager.cs" />
     <Compile Include="Game\FileManager\FactionManager.cs" />
     <Compile Include="Game\FileManager\SoundManager.cs" />
