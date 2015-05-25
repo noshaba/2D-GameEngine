@@ -55,18 +55,22 @@ namespace Server
                 buffer = new byte[clientSocket.SendBufferSize];
                 readBytes = clientSocket.Receive(buffer);
 
-                if(readBytes > 0)
-                {
-                    Packet packet = new Packet(buffer);
-                    DataManager(packet);
-                }
+                if (readBytes > 0) 
+                    DataManager(new Packet(buffer));
             }
         }
 
         // data manager
         public static void DataManager(Packet p)
         {
-
+            switch(p.packetType)
+            {
+                case PacketType.Chat:
+                    // broadcast
+                    foreach (ClientData c in clients)
+                        c.clientSocket.Send(p.ToBytes());
+                    break;
+            }
         }
     }
 
@@ -81,6 +85,7 @@ namespace Server
             id = Guid.NewGuid().ToString();
             clientThread = new Thread(Server.DataIN);
             clientThread.Start(clientSocket);
+            SendRegistrationPacket();
         }
 
         public ClientData(Socket clientSocket)
@@ -89,6 +94,14 @@ namespace Server
             id = Guid.NewGuid().ToString();
             clientThread = new Thread(Server.DataIN);
             clientThread.Start(clientSocket);
+            SendRegistrationPacket();
+        }
+
+        public void SendRegistrationPacket()
+        {
+            Packet p = new Packet(PacketType.Registration, "server");
+            p.generalData.Add(id);
+            clientSocket.Send(p.ToBytes());
         }
     }
 }
