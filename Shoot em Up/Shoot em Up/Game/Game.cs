@@ -30,6 +30,7 @@ namespace Shoot_em_Up {
         private int chance;
         public GameStatus status;
         private bool hasEnemy;
+        private int stage = 1;
 
         public enum GameStatus
         {
@@ -74,6 +75,7 @@ namespace Shoot_em_Up {
                         this.Reset();
                     }
                     //all the updating
+                    CheckStage();
                     LookForThreats();
                     physics.Update(dt);
 
@@ -127,6 +129,19 @@ namespace Shoot_em_Up {
             this.status = GameStatus.Active;
         }
 
+        public void CheckStage()
+        {
+            if (this.player.score > 50 && this.player.score < 3000)
+            {
+                this.stage = 2;
+            }
+            else if (this.player.score > 3000)
+            {
+                this.stage = 3;
+                this.status = GameStatus.Credits;
+            }
+        }
+
         public void GenerateAstroid() {
             AddObject(new Astroid(FactionManager.factions[(int) Faction.Type.None], this.WIDTH/2, 0));
         }
@@ -136,7 +151,7 @@ namespace Shoot_em_Up {
             //every second try to create a new astroid, if not raise chance to create one next time
             if (EMath.random.Next(1, 100) < this.chance && this.clock.ElapsedMilliseconds > 600 && !this.physics.frozen)
             {
-                if(!hasEnemy && this.player.score > 50) {
+                if(!hasEnemy && stage == 2) {
                     AddEnemy();
                 } else {
                     this.GenerateAstroid();
