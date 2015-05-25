@@ -138,7 +138,7 @@ namespace Shoot_em_Up
                 case Keyboard.Key.Right:
                 case Keyboard.Key.Up:
                 case Keyboard.Key.Down:
-                    //sEmUp.StopPlayer();
+                    sEmUp.StopPlayer();
                     break;
                 default:
                     break;

@@ -33,11 +33,6 @@ namespace Physics {
             }
         }
 
-        public void Add(IRigidBody obj)
-        {
-            objects.Add(obj);
-        }
-
         #region Physical Methods
 
         private void ApplyForces(float dt, int i) {

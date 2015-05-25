@@ -22,7 +22,7 @@ namespace Shoot_em_Up
             : base(faction, texture, position, 1)
         {
             rigidBody.Restitution = 1.0f;
-            this.speed = 25;
+            this.speed = 50;
             this.fire = false;
             this.score = 0;
             this.hp = 1000;

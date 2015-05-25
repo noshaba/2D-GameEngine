@@ -63,7 +63,6 @@ namespace Physics {
                 colli.contacts[0] = cir.COM - colli.normal * cir.Radius;
                 colli.obj = obj2;
             }
-            
         }
 
         private static void PolygonToPlane(IRigidBody obj1, IRigidBody obj2, ref Collision colli) {
@@ -224,7 +223,7 @@ namespace Physics {
             colli.overlap = float.MaxValue;
             Collision c = new Collision();
             for (uint i = 0; i < poly1.normals.Length; ++i) {
-                c = PolyToSepAxis(poly1, poly2, poly1.Normal(i), T);
+                c = SeperatingAxisTest(poly1, poly2, poly1.Normal(i), T);
                 if(!c.collision) {
                     colli.collision = false;
                     return;
@@ -233,7 +232,7 @@ namespace Physics {
                     colli = c;
             }
             for (uint i = 0; i < poly2.normals.Length; ++i) {
-                c = PolyToSepAxis(poly1, poly2, poly2.Normal(i), T);
+                c = SeperatingAxisTest(poly1, poly2, poly2.Normal(i), T);
                 if (!c.collision) {
                     colli.collision = false;
                     return;
@@ -278,7 +277,7 @@ namespace Physics {
             return projection;
         }
 
-        private static Collision PolyToSepAxis(Polygon poly1, Polygon poly2, Vector2f n, Vector2f T) {
+        private static Collision SeperatingAxisTest(Polygon poly1, Polygon poly2, Vector2f n, Vector2f T) {
             Collision colli = new Collision();
             colli.distance = T.Dot(n);
             if (colli.distance > 0) n = -n;
