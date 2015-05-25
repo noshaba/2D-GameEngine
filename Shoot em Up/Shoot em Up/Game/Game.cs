@@ -21,6 +21,7 @@ namespace Shoot_em_Up {
         private int MIN_OBJECTS;
 
         public Player player;
+        public Enemy enemy;
 
         private Wall left;
         private Wall right;
@@ -116,11 +117,13 @@ namespace Shoot_em_Up {
 
             this.player = new Player(FactionManager.factions[(int) Faction.Type.Player],new Vector2f(this.WIDTH / 2, this.HEIGHT-40), new Texture("../Content/ship.png"));
             AddObject(player);
-            AddObject(new Enemy(FactionManager.factions[(int) Faction.Type.AI], new Vector2f(100,100), new Texture("../Content/enemy.png")));
+            this.enemy = new Enemy(FactionManager.factions[(int)Faction.Type.AI], new Vector2f(100, 100), new Texture("../Content/enemy.png"));
+            AddObject(enemy);
             this.clock.Start();
             this.chance = 10;
             this.GenerateAstroid();
             this.status = GameStatus.Active;
+            if (status == GameStatus.Active) this.enemy.fire = !this.physics.frozen;
         }
 
         public void GenerateAstroid() {

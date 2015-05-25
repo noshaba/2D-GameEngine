@@ -13,7 +13,6 @@ namespace Shoot_em_Up
 {
     class Player : PvPObject
     {
-        public int score;
         private float speed;
         private Weapon weapon;
         public bool fire;

@@ -11,6 +11,7 @@ namespace Shoot_em_Up
 {
     class PvPObject : GameObject
     {
+        public int score;
         public int hp;
         public int maxDamage;
         public int maxPoints;

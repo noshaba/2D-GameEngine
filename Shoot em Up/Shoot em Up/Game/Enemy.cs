@@ -9,15 +9,21 @@ namespace Shoot_em_Up
 {
     class Enemy : PvPObject
     {
+
+        private Weapon weapon;
+        public bool fire;
+
          public Enemy(Faction faction, Vector2f position, Texture texture)
             : base(faction, texture, position, 1)
         {
             rigidBody.Restitution = 1.0f;
-            this.hp = 1000;
+            this.hp = 500;
             this.maxDamage = 0;
             this.maxPoints = 1000;
             this.drawable.Texture = texture;
             this.rigidBody.Velocity = new Vector2f(50, 0);
+            this.fire = false;
+            this.weapon = new Weapon(this, 20, 1000, 30, "singleShot", new Vector2f(0,1), new Vector2f(0, 80));
         }
 
          public void move()
@@ -31,9 +37,15 @@ namespace Shoot_em_Up
              }
          }
 
+         private void shoot()
+         {
+             if (fire) this.weapon.shoot(this.rigidBody.COM);
+         }
+
          public override void Update()
          {
              this.move();
+             this.shoot();
              base.Update();
          }
     }

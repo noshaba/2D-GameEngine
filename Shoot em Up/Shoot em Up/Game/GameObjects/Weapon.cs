@@ -21,9 +21,9 @@ namespace Shoot_em_Up
 
         private delegate void Shot(Vector2f position);
         private Dictionary<string, Shot> weapons;
-        private Player owner;
+        private PvPObject owner;
 
-        public Weapon(Player owner, int maxDamage, int fireRate, int bulletSpeed, String type, Vector2f direction, Vector2f pos) {
+        public Weapon(PvPObject owner, int maxDamage, int fireRate, int bulletSpeed, String type, Vector2f direction, Vector2f pos) {
             this.fireRate = fireRate;
             this.bulletSpeed = bulletSpeed;
             this.maxDamage = maxDamage;
