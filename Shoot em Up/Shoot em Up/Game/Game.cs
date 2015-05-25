@@ -74,10 +74,7 @@ namespace Shoot_em_Up {
                         this.Reset();
                     }
                     //all the updating
-                    LookForNewAstroids();
-                    if(this.player.score > 50 && !hasEnemy) {
-                        AddEnemy();
-                    }
+                    LookForThreats();
                     physics.Update(dt);
 
                     for (int i = 0; i < objects.Count; ++i)
@@ -95,6 +92,8 @@ namespace Shoot_em_Up {
                         }
                         if (!objects[i].display)
                         {
+                            if (objects[i] is Enemy)
+                                this.hasEnemy = false;
                             objects.RemoveAt(i);
                             shapes.RemoveAt(i);
                         }
@@ -123,7 +122,7 @@ namespace Shoot_em_Up {
             this.player = new Player(FactionManager.factions[(int) Faction.Type.Player],new Vector2f(this.WIDTH / 2, this.HEIGHT-40), new Texture("../Content/ship.png"));
             AddObject(player);
             this.clock.Start();
-            this.chance = 40;
+            this.chance = 50;
             this.GenerateAstroid();
             this.status = GameStatus.Active;
         }
@@ -132,13 +131,17 @@ namespace Shoot_em_Up {
             AddObject(new Astroid(FactionManager.factions[(int) Faction.Type.None], this.WIDTH/2, 0));
         }
 
-        public void LookForNewAstroids()
+        public void LookForThreats()
         {
             //every second try to create a new astroid, if not raise chance to create one next time
             if (EMath.random.Next(1, 100) < this.chance && this.clock.ElapsedMilliseconds > 600 && !this.physics.frozen)
             {
+                if(!hasEnemy && this.player.score > 50) {
+                    AddEnemy();
+                } else {
+                    this.GenerateAstroid();
+                }
                 this.clock.Restart();
-                this.GenerateAstroid();
                 this.chance = 0;
             }
             else if (this.chance < 100 && this.clock.ElapsedMilliseconds > 6000)
