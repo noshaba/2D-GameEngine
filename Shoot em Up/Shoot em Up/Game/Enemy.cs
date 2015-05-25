@@ -18,6 +18,7 @@ namespace Shoot_em_Up
         {
             rigidBody.Restitution = 1.0f;
             this.hp = 500;
+            this.maxHP = 500;
             this.maxDamage = 0;
             this.maxPoints = 1000;
             this.drawable.Texture = texture;

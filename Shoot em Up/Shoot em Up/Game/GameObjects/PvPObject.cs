@@ -13,6 +13,7 @@ namespace Shoot_em_Up
     {
         public int score;
         public int hp;
+        public int maxHP = 1;
         public int maxDamage;
         public int maxPoints;
         protected PvPObject opponent;
@@ -67,7 +68,7 @@ namespace Shoot_em_Up
         {
             opponent = null;
             // change color with hp / MAXHP
-            this.drawable.FillColor = this.hp <= 25 ? Color.Red : drawable.FillColor;
+            this.drawable.FillColor = this.hp <= this.maxHP*0.25 ? Color.Red : drawable.FillColor;
             this.display = this.hp > 0;
             base.LateUpdate();
         }

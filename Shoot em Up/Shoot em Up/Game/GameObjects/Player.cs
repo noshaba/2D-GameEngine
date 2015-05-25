@@ -25,6 +25,7 @@ namespace Shoot_em_Up
             this.fire = false;
             this.score = 0;
             this.hp = 1000;
+            this.maxHP = 1000;
             this.maxDamage = 0;
             this.maxPoints = 1000;
             this.weapon = new Weapon(this, 20, 500, 30, "tripleBentShot", new Vector2f(0,-1), new Vector2f(0, -40), Color.Yellow);

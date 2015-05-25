@@ -82,7 +82,7 @@ namespace Shoot_em_Up {
             else
             {
                 scoreLabel.DisplayedString = this.game.player.score.ToString();
-                hp.DisplayedString = this.game.player.hp.ToString();
+                hp.DisplayedString = this.game.player.hp.ToString() + "/" + this.game.player.maxHP.ToString();
             }
         }
     }

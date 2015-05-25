@@ -23,7 +23,8 @@ namespace Shoot_em_Up {
             rigidBody.Restitution = 1.0f;
             rigidBody.Velocity = speed;
             this.shooter = shooter;
-            this.hp = 100;
+            this.hp = 1;
+            this.maxHP = 1;
             this.maxDamage = dmg;
             this.maxPoints = 0;
             this.bend = bend;
