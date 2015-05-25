@@ -64,11 +64,20 @@ namespace Client
 
             for(; ; )
             {
-                buffer = new byte[clientSocket.SendBufferSize];
-                readBytes = clientSocket.Receive(buffer);
+                try
+                {
+                    buffer = new byte[clientSocket.SendBufferSize];
+                    readBytes = clientSocket.Receive(buffer);
 
-                if (readBytes > 0)
-                    DataManager(new Packet(buffer));
+                    if (readBytes > 0)
+                        DataManager(new Packet(buffer));
+                }
+                catch (SocketException ex)
+                {
+                    Console.WriteLine("The server hs disconnected.");
+                    Console.ReadLine();
+                    Environment.Exit(0);
+                }
             }
         }
 

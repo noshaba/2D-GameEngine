@@ -52,11 +52,21 @@ namespace Server
 
             for (; ; )
             {
-                buffer = new byte[clientSocket.SendBufferSize];
-                readBytes = clientSocket.Receive(buffer);
+                try
+                {
+                    buffer = new byte[clientSocket.SendBufferSize];
+                    readBytes = clientSocket.Receive(buffer);
 
-                if (readBytes > 0) 
-                    DataManager(new Packet(buffer));
+                    if (readBytes > 0)
+                        DataManager(new Packet(buffer));
+                }
+                catch (SocketException ex)
+                {
+                    // TODO close socket and remove from list...
+                    Console.WriteLine("A client disconnected.");
+                    //clientSocket.Shutdown(SocketShutdown.Both);
+                    //clientSocket.Close();
+                }
             }
         }
 
