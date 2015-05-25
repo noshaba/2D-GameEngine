@@ -1,0 +1,21 @@
+Controls:
+	- move ship with arrow keys
+	- shoot with spacebar
+	- press "p" to pause the game
+
+Features:
+	- reusable physics
+	- simple bullet patterns
+	- reusable GUI	
+	...I think there is more to add here
+
+To-Do:
+	- make proper use of rotation
+	- different enemys, also improve AI(there is no atual AI currently)
+	- client/server
+	- powerups/special abilities
+	- bosses
+	- levels(possibly jsons?)
+	- sound
+	- animations
+	- more obvious incorporation of the factions feature
