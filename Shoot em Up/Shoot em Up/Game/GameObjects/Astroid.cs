@@ -21,7 +21,7 @@ namespace Shoot_em_Up
             rigidBody.Velocity = new Vector2f(EMath.random.Next(-50,50),EMath.random.Next(10,30));
             rigidBody.Restitution = 1.0f;
             this.hp = 50;
-            this.maxDamage = 500;
+            this.maxDamage = 100;
             this.maxPoints = 20;
         }
     }

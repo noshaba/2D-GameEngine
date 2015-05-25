@@ -12,17 +12,19 @@ namespace Shoot_em_Up
 
         private Weapon weapon;
         public bool fire;
+        private float speed;
 
          public Enemy(Faction faction, Vector2f position, Texture texture)
             : base(faction, texture, position, 1)
         {
             rigidBody.Restitution = 1.0f;
-            this.hp = 500;
-            this.maxHP = 500;
+            this.hp = 250;
+            this.maxHP = 250;
             this.maxDamage = 0;
             this.maxPoints = 1000;
             this.drawable.Texture = texture;
-            this.rigidBody.Velocity = new Vector2f(50, 0);
+            this.speed = 20;
+            this.rigidBody.Velocity = new Vector2f(this.speed, 0);
             this.fire = true;
             this.weapon = new Weapon(this, 20, 1000, 30, "singleShot", new Vector2f(0,1), new Vector2f(0, 30), Color.Blue);
         }
@@ -30,11 +32,11 @@ namespace Shoot_em_Up
          public void move()
          {
              if (this.rigidBody.COM.X >= 300 && this.rigidBody.Velocity.X > 0) {
-                 this.rigidBody.Velocity = new Vector2f(-50,0);
+                 this.rigidBody.Velocity = new Vector2f(-this.speed,0);
              }
              else if (this.rigidBody.COM.X <= 100 )
              {
-                this.rigidBody.Velocity = new Vector2f(50, 0);
+                this.rigidBody.Velocity = new Vector2f(this.speed, 0);
              }
          }
 
