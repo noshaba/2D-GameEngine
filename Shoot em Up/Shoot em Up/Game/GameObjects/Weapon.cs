@@ -22,8 +22,9 @@ namespace Shoot_em_Up
         private delegate void Shot(Vector2f position);
         private Dictionary<string, Shot> weapons;
         private PvPObject owner;
+        private Color color;
 
-        public Weapon(PvPObject owner, int maxDamage, int fireRate, int bulletSpeed, String type, Vector2f direction, Vector2f pos) {
+        public Weapon(PvPObject owner, int maxDamage, int fireRate, int bulletSpeed, String type, Vector2f direction, Vector2f pos, Color color) {
             this.fireRate = fireRate;
             this.bulletSpeed = bulletSpeed;
             this.maxDamage = maxDamage;
@@ -37,6 +38,7 @@ namespace Shoot_em_Up
             this.owner = owner;
             this.direction = direction;
             this.relativePos = pos;
+            this.color = color;
         }
 
         public void shoot(Vector2f position) {
@@ -47,21 +49,21 @@ namespace Shoot_em_Up
         }
 
         private void singleShot(Vector2f position) {
-            Game.AddObject(new Bullet(this.owner, FactionManager.factions[(int)Faction.Type.Player], position, 2, Color.Yellow, 0.01f, maxDamage, new Vector2f(this.direction.X*bulletSpeed, this.direction.Y*bulletSpeed), new Vector2f(0, 0)));
+            Game.AddObject(new Bullet(this.owner, this.owner.Faction, position, 2, this.color, 0.01f, maxDamage, new Vector2f(this.direction.X*bulletSpeed, this.direction.Y*bulletSpeed), new Vector2f(0, 0)));
         }
 
         private void tripleShot(Vector2f position)
         {
-            Game.AddObject(new Bullet(this.owner, FactionManager.factions[(int)Faction.Type.Player], position, 1.5f, Color.Yellow, 0.01f, maxDamage, new Vector2f(this.direction.X * bulletSpeed - 10, this.direction.Y * bulletSpeed), new Vector2f(0, 0)));
-            Game.AddObject(new Bullet(this.owner, FactionManager.factions[(int)Faction.Type.Player], position, 1.5f, Color.Yellow, 0.01f, maxDamage, new Vector2f(this.direction.X*bulletSpeed, this.direction.Y*bulletSpeed), new Vector2f(0, 0)));
-            Game.AddObject(new Bullet(this.owner, FactionManager.factions[(int)Faction.Type.Player], position, 1.5f, Color.Yellow, 0.01f, maxDamage, new Vector2f(this.direction.X * bulletSpeed + 10, this.direction.Y * bulletSpeed), new Vector2f(0, 0)));
+            Game.AddObject(new Bullet(this.owner, this.owner.Faction, position, 1.5f, this.color, 0.01f, maxDamage, new Vector2f(this.direction.X * bulletSpeed - 10, this.direction.Y * bulletSpeed), new Vector2f(0, 0)));
+            Game.AddObject(new Bullet(this.owner, this.owner.Faction, position, 1.5f, this.color, 0.01f, maxDamage, new Vector2f(this.direction.X * bulletSpeed, this.direction.Y * bulletSpeed), new Vector2f(0, 0)));
+            Game.AddObject(new Bullet(this.owner, this.owner.Faction, position, 1.5f, this.color, 0.01f, maxDamage, new Vector2f(this.direction.X * bulletSpeed + 10, this.direction.Y * bulletSpeed), new Vector2f(0, 0)));
         }
 
         private void tripleBentShot(Vector2f position)
         {
-            Game.AddObject(new Bullet(this.owner, FactionManager.factions[(int)Faction.Type.Player], position, 1.5f, Color.Yellow, 0.01f, maxDamage, new Vector2f(this.direction.X - 5, this.direction.Y * bulletSpeed * 2), new Vector2f(-1, 0)));
-            Game.AddObject(new Bullet(this.owner, FactionManager.factions[(int)Faction.Type.Player], position, 1.5f, Color.Yellow, 0.01f, maxDamage, new Vector2f(this.direction.X * bulletSpeed, this.direction.Y * bulletSpeed), new Vector2f(0, 0)));
-            Game.AddObject(new Bullet(this.owner, FactionManager.factions[(int)Faction.Type.Player], position, 1.5f, Color.Yellow, 0.01f, maxDamage, new Vector2f(this.direction.X + 5, this.direction.Y * bulletSpeed * 2), new Vector2f(1, 0)));
+            Game.AddObject(new Bullet(this.owner, this.owner.Faction, position, 1.5f, this.color, 0.01f, maxDamage, new Vector2f(this.direction.X - 5, this.direction.Y * bulletSpeed * 2), new Vector2f(-1, 0)));
+            Game.AddObject(new Bullet(this.owner, this.owner.Faction, position, 1.5f, this.color, 0.01f, maxDamage, new Vector2f(this.direction.X * bulletSpeed, this.direction.Y * bulletSpeed), new Vector2f(0, 0)));
+            Game.AddObject(new Bullet(this.owner, this.owner.Faction, position, 1.5f, this.color, 0.01f, maxDamage, new Vector2f(this.direction.X + 5, this.direction.Y * bulletSpeed * 2), new Vector2f(1, 0)));
         }
     }
 }

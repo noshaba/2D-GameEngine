@@ -123,7 +123,6 @@ namespace Shoot_em_Up {
             this.chance = 10;
             this.GenerateAstroid();
             this.status = GameStatus.Active;
-            if (status == GameStatus.Active) this.enemy.fire = !this.physics.frozen;
         }
 
         public void GenerateAstroid() {

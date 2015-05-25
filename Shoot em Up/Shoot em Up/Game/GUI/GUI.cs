@@ -17,6 +17,7 @@ namespace Shoot_em_Up {
         Screen title;
         Game game;
         Label scoreLabel;
+        Label hp;
         private List<IGraphic> welcome = new List<IGraphic>();
         private List<IGraphic> inGame = new List<IGraphic>();
         private List<IGraphic> credits = new List<IGraphic>();
@@ -67,16 +68,21 @@ namespace Shoot_em_Up {
             {
                 menue = new Menue(new Vector2f(0, 0), new Vector2f(480, 50));
                 toMain = new Button(10, 10, "Main Menue", ShowWelcome);
-                Label l = new Label(new Vector2f(250,15), "Score: ");
-                scoreLabel = new Label(new Vector2f(300, 15), this.game.player.score.ToString());
+                Label l = new Label(new Vector2f(250,15), "Score");
+                scoreLabel = new Label(new Vector2f(290, 15), this.game.player.score.ToString());
+                Label l2 = new Label(new Vector2f(250, 25), "HP");
+                hp = new Label(new Vector2f(290, 25), this.game.player.hp.ToString());
                 menue.Add(toMain);
                 menue.Add(scoreLabel);
                 menue.Add(l);
+                menue.Add(l2);
+                menue.Add(hp);
                 this.inGame.Add(menue);
             }
             else
             {
                 scoreLabel.DisplayedString = this.game.player.score.ToString();
+                hp.DisplayedString = this.game.player.hp.ToString();
             }
         }
     }

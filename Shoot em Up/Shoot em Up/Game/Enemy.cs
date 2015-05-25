@@ -22,8 +22,8 @@ namespace Shoot_em_Up
             this.maxPoints = 1000;
             this.drawable.Texture = texture;
             this.rigidBody.Velocity = new Vector2f(50, 0);
-            this.fire = false;
-            this.weapon = new Weapon(this, 20, 1000, 30, "singleShot", new Vector2f(0,1), new Vector2f(0, 80));
+            this.fire = true;
+            this.weapon = new Weapon(this, 20, 1000, 30, "singleShot", new Vector2f(0,1), new Vector2f(0, 30), Color.Blue);
         }
 
          public void move()
