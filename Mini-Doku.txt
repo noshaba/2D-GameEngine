@@ -19,3 +19,10 @@ To-Do:
 	- sound
 	- animations
 	- more obvious incorporation of the factions feature
+
+Bugs:
+	- score does not count up destroyed objects for seamingly random reasons
+	(possibly its the bullet collides with object works but obeject collides with bullet does not work issue again)
+	- player cannot collide with enemy because user input and AI override the changes collision makes
+	- once something is at the side of the screen it keeps colliding with the wall placed there and so bullets 
+	start to jump again as one object can always only collide with one other object at a time

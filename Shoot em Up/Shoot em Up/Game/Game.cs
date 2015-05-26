@@ -168,8 +168,9 @@ namespace Shoot_em_Up {
 
         public void AddEnemy()
         {
-            this.enemy = new Enemy(FactionManager.factions[(int)Faction.Type.AI], new Vector2f(100, 100), new Texture("../Content/enemy.png"));
+            this.enemy = new Enemy(FactionManager.factions[(int)Faction.Type.AI], new Vector2f(240, 100), new Texture("../Content/enemy.png"));
             AddObject(enemy);
+            //AddObject(new Enemy(FactionManager.factions[(int)Faction.Type.AI], new Vector2f(300, 220), new Texture("../Content/enemy.png")));
             this.hasEnemy = true;
         }
 
