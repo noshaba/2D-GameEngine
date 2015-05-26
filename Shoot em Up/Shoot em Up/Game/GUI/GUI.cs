@@ -72,7 +72,7 @@ namespace Shoot_em_Up {
                 Label l = new Label(new Vector2f(350,15), "Score");
                 scoreLabel = new Label(new Vector2f(390, 15), this.game.player.score.ToString());
                 Label l2 = new Label(new Vector2f(350, 25), "HP");
-                hp = new Label(new Vector2f(390, 25), this.game.player.hp.ToString());
+                hp = new Label(new Vector2f(390, 25), this.game.player.hp.ToString() + "/" + this.game.player.maxHP.ToString());
                 lvl = new Label(new Vector2f(240, 20), this.game.level.ToString());
                 menue.Add(toMain);
                 menue.Add(scoreLabel);
