@@ -26,10 +26,8 @@ namespace Shoot_em_Up {
         private Wall right;
 
         private Stopwatch clock;
-        private int chance;
         public GameStatus status;
-        private bool hasEnemy;
-        private int level = 1;
+        public int level = 1;
         private int maxLevel = 2;
         private LevelManager progressor;
         public bool levelEnded;
@@ -97,8 +95,6 @@ namespace Shoot_em_Up {
                         }
                         if (!objects[i].display)
                         {
-                            if (objects[i] is Enemy)
-                                this.hasEnemy = false;
                             objects.RemoveAt(i);
                             shapes.RemoveAt(i);
                         }
@@ -127,17 +123,19 @@ namespace Shoot_em_Up {
             this.player = new Player(FactionManager.factions[(int) Faction.Type.Player],new Vector2f(this.WIDTH / 2, this.HEIGHT-40), new Texture("../Content/ship.png"));
             AddObject(player);
             this.clock.Start();
-            this.chance = 50;
             this.status = GameStatus.Active;
             this.progressor.loadLevel(this.level);
         }
 
         public void CheckFinal()
         {
+            //if all objects from the lvl have been destroyed
             if(1>0) {
-                this.level++;
-                if(this.level <= this.maxLevel)
+                if (this.level < this.maxLevel)
+                {
+                    this.level++;
                     this.progressor.loadLevel(this.level);
+                }
             }
         }
 
