@@ -16,7 +16,7 @@ namespace Shoot_em_Up
         {
             game = g;
         }
-        public void loadLevel(int lvl)
+        public void LoadLevel(int lvl)
         {
 
             using (StreamReader sr = new StreamReader("../Content/"+lvl+".json"))
@@ -27,7 +27,7 @@ namespace Shoot_em_Up
             }
         }
 
-        public void progress(uint time)
+        public void Progress(uint time)
         {
             this.game.levelEnded = this.handled >= this.spawns.Length;
             for (int i = this.handled; i<this.spawns.Length; i++)
@@ -41,10 +41,11 @@ namespace Shoot_em_Up
 
         public void TranslateToGame(Spawn spwn)
         {
+            this.game.numberOfFoes++;
             switch(spwn.type) {
                 case "Astroid": game.GenerateAstroid();
                     break;
-                case "Enemy": game.AddEnemy();
+                case "Enemy": game.AddEnemy(spwn.x, spwn.y);
                     break;
             }
         }

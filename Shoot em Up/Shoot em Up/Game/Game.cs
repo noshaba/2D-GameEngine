@@ -31,6 +31,7 @@ namespace Shoot_em_Up {
         private int maxLevel = 2;
         private LevelManager progressor;
         public bool levelEnded;
+        public int numberOfFoes = 0;
 
         public enum GameStatus
         {
@@ -77,7 +78,7 @@ namespace Shoot_em_Up {
                     if (levelEnded)
                         CheckFinal();
                     //all the updating
-                    this.progressor.progress((uint)this.clock.ElapsedMilliseconds);
+                    this.progressor.Progress((uint)this.clock.ElapsedMilliseconds);
                     physics.Update(dt);
 
                     for (int i = 0; i < objects.Count; ++i)
@@ -90,11 +91,13 @@ namespace Shoot_em_Up {
                         objects[i].LateUpdate();
                         if (objects[i].rigidBody.COM.Y < 0 || objects[i].rigidBody.COM.Y > this.HEIGHT || objects[i].rigidBody.COM.X < 0 || objects[i].rigidBody.COM.X > this.WIDTH)
                         {
-                            //add pooling later
                             objects[i].display = false;
                         }
                         if (!objects[i].display)
                         {
+                            if(!(objects[i] is Player || objects[i] is Bullet)) {
+                                this.numberOfFoes--;
+                            }
                             objects.RemoveAt(i);
                             shapes.RemoveAt(i);
                         }
@@ -124,17 +127,21 @@ namespace Shoot_em_Up {
             AddObject(player);
             this.clock.Start();
             this.status = GameStatus.Active;
-            this.progressor.loadLevel(this.level);
+            this.progressor.LoadLevel(this.level);
         }
 
         public void CheckFinal()
         {
             //if all objects from the lvl have been destroyed
-            if(1>0) {
+            if(levelEnded && this.numberOfFoes == 0) {
                 if (this.level < this.maxLevel)
                 {
                     this.level++;
-                    this.progressor.loadLevel(this.level);
+                    this.progressor.LoadLevel(this.level);
+                    this.clock.Restart();
+                } else if (this.level == this.maxLevel)
+                {
+                    this.status = GameStatus.Credits;
                 }
             }
         }
@@ -144,9 +151,9 @@ namespace Shoot_em_Up {
         }
 
 
-        public void AddEnemy()
+        public void AddEnemy(float x, float y)
         {
-            AddObject(new Enemy(FactionManager.factions[(int)Faction.Type.AI], new Vector2f(300, 220), new Texture("../Content/enemy.png")));
+            AddObject(new Enemy(FactionManager.factions[(int)Faction.Type.AI], new Vector2f(x, y), new Texture("../Content/enemy.png")));
         }
 
         public void MovePlayer(Keyboard.Key k)

@@ -3,7 +3,7 @@
         "type": "Enemy",
         "spawnAt": 5,
         "x": 240,
-	"y": 0
+	"y": 100
     },
     {
         "type": "Astroid",
@@ -27,6 +27,6 @@
         "type": "Enemy",
         "spawnAt": 25,
         "x": 240,
-	"y": 0
+	"y": 340
     },
 ]
