@@ -15,17 +15,17 @@ namespace Shoot_em_Up
         private float speed;
         private Vector2f initPos;
 
-         public Enemy(Faction faction, Vector2f position, Texture texture)
+         public Enemy(Faction faction, Vector2f position, Texture texture, int hp, int dmg, int speed)
             : base(faction, texture, position, 1)
         {
             rigidBody.Restitution = 1.0f;
             this.initPos = position;
-            this.hp = 250;
-            this.maxHP = 250;
-            this.maxDamage = 10;
-            this.maxPoints = 1000;
+            this.hp = hp;
+            this.maxHP = hp;
+            this.maxDamage = dmg;
+            this.maxPoints = hp*2;
             this.drawable.Texture = texture;
-            this.speed = 20;
+            this.speed = speed;
             this.rigidBody.Velocity = new Vector2f(this.speed, 0);
             this.fire = true;
             this.weapon = new Weapon(this, 20, 1000, 30, "singleShot", new Vector2f(0,1), new Vector2f(0, 30), Color.Blue);
