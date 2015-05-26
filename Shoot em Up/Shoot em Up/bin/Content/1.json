@@ -1,0 +1,14 @@
+[
+    {
+        "type": "Astroid",
+        "spawnAt": 5,
+        "x": 240,
+	"y": 0
+    },
+    {
+        "type": "Enemy",
+        "spawnAt": 10,
+        "x": 240,
+	"y": 100
+    }
+]

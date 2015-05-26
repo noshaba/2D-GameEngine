@@ -66,6 +66,8 @@
     <Compile Include="Game\GameObjects\Bullet.cs" />
     <Compile Include="Game\GameObjects\Faction.cs" />
     <Compile Include="Game\GameObjects\GameObject.cs" />
+    <Compile Include="Game\GameObjects\LevelManager.cs" />
+    <Compile Include="Game\GameObjects\Spawn.cs" />
     <Compile Include="Game\GameObjects\Player.cs" />
     <Compile Include="Game\GameObjects\PvPObject.cs" />
     <Compile Include="Game\GameObjects\Wall.cs" />

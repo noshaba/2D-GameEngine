@@ -68,10 +68,10 @@ namespace Shoot_em_Up {
             {
                 menue = new Menue(new Vector2f(0, 0), new Vector2f(480, 50));
                 toMain = new Button(10, 10, "Main Menue", ShowWelcome);
-                Label l = new Label(new Vector2f(250,15), "Score");
-                scoreLabel = new Label(new Vector2f(290, 15), this.game.player.score.ToString());
-                Label l2 = new Label(new Vector2f(250, 25), "HP");
-                hp = new Label(new Vector2f(290, 25), this.game.player.hp.ToString());
+                Label l = new Label(new Vector2f(350,15), "Score");
+                scoreLabel = new Label(new Vector2f(390, 15), this.game.player.score.ToString());
+                Label l2 = new Label(new Vector2f(350, 25), "HP");
+                hp = new Label(new Vector2f(390, 25), this.game.player.hp.ToString());
                 menue.Add(toMain);
                 menue.Add(scoreLabel);
                 menue.Add(l);

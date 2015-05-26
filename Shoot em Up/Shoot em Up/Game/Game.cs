@@ -21,7 +21,6 @@ namespace Shoot_em_Up {
         private int MIN_OBJECTS;
 
         public Player player;
-        public Enemy enemy;
 
         private Wall left;
         private Wall right;
@@ -30,7 +29,10 @@ namespace Shoot_em_Up {
         private int chance;
         public GameStatus status;
         private bool hasEnemy;
-        private int stage = 1;
+        private int level = 1;
+        private int maxLevel = 2;
+        private LevelManager progressor;
+        public bool levelEnded;
 
         public enum GameStatus
         {
@@ -54,8 +56,8 @@ namespace Shoot_em_Up {
 
             this.clock = new Stopwatch();
             this.status = GameStatus.Welcome;
-            this.hasEnemy = false;
-            //this.StartGame();
+            this.progressor = new LevelManager(this);
+            this.levelEnded = false;
         }
 
         public static void AddObject(GameObject obj)
@@ -74,9 +76,10 @@ namespace Shoot_em_Up {
                         this.status = GameStatus.Credits;
                         this.Reset();
                     }
+                    if (levelEnded)
+                        CheckFinal();
                     //all the updating
-                    CheckStage();
-                    LookForThreats();
+                    this.progressor.progress((uint)this.clock.ElapsedMilliseconds);
                     physics.Update(dt);
 
                     for (int i = 0; i < objects.Count; ++i)
@@ -125,20 +128,16 @@ namespace Shoot_em_Up {
             AddObject(player);
             this.clock.Start();
             this.chance = 50;
-            this.GenerateAstroid();
             this.status = GameStatus.Active;
+            this.progressor.loadLevel(this.level);
         }
 
-        public void CheckStage()
+        public void CheckFinal()
         {
-            if (this.player.score > 50 && this.player.score < 3000)
-            {
-                this.stage = 2;
-            }
-            else if (this.player.score > 3000)
-            {
-                this.stage = 3;
-                this.status = GameStatus.Credits;
+            if(1>0) {
+                this.level++;
+                if(this.level <= this.maxLevel)
+                    this.progressor.loadLevel(this.level);
             }
         }
 
@@ -146,32 +145,10 @@ namespace Shoot_em_Up {
             AddObject(new Astroid(FactionManager.factions[(int) Faction.Type.None], this.WIDTH/2, 0));
         }
 
-        public void LookForThreats()
-        {
-            //every second try to create a new astroid, if not raise chance to create one next time
-            if (EMath.random.Next(1, 100) < this.chance && this.clock.ElapsedMilliseconds > 600 && !this.physics.frozen)
-            {
-                if(!hasEnemy && stage == 2) {
-                    AddEnemy();
-                } else {
-                    this.GenerateAstroid();
-                }
-                this.clock.Restart();
-                this.chance = 0;
-            }
-            else if (this.chance < 100 && this.clock.ElapsedMilliseconds > 6000)
-            {
-                this.clock.Restart();
-                this.chance += 10;
-            }
-        }
 
         public void AddEnemy()
         {
-            this.enemy = new Enemy(FactionManager.factions[(int)Faction.Type.AI], new Vector2f(240, 100), new Texture("../Content/enemy.png"));
-            AddObject(enemy);
-            //AddObject(new Enemy(FactionManager.factions[(int)Faction.Type.AI], new Vector2f(300, 220), new Texture("../Content/enemy.png")));
-            this.hasEnemy = true;
+            AddObject(new Enemy(FactionManager.factions[(int)Faction.Type.AI], new Vector2f(300, 220), new Texture("../Content/enemy.png")));
         }
 
         public void MovePlayer(Keyboard.Key k)
