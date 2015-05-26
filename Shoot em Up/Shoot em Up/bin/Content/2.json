@@ -24,7 +24,7 @@
 	"y": 100
     },
 	{
-        "type": "Enemy",
+        "type": "MeanEnemy",
         "spawnAt": 25,
         "x": 240,
 	"y": 340

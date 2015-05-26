@@ -47,6 +47,8 @@ namespace Shoot_em_Up
                     break;
                 case "Enemy": game.AddEnemy(spwn.x, spwn.y);
                     break;
+                case "MeanEnemy": game.AddMeanEnemy(spwn.x, spwn.y);
+                    break;
             }
         }
     }
