@@ -13,20 +13,20 @@ namespace GUI
 
         private bool displayed = true;
         private IGraphic parentView;
-        public Label(String text)
+        public Label(String text, Color c)
         {
             this.DisplayedString = text;
             this.CharacterSize = 12;
-            this.Color = Color.Black;
+            this.Color = c;
             this.Font = new Font("../Content/arial.ttf");
         }
 
-        public Label(Vector2f position, String text)
+        public Label(Vector2f position, String text, Color c)
         {
             this.DisplayedString = text;
             this.Position = position;
             this.CharacterSize = 12;
-            this.Color = Color.Black;
+            this.Color = c;
             this.Font = new Font("../Content/arial.ttf");
         }
 

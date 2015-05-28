@@ -10,6 +10,7 @@ using GUI;
 
 namespace Shoot_em_Up {
     class GUI : GUIView {
+        Color color;
         Button start;
         Button restart;
         Button toMain;
@@ -25,13 +26,13 @@ namespace Shoot_em_Up {
 
         public GUI(int width, int height, Game g) : base(new Vector2f(0, 0), new Vector2f(width, height)) {
             game = g;
-
-            start = new Button(new Vector2f(150, 640), new Vector2f(200,50), "Start Game!", 24, StartGame);
+            this.color = Color.Cyan;
+            start = new Button(new Vector2f(150, 640), new Vector2f(200,50), "Start Game!", this.color, 24, StartGame);
             title = new Screen(0,0,"../Content/title.png");
             this.welcome.Add(title);
             this.welcome.Add(start);
-
-            restart = new Button(new Vector2f(150, 350), new Vector2f(200, 50), "Play Again!", 24, StartGame);
+            
+            restart = new Button(new Vector2f(150, 350), new Vector2f(200, 50), "Play Again!", this.color, 24, StartGame);
             this.credits.Add(restart);
 
             this.children = this.welcome;
@@ -68,12 +69,12 @@ namespace Shoot_em_Up {
             if (this.inGame.Count == 0)
             {
                 menue = new Menue(new Vector2f(0, 0), new Vector2f(480, 50));
-                toMain = new Button(10, 10, "Main Menue", ShowWelcome);
-                Label l = new Label(new Vector2f(350,15), "Score");
-                scoreLabel = new Label(new Vector2f(390, 15), this.game.player.score.ToString());
-                Label l2 = new Label(new Vector2f(350, 25), "HP");
-                hp = new Label(new Vector2f(390, 25), this.game.player.hp.ToString() + "/" + this.game.player.maxHP.ToString());
-                lvl = new Label(new Vector2f(240, 20), this.game.level.ToString());
+                toMain = new Button(10, 10, "Main Menue", this.color, ShowWelcome);
+                Label l = new Label(new Vector2f(350,15), "Score", this.color);
+                scoreLabel = new Label(new Vector2f(390, 15), this.game.player.score.ToString(), this.color);
+                Label l2 = new Label(new Vector2f(350, 25), "HP", this.color);
+                hp = new Label(new Vector2f(390, 25), this.game.player.hp.ToString() + "/" + this.game.player.maxHP.ToString(), this.color);
+                lvl = new Label(new Vector2f(240, 20), this.game.level.ToString(), this.color);
                 menue.Add(toMain);
                 menue.Add(scoreLabel);
                 menue.Add(l);

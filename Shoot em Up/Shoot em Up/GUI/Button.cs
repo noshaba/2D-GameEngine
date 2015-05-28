@@ -20,10 +20,12 @@ namespace GUI {
         private IGraphic parentView;
 
         //Button manual size
-        public Button(Vector2f position, Vector2f size, String text, uint cSize, ActionListener listener) : base((uint)position.X, (uint)position.Y, (uint)size.X, (uint)size.Y, "../Content/ButtonActive.png") {
+        public Button(Vector2f position, Vector2f size, String text, Color txtC, uint cSize, ActionListener listener)
+            : base((uint)position.X, (uint)position.Y, (uint)size.X, (uint)size.Y, "../Content/ButtonActive.png")
+        {
             this.listener = listener;
-            this.label = new Label(text);
-            this.label.Color = Color.Black;
+            this.label = new Label(text, txtC);
+            this.label.Color = txtC;
             this.label.CharacterSize = cSize;
             this.centerLabel(this.label.GetLocalBounds(), position, size);
             //this.label.Position = position;
@@ -32,13 +34,13 @@ namespace GUI {
         }
 
         //Button auto-size
-        public Button(uint x, uint y, String text, ActionListener listener) : base(x,y)
+        public Button(uint x, uint y, String text, Color txtC, ActionListener listener) : base(x,y)
         {
             this.listener = listener;
             status = Status.Released;
             displayed = true;
 
-            this.label = new Label(text);
+            this.label = new Label(text, txtC);
             FloatRect labelPos = this.label.GetLocalBounds();
 
             uint margin = 5;
@@ -55,7 +57,6 @@ namespace GUI {
             this.path = "../Content/ButtonActive.png";
             this.img = new Texture(path);
             
-            this.label.Color = Color.Black;
 
             float py = this.height/2 - (labelPos.Height/2+labelPos.Top);
             float px = this.width/2 - (labelPos.Width/2+labelPos.Left);
