@@ -18,7 +18,7 @@ namespace Shoot_em_Up
         private Dictionary<string, Pattern> movements = new Dictionary<string, Pattern>();
         private String pattern;
 
-         public Enemy(Faction faction, Vector2f position, Texture texture, int hp, int dmg, int speed, String pattern)
+         public Enemy(Faction faction, Vector2f position, Texture texture, int hp, int dmg, int speed, String pattern, float wpnPosX, Color color)
             : base(faction, texture, position, 1)
         {
             rigidBody.Restitution = 1.0f;
@@ -31,7 +31,7 @@ namespace Shoot_em_Up
             this.speed = speed;
             this.rigidBody.Velocity = new Vector2f(speed,0);
             this.fire = true;
-            this.weapon = new Weapon(this, 20, 1000, 30, "singleShot", new Vector2f(0,1), new Vector2f(0, 30), Color.Blue);
+            this.weapon = new Weapon(this, 20, 1000, 30, "singleShot", new Vector2f(0, 1), new Vector2f(0, wpnPosX), color);
             this.pattern = pattern;
 
             this.movements["stationary"] = stationary;
