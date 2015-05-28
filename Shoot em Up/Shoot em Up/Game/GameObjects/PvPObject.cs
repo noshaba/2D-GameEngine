@@ -92,7 +92,7 @@ namespace Shoot_em_Up
         {
             this.shield = false;
             this.rigidBody = this.bodies[0];
-            this.rigidBody.Current.position= pos;
+            this.rigidBody.Current.position = pos;
             this.rigidBody.Velocity = velocity;
         }
 
@@ -100,14 +100,14 @@ namespace Shoot_em_Up
         {
             this.shield = true;
             this.rigidBody = this.bodies[1];
-            this.rigidBody.Current.position = pos;
+            //this.rigidBody.Current.position = pos;
         }
 
         protected void shieldOff(Vector2f pos)
         {
             this.shield = false;
             this.rigidBody = this.bodies[0];
-            this.rigidBody.Current.position = pos;
+            //this.rigidBody.Current.position = pos;
         }
     }
 }
