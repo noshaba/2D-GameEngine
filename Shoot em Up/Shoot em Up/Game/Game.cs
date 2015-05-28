@@ -123,7 +123,7 @@ namespace Shoot_em_Up {
         {
             this.Reset();
 
-            this.player = new Player(FactionManager.factions[(int) Faction.Type.Player],new Vector2f(this.WIDTH / 2, this.HEIGHT-40), new Texture("../Content/ships/4.png"));
+            this.player = new Player(FactionManager.factions[(int) Faction.Type.Player],new Vector2f(this.WIDTH / 2, this.HEIGHT-40), new Texture("../Content/ships/1.png"));
             AddObject(player);
             this.clock.Start();
             this.status = GameStatus.Active;
@@ -153,12 +153,12 @@ namespace Shoot_em_Up {
 
         public void AddEnemy(float x, float y)
         {
-            AddObject(new Enemy(FactionManager.factions[(int)Faction.Type.AI], new Vector2f(x, y), new Texture("../Content/ships/5.png"), 250, 10, 20, "sideToSide",  new Color(99,0,78)));
+            AddObject(new Enemy(FactionManager.factions[(int)Faction.Type.AI], new Vector2f(x, y), "5", 250, 10, 20, "sideToSide",  new Color(99,0,78)));
         }
 
         public void AddMeanEnemy(float x, float y)
         {
-            AddObject(new Enemy(FactionManager.factions[(int)Faction.Type.AI], new Vector2f(x, y), new Texture("../Content/ships/8.png"), 500, 10, 30, "stationary",  new Color(0,168,22)));
+            AddObject(new Enemy(FactionManager.factions[(int)Faction.Type.AI], new Vector2f(x, y), "5", 500, 10, 30, "stationary",  new Color(0,168,22)));
         }
 
         public void MovePlayer(Keyboard.Key k)

@@ -30,6 +30,7 @@ namespace Shoot_em_Up
             this.maxPoints = 1000;
             this.weapon = new Weapon(this, 20, 500, 30, "tripleShot", new Vector2f(0,-1), new Vector2f(0, -40), Color.Yellow);
             this.drawable.Texture = texture;
+            this.shield = false;
         }
 
         public void Move(Keyboard.Key k)
@@ -48,6 +49,22 @@ namespace Shoot_em_Up
                 case Keyboard.Key.Down:
                     rigidBody.Velocity = new Vector2f(rigidBody.Velocity.X, this.speed);
                     break;
+
+            }
+            Console.WriteLine(this.rigidBody.Velocity);
+        }
+
+        public void ToggleShield()
+        {
+            this.shield = !this.shield;
+            if(this.shield) {
+                this.shieldOn();
+                this.drawable.Texture = new Texture("../Content/ships/1Shield.png");
+            }
+            else
+            {
+                this.shieldOff();
+                this.drawable.Texture = new Texture("../Content/ships/1.png");
             }
         }
 

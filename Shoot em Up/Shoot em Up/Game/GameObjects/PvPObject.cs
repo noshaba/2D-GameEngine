@@ -18,11 +18,14 @@ namespace Shoot_em_Up
         public int maxPoints;
         protected PvPObject opponent;
         public bool alive = true;
+        protected bool shield;
+        protected Polygon shape;
 
         public Faction Faction { get; private set; }
 
         public PvPObject(Faction faction, IRigidBody state) : base(state) {
             this.Faction = faction;
+            this.shape = (Polygon)this.rigidBody;
         }
 
         public PvPObject(Faction faction, Collision.Type type, Vector2f position, float var, float density) : base(type, position, var, density)
@@ -33,16 +36,19 @@ namespace Shoot_em_Up
         public PvPObject(Faction faction, Vector2f normal, Vector2f position, Vector2f size, float rotation) : base(normal, position, size, rotation)
         {
             this.Faction = faction;
+            this.shape = (Polygon)this.rigidBody;
         }
         
         public PvPObject(Faction faction,  Vector2f[] vertices, Vector2f position, float rotation) : base(vertices, position, rotation)
         {
             this.Faction = faction;
+            this.shape = (Polygon)this.rigidBody;
         }
 
         public PvPObject(Faction faction, Texture texture, Vector2f position, float rotation) : base(texture, position, rotation)
         {
             this.Faction = faction;
+            this.shape = (Polygon)this.rigidBody;
         }
 
         public override void Update()
@@ -50,7 +56,7 @@ namespace Shoot_em_Up
             if (rigidBody.Collision.collision)
             {
                 opponent = this.rigidBody.Collision.obj.Parent as PvPObject;
-                if (opponent != null)
+                if (opponent != null && !shield)
                 {
                     // decrease HP
                     this.hp -= opponent.maxDamage * (100 - opponent.Faction.Reputation[(int)this.Faction.ID]) / 100;
@@ -71,6 +77,33 @@ namespace Shoot_em_Up
             this.drawable.FillColor = this.hp <= this.maxHP*0.25 ? Color.Red : drawable.FillColor;
             this.display = this.hp > 0;
             base.LateUpdate();
+        }
+
+        protected void shieldOn(Vector2f velocity)
+        {
+            this.shield = true;
+            this.rigidBody = new Circle(new Vector2f(this.rigidBody.COM.X, this.rigidBody.COM.Y), this.drawable.Texture.Size.Y / 2);
+            this.rigidBody.Velocity = velocity;
+        }
+
+        protected void shieldOff(Vector2f velocity)
+        {
+            this.shield = false;
+            this.rigidBody = this.shape;
+            this.rigidBody.Velocity = velocity;
+        }
+
+        protected void shieldOn()
+        {
+            this.shield = true;
+            this.rigidBody = new Circle(new Vector2f(this.rigidBody.COM.X, this.rigidBody.COM.Y), this.drawable.Texture.Size.Y / 2);
+            
+        }
+
+        protected void shieldOff()
+        {
+            this.shield = false;
+            this.rigidBody = this.shape;
         }
     }
 }
