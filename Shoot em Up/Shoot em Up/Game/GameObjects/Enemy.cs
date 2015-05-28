@@ -18,10 +18,10 @@ namespace Shoot_em_Up
         private delegate void Pattern();
         private Dictionary<string, Pattern> movements = new Dictionary<string, Pattern>();
         private String pattern;
-        private bool shield;
+        private String texture;
 
-         public Enemy(Faction faction, Vector2f position, Texture texture, int hp, int dmg, int speed, String pattern, Color color)
-            : base(faction, texture, position, 1)
+         public Enemy(Faction faction, Vector2f position, String texture, int hp, int dmg, int speed, String pattern, Color color)
+            : base(faction, new Texture("../Content/ships/" + texture + ".png"), position, 1)
         {
             rigidBody.Restitution = 1.0f;
             this.initPos = position;
@@ -29,36 +29,32 @@ namespace Shoot_em_Up
             this.maxHP = hp;
             this.maxDamage = dmg;
             this.maxPoints = hp*2;
-            this.drawable.Texture = texture;
+            this.texture = texture;
+            this.drawable.Texture = new Texture("../Content/ships/" + texture + ".png");
             this.speed = speed;
             this.rigidBody.Velocity = new Vector2f(speed,0);
             this.fire = true;
             this.weapon = new Weapon(this, 20, 1000, 30, "singleShot", new Vector2f(0, 1), new Vector2f(0, this.drawable.Texture.Size.Y/2), color);
             this.pattern = pattern;
-            this.shield = true;
-            //this.shield = new Circle(new Vector2f(this.rigidBody.COM.X, this.rigidBody.COM.Y), this.drawable.Texture.Size.Y);
-            shieldOn();
-
+            //shieldOn(this.rigidBody.Velocity);
             this.movements["stationary"] = stationary;
             this.movements["sideToSide"] = sideToSide;
          }
 
          public void move()
          {
-             Console.WriteLine(this.rigidBody.COM.X);
              this.movements[pattern]();
              if (this.shield)
              {
-
-                 this.drawable.Texture = new Texture("../Content/ships/5Shield.png");
+                 this.drawable.Texture = new Texture("../Content/ships/" + texture + "Shield.png");
+             }
+             else
+             {
+                 this.drawable.Texture = new Texture("../Content/ships/" + texture+ ".png");
              }
          }
 
-         private void shieldOn()
-         {
-             this.rigidBody = new Circle(new Vector2f(this.rigidBody.COM.X, this.rigidBody.COM.Y), this.drawable.Texture.Size.Y / 2);
-             this.rigidBody.Velocity = new Vector2f(speed, 0);
-         }
+
 
          private void shoot()
          {
