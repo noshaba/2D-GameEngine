@@ -18,8 +18,7 @@ namespace Shoot_em_Up
         private delegate void Pattern();
         private Dictionary<string, Pattern> movements = new Dictionary<string, Pattern>();
         private String pattern;
-        private Circle shield;
-        private bool shieldOn;
+        private bool shield;
 
          public Enemy(Faction faction, Vector2f position, Texture texture, int hp, int dmg, int speed, String pattern, Color color)
             : base(faction, texture, position, 1)
@@ -36,9 +35,9 @@ namespace Shoot_em_Up
             this.fire = true;
             this.weapon = new Weapon(this, 20, 1000, 30, "singleShot", new Vector2f(0, 1), new Vector2f(0, this.drawable.Texture.Size.Y/2), color);
             this.pattern = pattern;
-            this.shieldOn = true;
+            this.shield = true;
             //this.shield = new Circle(new Vector2f(this.rigidBody.COM.X, this.rigidBody.COM.Y), this.drawable.Texture.Size.Y);
-
+            shieldOn();
 
             this.movements["stationary"] = stationary;
             this.movements["sideToSide"] = sideToSide;
@@ -46,14 +45,19 @@ namespace Shoot_em_Up
 
          public void move()
          {
-             //Console.WriteLine(this.rigidBody.Type);
+             Console.WriteLine(this.rigidBody.COM.X);
              this.movements[pattern]();
-             if (this.shieldOn)
+             if (this.shield)
              {
-                 this.rigidBody = new Circle(new Vector2f(this.rigidBody.COM.X, this.rigidBody.COM.Y), this.drawable.Texture.Size.Y/2);
-                 //this.drawable.Texture = new Texture("../Content/ships/5Shield.png");
-                 //this.drawable.FillColor = Color.Red;
+
+                 this.drawable.Texture = new Texture("../Content/ships/5Shield.png");
              }
+         }
+
+         private void shieldOn()
+         {
+             this.rigidBody = new Circle(new Vector2f(this.rigidBody.COM.X, this.rigidBody.COM.Y), this.drawable.Texture.Size.Y / 2);
+             this.rigidBody.Velocity = new Vector2f(speed, 0);
          }
 
          private void shoot()
