@@ -153,12 +153,12 @@ namespace Shoot_em_Up {
 
         public void AddEnemy(float x, float y)
         {
-            AddObject(new Enemy(FactionManager.factions[(int)Faction.Type.AI], new Vector2f(x, y), new Texture("../Content/enemy.png"), 250, 10, 20, "sideToSide", 40, new Color(99,0,78)));
+            AddObject(new Enemy(FactionManager.factions[(int)Faction.Type.AI], new Vector2f(x, y), new Texture("../Content/enemy.png"), 250, 10, 20, "sideToSide",  new Color(99,0,78)));
         }
 
         public void AddMeanEnemy(float x, float y)
         {
-            AddObject(new Enemy(FactionManager.factions[(int)Faction.Type.AI], new Vector2f(x, y), new Texture("../Content/enemy2.png"), 500, 10, 30, "stationary", 25, new Color(0,168,22)));
+            AddObject(new Enemy(FactionManager.factions[(int)Faction.Type.AI], new Vector2f(x, y), new Texture("../Content/enemy2.png"), 500, 10, 30, "stationary",  new Color(0,168,22)));
         }
 
         public void MovePlayer(Keyboard.Key k)

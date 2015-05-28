@@ -21,7 +21,7 @@ namespace GUI {
 
         //Button manual size
         public Button(Vector2f position, Vector2f size, String text, Color txtC, uint cSize, ActionListener listener)
-            : base((uint)position.X, (uint)position.Y, (uint)size.X, (uint)size.Y, "../Content/ButtonActive.png")
+            : base((uint)position.X, (uint)position.Y, (uint)size.X, (uint)size.Y, "../Content/ButtonActive.png", txtC)
         {
             this.listener = listener;
             this.label = new Label(text, txtC);
@@ -34,7 +34,7 @@ namespace GUI {
         }
 
         //Button auto-size
-        public Button(uint x, uint y, String text, Color txtC, ActionListener listener) : base(x,y)
+        public Button(uint x, uint y, String text, Color txtC, ActionListener listener) : base(x,y, txtC)
         {
             this.listener = listener;
             status = Status.Released;

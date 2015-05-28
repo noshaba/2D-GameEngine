@@ -12,7 +12,7 @@ namespace GUI
 
         private bool displayed;
         private IGraphic parentView;
-        public Screen(uint x, uint y, String src) : base(x,y)
+        public Screen(uint x, uint y, String src, Color c) : base(x,y,c)
         {
             this.img = new Texture(src);
             this.image = new RectangleShape(new Vector2f(this.img.Size.X, this.img.Size.Y));

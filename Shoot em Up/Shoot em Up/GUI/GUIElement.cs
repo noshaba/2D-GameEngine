@@ -25,14 +25,17 @@ namespace GUI
         private RectangleShape bottomRightDest;
         protected RectangleShape image;
         protected String path;
+        private Color color;
 
 
-        public GUIElement(uint x, uint y)
+        public GUIElement(uint x, uint y, Color c)
         {
             this.Position = new Vector2f(x, y);
+            this.color = c;
         }
-        public GUIElement(uint x, uint y, uint w, uint h, String path)
+        public GUIElement(uint x, uint y, uint w, uint h, String path, Color c)
         {
+            this.color = c;
             if (w <10) {
                 w = 10;
             }
@@ -187,6 +190,17 @@ namespace GUI
             this.bottomLeftDest.Texture = new Texture(path, bottomLeftSrc);
             this.bottomCenterDest.Texture = new Texture(path, bottomCenterSrc);
             this.bottomRightDest.Texture = new Texture(path, bottomRightSrc);
+
+            this.topLeftDest.FillColor = this.color;
+            this.topCenterDest.FillColor = this.color;
+            this.topRightDest.FillColor = this.color;
+            this.centerLeftDest.FillColor = this.color;
+            this.centerCenterDest.FillColor = this.color;
+            this.centerRightDest.FillColor = this.color;
+            this.bottomLeftDest.FillColor = this.color;
+            this.bottomCenterDest.FillColor = this.color;
+            this.bottomRightDest.FillColor = this.color;
+
         }
 
         public FloatRect GetGlobalBounds()

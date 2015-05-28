@@ -14,8 +14,8 @@ namespace GUI
         private bool displayed;
         private IGraphic parentView;
 
-        public Menue(Vector2f position, Vector2f size)
-            : base((uint)position.X, (uint)position.Y, (uint)size.X, (uint)size.Y, "../Content/ButtonActive.png")
+        public Menue(Vector2f position, Vector2f size, Color c)
+            : base((uint)position.X, (uint)position.Y, (uint)size.X, (uint)size.Y, "../Content/ButtonActive.png", c)
         {
             displayed = true;
             Position = position;
