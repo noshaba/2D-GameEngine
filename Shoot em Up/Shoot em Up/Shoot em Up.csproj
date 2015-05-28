@@ -85,6 +85,8 @@
     <Compile Include="ImageProcessing\CV.cs" />
     <Compile Include="Maths\EMath.cs" />
     <Compile Include="Maths\Mat22f.cs" />
+    <Compile Include="Maths\Splines\BezierSpline.cs" />
+    <Compile Include="Maths\Splines\Spline.cs" />
     <Compile Include="Maths\Vec2fMath.cs" />
     <Compile Include="Physics\Collision.cs" />
     <Compile Include="Physics\Physic.cs" />
