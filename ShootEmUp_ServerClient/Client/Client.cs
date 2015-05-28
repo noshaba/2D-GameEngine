@@ -25,11 +25,10 @@ namespace Client
             A: Console.Clear();
             Console.Write("Enter host IP address: ");
             string ipAddr = Console.ReadLine();
-
-            clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
             // TODO: try IPAddress.Parse(ip);
             IPEndPoint ip = new IPEndPoint(IPAddress.Parse(ipAddr), 1337);
+
+            clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
 
             try
             {
@@ -49,7 +48,7 @@ namespace Client
             {
                 Console.Write("::>");
                 string input = Console.ReadLine();
-
+                // 192.168.178.26
                 Packet p = new Packet(PacketType.Chat, id);
                 p.generalData.Add(name);
                 p.generalData.Add(input);

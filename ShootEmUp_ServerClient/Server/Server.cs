@@ -20,7 +20,7 @@ namespace Server
         {
             Console.WriteLine("Starting server on " + Packet.GetIP4Address());
 
-            listenerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            listenerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             clients = new List<ClientData>();
 
             IPEndPoint ip = new IPEndPoint(IPAddress.Parse(Packet.GetIP4Address()), 1337);
