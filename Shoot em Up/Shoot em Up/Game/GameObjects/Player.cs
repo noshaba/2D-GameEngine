@@ -18,9 +18,9 @@ namespace Shoot_em_Up
         public bool fire;
 
         public Player(Faction faction, Vector2f position, Texture texture)
-            : base(faction, texture, position, 1)
+            : base(faction, texture, position, 0)
         {
-            rigidBody.Restitution = 1.0f;
+            this.rigidBody.Restitution = 1.0f;
             this.speed = 50;
             this.fire = false;
             this.score = 0;
@@ -30,8 +30,8 @@ namespace Shoot_em_Up
             this.maxPoints = 1000;
             this.weapon = new Weapon(this, 20, 500, 30, "tripleShot", new Vector2f(0,-1), new Vector2f(0, -40), Color.Yellow);
             this.drawable.Texture = texture;
-            this.shield = true;
-            this.bodies[1] = new Circle(new Vector2f(this.rigidBody.COM.X, this.rigidBody.COM.Y), this.drawable.Texture.Size.Y/2);
+            this.shield = false;
+            this.bodies = new [] { this.rigidBody, new Circle(this.rigidBody.COM, this.drawable.Texture.Size.Y/2) };
             checkShield();
         }
 
@@ -40,16 +40,17 @@ namespace Shoot_em_Up
             switch (k)
             {
                 case Keyboard.Key.Right:
-                    rigidBody.Velocity = new Vector2f(this.speed, rigidBody.Velocity.Y);
+                    this.rigidBody.Velocity = new Vector2f(this.speed, this.rigidBody.Velocity.Y);
                     break;
                 case Keyboard.Key.Left:
-                    rigidBody.Velocity = new Vector2f(-this.speed, rigidBody.Velocity.Y);
+                    this.rigidBody.Velocity = new Vector2f(-this.speed, this.rigidBody.Velocity.Y);
                     break;
                 case Keyboard.Key.Up:
-                    rigidBody.Velocity = new Vector2f(rigidBody.Velocity.X, -this.speed);
+                    this.rigidBody.Velocity = new Vector2f(this.rigidBody.Velocity.X, -this.speed);
+                    Console.WriteLine(this.rigidBody.Velocity);
                     break;
                 case Keyboard.Key.Down:
-                    rigidBody.Velocity = new Vector2f(rigidBody.Velocity.X, this.speed);
+                    this.rigidBody.Velocity = new Vector2f(this.rigidBody.Velocity.X, this.speed);
                     break;
 
             }
@@ -65,19 +66,19 @@ namespace Shoot_em_Up
         {
             if (this.shield)
             {
-                this.shieldOn(this.rigidBody.Velocity, this.rigidBody.Current.position);
+                this.shieldOn(this.rigidBody.Velocity, this.rigidBody.COM);
                 this.drawable.Texture = new Texture("../Content/ships/1Shield.png");
             }
             else
             {
-                this.shieldOff(this.rigidBody.Velocity, this.rigidBody.Current.position);
+                this.shieldOff(this.rigidBody.Velocity, this.rigidBody.COM);
                 this.drawable.Texture = new Texture("../Content/ships/1.png");
             }
         }
 
         public void Stop()
         {
-            rigidBody.Velocity = new Vector2f(0,0);
+            this.rigidBody.Velocity = new Vector2f(0,0);
         }
 
         private void shoot()

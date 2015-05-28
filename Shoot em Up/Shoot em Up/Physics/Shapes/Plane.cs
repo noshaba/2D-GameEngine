@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using SFML.System;
 using SFML.Graphics;
 using Maths;
-using Shoot_em_Up;
 
 namespace Physics {
     class Plane : RectangleShape, IRigidBody {
@@ -57,6 +56,7 @@ namespace Physics {
 
         public Vector2f COM {
             get { return current.position; }
+            set { current.position = value; previous.position = value; }
         }
 
         public float Orientation {

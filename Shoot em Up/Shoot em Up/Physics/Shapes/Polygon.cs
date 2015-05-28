@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
 using Maths;
-using Shoot_em_Up;
 
 namespace Physics {
     class Polygon : ConvexShape, IRigidBody {
@@ -251,6 +250,7 @@ namespace Physics {
 
         public Vector2f COM {
             get { return current.position; }
+            set { current.position = value; previous.position = value; }
         }
 
         public float Orientation {

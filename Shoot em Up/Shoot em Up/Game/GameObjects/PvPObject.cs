@@ -19,37 +19,37 @@ namespace Shoot_em_Up
         protected PvPObject opponent;
         public bool alive = true;
         protected bool shield;
-        protected IRigidBody[] bodies = new IRigidBody[2];
+        protected IRigidBody[] bodies;
 
         public Faction Faction { get; private set; }
 
         public PvPObject(Faction faction, IRigidBody state) : base(state) {
             this.Faction = faction;
-            this.bodies[0] = this.rigidBody;
+            this.bodies = new[] { this.rigidBody };
         }
 
         public PvPObject(Faction faction, Collision.Type type, Vector2f position, float var, float density) : base(type, position, var, density)
         {
             this.Faction = faction;
-            this.bodies[0] = this.rigidBody;
+            this.bodies = new [] { this.rigidBody };
         }
 
         public PvPObject(Faction faction, Vector2f normal, Vector2f position, Vector2f size, float rotation) : base(normal, position, size, rotation)
         {
             this.Faction = faction;
-            this.bodies[0] = this.rigidBody;
+            this.bodies = new[] { this.rigidBody };
         }
         
         public PvPObject(Faction faction,  Vector2f[] vertices, Vector2f position, float rotation) : base(vertices, position, rotation)
         {
             this.Faction = faction;
-            this.bodies[0] = this.rigidBody;
+            this.bodies = new[] { this.rigidBody };
         }
 
         public PvPObject(Faction faction, Texture texture, Vector2f position, float rotation) : base(texture, position, rotation)
         {
             this.Faction = faction;
-            this.bodies[0] = this.rigidBody;
+            this.bodies = new[] { this.rigidBody };
         }
 
         public override void Update()
@@ -84,7 +84,7 @@ namespace Shoot_em_Up
         {
             this.shield = true;
             this.rigidBody = this.bodies[1];
-            this.rigidBody.Current.position = pos;
+            this.rigidBody.COM = pos;
             this.rigidBody.Velocity = velocity;
         }
 
@@ -92,7 +92,7 @@ namespace Shoot_em_Up
         {
             this.shield = false;
             this.rigidBody = this.bodies[0];
-            this.rigidBody.Current.position = pos;
+            this.rigidBody.COM = pos;
             this.rigidBody.Velocity = velocity;
         }
 

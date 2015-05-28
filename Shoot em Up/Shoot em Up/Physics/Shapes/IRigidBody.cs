@@ -11,7 +11,7 @@ namespace Physics {
         object Parent { get; set; }
         Collision.Type Type{ get; }
         Collision Collision { get; set; }
-        Vector2f COM { get; }
+        Vector2f COM { get; set; }
         float Orientation { get; }
         Mat22f WorldTransform { get; }
         Mat22f LocalTransform { get; }

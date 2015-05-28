@@ -21,7 +21,7 @@ namespace Shoot_em_Up
         private String texture;
 
          public Enemy(Faction faction, Vector2f position, String texture, int hp, int dmg, int speed, String pattern, Color color)
-            : base(faction, new Texture("../Content/ships/" + texture + ".png"), position, 1)
+            : base(faction, new Texture("../Content/ships/" + texture + ".png"), position, 0)
         {
             rigidBody.Restitution = 1.0f;
             this.initPos = position;
@@ -36,8 +36,8 @@ namespace Shoot_em_Up
             this.fire = true;
             this.weapon = new Weapon(this, 20, 1000, 30, "singleShot", new Vector2f(0, 1), new Vector2f(0, this.drawable.Texture.Size.Y/2), color);
             this.pattern = pattern;
-            this.bodies[1] = new Circle(new Vector2f(this.rigidBody.COM.X, this.rigidBody.COM.Y), this.drawable.Texture.Size.Y / 2);
-            shieldOn(this.rigidBody.Current.position);
+            this.bodies = new [] { this.rigidBody, new Circle(this.rigidBody.COM, this.drawable.Texture.Size.Y / 2) };
+            shieldOn(this.rigidBody.COM);
             this.movements["stationary"] = stationary;
             this.movements["sideToSide"] = sideToSide;
          }
