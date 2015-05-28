@@ -31,6 +31,8 @@ namespace Shoot_em_Up
             this.weapon = new Weapon(this, 20, 500, 30, "tripleShot", new Vector2f(0,-1), new Vector2f(0, -40), Color.Yellow);
             this.drawable.Texture = texture;
             this.shield = false;
+            this.bodies[1] = new Circle(new Vector2f(this.rigidBody.COM.X, this.rigidBody.COM.Y), this.drawable.Texture.Size.Y / 2);
+            checkShield();
         }
 
         public void Move(Keyboard.Key k)
@@ -51,19 +53,25 @@ namespace Shoot_em_Up
                     break;
 
             }
-            Console.WriteLine(this.rigidBody.Velocity);
         }
 
         public void ToggleShield()
         {
             this.shield = !this.shield;
-            if(this.shield) {
-                this.shieldOn();
+            this.checkShield();
+            Console.WriteLine(this.rigidBody.Type);
+        }
+
+        public void checkShield()
+        {
+            if (this.shield)
+            {
+                this.shieldOn(this.rigidBody.Velocity, this.rigidBody.COM);
                 this.drawable.Texture = new Texture("../Content/ships/1Shield.png");
             }
             else
             {
-                this.shieldOff();
+                this.shieldOff(this.rigidBody.Velocity, this.rigidBody.COM);
                 this.drawable.Texture = new Texture("../Content/ships/1.png");
             }
         }
