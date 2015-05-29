@@ -148,14 +148,8 @@ namespace Shoot_em_Up
         static void window_KeyPressed(object sender, KeyEventArgs e) {
             switch(e.Code) {
                 case Keyboard.Key.Left:
-                    sEmUp.MovePlayer(e.Code);
-                    break;
                 case Keyboard.Key.Right:
-                    sEmUp.MovePlayer(e.Code);
-                    break;
                 case Keyboard.Key.Up:
-                    sEmUp.MovePlayer(e.Code);
-                    break;
                 case Keyboard.Key.Down:
                     sEmUp.MovePlayer(e.Code);
                     break;

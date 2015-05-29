@@ -37,27 +37,39 @@ namespace Shoot_em_Up
 
         public void Move(Keyboard.Key k)
         {
-            Console.WriteLine("Ship: " + this.bodies[0].Current.position.X);
-            Console.WriteLine("Shield: " + this.bodies[1].Current.position.X);
-            
+         
             switch (k)
             {
                 case Keyboard.Key.Right:
-                    this.rigidBody.Velocity = new Vector2f(this.speed, this.rigidBody.Velocity.Y);
-                    this.rigidBody.AngularVelocity = (float)Math.PI/10;
+                    //this.rigidBody.Velocity = new Vector2f(this.speed, this.rigidBody.Velocity.Y);
+                    this.rigidBody.Orientation += (float)Math.PI/50;
                     break;
                 case Keyboard.Key.Left:
-                    this.rigidBody.Velocity = new Vector2f(-this.speed, this.rigidBody.Velocity.Y);
-                    this.rigidBody.AngularVelocity = (float)-Math.PI / 10;
+                    //this.rigidBody.Velocity = new Vector2f(-this.speed, this.rigidBody.Velocity.Y);
+                    this.rigidBody.Orientation += (float)-Math.PI / 50;
                     break;
                 case Keyboard.Key.Up:
-                    this.rigidBody.Velocity = new Vector2f(this.rigidBody.Velocity.X, -this.speed);
+                    this.rigidBody.Velocity = new Vector2f(0, - this.speed);
                     break;
                 case Keyboard.Key.Down:
-                    this.rigidBody.Velocity = new Vector2f(this.rigidBody.Velocity.X, this.speed);
+                    this.rigidBody.Velocity = new Vector2f(0, this.speed);
                     break;
                     
             }
+            /*
+            if (k == Keyboard.Key.Right)
+            {
+                this.rigidBody.Orientation += (float)Math.PI / 50;
+            } else if(k == Keyboard.Key.Left) {
+                this.rigidBody.Orientation += (float)-Math.PI / 50;
+            }
+
+            if(k == Keyboard.Key.Up) {
+                this.rigidBody.Velocity = new Vector2f(0, -this.speed);
+            } else if(k == Keyboard.Key.Down) {
+                this.rigidBody.Velocity = new Vector2f(0, this.speed);
+            }*/
+            this.rigidBody.Velocity = this.Align(this.rigidBody.Velocity, this.rigidBody.Orientation);
         }
 
         public void ToggleShield()
