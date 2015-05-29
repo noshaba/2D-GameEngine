@@ -158,7 +158,7 @@ namespace Shoot_em_Up {
 
         public void AddMeanEnemy(float x, float y)
         {
-            AddObject(new Enemy(FactionManager.factions[(int)Faction.Type.AI], new Vector2f(x, y), new Texture("../Content/ships/8.png"), 500, 10, 30, "stationary",  new Color(0,168,22)));
+            AddObject(new Enemy(FactionManager.factions[(int)Faction.Type.AI], new Vector2f(x, y), new Texture("../Content/ships/8.png"), 500, 10, 30, "path",  new Color(0,168,22)));
         }
 
         public void MovePlayer(Keyboard.Key k)

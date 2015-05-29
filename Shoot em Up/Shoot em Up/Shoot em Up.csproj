@@ -83,8 +83,10 @@
     <Compile Include="GUI\Menue.cs" />
     <Compile Include="GUI\GUIView.cs" />
     <Compile Include="ImageProcessing\CV.cs" />
+    <Compile Include="Maths\Splines\BezierSpline.cs" />
     <Compile Include="Maths\EMath.cs" />
     <Compile Include="Maths\Mat22f.cs" />
+    <Compile Include="Maths\Splines\Spline.cs" />
     <Compile Include="Maths\Vec2fMath.cs" />
     <Compile Include="Physics\Collision.cs" />
     <Compile Include="Physics\Physic.cs" />
@@ -99,6 +101,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Baseclass.Contrib.Nuget.Output.1.0.9\build\net40\Baseclass.Contrib.Nuget.Output.targets" Condition="Exists('..\packages\Baseclass.Contrib.Nuget.Output.1.0.9\build\net40\Baseclass.Contrib.Nuget.Output.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

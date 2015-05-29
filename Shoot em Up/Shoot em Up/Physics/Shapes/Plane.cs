@@ -57,6 +57,7 @@ namespace Physics {
 
         public Vector2f COM {
             get { return current.position; }
+            set { current.position = value; previous.position = value; }
         }
 
         public float Orientation {
