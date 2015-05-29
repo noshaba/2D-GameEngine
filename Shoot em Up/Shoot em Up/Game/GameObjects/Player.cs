@@ -42,11 +42,11 @@ namespace Shoot_em_Up
             {
                 case Keyboard.Key.Right:
                     //this.rigidBody.Velocity = new Vector2f(this.speed, this.rigidBody.Velocity.Y);
-                    this.rigidBody.Orientation += (float)Math.PI/50;
+                    this.rigidBody.AngularVelocity = .5f;
                     break;
                 case Keyboard.Key.Left:
                     //this.rigidBody.Velocity = new Vector2f(-this.speed, this.rigidBody.Velocity.Y);
-                    this.rigidBody.Orientation += (float)-Math.PI / 50;
+                    this.rigidBody.AngularVelocity = -.5f;
                     break;
                 case Keyboard.Key.Up:
                     this.rigidBody.Velocity = new Vector2f(0,-speed);
