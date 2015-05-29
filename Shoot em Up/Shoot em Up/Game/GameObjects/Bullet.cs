@@ -35,6 +35,7 @@ namespace Shoot_em_Up {
             base.Update();
             if (rigidBody.Collision.collision)
             {
+                //this.hp = 1;
                 this.hp = 0;
                 this.alive = false;
                 if (opponent != null)

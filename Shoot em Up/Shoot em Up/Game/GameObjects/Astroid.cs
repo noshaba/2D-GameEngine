@@ -17,7 +17,7 @@ namespace Shoot_em_Up
         {
             rigidBody.Velocity = new Vector2f(EMath.random.Next(-50,50),EMath.random.Next(10,30));
             rigidBody.Restitution = 1.0f;
-            this.hp = 70;
+            this.hp = 150;
             this.maxDamage = 100;
             this.maxPoints = 20;
             this.drawable.Texture = texture;

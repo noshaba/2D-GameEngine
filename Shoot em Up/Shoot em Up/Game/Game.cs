@@ -152,7 +152,9 @@ namespace Shoot_em_Up {
         }
 
         public void GenerateAstroid(float x, float y) {
-            AddObject(new Astroid(FactionManager.factions[(int)Faction.Type.None], new Texture("../Content/asteroid-gray.png"), new Vector2f(x,y), EMath.Random(0,360)));
+            Random r = new Random();
+            int no = r.Next(1,5);
+            AddObject(new Astroid(FactionManager.factions[(int)Faction.Type.None], new Texture("../Content/astroids/"+no+".png"), new Vector2f(x,y), EMath.Random(0,360)));
         }
 
 

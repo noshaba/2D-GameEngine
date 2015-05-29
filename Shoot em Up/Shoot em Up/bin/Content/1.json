@@ -1,11 +1,29 @@
 [
     {
         "type": "Astroid",
-        "spawnAt": 5,
+        "spawnAt": 2,
         "x": 240,
 		"y": 0
     },
     {
+        "type": "Astroid",
+        "spawnAt": 4,
+        "x": 240,
+		"y": 0
+    },
+{
+        "type": "Astroid",
+        "spawnAt": 6,
+        "x": 240,
+		"y": 0
+    },
+{
+        "type": "Astroid",
+        "spawnAt": 8,
+        "x": 240,
+		"y": 0
+    },
+{
         "type": "Astroid",
         "spawnAt": 10,
         "x": 240,
@@ -13,13 +31,21 @@
     },
 {
         "type": "Astroid",
-        "spawnAt": 15,
+        "spawnAt": 12,
         "x": 240,
 		"y": 0
-    },
+    }
+,
 {
         "type": "Astroid",
-        "spawnAt": 20,
+        "spawnAt": 14,
+        "x": 240,
+		"y": 0
+    }
+,
+{
+        "type": "Astroid",
+        "spawnAt": 16,
         "x": 240,
 		"y": 0
     }
