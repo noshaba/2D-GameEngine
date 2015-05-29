@@ -56,7 +56,6 @@ namespace Shoot_em_Up {
             this.clock = new Stopwatch();
             this.status = GameStatus.Welcome;
             this.progressor = new LevelManager(this);
-            this.levelEnded = false;
         }
 
         public static void AddObject(GameObject obj)
@@ -126,10 +125,12 @@ namespace Shoot_em_Up {
         public void StartGame()
         {
             this.Reset();
+            this.level = 1;
             this.levelEnded = false;
+            this.numberOfFoes = 0;
             this.player = new Player(FactionManager.factions[(int) Faction.Type.Player],new Vector2f(this.WIDTH / 2, this.HEIGHT-40), new Texture("../Content/ships/1.png"));
             AddObject(player);
-            this.clock.Start();
+            this.clock.Restart();
             this.status = GameStatus.Active;
             this.progressor.LoadLevel(this.level);
         }
@@ -188,7 +189,6 @@ namespace Shoot_em_Up {
         {
             objects.RemoveRange(MIN_OBJECTS, objects.Count - MIN_OBJECTS);
             shapes.RemoveRange(MIN_OBJECTS, shapes.Count - MIN_OBJECTS);
-            this.level = 1;
         }
 
         public void Pause()
