@@ -128,14 +128,14 @@ namespace Shoot_em_Up
             //this.rigidBody.COM = pos;
         }
 
-        protected Vector2f Align(Vector2f v, float o)
+        public Vector2f Align(Vector2f v, float o)
         {
             v.X = (v.X * (float)Math.Cos(o)) - (v.Y * (float)Math.Sin(o));
             v.Y = (v.X * (float)Math.Sin(o)) + (v.Y * (float)Math.Cos(o));
             return v;
             /*
              x'=xcosθ-ysinθ
-             * y'=xsinθ+ycosθ
+             y'=xsinθ+ycosθ
              */
         }
     }

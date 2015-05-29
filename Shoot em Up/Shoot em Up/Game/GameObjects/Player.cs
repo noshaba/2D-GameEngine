@@ -28,8 +28,8 @@ namespace Shoot_em_Up
             this.maxHP = 1000;
             this.maxDamage = 0;
             this.maxPoints = 1000;
-            this.weapon = new Weapon(this, 20, 500, 30, "tripleShot", new Vector2f(0,-1), new Vector2f(0, -40), Color.Red);
             this.drawable.Texture = texture;
+            this.weapon = new Weapon(this, 20, 500, 30, "tripleShot", new Vector2f(0,-1), new Vector2f(0, -texture.Size.Y/2), Color.Red);
             this.shield = false;
             //this.bodies = new [] { this.rigidBody, new Circle(this.rigidBody.COM, this.drawable.Texture.Size.Y/2) };
             //checkShield();
@@ -49,10 +49,10 @@ namespace Shoot_em_Up
                     this.rigidBody.Orientation += (float)-Math.PI / 50;
                     break;
                 case Keyboard.Key.Up:
-                    this.rigidBody.Velocity = new Vector2f(0, - this.speed);
+                    this.rigidBody.Velocity = new Vector2f(0,-speed);
                     break;
                 case Keyboard.Key.Down:
-                    this.rigidBody.Velocity = new Vector2f(0, this.speed);
+                    this.rigidBody.Velocity = new Vector2f(0, speed);
                     break;
                     
             }
