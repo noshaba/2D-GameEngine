@@ -12,10 +12,10 @@ Features:
 To-Do:
 	- make proper use of rotation
 	- different enemys, also improve AI(there is no atual AI currently)
-	- powerups/special abilities
+	- powerups/special abilities/items
 	- bosses
 	- sound
-	- animations
+	- animations/sprites
 	- more obvious incorporation of the factions feature
 
 Bugs:
