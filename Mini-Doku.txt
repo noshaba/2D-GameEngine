@@ -2,15 +2,16 @@ Controls:
 	- move ship with arrow keys
 	- shoot with spacebar
 	- press "p" to pause the game
+	- press "s" to activate shield
 
 Features:
 	- reusable physics
 	- simple bullet patterns
+	- rotation
 	- reusable GUI	
 	...I think there is more to add here
 
 To-Do:
-	- make proper use of rotation/ships yes, weapons atm no
 	- different enemys, also improve AI(there is no atual AI currently)
 	- powerups/special abilities/items
 	- bosses
