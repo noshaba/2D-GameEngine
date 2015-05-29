@@ -1,5 +1,5 @@
 Controls:
-	- move ship with arrow keys
+	- move ship with arrow keys up/down = up/down left/right = change direction(rotation)
 	- shoot with spacebar
 	- press "p" to pause the game
 	- press "s" to activate shield
@@ -12,6 +12,7 @@ Features:
 	...I think there is more to add here
 
 To-Do:
+	- remove walls
 	- different enemys, also improve AI(there is no atual AI currently)
 	- powerups/special abilities/items
 	- bosses

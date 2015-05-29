@@ -62,7 +62,6 @@ namespace Shoot_em_Up
                     break;
                     
             }*/
-            Console.WriteLine(k);
             if (k == Keyboard.Key.Right && this.rigidBody.AngularVelocity != .5f)
             {
                 this.rigidBody.AngularVelocity = .5f;
@@ -71,9 +70,11 @@ namespace Shoot_em_Up
             {
                 this.rigidBody.AngularVelocity = -.5f;
             }
-            if(k == Keyboard.Key.Up) {
+            if (k == Keyboard.Key.Up) 
+            {
                 this.rigidBody.Velocity = new Vector2f(0, -this.speed);
-            } else if(k == Keyboard.Key.Down) {
+            } else if (k == Keyboard.Key.Down) 
+            {
                 this.rigidBody.Velocity = new Vector2f(0, this.speed);
             }
             this.rigidBody.Velocity = this.rigidBody.WorldTransform* this.rigidBody.Velocity;
