@@ -27,6 +27,10 @@ namespace GUI
         protected String path;
         private Color color;
 
+        public GUIElement(Color c)
+        {
+            this.color = c;
+        }
 
         public GUIElement(uint x, uint y, Color c)
         {

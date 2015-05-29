@@ -16,6 +16,8 @@ namespace Shoot_em_Up
         private float speed;
         private Weapon weapon;
         public bool fire;
+        Stopwatch clock;
+        public String shieldStatus;
 
         public Player(Faction faction, Vector2f position, Texture texture)
             : base(faction, texture, position, 0, 0.9f)
@@ -31,6 +33,10 @@ namespace Shoot_em_Up
             this.drawable.Texture = texture;
             this.weapon = new Weapon(this, 20, 500, 30, "singleShot", new Vector2f(0,-1), new Vector2f(0, -texture.Size.Y/2), Color.Red);
             this.shield = false;
+            this.maxShieldHp = 300;
+            this.shieldHp = this.maxShieldHp;
+            this.clock = new Stopwatch();
+            this.shieldStatus = "sR";
             //this.bodies = new [] { this.rigidBody, new Circle(this.rigidBody.COM, this.drawable.Texture.Size.Y/2) };
             //checkShield();
         }
@@ -41,11 +47,9 @@ namespace Shoot_em_Up
             switch (k)
             {
                 case Keyboard.Key.Right:
-                    //this.rigidBody.Velocity = new Vector2f(this.speed, this.rigidBody.Velocity.Y);
                     this.rigidBody.AngularVelocity = .5f;
                     break;
                 case Keyboard.Key.Left:
-                    //this.rigidBody.Velocity = new Vector2f(-this.speed, this.rigidBody.Velocity.Y);
                     this.rigidBody.AngularVelocity = -.5f;
                     break;
                 case Keyboard.Key.Up:
@@ -74,8 +78,11 @@ namespace Shoot_em_Up
 
         public void ToggleShield()
         {
-            this.shield = !this.shield;
-            this.checkShield();
+            if (this.shieldHp > 0)
+            {
+                this.shield = !this.shield;
+                this.checkShield();
+            }
         }
 
         public void checkShield()
@@ -103,8 +110,19 @@ namespace Shoot_em_Up
             if(fire) this.weapon.shoot(this.rigidBody.COM);
         }
 
+
         public override void Update()
         {
+            if(this.shieldHp <=0 && this.shield) {
+                this.shield = false;
+                this.clock.Restart();
+                this.shieldStatus = "sC";
+            }
+            if(this.clock.ElapsedMilliseconds/1000 >= 2 && !this.shield) {
+                this.shieldHp = this.maxShieldHp;
+                this.clock.Stop();
+                this.shieldStatus = "sR";
+            }
             this.updateBodies();
             this.checkShield();
             this.shoot();

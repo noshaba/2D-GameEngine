@@ -19,6 +19,8 @@ namespace Shoot_em_Up
         protected PvPObject opponent;
         public bool alive = true;
         public bool shield;
+        public int shieldHp;
+        public int maxShieldHp;
         protected IRigidBody[] bodies;
 
         public Faction Faction { get; private set; }
@@ -87,6 +89,10 @@ namespace Shoot_em_Up
                         opponent.Faction.GainableRep && !opponent.alive &&
                         1 <= this.Faction.Reputation[(int)opponent.Faction.ID] ?
                         -1 : 0;
+                }
+                if (opponent != null && shield)
+                {
+                    this.shieldHp -= opponent.maxDamage * (100 - opponent.Faction.Reputation[(int)this.Faction.ID]) / 100;
                 }
             }
             base.Update();

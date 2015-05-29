@@ -22,6 +22,7 @@ namespace Shoot_em_Up {
         Label hp;
         Label lvl;
         Menue results;
+        Screen shield;
         private List<IGraphic> welcome = new List<IGraphic>();
         private List<IGraphic> inGame = new List<IGraphic>();
         private List<IGraphic> credits = new List<IGraphic>();
@@ -82,6 +83,7 @@ namespace Shoot_em_Up {
                 Label l2 = new Label(new Vector2f(350, 25), "HP", this.color);
                 hp = new Label(new Vector2f(390, 25), this.game.player.hp.ToString() + "/" + this.game.player.maxHP.ToString(), this.color);
                 lvl = new Label(new Vector2f(240, 20), this.game.level.ToString(), this.color);
+                shield = new Screen(200, 600, "../Content/"+this.game.player.shieldStatus+".png", this.color);
                 menue.Add(toMain);
                 menue.Add(scoreLabel);
                 menue.Add(l);
@@ -89,12 +91,14 @@ namespace Shoot_em_Up {
                 menue.Add(hp);
                 menue.Add(lvl);
                 this.inGame.Add(menue);
+                this.inGame.Add(shield);
             }
             else
             {
                 scoreLabel.DisplayedString = this.game.player.score.ToString();
                 hp.DisplayedString = this.game.player.hp.ToString() + "/" + this.game.player.maxHP.ToString();
                 lvl.DisplayedString = this.game.level.ToString();
+                shield.setImage("../Content/" + this.game.player.shieldStatus + ".png");
                 this.resultScore.DisplayedString = "Your Score: "+scoreLabel.DisplayedString;
             }
         }
