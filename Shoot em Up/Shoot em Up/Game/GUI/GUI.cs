@@ -76,22 +76,22 @@ namespace Shoot_em_Up {
         {
             if (this.inGame.Count == 0)
             {
-                menue = new Menue(new Vector2f(0, 0), new Vector2f(480, 50), this.color);
+                menue = new Menue(new Vector2f(0, 0), new Vector2f(480, 75), this.color);
                 toMain = new Button(10, 10, "Main Menue", this.color, ShowWelcome);
                 Label l = new Label(new Vector2f(350,15), "Score", this.color);
                 scoreLabel = new Label(new Vector2f(390, 15), this.game.player.score.ToString(), this.color);
                 Label l2 = new Label(new Vector2f(350, 25), "HP", this.color);
                 hp = new Label(new Vector2f(390, 25), this.game.player.hp.ToString() + "/" + this.game.player.maxHP.ToString(), this.color);
                 lvl = new Label(new Vector2f(240, 20), this.game.level.ToString(), this.color);
-                shield = new Screen(200, 600, "../Content/"+this.game.player.shieldStatus+".png", this.color);
+                shield = new Screen(450, 45, "../Content/"+this.game.player.shieldStatus+".png", this.color);
                 menue.Add(toMain);
                 menue.Add(scoreLabel);
                 menue.Add(l);
                 menue.Add(l2);
                 menue.Add(hp);
                 menue.Add(lvl);
+                menue.Add(shield);
                 this.inGame.Add(menue);
-                this.inGame.Add(shield);
             }
             else
             {
