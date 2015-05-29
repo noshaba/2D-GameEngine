@@ -147,7 +147,7 @@ namespace Shoot_em_Up {
         }
 
         public void GenerateAstroid() {
-            AddObject(new Astroid(FactionManager.factions[(int) Faction.Type.None], this.WIDTH/2, 0));
+            AddObject(new Astroid(FactionManager.factions[(int)Faction.Type.None], new Texture("../Content/asteroid-gray.png"), new Vector2f(this.WIDTH / 2, 0), EMath.Random(0,360)));
         }
 
 
@@ -158,7 +158,7 @@ namespace Shoot_em_Up {
 
         public void AddMeanEnemy(float x, float y)
         {
-            AddObject(new Enemy(FactionManager.factions[(int)Faction.Type.AI], new Vector2f(x, y), "5", 500, 10, 30, "stationary",  new Color(0,168,22)));
+            AddObject(new Enemy(FactionManager.factions[(int)Faction.Type.AI], new Vector2f(x, y), "5", 500, 10, 30, "path",  new Color(0,168,22)));
         }
 
         public void MovePlayer(Keyboard.Key k)
@@ -184,6 +184,7 @@ namespace Shoot_em_Up {
         {
             objects.RemoveRange(MIN_OBJECTS, objects.Count - MIN_OBJECTS);
             shapes.RemoveRange(MIN_OBJECTS, shapes.Count - MIN_OBJECTS);
+            this.level = 1;
         }
 
         public void Pause()

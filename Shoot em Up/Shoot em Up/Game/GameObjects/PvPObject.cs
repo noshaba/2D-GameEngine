@@ -28,7 +28,14 @@ namespace Shoot_em_Up
             this.bodies = new[] { this.rigidBody };
         }
 
-        public PvPObject(Faction faction, Collision.Type type, Vector2f position, float var, float density) : base(type, position, var, density)
+        public PvPObject(Faction faction, Vector2f position, float rotation, float radius)
+            : base(position, rotation, radius)
+        {
+            this.Faction = faction;
+        }
+
+        public PvPObject(Faction faction, Vector2f position, float rotation, float radius, float density)
+            : base(position, rotation, radius, density)
         {
             this.Faction = faction;
             this.bodies = new [] { this.rigidBody };
@@ -50,6 +57,18 @@ namespace Shoot_em_Up
         {
             this.Faction = faction;
             this.bodies = new[] { this.rigidBody };
+        }
+
+        public PvPObject(Faction faction, Vector2f[] vertices, Vector2f position, float rotation, float density)
+            : base(vertices, position, rotation, density)
+        {
+            this.Faction = faction;
+        }
+
+        public PvPObject(Faction faction, Texture texture, Vector2f position, float rotation, float density)
+            : base(texture, position, rotation, density)
+        {
+            this.Faction = faction;
         }
 
         public override void Update()

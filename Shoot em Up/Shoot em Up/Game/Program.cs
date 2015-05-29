@@ -141,7 +141,7 @@ namespace Shoot_em_Up
                     sEmUp.StopPlayer();
                     break;
                 case Keyboard.Key.S:
-                    sEmUp.player.ToggleShield();
+                    //sEmUp.player.ToggleShield();
                     break;
                 default:
                     break;

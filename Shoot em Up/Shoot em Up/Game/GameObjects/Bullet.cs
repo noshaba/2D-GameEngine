@@ -17,7 +17,7 @@ namespace Shoot_em_Up {
         private Vector2f bend;
         private PvPObject shooter;
 
-        public Bullet(PvPObject shooter, Faction faction, Vector2f position, float radius, Color color, float mass, int dmg, Vector2f speed, Vector2f bend) : base(faction, Collision.Type.Circle, position + speed + bend, radius, mass) {
+        public Bullet(PvPObject shooter, Faction faction, Vector2f position, float radius, Color color, float mass, int dmg, Vector2f speed, Vector2f bend) : base(faction, position + speed + bend, 0, radius, mass) {
             initPosition = position + speed + bend;
             (rigidBody as Circle).FillColor = color;
             rigidBody.Restitution = 1.0f;
