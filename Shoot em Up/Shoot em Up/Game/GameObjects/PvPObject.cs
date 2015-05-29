@@ -18,7 +18,7 @@ namespace Shoot_em_Up
         public int maxPoints;
         protected PvPObject opponent;
         public bool alive = true;
-        protected bool shield;
+        public bool shield;
         protected IRigidBody[] bodies;
 
         public Faction Faction { get; private set; }

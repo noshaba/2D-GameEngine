@@ -30,7 +30,7 @@ namespace Shoot_em_Up
             this.maxPoints = 1000;
             this.weapon = new Weapon(this, 20, 500, 30, "tripleShot", new Vector2f(0,-1), new Vector2f(0, -40), Color.Yellow);
             this.drawable.Texture = texture;
-            //this.shield = false;
+            this.shield = false;
             //this.bodies = new [] { this.rigidBody, new Circle(this.rigidBody.COM, this.drawable.Texture.Size.Y/2) };
             //checkShield();
         }
@@ -56,6 +56,7 @@ namespace Shoot_em_Up
             }
             this.bodies[0].Current.position = this.rigidBody.Current.position;
             this.bodies[1].Current.position = this.rigidBody.Current.position;
+            
             //Console.WriteLine("Ship: " + this.bodies[0].Current.position.X);
             //Console.WriteLine("Shield: " + this.bodies[1].Current.position.X);
         }
@@ -92,6 +93,7 @@ namespace Shoot_em_Up
 
         public override void Update()
         {
+            this.checkShield();
             this.shoot();
             base.Update();
         }
