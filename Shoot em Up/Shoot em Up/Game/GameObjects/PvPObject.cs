@@ -45,6 +45,18 @@ namespace Shoot_em_Up
             this.Faction = faction;
         }
 
+        public PvPObject(Faction faction, Vector2f[] vertices, Vector2f position, float rotation, float density)
+            : base(vertices, position, rotation, density)
+        {
+            this.Faction = faction;
+        }
+
+        public PvPObject(Faction faction, Texture texture, Vector2f position, float rotation, float density)
+            : base(texture, position, rotation, density)
+        {
+            this.Faction = faction;
+        }
+
         public override void Update()
         {
             if (rigidBody.Collision.collision)

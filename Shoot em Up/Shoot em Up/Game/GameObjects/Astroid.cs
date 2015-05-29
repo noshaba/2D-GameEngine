@@ -12,17 +12,15 @@ namespace Shoot_em_Up
 {
     class Astroid : PvPObject
     {
-        public Astroid(Faction faction, int x, int y)
-            : base(faction, Collision.Type.Polygon, new Vector2f(x, y), 200, 0.01f)
+        public Astroid(Faction faction, Texture texture, Vector2f position, float rotation)
+            : base(faction, texture, position, rotation, 0.01f)
         {
-
-            (rigidBody as Polygon).Texture = new Texture("../Content/astroid.png");
-            (rigidBody as Polygon).Texture.Repeated = true;
             rigidBody.Velocity = new Vector2f(EMath.random.Next(-50,50),EMath.random.Next(10,30));
             rigidBody.Restitution = 1.0f;
             this.hp = 50;
             this.maxDamage = 100;
             this.maxPoints = 20;
+            this.drawable.Texture = texture;
         }
     }
 }

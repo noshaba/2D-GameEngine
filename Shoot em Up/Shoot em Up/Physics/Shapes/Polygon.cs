@@ -25,26 +25,6 @@ namespace Physics {
         public Vector2f[] vertices;
         public Vector2f[] normals;
 
-
-        public Polygon() {}
-
-        public Polygon(Vector2f position, float rotation) : base(){
-            InitVertices();
-            current = new State(position, rotation);
-            previous = current;
-            kineticFriction = EMath.Random(0, staticFriction);
-            collision = new Collision();
-            collision.collision = false;
-        }
-
-        public Polygon(Vector2f position, float rotation, float density) : base() {
-            InitVertices();
-            InitState(position, rotation, density);
-            kineticFriction = EMath.Random(0, staticFriction);
-            collision = new Collision();
-            collision.collision = false;
-        }
-
         public Polygon(Vector2f[] vertices, Vector2f position, float rotation) : base() {
             GenerateConvexHull(vertices);
             current = new State(position, rotation);
