@@ -3,29 +3,29 @@
         "type": "Enemy",
         "spawnAt": 5,
         "x": 240,
-		"y": 100
+		"y": 300
     },
     {
         "type": "Astroid",
         "spawnAt": 10,
         "x": 240,
-		"y": 100
+		"y": 0
     },
     {
         "type": "Astroid",
         "spawnAt": 15,
         "x": 240,
-		"y": 100
+		"y": 0
     },
     {
         "type": "Astroid",
-        "spawnAt": 20,
+        "spawnAt": 25,
         "x": 240,
-	"y": 100
+	"y": 0
     },
 	{
         "type": "MeanEnemy",
-        "spawnAt": 25,
+        "spawnAt": 30,
         "x": 240,
 		"y": 340
     },

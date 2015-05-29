@@ -23,11 +23,13 @@ namespace Shoot_em_Up
             this.drawable.Texture = texture;
             this.validateVelocity();
             Console.WriteLine(this.rigidBody.Velocity);
+            Console.WriteLine(this.rigidBody.COM.Y);
         }
 
         public void validateVelocity()
         {
-            if(this.rigidBody.Velocity.X>0 && this.rigidBody.Velocity.Y >0) {
+            if (this.rigidBody.Velocity.Y < 0)
+            {
                 this.rigidBody.Velocity = new Vector2f(this.rigidBody.Velocity.X, -this.rigidBody.Velocity.Y);
             }
         }

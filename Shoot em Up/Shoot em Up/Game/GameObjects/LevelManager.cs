@@ -43,7 +43,7 @@ namespace Shoot_em_Up
         {
             this.game.numberOfFoes++;
             switch(spwn.type) {
-                case "Astroid": game.GenerateAstroid(); 
+                case "Astroid": game.GenerateAstroid(spwn.x,spwn.y); 
                     break;
                 case "Enemy": game.AddEnemy(spwn.x, spwn.y);
                     break;
