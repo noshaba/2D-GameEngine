@@ -118,14 +118,12 @@ namespace Shoot_em_Up
         {
             this.shield = true;
             this.rigidBody = this.bodies[1];
-            //this.rigidBody.COM = pos;
         }
 
         protected void shieldOff(Vector2f velocity, Vector2f pos)
         {
             this.shield = false;
             this.rigidBody = this.bodies[0];
-            //this.rigidBody.COM = pos;
         }
 
        
