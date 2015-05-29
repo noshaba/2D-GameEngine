@@ -42,6 +42,8 @@ namespace Shoot_em_Up
         }
 
         public void shoot(Vector2f position) {
+            this.relativePos = this.owner.rigidBody.Current.worldTransform * this.relativePos;
+            this.direction = this.owner.rigidBody.Current.worldTransform * this.direction;
             if (this.charge.ElapsedMilliseconds > this.fireRate) {
                 this.weapons[type](position+relativePos);
                 this.charge.Restart();
