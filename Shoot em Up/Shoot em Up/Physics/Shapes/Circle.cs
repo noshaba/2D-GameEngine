@@ -21,9 +21,9 @@ namespace Physics {
 
         private Object parent;
 
-        public Circle(Vector2f position, float radius) : base(radius) {
+        public Circle(Vector2f position, float rotation, float radius) : base(radius) {
             Origin = new Vector2f(radius, radius);
-            current = new State(position, 0);
+            current = new State(position, rotation);
             previous = current;
             kineticFriction = EMath.Random(0, staticFriction);
             collision = new Collision();
@@ -31,10 +31,10 @@ namespace Physics {
 
         }
         
-        public Circle(Vector2f position, float radius, float density) : base(radius) {
+        public Circle(Vector2f position, float rotation, float radius, float density) : base(radius) {
             Origin = new Vector2f(radius, radius);
             float mass = (float) Math.PI * radius * radius * density;
-            current = new State(position, 0, mass, mass * radius * radius);
+            current = new State(position, rotation, mass, mass * radius * radius);
             previous = current;
             kineticFriction = EMath.Random(0, staticFriction);
             collision = new Collision();

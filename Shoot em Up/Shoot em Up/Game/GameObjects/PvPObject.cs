@@ -25,7 +25,14 @@ namespace Shoot_em_Up
             this.Faction = faction;
         }
 
-        public PvPObject(Faction faction, Collision.Type type, Vector2f position, float var, float density) : base(type, position, var, density)
+        public PvPObject(Faction faction, Vector2f position, float rotation, float radius)
+            : base(position, rotation, radius)
+        {
+            this.Faction = faction;
+        }
+
+        public PvPObject(Faction faction, Vector2f position, float rotation, float radius, float density)
+            : base(position, rotation, radius, density)
         {
             this.Faction = faction;
         }

@@ -21,21 +21,23 @@ namespace Shoot_em_Up
             this.rigidBody.Parent = this; 
         }
 
-        public GameObject(Collision.Type type, Vector2f position, float var, float density)
-        {
-            switch (type)
-            {
-                case Collision.Type.Circle: 
-                    this.rigidBody = new Circle(position, var, density);
-                    this.drawable = this.rigidBody as Shape;
-                    break;
-            }
-            this.rigidBody.Parent = this;
-        }
-
         public GameObject(Vector2f normal, Vector2f position, Vector2f size, float rotation)
         {
             this.rigidBody = new Plane(normal, position, size, rotation);
+            this.drawable = this.rigidBody as Shape;
+            this.rigidBody.Parent = this;
+        }
+
+        public GameObject(Vector2f position, float rotation, float radius)
+        {
+            this.rigidBody = new Circle(position, rotation, radius);
+            this.drawable = this.rigidBody as Shape;
+            this.rigidBody.Parent = this;
+        }
+
+        public GameObject(Vector2f position, float rotation, float radius, float density)
+        {
+            this.rigidBody = new Circle(position, rotation, radius, density);
             this.drawable = this.rigidBody as Shape;
             this.rigidBody.Parent = this;
         }
