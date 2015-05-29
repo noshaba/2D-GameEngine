@@ -102,34 +102,30 @@ namespace Shoot_em_Up
             base.LateUpdate();
         }
 
+        protected void updateBodies()
+        {
+            this.bodies[0].COM = this.rigidBody.COM;
+            this.bodies[1].COM = this.rigidBody.COM;
+            this.bodies[0].Velocity = this.rigidBody.Velocity;
+            this.bodies[1].Velocity = this.rigidBody.Velocity;
+            this.bodies[0].AngularVelocity = this.rigidBody.AngularVelocity;
+            this.bodies[1].AngularVelocity = this.rigidBody.AngularVelocity;
+            this.bodies[0].Orientation = this.rigidBody.Orientation;
+            this.bodies[1].Orientation = this.rigidBody.Orientation;
+        }
+
         protected void shieldOn(Vector2f velocity, Vector2f pos)
         {
             this.shield = true;
             this.rigidBody = this.bodies[1];
-            this.rigidBody.COM = pos;
-            this.rigidBody.Velocity = velocity;
+            //this.rigidBody.COM = pos;
         }
 
         protected void shieldOff(Vector2f velocity, Vector2f pos)
         {
             this.shield = false;
             this.rigidBody = this.bodies[0];
-            this.rigidBody.COM = pos;
-            this.rigidBody.Velocity = velocity;
-        }
-
-        protected void shieldOn(Vector2f pos)
-        {
-            this.shield = true;
-            this.rigidBody = this.bodies[1];
-            //this.rigidBody.Current.position = pos;
-        }
-
-        protected void shieldOff(Vector2f pos)
-        {
-            this.shield = false;
-            this.rigidBody = this.bodies[0];
-            //this.rigidBody.Current.position = pos;
+            //this.rigidBody.COM = pos;
         }
     }
 }

@@ -15,9 +15,9 @@ namespace Shoot_em_Up
         public Astroid(Faction faction, Texture texture, Vector2f position, float rotation)
             : base(faction, texture, position, rotation, 0.01f)
         {
-            rigidBody.Velocity = new Vector2f(EMath.random.Next(-50,50),EMath.random.Next(10,30));
+            //rigidBody.Velocity = new Vector2f(EMath.random.Next(-50,50),EMath.random.Next(10,30));
             rigidBody.Restitution = 1.0f;
-            this.hp = 150;
+            this.hp = 1500;
             this.maxDamage = 100;
             this.maxPoints = 20;
             this.drawable.Texture = texture;

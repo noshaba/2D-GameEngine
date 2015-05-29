@@ -49,21 +49,21 @@ namespace Shoot_em_Up
         }
 
         private void singleShot(Vector2f position) {
-            Game.AddObject(new Bullet(this.owner, this.owner.Faction, position, 2, this.color, 0.01f, maxDamage, new Vector2f(this.direction.X*bulletSpeed, this.direction.Y*bulletSpeed), new Vector2f(0, 0)));
+            Game.AddObject(new Bullet(this.owner, this.owner.Faction, position, 2, this.color, 0.5f, maxDamage, new Vector2f(this.direction.X*bulletSpeed, this.direction.Y*bulletSpeed), new Vector2f(0, 0)));
         }
 
         private void tripleShot(Vector2f position)
         {
-            Game.AddObject(new Bullet(this.owner, this.owner.Faction, position, 1.5f, this.color, 0.01f, maxDamage, new Vector2f(this.direction.X * bulletSpeed - 10, this.direction.Y * bulletSpeed), new Vector2f(0, 0)));
-            Game.AddObject(new Bullet(this.owner, this.owner.Faction, position, 1.5f, this.color, 0.01f, maxDamage, new Vector2f(this.direction.X * bulletSpeed, this.direction.Y * bulletSpeed), new Vector2f(0, 0)));
-            Game.AddObject(new Bullet(this.owner, this.owner.Faction, position, 1.5f, this.color, 0.01f, maxDamage, new Vector2f(this.direction.X * bulletSpeed + 10, this.direction.Y * bulletSpeed), new Vector2f(0, 0)));
+            Game.AddObject(new Bullet(this.owner, this.owner.Faction, position, 1.5f, this.color, 0.5f, maxDamage, new Vector2f(this.direction.X * bulletSpeed - 10, this.direction.Y * bulletSpeed), new Vector2f(0, 0)));
+            Game.AddObject(new Bullet(this.owner, this.owner.Faction, position, 1.5f, this.color, 0.5f, maxDamage, new Vector2f(this.direction.X * bulletSpeed, this.direction.Y * bulletSpeed), new Vector2f(0, 0)));
+            Game.AddObject(new Bullet(this.owner, this.owner.Faction, position, 1.5f, this.color, 0.5f, maxDamage, new Vector2f(this.direction.X * bulletSpeed + 10, this.direction.Y * bulletSpeed), new Vector2f(0, 0)));
         }
 
         private void tripleBentShot(Vector2f position)
         {
-            Game.AddObject(new Bullet(this.owner, this.owner.Faction, position, 1.5f, this.color, 0.01f, maxDamage, new Vector2f(this.direction.X - 5, this.direction.Y * bulletSpeed * 2), new Vector2f(-1, 0)));
-            Game.AddObject(new Bullet(this.owner, this.owner.Faction, position, 1.5f, this.color, 0.01f, maxDamage, new Vector2f(this.direction.X * bulletSpeed, this.direction.Y * bulletSpeed), new Vector2f(0, 0)));
-            Game.AddObject(new Bullet(this.owner, this.owner.Faction, position, 1.5f, this.color, 0.01f, maxDamage, new Vector2f(this.direction.X + 5, this.direction.Y * bulletSpeed * 2), new Vector2f(1, 0)));
+            Game.AddObject(new Bullet(this.owner, this.owner.Faction, position, 1.5f, this.color, 0.5f, maxDamage, new Vector2f(this.direction.X - 5, this.direction.Y * bulletSpeed * 2), new Vector2f(-1, 0)));
+            Game.AddObject(new Bullet(this.owner, this.owner.Faction, position, 1.5f, this.color, 0.5f, maxDamage, new Vector2f(this.direction.X * bulletSpeed, this.direction.Y * bulletSpeed), new Vector2f(0, 0)));
+            Game.AddObject(new Bullet(this.owner, this.owner.Faction, position, 1.5f, this.color, 0.5f, maxDamage, new Vector2f(this.direction.X + 5, this.direction.Y * bulletSpeed * 2), new Vector2f(1, 0)));
         }
     }
 }

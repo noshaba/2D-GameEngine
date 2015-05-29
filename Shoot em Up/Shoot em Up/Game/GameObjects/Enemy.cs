@@ -24,7 +24,7 @@ namespace Shoot_em_Up
         private int i = 0;
 
          public Enemy(Faction faction, Vector2f position, String texture, int hp, int dmg, int speed, String pattern, Color color)
-            : base(faction, new Texture("../Content/ships/" + texture + ".png"), position, 0)
+            : base(faction, new Texture("../Content/ships/" + texture + ".png"), position, 0, 0.9f)
         {
             rigidBody.Restitution = 1.0f;
             this.initPos = position;

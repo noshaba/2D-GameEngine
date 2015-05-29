@@ -61,6 +61,11 @@ namespace Physics {
 
         public float Orientation {
             get { return current.orientation; }
+            set
+            {
+                current.orientation = value;
+                previous.orientation = value;
+            }
         }
 
         public Mat22f WorldTransform {

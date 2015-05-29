@@ -18,7 +18,7 @@ namespace Shoot_em_Up
         public bool fire;
 
         public Player(Faction faction, Vector2f position, Texture texture)
-            : base(faction, texture, position, 0)
+            : base(faction, texture, position, 0, 0.9f)
         {
             this.rigidBody.Restitution = 1.0f;
             this.speed = 50;
@@ -37,14 +37,18 @@ namespace Shoot_em_Up
 
         public void Move(Keyboard.Key k)
         {
+            Console.WriteLine("Ship: " + this.bodies[0].Current.position.X);
+            Console.WriteLine("Shield: " + this.bodies[1].Current.position.X);
             
             switch (k)
             {
                 case Keyboard.Key.Right:
                     this.rigidBody.Velocity = new Vector2f(this.speed, this.rigidBody.Velocity.Y);
+                    this.rigidBody.AngularVelocity = (float)Math.PI/10;
                     break;
                 case Keyboard.Key.Left:
                     this.rigidBody.Velocity = new Vector2f(-this.speed, this.rigidBody.Velocity.Y);
+                    this.rigidBody.AngularVelocity = (float)-Math.PI / 10;
                     break;
                 case Keyboard.Key.Up:
                     this.rigidBody.Velocity = new Vector2f(this.rigidBody.Velocity.X, -this.speed);
@@ -52,13 +56,8 @@ namespace Shoot_em_Up
                 case Keyboard.Key.Down:
                     this.rigidBody.Velocity = new Vector2f(this.rigidBody.Velocity.X, this.speed);
                     break;
-
+                    
             }
-            this.bodies[0].Current.position = this.rigidBody.Current.position;
-            this.bodies[1].Current.position = this.rigidBody.Current.position;
-            
-            //Console.WriteLine("Ship: " + this.bodies[0].Current.position.X);
-            //Console.WriteLine("Shield: " + this.bodies[1].Current.position.X);
         }
 
         public void ToggleShield()
@@ -84,6 +83,7 @@ namespace Shoot_em_Up
         public void Stop()
         {
             this.rigidBody.Velocity = new Vector2f(0,0);
+            this.rigidBody.AngularVelocity = 0;
         }
 
         private void shoot()
@@ -93,6 +93,7 @@ namespace Shoot_em_Up
 
         public override void Update()
         {
+            this.updateBodies();
             this.checkShield();
             this.shoot();
             base.Update();
