@@ -21,6 +21,15 @@ namespace GUI
             this.Font = new Font("../Content/arial.ttf");
         }
 
+        public Label(Vector2f position, String text, Color c, uint size)
+        {
+            this.Position = position;
+            this.DisplayedString = text;
+            this.CharacterSize = size;
+            this.Color = c;
+            this.Font = new Font("../Content/arial.ttf");
+        }
+
         public Label(Vector2f position, String text, Color c)
         {
             this.DisplayedString = text;

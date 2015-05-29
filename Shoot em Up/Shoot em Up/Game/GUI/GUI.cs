@@ -18,8 +18,10 @@ namespace Shoot_em_Up {
         Screen title;
         Game game;
         Label scoreLabel;
+        Label resultScore;
         Label hp;
         Label lvl;
+        Menue results;
         private List<IGraphic> welcome = new List<IGraphic>();
         private List<IGraphic> inGame = new List<IGraphic>();
         private List<IGraphic> credits = new List<IGraphic>();
@@ -32,8 +34,13 @@ namespace Shoot_em_Up {
             this.welcome.Add(title);
             this.welcome.Add(start);
             
-            restart = new Button(new Vector2f(150, 350), new Vector2f(200, 50), "Play Again!", this.color, 24, StartGame);
-            this.credits.Add(restart);
+
+            restart = new Button(new Vector2f(150, 440), new Vector2f(200, 50), "Play Again!", this.color, 24, StartGame);
+            this.results = new Menue(new Vector2f(20, 140), new Vector2f(440, 250), this.color);
+            this.results.Add(restart);
+            this.resultScore = new Label(new Vector2f(80, 100), "Your Score: ", this.color, 24);
+            this.results.Add(resultScore);
+            this.credits.Add(results);
 
             this.children = this.welcome;
         }
@@ -88,6 +95,7 @@ namespace Shoot_em_Up {
                 scoreLabel.DisplayedString = this.game.player.score.ToString();
                 hp.DisplayedString = this.game.player.hp.ToString() + "/" + this.game.player.maxHP.ToString();
                 lvl.DisplayedString = this.game.level.ToString();
+                this.resultScore.DisplayedString = "Your Score: "+scoreLabel.DisplayedString;
             }
         }
     }
