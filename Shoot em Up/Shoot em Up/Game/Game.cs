@@ -186,7 +186,7 @@ namespace Shoot_em_Up {
         public void StopFire()
         {
             if (status == GameStatus.Active) this.player.fire = false;
-            this.player.shield = true;
+            //this.player.shield = true;
         }
 
         public void Reset()

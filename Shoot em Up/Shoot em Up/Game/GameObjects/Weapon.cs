@@ -19,7 +19,7 @@ namespace Shoot_em_Up
         private Vector2f direction;
         private Vector2f relativePos;
 
-        private delegate void Shot(Vector2f position);
+        private delegate void Shot(Vector2f position, Vector2f direction);
         private Dictionary<string, Shot> weapons;
         private PvPObject owner;
         private Color color;
@@ -45,23 +45,23 @@ namespace Shoot_em_Up
             //this.relativePos = this.owner.rigidBody.WorldTransform * this.relativePos;
             //this.direction = this.owner.rigidBody.WorldTransform * this.direction;
             if (this.charge.ElapsedMilliseconds > this.fireRate) {
-                this.weapons[type](this.owner.rigidBody.WorldTransform * this.relativePos + position);
+                this.weapons[type](this.owner.rigidBody.WorldTransform * this.relativePos + position, this.owner.rigidBody.WorldTransform * this.direction*bulletSpeed);
                 this.charge.Restart();
             }
         }
 
-        private void singleShot(Vector2f position) {
-            Game.AddObject(new Bullet(this.owner, this.owner.Faction, position, 2, this.color, 0.5f, maxDamage, this.owner.rigidBody.WorldTransform * this.direction * bulletSpeed, new Vector2f(0, 0)));
+        private void singleShot(Vector2f position, Vector2f direction) {
+            Game.AddObject(new Bullet(this.owner, this.owner.Faction, position, 2, this.color, 0.5f, maxDamage, direction, new Vector2f(0, 0)));
         }
 
-        private void tripleShot(Vector2f position)
+        private void tripleShot(Vector2f position, Vector2f direction)
         {
             Game.AddObject(new Bullet(this.owner, this.owner.Faction, position, 1.5f, this.color, 0.5f, maxDamage, this.owner.rigidBody.WorldTransform * new Vector2f(this.direction.X * bulletSpeed - 10, this.direction.Y * bulletSpeed), new Vector2f(0, 0)));
             Game.AddObject(new Bullet(this.owner, this.owner.Faction, position, 1.5f, this.color, 0.5f, maxDamage, this.owner.rigidBody.WorldTransform * new Vector2f(this.direction.X * bulletSpeed, this.direction.Y * bulletSpeed), new Vector2f(0, 0)));
             Game.AddObject(new Bullet(this.owner, this.owner.Faction, position, 1.5f, this.color, 0.5f, maxDamage, this.owner.rigidBody.WorldTransform * new Vector2f(this.direction.X * bulletSpeed + 10, this.direction.Y * bulletSpeed), new Vector2f(0, 0)));
         }
 
-        private void tripleBentShot(Vector2f position)
+        private void tripleBentShot(Vector2f position, Vector2f direction)
         {
             Game.AddObject(new Bullet(this.owner, this.owner.Faction, position, 1.5f, this.color, 0.5f, maxDamage, this.owner.rigidBody.WorldTransform * new Vector2f(this.direction.X - 5, this.direction.Y * bulletSpeed * 2), new Vector2f(-1, 0)));
             Game.AddObject(new Bullet(this.owner, this.owner.Faction, position, 1.5f, this.color, 0.5f, maxDamage, this.owner.rigidBody.WorldTransform * new Vector2f(this.direction.X * bulletSpeed, this.direction.Y * bulletSpeed), new Vector2f(0, 0)));
