@@ -43,13 +43,15 @@ namespace Shoot_em_Up
 
         public void Move(Keyboard.Key k)
         {
-         
+         /*
             switch (k)
             {
                 case Keyboard.Key.Right:
+                    this.rigidBody.Velocity = new Vector2f(0, 0);
                     this.rigidBody.AngularVelocity = .5f;
                     break;
                 case Keyboard.Key.Left:
+                    this.rigidBody.Velocity = new Vector2f(0, 0);
                     this.rigidBody.AngularVelocity = -.5f;
                     break;
                 case Keyboard.Key.Up:
@@ -59,20 +61,21 @@ namespace Shoot_em_Up
                     this.rigidBody.Velocity = new Vector2f(0, speed);
                     break;
                     
-            }
-            /*
-            if (k == Keyboard.Key.Right)
+            }*/
+            Console.WriteLine(k);
+            if (k == Keyboard.Key.Right && this.rigidBody.AngularVelocity != .5f)
             {
-                this.rigidBody.Orientation += (float)Math.PI / 50;
-            } else if(k == Keyboard.Key.Left) {
-                this.rigidBody.Orientation += (float)-Math.PI / 50;
+                this.rigidBody.AngularVelocity = .5f;
             }
-
+            else if (k == Keyboard.Key.Left && this.rigidBody.AngularVelocity != -.5f)
+            {
+                this.rigidBody.AngularVelocity = -.5f;
+            }
             if(k == Keyboard.Key.Up) {
                 this.rigidBody.Velocity = new Vector2f(0, -this.speed);
             } else if(k == Keyboard.Key.Down) {
                 this.rigidBody.Velocity = new Vector2f(0, this.speed);
-            }*/
+            }
             this.rigidBody.Velocity = this.rigidBody.WorldTransform* this.rigidBody.Velocity;
         }
 

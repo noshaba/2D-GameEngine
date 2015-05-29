@@ -180,14 +180,12 @@ namespace Shoot_em_Up {
         public void Fire()
         {
             if (status == GameStatus.Active) this.player.fire = !this.physics.frozen;
-            //this.player.shield = false;
         }
 
         public void StopFire()
         {
 
             if (status == GameStatus.Active) this.player.fire = false;
-            //this.player.shield = true;
         }
 
         public void Reset()

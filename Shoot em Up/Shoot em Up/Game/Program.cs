@@ -59,7 +59,7 @@ namespace Shoot_em_Up
             window.SetActive(true);
             window.Closed += window_Closed;
             window.KeyReleased += window_KeyReleased;
-            window.KeyPressed += window_KeyPressed;
+            //window.KeyPressed += window_KeyPressed;
             window.MouseMoved += window_MouseMoved;
             window.MouseEntered += window_MouseEntered;
             window.MouseLeft += window_MouseLeft;
@@ -76,7 +76,8 @@ namespace Shoot_em_Up
             if (accumulator > MAX_DT) accumulator = MAX_DT;
             while (accumulator >= DT)
             {
-                //update the game as long as the "lag" is not compensated 
+                //update the game as long as the "lag" is not compensated
+                ReadInput();
                 sEmUp.Update(DT);
                 accumulator -= DT;
             }
@@ -88,6 +89,28 @@ namespace Shoot_em_Up
             sEmUp.Draw(window, alpha);
             gui.Draw(window);
             mouseSprite.Draw(window, RenderStates.Default);
+        }
+
+        private static void ReadInput()
+        {
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Left))
+            {
+                sEmUp.MovePlayer(Keyboard.Key.Left);
+            }
+            else if (Keyboard.IsKeyPressed(Keyboard.Key.Right))
+            {
+                sEmUp.MovePlayer(Keyboard.Key.Right);
+            }
+            if(Keyboard.IsKeyPressed(Keyboard.Key.Up)) {
+                sEmUp.MovePlayer(Keyboard.Key.Up);
+            } else if (Keyboard.IsKeyPressed(Keyboard.Key.Down))
+            {
+                sEmUp.MovePlayer(Keyboard.Key.Down);
+            }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
+            {
+                sEmUp.Fire();
+            }
         }
 
         #region Listener
