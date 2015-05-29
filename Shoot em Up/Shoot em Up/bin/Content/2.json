@@ -21,7 +21,7 @@
         "type": "Astroid",
         "spawnAt": 20,
         "x": 240,
-		"y": 100
+	"y": 100
     },
 	{
         "type": "MeanEnemy",

@@ -17,10 +17,19 @@ namespace Shoot_em_Up
         {
             rigidBody.Velocity = new Vector2f(EMath.random.Next(-50,50),EMath.random.Next(10,30));
             rigidBody.Restitution = 1.0f;
-            this.hp = 50;
+            this.hp = 70;
             this.maxDamage = 100;
             this.maxPoints = 20;
             this.drawable.Texture = texture;
+            this.validateVelocity();
+            Console.WriteLine(this.rigidBody.Velocity);
+        }
+
+        public void validateVelocity()
+        {
+            if(this.rigidBody.Velocity.X>0 && this.rigidBody.Velocity.Y >0) {
+                this.rigidBody.Velocity = new Vector2f(this.rigidBody.Velocity.X, -this.rigidBody.Velocity.Y);
+            }
         }
     }
 }
