@@ -25,11 +25,11 @@ namespace Physics {
         //updates all objects in the list
         public void Update(float dt) {
             if (!frozen) {
-                for (int i = 0; i < objects.Count; ++i) {
+                Parallel.For(0, objects.Count, i =>
+                {
                     objects[i].Update(dt);
                     ApplyForces(dt, i);
-                }
-                // frozen = true;
+                });
             }
         }
 
