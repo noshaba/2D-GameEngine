@@ -33,7 +33,7 @@ namespace Shoot_em_Up
             this.drawable.Texture = texture;
             this.weapon = new Weapon(this, 20, 500, 30, "singleShot", new Vector2f(0,-1), new Vector2f(0, -texture.Size.Y/2), Color.Red);
             this.shield = false;
-            this.maxShieldHp = 300;
+            this.maxShieldHp = 150;
             this.shieldHp = this.maxShieldHp;
             this.clock = new Stopwatch();
             this.shieldStatus = "sR";
@@ -118,7 +118,7 @@ namespace Shoot_em_Up
                 this.clock.Restart();
                 this.shieldStatus = "sC";
             }
-            if(this.clock.ElapsedMilliseconds/1000 >= 2 && !this.shield) {
+            if(this.clock.ElapsedMilliseconds/1000 >= this.maxShieldHp/10 && !this.shield) {
                 this.shieldHp = this.maxShieldHp;
                 this.clock.Stop();
                 this.shieldStatus = "sR";
