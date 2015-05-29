@@ -27,7 +27,7 @@ namespace Shoot_em_Up {
 
         private Stopwatch clock;
         public GameStatus status;
-        public int level = 1;
+        public int level;
         private int maxLevel = 2;
         private LevelManager progressor;
         public bool levelEnded;
@@ -66,6 +66,7 @@ namespace Shoot_em_Up {
         }
 
         public void Update(float dt) {
+            
             if (!this.physics.frozen)
             {
                 if (this.status == GameStatus.Active)
@@ -75,6 +76,7 @@ namespace Shoot_em_Up {
                         this.status = GameStatus.Credits;
                         this.Reset();
                     }
+                    
                     if (levelEnded)
                         CheckFinal();
                     //all the updating
@@ -84,6 +86,8 @@ namespace Shoot_em_Up {
                     for (int i = 0; i < objects.Count; ++i)
                     {
                         objects[i].Update();
+                        //there exists a better way for this???
+                        shapes[i] = objects[i].rigidBody;
                     }
 
                     for (int i = 0; i < objects.Count; ++i)
@@ -122,7 +126,7 @@ namespace Shoot_em_Up {
         public void StartGame()
         {
             this.Reset();
-
+            this.levelEnded = false;
             this.player = new Player(FactionManager.factions[(int) Faction.Type.Player],new Vector2f(this.WIDTH / 2, this.HEIGHT-40), new Texture("../Content/ships/1.png"));
             AddObject(player);
             this.clock.Start();

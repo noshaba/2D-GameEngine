@@ -22,8 +22,6 @@ namespace Shoot_em_Up
             this.maxPoints = 20;
             this.drawable.Texture = texture;
             this.validateVelocity();
-            Console.WriteLine(this.rigidBody.Velocity);
-            Console.WriteLine(this.rigidBody.COM.Y);
         }
 
         public void validateVelocity()

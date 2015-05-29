@@ -32,19 +32,20 @@ namespace Shoot_em_Up
             : base(position, rotation, radius)
         {
             this.Faction = faction;
+            this.bodies = new[] { this.rigidBody, new Circle(position, rotation, radius) };
         }
 
         public PvPObject(Faction faction, Vector2f position, float rotation, float radius, float density)
             : base(position, rotation, radius, density)
         {
             this.Faction = faction;
-            this.bodies = new [] { this.rigidBody };
+            this.bodies = new[] { this.rigidBody, new Circle(position, rotation, radius) };
         }
 
         public PvPObject(Faction faction, Vector2f normal, Vector2f position, Vector2f size, float rotation) : base(normal, position, size, rotation)
         {
             this.Faction = faction;
-            this.bodies = new[] { this.rigidBody };
+            this.bodies = new[] { this.rigidBody, new Circle(position, rotation, size.Y/2) };
         }
         
         public PvPObject(Faction faction,  Vector2f[] vertices, Vector2f position, float rotation) : base(vertices, position, rotation)
@@ -56,7 +57,7 @@ namespace Shoot_em_Up
         public PvPObject(Faction faction, Texture texture, Vector2f position, float rotation) : base(texture, position, rotation)
         {
             this.Faction = faction;
-            this.bodies = new[] { this.rigidBody };
+            this.bodies = new[] { this.rigidBody, new Circle(position, rotation, texture.Size.Y/2) };
         }
 
         public PvPObject(Faction faction, Vector2f[] vertices, Vector2f position, float rotation, float density)
@@ -69,6 +70,7 @@ namespace Shoot_em_Up
             : base(texture, position, rotation, density)
         {
             this.Faction = faction;
+            this.bodies = new[] { this.rigidBody, new Circle(position, rotation, texture.Size.Y / 2) };
         }
 
         public override void Update()
@@ -92,6 +94,7 @@ namespace Shoot_em_Up
 
         public override void LateUpdate()
         {
+            
             opponent = null;
             // change color with hp / MAXHP
             this.drawable.FillColor = this.hp <= this.maxHP*0.25 ? Color.Red : drawable.FillColor;

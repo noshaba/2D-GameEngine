@@ -32,7 +32,7 @@ namespace Shoot_em_Up {
             this.welcome.Add(title);
             this.welcome.Add(start);
             
-            restart = new Button(new Vector2f(150, 350), new Vector2f(200, 50), "Play Again!", this.color, 24, ReStartGame);
+            restart = new Button(new Vector2f(150, 350), new Vector2f(200, 50), "Play Again!", this.color, 24, StartGame);
             this.credits.Add(restart);
 
             this.children = this.welcome;
@@ -40,12 +40,6 @@ namespace Shoot_em_Up {
 
         private void StartGame()
         {
-            game.StartGame();
-        }
-
-        private void ReStartGame()
-        {
-            game.Reset();
             game.StartGame();
         }
 

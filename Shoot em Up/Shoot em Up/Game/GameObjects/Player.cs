@@ -37,6 +37,7 @@ namespace Shoot_em_Up
 
         public void Move(Keyboard.Key k)
         {
+            
             switch (k)
             {
                 case Keyboard.Key.Right:
@@ -53,9 +54,13 @@ namespace Shoot_em_Up
                     break;
 
             }
+            this.bodies[0].Current.position = this.rigidBody.Current.position;
+            this.bodies[1].Current.position = this.rigidBody.Current.position;
+            //Console.WriteLine("Ship: " + this.bodies[0].Current.position.X);
+            //Console.WriteLine("Shield: " + this.bodies[1].Current.position.X);
         }
 
-        /*public void ToggleShield()
+        public void ToggleShield()
         {
             this.shield = !this.shield;
             this.checkShield();
@@ -73,7 +78,7 @@ namespace Shoot_em_Up
                 this.shieldOff(this.rigidBody.Velocity, this.rigidBody.COM);
                 this.drawable.Texture = new Texture("../Content/ships/1.png");
             }
-        }*/
+        }
 
         public void Stop()
         {
