@@ -69,7 +69,7 @@ namespace Shoot_em_Up
             } else if(k == Keyboard.Key.Down) {
                 this.rigidBody.Velocity = new Vector2f(0, this.speed);
             }*/
-            this.rigidBody.Velocity = this.rigidBody.Current.worldTransform * this.rigidBody.Velocity;
+            this.rigidBody.Velocity = this.rigidBody.WorldTransform* this.rigidBody.Velocity;
         }
 
         public void ToggleShield()
