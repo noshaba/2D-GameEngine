@@ -30,7 +30,7 @@ namespace Shoot_em_Up
 
         //create game and gui fitting for the window
         static Game sEmUp = new Game(WIDTH, HEIGHT);
-        static GUI gui = new GUI(WIDTH, HEIGHT, sEmUp);
+//        static GUI gui = new GUI(WIDTH, HEIGHT, sEmUp);
 
         //main method
         static void Main(string[] args)
@@ -87,13 +87,13 @@ namespace Shoot_em_Up
         private static void Draw(float alpha)
         {
             sEmUp.Draw(window, alpha);
-            gui.Draw(window);
+         //   gui.Draw(window);
             mouseSprite.Draw(window, RenderStates.Default);
         }
 
         private static void ReadInput()
         {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Left))
+        /*    if (Keyboard.IsKeyPressed(Keyboard.Key.Left))
             {
                 sEmUp.MovePlayer(Keyboard.Key.Left);
             }
@@ -110,7 +110,7 @@ namespace Shoot_em_Up
             if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
             {
                 sEmUp.Fire();
-            }
+            }*/
         }
 
         #region Listener
@@ -118,7 +118,7 @@ namespace Shoot_em_Up
         private static void window_MouseMoved(object sender, MouseMoveEventArgs e)
         {
             mouseSprite.Position = new Vector2f(e.X, e.Y);
-            gui.OnHover(e.X, e.Y);
+         //   gui.OnHover(e.X, e.Y);
         }
 
         private static void window_MouseLeft(object sender, EventArgs e)
@@ -133,19 +133,19 @@ namespace Shoot_em_Up
 
         private static void window_MouseButtonReleased(object sender, MouseButtonEventArgs e)
         {
-            gui.Released(e.X, e.Y);
+         //   gui.Released(e.X, e.Y);
         }
 
         private static void window_MouseButtonPressed(object sender, MouseButtonEventArgs e)
         {
-            gui.Pressed(e.X, e.Y);
+         //   gui.Pressed(e.X, e.Y);
         }
 
         static void window_KeyReleased(object sender, KeyEventArgs e)
         {
             switch (e.Code)
             {
-                case Keyboard.Key.Escape:
+          /*      case Keyboard.Key.Escape:
                     window.Close();
                     break;
                 case Keyboard.Key.Return:
@@ -167,7 +167,7 @@ namespace Shoot_em_Up
                     sEmUp.player.ToggleShield();
                     break;
                 default:
-                    break;
+                    break;*/
             }
         }
 
@@ -177,10 +177,10 @@ namespace Shoot_em_Up
                 case Keyboard.Key.Right:
                 case Keyboard.Key.Up:
                 case Keyboard.Key.Down:
-                    sEmUp.MovePlayer(e.Code);
+             //       sEmUp.MovePlayer(e.Code);
                     break;
                 case Keyboard.Key.Space:
-                    sEmUp.Fire();
+              //      sEmUp.Fire();
                     break;
             }
         }

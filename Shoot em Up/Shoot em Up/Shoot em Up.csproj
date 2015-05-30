@@ -57,23 +57,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Game\GameObjects\Enemy.cs" />
     <Compile Include="Game\FileManager\JSONManager.cs" />
-    <Compile Include="Game\FileManager\FactionManager.cs" />
-    <Compile Include="Game\FileManager\SoundManager.cs" />
     <Compile Include="Game\Game.cs" />
-    <Compile Include="Game\GameObjects\Astroid.cs" />
-    <Compile Include="Game\GameObjects\Bullet.cs" />
-    <Compile Include="Game\GameObjects\Faction.cs" />
+    <Compile Include="Game\GameObjects\Achievement.cs" />
     <Compile Include="Game\GameObjects\GameObject.cs" />
-    <Compile Include="Game\GameObjects\LevelManager.cs" />
-    <Compile Include="Game\GameObjects\Spawn.cs" />
-    <Compile Include="Game\GameObjects\Player.cs" />
-    <Compile Include="Game\GameObjects\PvPObject.cs" />
+    <Compile Include="Game\GameObjects\GroundType.cs" />
+    <Compile Include="Game\GameObjects\Planet.cs" />
     <Compile Include="Game\GameObjects\Wall.cs" />
-    <Compile Include="Game\GameObjects\Weapon.cs" />
     <Compile Include="Game\GUI\GUI.cs" />
-    <Compile Include="Game\GameObjects\Item.cs" />
     <Compile Include="GUI\Screen.cs" />
     <Compile Include="Game\Program.cs" />
     <Compile Include="GUI\Button.cs" />

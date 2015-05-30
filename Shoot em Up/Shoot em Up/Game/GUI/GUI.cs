@@ -30,14 +30,14 @@ namespace Shoot_em_Up {
         public GUI(int width, int height, Game g) : base(new Vector2f(0, 0), new Vector2f(width, height)) {
             game = g;
             this.color = new Color(255,255,255);
-            start = new Button(new Vector2f(150, 640), new Vector2f(200,50), "Start Game!", this.color, 24, StartGame);
+           // start = new Button(new Vector2f(150, 640), new Vector2f(200,50), "Start Game!", this.color, 24, StartGame);
             title = new Screen(0,0,"../Content/title.png", this.color);
             this.welcome.Add(title);
             this.welcome.Add(start);
             
 
-            restart = new Button(new Vector2f(150, 440), new Vector2f(200, 50), "Play Again!", this.color, 24, StartGame);
-            this.results = new Menue(new Vector2f(20, 140), new Vector2f(440, 260), this.color);
+          //  restart = new Button(new Vector2f(150, 440), new Vector2f(200, 50), "Play Again!", this.color, 24, StartGame);
+         //   this.results = new Menue(new Vector2f(20, 140), new Vector2f(440, 260), this.color);
             this.credits.Add(restart);
             this.resultScore = new Label(new Vector2f(80, 100), "Your Score: ", this.color, 24);
             this.results.Add(resultScore);
@@ -45,7 +45,7 @@ namespace Shoot_em_Up {
 
             this.children = this.welcome;
         }
-
+/*
         private void StartGame()
         {
             game.StartGame();
@@ -101,6 +101,6 @@ namespace Shoot_em_Up {
                 shield.setImage("../Content/" + this.game.player.shieldStatus + ".png");
                 this.resultScore.DisplayedString = "Your Score: " + this.game.player.score.ToString();
             }
-        }
+        }*/
     }
 }

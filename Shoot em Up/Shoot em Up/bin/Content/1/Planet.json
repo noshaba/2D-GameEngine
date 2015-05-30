@@ -1,0 +1,37 @@
+{
+  "Name": "some name",
+  "BackgroundImage": "image_path",
+  "BackgroundMusic": "audio_path",
+  "Gravity": [123, -4],
+  "Friction": true,
+  "Damping": 0.1,
+  "Achievement": 14,
+  "AchievementMinRequirement": 1000,
+  "GroundTypes": [
+     {
+        "Name": "stone wall",
+        "Restitution": 1.0,
+        "StaticFriction": 0.2,
+        "KineticFriction": 0.5,
+        "Sprite": "image_path",
+        "SpriteTileSize": [50,50]
+     },
+     {
+        "Name": "grass",
+        "Restitution": 1.0,
+        "StaticFriction": 0.2,
+        "KineticFriction": 0.5,
+        "Sprite": "image_path",
+        "SpriteTileSize": [50,50]
+     },
+     {
+        "Name": "ice",
+        "Restitution": 1.0,
+        "StaticFriction": 0,
+        "KineticFriction": 0,
+        "Sprite": "image_path",
+        "SpriteTileSize": [50,50]
+     }
+  ],
+  "Ground": [0, 1, 1, 1, 1, 2, 2, 2, 1, 1, 0]
+}
