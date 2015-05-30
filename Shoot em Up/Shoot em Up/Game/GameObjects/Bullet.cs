@@ -42,6 +42,7 @@ namespace Shoot_em_Up {
                 {
                     if(opponent.hp <= 0 && opponent.alive) {
                         shooter.score += (100 - opponent.Faction.Reputation[(int)this.Faction.ID]) * opponent.maxPoints / 100;
+                        Console.WriteLine("derp");
                         opponent.alive = false;
                     }
                 }

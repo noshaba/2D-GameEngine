@@ -28,7 +28,7 @@ namespace Shoot_em_Up {
         private Stopwatch clock;
         public GameStatus status;
         public int level;
-        private int maxLevel = 2;
+        private int maxLevel = 2; //number of levels to play(../Content/levels for available levels)
         private LevelManager progressor;
         public bool levelEnded;
         public int numberOfFoes = 0;
@@ -72,7 +72,6 @@ namespace Shoot_em_Up {
             {
                 if (this.status == GameStatus.Active)
                 {
-                    Console.WriteLine(this.player.score);
 
                     if (!this.player.display)
                     {
@@ -152,8 +151,9 @@ namespace Shoot_em_Up {
                     this.level++;
                     this.progressor.LoadLevel(this.level);
                     this.clock.Restart();
-                } else if (this.level == this.maxLevel)
+                } else if (this.level == this.maxLevel )
                 {
+                    //System.Threading.Thread.Sleep(3000);
                     this.status = GameStatus.Credits;
                 }
             }
