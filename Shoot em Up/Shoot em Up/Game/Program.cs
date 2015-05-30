@@ -12,8 +12,8 @@ namespace Shoot_em_Up
 {
     class Program
     {
-        const int WIDTH = 480;
-        const int HEIGHT = 728;
+        const int WIDTH = 1200;
+        const int HEIGHT = 700;
         const float FPS = 60.0f;
         const float MIN_FPS = 20.0f;
         const float DT = 1.0f / FPS;
@@ -55,7 +55,7 @@ namespace Shoot_em_Up
         {
             context.AntialiasingLevel = 8;
             window = new RenderWindow(new VideoMode(WIDTH, HEIGHT), "Shoot em Up!", Styles.Close, context);
-            window.Position = new Vector2i(320,0);
+            window.Position = new Vector2i(0,0);
             window.SetActive(true);
             window.Closed += window_Closed;
             window.KeyReleased += window_KeyReleased;

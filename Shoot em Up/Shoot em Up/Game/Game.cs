@@ -18,12 +18,8 @@ namespace Shoot_em_Up {
         private static List<IRigidBody> shapes = new List<IRigidBody>();
         private int WIDTH;
         private int HEIGHT;
-        private int MIN_OBJECTS;
 
         public Player player;
-
-        private Wall left;
-        private Wall right;
 
         private Stopwatch clock;
         public GameStatus status;
@@ -50,14 +46,7 @@ namespace Shoot_em_Up {
         public Game(int width, int height) {
             WIDTH = width;
             HEIGHT = height;
-            MIN_OBJECTS = 2; //2 walls
             physics = new Physic(shapes, new Vector2f(0, 0), 0, false);
-
-            this.right = new Wall(new Vector2f(-1, 0), new Vector2f(width - 0.5f, height * 0.5f), new Vector2f(1.0f, height), Color.Black);
-            this.left = new Wall(new Vector2f( 1, 0), new Vector2f(0.5f, height * 0.5f), new Vector2f(1.0f, height), Color.Black);
-
-            AddObject(this.right);
-            AddObject(this.left);
 
             FactionManager.LoadJSON();
 
@@ -243,8 +232,8 @@ namespace Shoot_em_Up {
         #endregion
         public void Reset()
         {
-            objects.RemoveRange(MIN_OBJECTS, objects.Count - MIN_OBJECTS);
-            shapes.RemoveRange(MIN_OBJECTS, shapes.Count - MIN_OBJECTS);
+            objects.RemoveRange(0,objects.Count);
+            shapes.RemoveRange(0,shapes.Count);
         }
 
     }

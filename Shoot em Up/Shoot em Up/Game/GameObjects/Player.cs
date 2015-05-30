@@ -20,8 +20,9 @@ namespace Shoot_em_Up
         public String shieldStatus;
 
         public Player(Faction faction, Vector2f position, Texture texture)
-            : base(faction, texture, position, 0, 0.9f)
+            : base(faction, texture, position, 90, 0.9f)
         {
+            //this.rigidBody.Orientation = 1.5f;
             this.rigidBody.Restitution = 1.0f;
             this.speed = 50;
             this.fire = false;
@@ -64,18 +65,20 @@ namespace Shoot_em_Up
             }*/
             if (k == Keyboard.Key.Right && this.rigidBody.AngularVelocity != .5f)
             {
-                this.rigidBody.AngularVelocity = .5f;
+                
+                this.rigidBody.Velocity = new Vector2f(0,-this.speed);
             }
             else if (k == Keyboard.Key.Left && this.rigidBody.AngularVelocity != -.5f)
             {
-                this.rigidBody.AngularVelocity = -.5f;
+                
+                this.rigidBody.Velocity = new Vector2f(0, this.speed);
             }
             if (k == Keyboard.Key.Up) 
             {
-                this.rigidBody.Velocity = new Vector2f(0, -this.speed);
+                this.rigidBody.AngularVelocity = -.5f;
             } else if (k == Keyboard.Key.Down) 
             {
-                this.rigidBody.Velocity = new Vector2f(0, this.speed);
+                this.rigidBody.AngularVelocity = .5f;
             }
             this.rigidBody.Velocity = this.rigidBody.WorldTransform* this.rigidBody.Velocity;
         }
