@@ -125,6 +125,7 @@ namespace Shoot_em_Up {
             this.numberOfFoes = 0;
             this.player = new Player(FactionManager.factions[(int) Faction.Type.Player],new Vector2f(this.WIDTH / 2, this.HEIGHT/2), new Texture("../Content/ships/1.png"));
             AddObject(player);
+            AddObject(new Wall(new Vector2f(0, -1), new Vector2f(WIDTH * 0.5f, HEIGHT - 12.5f), new Vector2f(WIDTH, 25.0f), Color.White));
             //AddObject(new Item("../Content/item.png", heal));
             this.clock.Restart();
             this.status = GameStatus.Active;

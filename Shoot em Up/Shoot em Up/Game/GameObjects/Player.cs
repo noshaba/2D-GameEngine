@@ -130,6 +130,10 @@ namespace Shoot_em_Up
                 this.clock.Stop();
                 this.shieldStatus = "sR";
             }
+            if (rigidBody.Collision.collision && rigidBody.Collision.obj.Parent is Wall)
+            {
+                this.hp = 0;
+            }
             this.updateBodies();
             this.checkShield();
             this.shoot();
