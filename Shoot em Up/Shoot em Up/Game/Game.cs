@@ -46,7 +46,7 @@ namespace Shoot_em_Up {
         public Game(int width, int height) {
             WIDTH = width;
             HEIGHT = height;
-            physics = new Physic(shapes, new Vector2f(0, 0), 0, false);
+            physics = new Physic(shapes, new Vector2f(0, 8), 0, false);
 
             FactionManager.LoadJSON();
 
@@ -123,7 +123,7 @@ namespace Shoot_em_Up {
             this.level = 1;
             this.levelEnded = false;
             this.numberOfFoes = 0;
-            this.player = new Player(FactionManager.factions[(int) Faction.Type.Player],new Vector2f(this.WIDTH / 2, this.HEIGHT-40), new Texture("../Content/ships/1.png"));
+            this.player = new Player(FactionManager.factions[(int) Faction.Type.Player],new Vector2f(this.WIDTH / 2, this.HEIGHT/2), new Texture("../Content/ships/1.png"));
             AddObject(player);
             //AddObject(new Item("../Content/item.png", heal));
             this.clock.Restart();
