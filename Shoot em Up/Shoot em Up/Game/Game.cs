@@ -130,9 +130,15 @@ namespace Shoot_em_Up {
             this.numberOfFoes = 0;
             this.player = new Player(FactionManager.factions[(int) Faction.Type.Player],new Vector2f(this.WIDTH / 2, this.HEIGHT-40), new Texture("../Content/ships/1.png"));
             AddObject(player);
+            AddObject(new Item("../Content/item.png", heal));
             this.clock.Restart();
             this.status = GameStatus.Active;
             this.progressor.LoadLevel(this.level);
+        }
+
+        private void heal()
+        {
+            this.player.hp += 150;
         }
 
         public void CheckFinal()
