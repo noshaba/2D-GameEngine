@@ -37,6 +37,11 @@ namespace Shoot_em_Up {
         {
             Active, Welcome, Credits
         }
+
+        public enum GameItem
+        {
+            Heal, Bomb
+        }
         
         //constructor
         public Game(int width, int height) {
@@ -88,7 +93,6 @@ namespace Shoot_em_Up {
                         //there exists a better way for this???
                         shapes[i] = objects[i].rigidBody;
                     }
-
                     for (int i = 0; i < objects.Count; ++i)
                     {
                         objects[i].LateUpdate();
@@ -98,7 +102,11 @@ namespace Shoot_em_Up {
                         }
                         if (!objects[i].display)
                         {
-                            if(!(objects[i] is Player || objects[i] is Bullet)) {
+                            if (objects[i] is Enemy)
+                            {
+                                AddItem((objects[i] as Enemy).drop, objects[i].rigidBody.COM);
+                            }
+                            if((objects[i] is Enemy || objects[i] is Astroid)) {
                                 this.numberOfFoes--;
                             }
                             objects.RemoveAt(i);
@@ -130,7 +138,7 @@ namespace Shoot_em_Up {
             this.numberOfFoes = 0;
             this.player = new Player(FactionManager.factions[(int) Faction.Type.Player],new Vector2f(this.WIDTH / 2, this.HEIGHT-40), new Texture("../Content/ships/1.png"));
             AddObject(player);
-            AddObject(new Item("../Content/item.png", heal));
+            //AddObject(new Item("../Content/item.png", heal));
             this.clock.Restart();
             this.status = GameStatus.Active;
             this.progressor.LoadLevel(this.level);
@@ -163,6 +171,20 @@ namespace Shoot_em_Up {
             AddObject(new Astroid(FactionManager.factions[(int)Faction.Type.None], new Texture("../Content/astroids/"+no+".png"), new Vector2f(x,y), EMath.Random(0,360)));
         }
 
+        public void AddItem(Game.GameItem item, Vector2f pos)
+        {
+            Console.WriteLine("drop");
+            switch (item)
+            {
+                case Game.GameItem.Heal: AddObject(new Item("../Content/item.png", heal, pos));
+                    break;
+                case Game.GameItem.Bomb: AddObject(new Item("../Content/item.png", heal, pos));
+                    break;
+                default:
+                    break;
+
+            }
+        }
 
         public void AddEnemy(float x, float y)
         {

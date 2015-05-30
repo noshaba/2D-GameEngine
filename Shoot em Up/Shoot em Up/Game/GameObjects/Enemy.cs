@@ -22,6 +22,7 @@ namespace Shoot_em_Up
         private String texture;
         private Vector2f[] path;
         private int i = 0;
+        public Game.GameItem drop;
 
          public Enemy(Faction faction, Vector2f position, String texture, int hp, int dmg, int speed, String pattern, Color color)
             : base(faction, new Texture("../Content/ships/" + texture + ".png"), position, 0, 0.9f)
@@ -43,6 +44,7 @@ namespace Shoot_em_Up
             //shieldOn(this.rigidBody.COM);
             this.path = (new BezierSpline((new[] { new Vector2f(0,0), new Vector2f(200,500), new Vector2f(400, 0) }).ToList(),6,.5f)).curve;
             // Console.WriteLine(this.path.Count());
+            this.drop = Game.GameItem.Heal;
             this.movements["stationary"] = stationary;
             this.movements["sideToSide"] = sideToSide;
             this.movements["path"] = RandomPath;

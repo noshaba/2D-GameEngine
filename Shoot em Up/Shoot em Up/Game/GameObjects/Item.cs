@@ -11,7 +11,7 @@ namespace Shoot_em_Up
     {
         public delegate void ActionListener();
         public ActionListener listener;
-        public Item(String texture, ActionListener listener): base(new Texture(texture), new Vector2f(200,400), 1, 1) 
+        public Item(String texture, ActionListener listener, Vector2f pos): base(new Texture(texture), pos, 1, 1) 
         {
             this.listener = listener;
             this.drawable.Texture = new Texture(texture);
@@ -20,7 +20,7 @@ namespace Shoot_em_Up
         public override void Update()
         {
             base.Update();
-            if (rigidBody.Collision.collision)
+            if (rigidBody.Collision.collision && !(rigidBody.Collision.obj.Parent is Bullet))
             {
                 this.display = false;
                 this.listener();
