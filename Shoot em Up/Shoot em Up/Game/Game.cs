@@ -72,6 +72,8 @@ namespace Shoot_em_Up {
             {
                 if (this.status == GameStatus.Active)
                 {
+                    Console.WriteLine(this.player.score);
+
                     if (!this.player.display)
                     {
                         this.status = GameStatus.Credits;

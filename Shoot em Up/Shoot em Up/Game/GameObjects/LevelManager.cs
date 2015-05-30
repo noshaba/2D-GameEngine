@@ -19,7 +19,7 @@ namespace Shoot_em_Up
         public void LoadLevel(int lvl)
         {
 
-            using (StreamReader sr = new StreamReader("../Content/"+lvl+".json"))
+            using (StreamReader sr = new StreamReader("../Content/levels/"+lvl+".json"))
             {
                 this.handled = 0;
                 String line = sr.ReadToEnd();

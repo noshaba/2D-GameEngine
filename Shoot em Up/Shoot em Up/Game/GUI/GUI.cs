@@ -99,7 +99,7 @@ namespace Shoot_em_Up {
                 hp.DisplayedString = this.game.player.hp.ToString() + "/" + this.game.player.maxHP.ToString();
                 lvl.DisplayedString = this.game.level.ToString();
                 shield.setImage("../Content/" + this.game.player.shieldStatus + ".png");
-                this.resultScore.DisplayedString = "Your Score: "+scoreLabel.DisplayedString;
+                this.resultScore.DisplayedString = "Your Score: " + this.game.player.score.ToString();
             }
         }
     }
