@@ -33,6 +33,7 @@ namespace Shoot_em_Up {
         public bool levelEnded;
         public int numberOfFoes = 0;
 
+        #region enums
         public enum GameStatus
         {
             Active, Welcome, Credits
@@ -42,6 +43,8 @@ namespace Shoot_em_Up {
         {
             Heal, Bomb
         }
+
+#endregion
         
         //constructor
         public Game(int width, int height) {
@@ -61,12 +64,6 @@ namespace Shoot_em_Up {
             this.clock = new Stopwatch();
             this.status = GameStatus.Welcome;
             this.progressor = new LevelManager(this);
-        }
-
-        public static void AddObject(GameObject obj)
-        {
-            objects.Add(obj);
-            shapes.Add(obj.rigidBody);
         }
 
         public void Update(float dt) {
@@ -144,16 +141,6 @@ namespace Shoot_em_Up {
             this.progressor.LoadLevel(this.level);
         }
 
-        private void heal()
-        {
-            this.player.hp += 150;
-        }
-
-        private void bomb()
-        {
-            this.player.hp -= 150;
-        }
-
         public void CheckFinal()
         {
             //if all objects from the lvl have been destroyed
@@ -170,6 +157,25 @@ namespace Shoot_em_Up {
             }
         }
 
+        #region ItemFunctions
+        private void heal()
+        {
+            this.player.hp += 150;
+        }
+
+        private void bomb()
+        {
+            this.player.hp -= 150;
+        }
+        #endregion
+
+        #region ObjectAdders
+
+        public static void AddObject(GameObject obj)
+        {
+            objects.Add(obj);
+            shapes.Add(obj.rigidBody);
+        }
         public void GenerateAstroid(float x, float y) {
             Random r = new Random();
             int no = r.Next(1,5);
@@ -178,7 +184,6 @@ namespace Shoot_em_Up {
 
         public void AddItem(Game.GameItem item, Vector2f pos)
         {
-            Console.WriteLine("drop");
             switch (item)
             {
                 case Game.GameItem.Heal: AddObject(new Item("../Content/items/heal.png", heal, pos));
@@ -200,7 +205,9 @@ namespace Shoot_em_Up {
         {
             AddObject(new Enemy(FactionManager.factions[(int)Faction.Type.AI], new Vector2f(x, y), "5", 500, 10, 30, "path",  new Color(99,0,78)));
         }
+        #endregion
 
+        #region InputHandlers
         public void MovePlayer(Keyboard.Key k)
         {
             if(status == GameStatus.Active) this.player.Move(k);
@@ -221,11 +228,7 @@ namespace Shoot_em_Up {
             if (status == GameStatus.Active) this.player.fire = false;
         }
 
-        public void Reset()
-        {
-            objects.RemoveRange(MIN_OBJECTS, objects.Count - MIN_OBJECTS);
-            shapes.RemoveRange(MIN_OBJECTS, shapes.Count - MIN_OBJECTS);
-        }
+
 
         public void Pause()
         {
@@ -234,6 +237,12 @@ namespace Shoot_em_Up {
                 this.player.fire = false;
                 this.physics.frozen = !this.physics.frozen;
             }
+        }
+        #endregion
+        public void Reset()
+        {
+            objects.RemoveRange(MIN_OBJECTS, objects.Count - MIN_OBJECTS);
+            shapes.RemoveRange(MIN_OBJECTS, shapes.Count - MIN_OBJECTS);
         }
 
     }

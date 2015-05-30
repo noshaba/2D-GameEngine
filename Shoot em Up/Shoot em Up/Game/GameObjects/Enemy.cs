@@ -44,7 +44,7 @@ namespace Shoot_em_Up
             //shieldOn(this.rigidBody.COM);
             this.path = (new BezierSpline((new[] { new Vector2f(0,0), new Vector2f(200,500), new Vector2f(400, 0) }).ToList(),6,.5f)).curve;
             // Console.WriteLine(this.path.Count());
-            this.drop = Game.GameItem.Heal;
+            this.drop = this.DetermineDrop();
             this.movements["stationary"] = stationary;
             this.movements["sideToSide"] = sideToSide;
             this.movements["path"] = RandomPath;
@@ -63,7 +63,20 @@ namespace Shoot_em_Up
              }
          }
 
-
+         private Game.GameItem DetermineDrop() {
+             Game.GameItem i;
+             Random r = new Random();
+             int no = r.Next(0,100);
+             if (no > 50)
+             {
+                i  = Game.GameItem.Bomb;
+             }
+             else
+             {
+                 i = Game.GameItem.Heal;
+             }
+             return i;
+         }
 
          private void shoot()
          {

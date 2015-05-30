@@ -2,26 +2,28 @@ Controls:
 	- move ship with arrow keys up/down = up/down left/right = change direction(rotation)
 	- shoot with spacebar
 	- press "p" to pause the game
-	- press "s" to activate shield
+	- press "s" to activate shield when available
 
 Features:
 	- reusable physics
 	- simple bullet patterns
 	- rotation
 	- reusable GUI	
+	- items
+	- customizable levels(jsons)
+	- factions
 	...I think there is more to add here
 
 To-Do:
 	- remove walls
 	- different enemys, also improve AI(there is no atual AI currently)
-	- powerups/special abilities/items
 	- bosses
 	- sound
 	- animations/sprites
 	- more obvious incorporation of the factions feature
 
 Bugs:
-	- score does not count up destroyed objects for seamingly random reasons
+	- score does not count up destroyed objects for seemingly random reasons
 	(possibly its the bullet collides with object works but object collides with bullet does not work issue again)
 	- once something is at the side of the screen it keeps colliding with the wall placed there and so bullets 
 	start to jump again as one object can always only collide(react to collision) with one other object at a time
