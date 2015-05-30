@@ -4,5 +4,41 @@
         "spawnAt": 1,
         "x": 240,
 		"y": 100
+    },
+{
+        "type": "Astroid",
+        "spawnAt": 1,
+        "x": 240,
+		"y": 100
+    },
+{
+        "type": "Astroid",
+        "spawnAt": 1,
+        "x": 240,
+		"y": 100
+    },
+{
+        "type": "Astroid",
+        "spawnAt": 1,
+        "x": 240,
+		"y": 100
+    },
+{
+        "type": "Astroid",
+        "spawnAt": 1,
+        "x": 240,
+		"y": 100
+    },
+{
+        "type": "Astroid",
+        "spawnAt": 1,
+        "x": 240,
+		"y": 100
+    },
+{
+        "type": "Astroid",
+        "spawnAt": 1,
+        "x": 240,
+		"y": 100
     }
 ]
