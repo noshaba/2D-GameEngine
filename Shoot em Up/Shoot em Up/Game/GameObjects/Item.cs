@@ -20,7 +20,7 @@ namespace Shoot_em_Up
         public override void Update()
         {
             base.Update();
-            if (rigidBody.Collision.collision && !(rigidBody.Collision.obj.Parent is Bullet))
+            if (rigidBody.Collision.collision && rigidBody.Collision.obj.Parent is Player)
             {
                 this.display = false;
                 this.listener();

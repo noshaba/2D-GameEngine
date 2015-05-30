@@ -149,6 +149,11 @@ namespace Shoot_em_Up {
             this.player.hp += 150;
         }
 
+        private void bomb()
+        {
+            this.player.hp -= 150;
+        }
+
         public void CheckFinal()
         {
             //if all objects from the lvl have been destroyed
@@ -176,9 +181,9 @@ namespace Shoot_em_Up {
             Console.WriteLine("drop");
             switch (item)
             {
-                case Game.GameItem.Heal: AddObject(new Item("../Content/item.png", heal, pos));
+                case Game.GameItem.Heal: AddObject(new Item("../Content/items/heal.png", heal, pos));
                     break;
-                case Game.GameItem.Bomb: AddObject(new Item("../Content/item.png", heal, pos));
+                case Game.GameItem.Bomb: AddObject(new Item("../Content/items/bomb.png", bomb, pos));
                     break;
                 default:
                     break;
