@@ -75,7 +75,60 @@ namespace Shoot_em_Up
 
         public void Update(float dt) 
         {
-            physics.Update(dt);
+            //physics.Update(dt);
+            if (!this.physics.frozen)
+            {
+               /* if (this.status == GameStatus.Active)
+                {
+
+                    if (!this.player.display)
+                    {
+                        this.status = GameStatus.Credits;
+                        this.Reset();
+                    }
+
+                    if (levelEnded)
+                        CheckFinal();
+                    //all the updating
+                    this.progressor.Progress((uint)this.clock.ElapsedMilliseconds);*/
+                    physics.Update(dt);
+
+                    for (int i = 0; i < objects.Count; ++i)
+                    {
+                        objects[i].Update();
+                        //there exists a better way for this???
+                        rigidBodies[i] = objects[i].rigidBody;
+
+                        objects[i].LateUpdate();
+
+                        if(!objects[i].display) {
+                            objects.RemoveAt(i);
+                            rigidBodies.RemoveAt(i);
+                        }
+                    }
+                    /*for (int i = 0; i < objects.Count; ++i)
+                    {
+                        objects[i].LateUpdate();
+                        if (objects[i].rigidBody.COM.Y < 0 || objects[i].rigidBody.COM.Y > this.HEIGHT || objects[i].rigidBody.COM.X < 0 || objects[i].rigidBody.COM.X > this.WIDTH)
+                        {
+                            objects[i].display = false;
+                        }
+                        if (!objects[i].display)
+                        {
+                            if (objects[i] is Enemy)
+                            {
+                                AddItem((objects[i] as Enemy).drop, objects[i].rigidBody.COM);
+                            }
+                            if ((objects[i] is Enemy || objects[i] is Astroid))
+                            {
+                                this.numberOfFoes--;
+                            }
+                            objects.RemoveAt(i);
+                            shapes.RemoveAt(i);
+                        }
+                    }*/
+                //}
+            }
         }
 
         public void Draw(RenderWindow window, float alpha)

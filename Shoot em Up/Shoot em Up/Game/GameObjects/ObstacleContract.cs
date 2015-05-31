@@ -40,11 +40,11 @@ namespace Shoot_em_Up {
         [DataMember]
         public int CollisionType { get; set; } 
         [DataMember]
-        public float  Health { get; set; }
+        public int  Health { get; set; }
         [DataMember]
-        public float Points { get; set; }
+        public int Points { get; set; }
         [DataMember]
-        public float Damage { get; set; }
+        public int Damage { get; set; }
         [DataMember]
         public int SpawnPatternID { get; set; }
         [DataMember]

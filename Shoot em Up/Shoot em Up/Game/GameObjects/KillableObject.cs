@@ -14,8 +14,8 @@ namespace Shoot_em_Up
         public int score;
         public int hp;
         public int maxHP = 1;
-        public int maxDamage;
-        public int maxPoints;
+        public int damage;
+        public int points;
         protected KillableObject opponent;
         public bool alive = true;
         public bool shield;
@@ -71,11 +71,11 @@ namespace Shoot_em_Up
                 if (opponent != null && !shield)
                 {
                     // decrease HP
-                    this.hp -= opponent.maxDamage;
+                    this.hp -= opponent.damage;
                 }
                 if (opponent != null && shield)
                 {
-                    this.shieldHp -= opponent.maxDamage;
+                    this.shieldHp -= opponent.damage;
                 }
             }
             base.Update();
