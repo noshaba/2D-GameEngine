@@ -74,7 +74,7 @@ namespace Shoot_em_Up
             this.rigidBody = new Polygon(CV.AlphaEdgeDetection(texture.CopyToImage().Pixels, texture.Size.X, texture.Size.Y, 0), position, rotation, density);
             this.rigidBody.Parent = this;
             this.drawable = new RectangleShape((Vector2f)texture.Size);
-            this.drawable.Origin = new Vector2f(texture.Size.X * .5f, texture.Size.Y * .5f);
+            this.drawable.Origin = this.rigidBody.Centroid;
             this.drawable.Texture = texture;
         }
 
