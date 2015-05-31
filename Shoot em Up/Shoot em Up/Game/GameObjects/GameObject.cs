@@ -55,6 +55,7 @@ namespace Shoot_em_Up
             this.rigidBody.Parent = this;
             this.drawable = new RectangleShape((Vector2f)texture.Size);
             this.drawable.Origin = new Vector2f(texture.Size.X * .5f, texture.Size.Y * .5f);
+            this.drawable.Texture = texture;
         }
 
         public GameObject(Vector2f[] vertices, Vector2f position, float rotation, float density)
@@ -70,6 +71,7 @@ namespace Shoot_em_Up
             this.rigidBody.Parent = this;
             this.drawable = new RectangleShape((Vector2f)texture.Size);
             this.drawable.Origin = new Vector2f(texture.Size.X * .5f, texture.Size.Y * .5f);
+            this.drawable.Texture = texture;
         }
 
 
