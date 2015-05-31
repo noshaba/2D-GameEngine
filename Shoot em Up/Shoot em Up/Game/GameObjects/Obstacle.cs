@@ -15,8 +15,10 @@ namespace Shoot_em_Up
         private float points;
         public int type;
         public int[] tileSize;
-         public Obstacle(int type, int[]ts, float density, float restitution, float staticFriction, float kineticFriction, Texture texture, Vector2f position, float health, float points, float dmg)
-            : base(texture, position, 0, density)
+
+       // string texturePath, int[] spriteTileSize, int[] spriteSize, int animationIndex, Vector2f position, float rotation, float density
+         public Obstacle(int type, int[]ts, float density, float restitution, float staticFriction, float kineticFriction, String texture, int[]spriteSize, Vector2f position, float health, float points, float dmg)
+            : base(texture, ts, spriteSize,0, position, 0, density)
          {
              this.rigidBody.Restitution = restitution;
              this.rigidBody.StaticFriction = staticFriction;
@@ -25,7 +27,6 @@ namespace Shoot_em_Up
              this.dmg = dmg;
              this.points = points;
              this.type = type;
-             this.tileSize = ts;
         }
     }
 }
