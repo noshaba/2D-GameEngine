@@ -10,12 +10,13 @@ namespace Shoot_em_Up
 {
     class GroundTile : GameObject
     {
-        public GroundTile(float restitution, float staticFriction, float kineticFriction, Texture texture, Vector2f position, float rotation)
-            : base(texture, position, rotation)
+        public GroundTile(float restitution, float staticFriction, float kineticFriction, Texture texture, float rotation, uint[] spriteTileSize, int index)
+            : base(texture, new Vector2f(0,0), rotation)
         {
             this.rigidBody.Restitution = restitution;
             this.rigidBody.StaticFriction = staticFriction;
             this.rigidBody.KineticFriction = kineticFriction;
+            this.rigidBody.COM = new Vector2f(spriteTileSize[0] * (index + .5f), Game.HEIGHT - spriteTileSize[1] + this.rigidBody.Centroid.Y);
         }
     }
 }

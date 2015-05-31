@@ -46,8 +46,7 @@ namespace Shoot_em_Up
             int i = 0;
             foreach(int g in Ground)
             {
-                GroundType gr = GroundTypes[g];
-                Game.Add(gr.getTile(new Vector2f(gr.SpriteTileSize[0] * (i + .5f), Game.HEIGHT - gr.SpriteTileSize[1] * .5f)));
+                Game.Add(GroundTypes[g].getTile(i));
                 ++i;
             }
         }

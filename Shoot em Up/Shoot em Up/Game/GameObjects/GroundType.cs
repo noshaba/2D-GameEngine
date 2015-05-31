@@ -34,9 +34,9 @@ namespace Shoot_em_Up
             tileNumber = (SpriteTileSize[0] / groundSprite.Texture.Size.X) * (SpriteTileSize[1] / groundSprite.Texture.Size.Y);
         }
 
-        public GroundTile getTile(Vector2f position)
+        public GroundTile getTile(int index)
         {
-            return new GroundTile(Restitution, StaticFriction, KineticFriction, new Texture(SpritePath), position, 0);
+            return new GroundTile(Restitution, StaticFriction, KineticFriction, new Texture(SpritePath), 0, SpriteTileSize, index);
         }
     }
 }
