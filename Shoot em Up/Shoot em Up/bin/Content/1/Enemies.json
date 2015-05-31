@@ -1,0 +1,70 @@
+[
+   [
+      {
+         "Name": "Canon",
+         "Density": 0,
+         "Restitution": 0.5,
+         "StaticFriction": 0.5,
+         "KineticFriction": 0.1,
+         "CollisionType": 1,
+         "Health": 25,
+         "Points": 10,
+         "Damage": 5,
+         "SpawnPatternID": 0,
+         "NumberOfObjects": 15,
+         "SpawnStartPosition": [240, 200],
+         "Sprite": "sprite_path",
+         "SpriteTileSize": [100, 100],
+         "Weapon": {
+            "Name": "name",
+            "WeaponImage": "image_path",
+            "BulletImage": "image_path",
+            "BulletCollisionType": 0
+         }
+      },
+      {
+         "Name": "SomeEnemy",
+         "Density": 0,
+         "Restitution": 0.5,
+         "StaticFriction": 0.5,
+         "KineticFriction": 0.1,
+         "CollisionType": 1,
+         "Health": 25,
+         "Points": 10,
+         "Damage": 5,
+         "SpawnPatternID": 0,
+         "NumberOfObjects": 15,
+         "SpawnStartPosition": [240, 200],
+         "Sprite": "sprite_path",
+         "SpriteTileSize": [100, 100],
+         "Weapon": {
+            "Name": "name",
+            "WeaponImage": "image_path",
+            "BulletImage": "image_path",
+            "BulletCollisionType": 0
+         }
+      },
+      {
+         "Name": "AnotherEnemy",
+         "Density": 0,
+         "Restitution": 0.5,
+         "StaticFriction": 0.5,
+         "KineticFriction": 0.1,
+         "CollisionType": 1,
+         "Health": 25,
+         "Points": 10,
+         "Damage": 5,
+         "SpawnPatternID": 0,
+         "NumberOfObjects": 15,
+         "SpawnStartPosition": [240, 200],
+         "Sprite": "sprite_path",
+         "SpriteTileSize": [100, 100],
+         "Weapon": {
+            "Name": "name",
+            "WeaponImage": "image_path",
+            "BulletImage": "image_path",
+            "BulletCollisionType": 0
+         }
+      }
+   ]
+]

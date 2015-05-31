@@ -1,6 +1,6 @@
 {
   "Name": "some name",
-  "BackgroundImage": "image_path",
+  "BackgroundImage": "../Content/1/images/BG.png",
   "BackgroundMusic": "audio_path",
   "Gravity": [123, -4],
   "Friction": true,

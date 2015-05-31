@@ -26,8 +26,20 @@ namespace Shoot_em_Up
         {
             WIDTH = width;
             HEIGHT = height;
-            level = 1;
-            LoadLevel();
+            Level = 1;
+        }
+
+        private int Level
+        {
+            get
+            {
+                return level;
+            }
+            set
+            {
+                level = value;
+                LoadLevel();
+            }
         }
 
         private void LoadLevel()
@@ -36,6 +48,7 @@ namespace Shoot_em_Up
             {
                 String json = sr.ReadToEnd();
                 planet = JSONManager.deserializeJson<Planet>(json);
+                planet.backgroundImageSprite = new Sprite(new Texture(planet.BackgroundImage));
             }
         }
 
@@ -47,6 +60,7 @@ namespace Shoot_em_Up
         public void Draw(RenderWindow window, float alpha)
         {
             //all the drawing
+            window.Draw(planet.backgroundImageSprite);
             State interpol;
             Transform t;
             foreach (GameObject obj in objects)

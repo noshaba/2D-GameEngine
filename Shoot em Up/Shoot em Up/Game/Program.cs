@@ -25,6 +25,7 @@ namespace Shoot_em_Up
         static Stopwatch timer = new Stopwatch();
         static Stopwatch FPSClock = new Stopwatch();
         static RenderWindow window;
+        static View view = new View(new Vector2f(WIDTH * .5f, HEIGHT * .5f), new Vector2f(WIDTH, HEIGHT));
 
         static Sprite mouseSprite = new Sprite(new Texture("../Content/Mouse.png"));
 
@@ -56,13 +57,14 @@ namespace Shoot_em_Up
             context.AntialiasingLevel = 8;
             window = new RenderWindow(new VideoMode(WIDTH, HEIGHT), "Shoot em Up!", Styles.Close, context);
             window.Position = new Vector2i(0,0);
+            window.SetView(view);
             window.SetActive(true);
             window.Closed += window_Closed;
             window.KeyReleased += window_KeyReleased;
             //window.KeyPressed += window_KeyPressed;
-            window.MouseMoved += window_MouseMoved;
-            window.MouseEntered += window_MouseEntered;
-            window.MouseLeft += window_MouseLeft;
+         //   window.MouseMoved += window_MouseMoved;
+           // window.MouseEntered += window_MouseEntered;
+          //  window.MouseLeft += window_MouseLeft;
             window.MouseButtonReleased += window_MouseButtonReleased;
             window.MouseButtonPressed += window_MouseButtonPressed;
         }
@@ -78,6 +80,10 @@ namespace Shoot_em_Up
             {
                 //update the game as long as the "lag" is not compensated
                 ReadInput();
+                if (Mouse.GetPosition(window).X > WIDTH - 50) view.Move(new Vector2f( 5, 0));
+                if (Mouse.GetPosition(window).X < 50 && view.Center.X > WIDTH * .5f) view.Move(new Vector2f(-5, 0));
+                window.SetView(view);
+                mouseSprite.Position = window.MapPixelToCoords(Mouse.GetPosition(window), view);
                 sEmUp.Update(DT);
                 accumulator -= DT;
             }
@@ -117,7 +123,7 @@ namespace Shoot_em_Up
 
         private static void window_MouseMoved(object sender, MouseMoveEventArgs e)
         {
-            mouseSprite.Position = new Vector2f(e.X, e.Y);
+            mouseSprite.Position = window.MapPixelToCoords(Mouse.GetPosition(window), view);
          //   gui.OnHover(e.X, e.Y);
         }
 

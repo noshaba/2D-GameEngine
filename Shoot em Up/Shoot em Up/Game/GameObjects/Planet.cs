@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
+using SFML.Graphics;
 
 namespace Shoot_em_Up
 {
@@ -30,6 +31,8 @@ namespace Shoot_em_Up
         public GroundType[] GroundTypes { get; set; }
         [DataMember]
         public int[] Ground { get; set; }
+
+        public Sprite backgroundImageSprite;
 
     }
 }
