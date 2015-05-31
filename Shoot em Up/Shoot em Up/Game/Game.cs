@@ -59,6 +59,18 @@ namespace Shoot_em_Up
             }
             physics = new Physic(rigidBodies, new Vector2f(planet.Gravity[0], planet.Gravity[1]), planet.Damping, planet.Friction);
             planet.AddGround();
+            using (StreamReader sr = new StreamReader("../Content/" + level + "/Obstacles.json"))
+            {
+                ObstacleContract[] obstacles;
+                String jsonO = sr.ReadToEnd();
+                //Console.WriteLine(jsonO);
+                obstacles = JSONManager.deserializeJson<ObstacleContract[]>(jsonO);
+                for (int i = 0; i < obstacles.Length; i++)
+                {
+                    obstacles[i].Init();
+                }
+                    
+            }
         }
 
         public void Update(float dt) 

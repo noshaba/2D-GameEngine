@@ -1,7 +1,4 @@
-[
-  [
-     {
-        "Name": "Asteroid",
+[{
         "Density": 0,
         "Restitution": 0.5,
         "StaticFriction": 0.5,
@@ -11,13 +8,12 @@
         "Points": 10,
         "Damage": 5,
         "SpawnPatternID": 0,
-        "NumberOfObjects": 15,
-        "SpawnStartPosition": [240, 200],
-        "Sprite": "sprite_path",
+        "NumberOfObjects": 1,
+        "SpawnStartPosition": [140,200],
+        "SpritePath": "../Content/astroids/1.png",
         "SpriteTileSize": [100, 100]
      },
      {
-        "Name": "Block",
         "Density": 0,
         "Restitution": 0.5,
         "StaticFriction": 0.5,
@@ -28,9 +24,8 @@
         "Damage": 5,
         "SpawnPatternID": 0,
         "NumberOfObjects": 15,
-        "SpawnStartPosition": [240, 200],
-        "Sprite": "sprite_path",
+	"SpawnStartPosition": [340,300],
+        "SpritePath": "../Content/astroids/2.png",
         "SpriteTileSize": [100, 100]
      }
   ]
-]
