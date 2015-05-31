@@ -11,60 +11,87 @@ namespace Shoot_em_Up
     class GameObject
     {
         public bool display = true;
+        public IRigidBody[] rigidBodies;
+        public Shape[] drawables;
         public IRigidBody rigidBody;
         public Shape drawable;
 
         public GameObject(IRigidBody rigidBody)
         {
-            this.rigidBody = rigidBody;
-            this.drawable = rigidBody as Shape;
-            this.rigidBody.Parent = this; 
+            this.rigidBodies = new IRigidBody[] { rigidBody };
+            this.drawables = new Shape[] { rigidBody as Shape };
+            this.rigidBodies[0].Parent = this;
+            this.rigidBody = rigidBodies[0];
+            this.drawable = this.drawables[0];
         }
 
         public GameObject(Vector2f normal, Vector2f position, Vector2f size, float rotation)
         {
-            this.rigidBody = new Plane(this, normal, position, size, rotation);
-            this.drawable = this.rigidBody as Shape;
+            this.rigidBodies = new IRigidBody[] { new Plane(this, normal, position, size, rotation) };
+            this.drawables = new Shape[] { this.rigidBodies[0] as Shape };
+            this.rigidBody = rigidBodies[0];
+            this.drawable = this.drawables[0];
         }
 
         public GameObject(Vector2f position, float rotation, float radius)
         {
-            this.rigidBody = new Circle(this, position, rotation, radius);
-            this.drawable = this.rigidBody as Shape;
+            this.rigidBodies = new IRigidBody[] { new Circle(this, position, rotation, radius) };
+            this.drawables = new Shape[] { this.rigidBodies[0] as Shape };
+            this.rigidBody = rigidBodies[0];
+            this.drawable = this.drawables[0];        
         }
 
         public GameObject(Vector2f position, float rotation, float radius, float density)
         {
-            this.rigidBody = new Circle(this, position, rotation, radius, density);
-            this.drawable = this.rigidBody as Shape;
+            this.rigidBodies = new IRigidBody[] { new Circle(this, position, rotation, radius, density) };
+            this.drawables = new Shape[] { this.rigidBodies[0] as Shape };
+            this.rigidBody = rigidBodies[0];
+            this.drawable = this.drawables[0];
         }
 
         public GameObject(Vector2f[] vertices, Vector2f position, float rotation)
         {
-            this.rigidBody = new Polygon(this, vertices, position, rotation);
-            this.drawable = this.rigidBody as Shape;
-        }
-
-        public GameObject(Texture texture, Vector2f position, float rotation)
-        {
-            this.rigidBody = new Polygon(this, CV.AlphaEdgeDetection(texture.CopyToImage().Pixels, texture.Size.X, texture.Size.Y, 0), position, rotation);
-            this.drawable = new RectangleShape((Vector2f)texture.Size);
-            this.drawable.Origin = this.rigidBody.Centroid;
-            this.drawable.Texture = texture;
-            this.drawable.Texture.Smooth = true;
+            this.rigidBodies = new IRigidBody[] { new Polygon(this, vertices, position, rotation) };
+            this.drawables = new Shape[] { this.rigidBodies[0] as Shape };
+            this.rigidBody = rigidBodies[0];
+            this.drawable = this.drawables[0];
         }
 
         public GameObject(Vector2f[] vertices, Vector2f position, float rotation, float density)
         {
-            this.rigidBody = new Polygon(this, vertices, position, rotation, density);
-            this.drawable = this.rigidBody as Shape;
+            this.rigidBodies = new IRigidBody[] { new Polygon(this, vertices, position, rotation, density) };
+            this.drawables = new Shape[] { this.rigidBodies[0] as Shape };
+            this.rigidBody = rigidBodies[0];
+            this.drawable = this.drawables[0];
+        }
+
+        public GameObject(Texture texture, Vector2f position, float rotation)
+        {
+            this.rigidBodies = new IRigidBody[] { new Polygon(this, CV.AlphaEdgeDetection(texture.CopyToImage().Pixels, texture.Size.X, texture.Size.Y, 0), position, rotation) };
+            this.drawables = new Shape[] { new RectangleShape((Vector2f)texture.Size) };
+            for (int i = 0; i < drawables.Length; ++i)
+            {
+                this.drawables[i].Origin = this.rigidBodies[i].Centroid;
+                this.drawables[i].Texture = texture;
+                this.drawables[i].Texture.Smooth = true;
+            }
+            this.rigidBody = rigidBodies[0];
+            this.drawable = this.drawables[0];
+            Console.WriteLine(texture.CopyToImage().Pixels.Length);
         }
 
         public GameObject(Texture texture, Vector2f position, float rotation, float density)
         {
-            this.rigidBody = new Polygon(this, CV.AlphaEdgeDetection(texture.CopyToImage().Pixels, texture.Size.X, texture.Size.Y, 0), position, rotation, density);
-            this.drawable = new RectangleShape((Vector2f)texture.Size);
-            this.drawable.Origin = new Vector2f(texture.Size.X * .5f, texture.Size.Y * .5f);
+            this.rigidBodies = new IRigidBody[] { new Polygon(this, CV.AlphaEdgeDetection(texture.CopyToImage().Pixels, texture.Size.X, texture.Size.Y, 0), position, rotation, density) };
+            this.drawables = new Shape[] { new RectangleShape((Vector2f)texture.Size) };
+            for (int i = 0; i < drawables.Length; ++i)
+            {
+                this.drawables[i].Origin = this.rigidBodies[i].Centroid;
+                this.drawables[i].Texture = texture;
+                this.drawables[i].Texture.Smooth = true;
+            }
+            this.rigidBody = rigidBodies[0];
+            this.drawable = this.drawables[0];
         }
 
 
