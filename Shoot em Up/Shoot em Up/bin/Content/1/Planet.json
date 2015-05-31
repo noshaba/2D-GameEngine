@@ -1,37 +1,21 @@
 {
   "Name": "some name",
-  "BackgroundImage": "../Content/1/images/BG.png",
-  "BackgroundMusic": "audio_path",
-  "Gravity": [123, -4],
+  "BackgroundImagePath": "../Content/1/images/BG.png",
+  "BackgroundMusicPath": "audio_path",
+  "Gravity": [0, 10],
   "Friction": true,
   "Damping": 0.1,
   "Achievement": 14,
   "AchievementMinRequirement": 1000,
   "GroundTypes": [
      {
-        "Name": "stone wall",
+        "Name": "pink stone",
         "Restitution": 1.0,
         "StaticFriction": 0.2,
         "KineticFriction": 0.5,
-        "Sprite": "image_path",
-        "SpriteTileSize": [50,50]
-     },
-     {
-        "Name": "grass",
-        "Restitution": 1.0,
-        "StaticFriction": 0.2,
-        "KineticFriction": 0.5,
-        "Sprite": "image_path",
-        "SpriteTileSize": [50,50]
-     },
-     {
-        "Name": "ice",
-        "Restitution": 1.0,
-        "StaticFriction": 0,
-        "KineticFriction": 0,
-        "Sprite": "image_path",
-        "SpriteTileSize": [50,50]
+        "SpritePath": "../Content/1/images/pink_ground.png",
+        "SpriteTileSize": [100,100]
      }
   ],
-  "Ground": [0, 1, 1, 1, 1, 2, 2, 2, 1, 1, 0]
+  "Ground": [0,0,0,0,0,0,0,0,0,0,0,0]
 }

@@ -19,14 +19,21 @@ namespace Shoot_em_Up
         private Physic physics;
         private Planet planet;
         private static List<GameObject> objects = new List<GameObject>();
-        private int WIDTH;
-        private int HEIGHT;
+        private static List<IRigidBody> rigidBodies = new List<IRigidBody>();
+        public static int WIDTH;
+        public static int HEIGHT;
         private int level;
         public Game(int width, int height)
         {
             WIDTH = width;
             HEIGHT = height;
             Level = 1;
+        }
+
+        public static void Add(GameObject obj)
+        {
+            objects.Add(obj);
+            rigidBodies.Add(obj.rigidBody);
         }
 
         private int Level
@@ -48,8 +55,10 @@ namespace Shoot_em_Up
             {
                 String json = sr.ReadToEnd();
                 planet = JSONManager.deserializeJson<Planet>(json);
-                planet.backgroundImageSprite = new Sprite(new Texture(planet.BackgroundImage));
+                planet.Init();
             }
+            physics = new Physic(rigidBodies, new Vector2f(planet.Gravity[0], planet.Gravity[1]), planet.Damping, planet.Friction);
+            planet.AddGround();
         }
 
         public void Update(float dt) 
@@ -60,7 +69,7 @@ namespace Shoot_em_Up
         public void Draw(RenderWindow window, float alpha)
         {
             //all the drawing
-            window.Draw(planet.backgroundImageSprite);
+            window.Draw(planet.backgroundSprite);
             State interpol;
             Transform t;
             foreach (GameObject obj in objects)
