@@ -22,7 +22,8 @@ namespace Shoot_em_Up {
         "SpawnPatternID": 0,
         "NumberOfObjects": 15,
         "SpawnStartPosition": [240, 200],
-        "Sprite": "sprite_path",
+        "SpritePath": "sprite_path",
+        "SpriteSize": [240, 200],
         "SpriteTileSize": [100, 100]
      */
     [DataContract]
