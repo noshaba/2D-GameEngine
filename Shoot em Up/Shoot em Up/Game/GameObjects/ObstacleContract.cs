@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Shoot_em_Up {
 
     /*
-     *  "Name": "Asteroid",
+     * Example Obstacle as found in json
         "Density": 0,
         "Restitution": 0.5,
         "StaticFriction": 0.5,
@@ -37,7 +37,7 @@ namespace Shoot_em_Up {
         [DataMember]
         public float KineticFriction { get; set; }
         [DataMember]
-        public float CollisionType { get; set; } //not included yet
+        public int CollisionType { get; set; } 
         [DataMember]
         public float  Health { get; set; }
         [DataMember]
@@ -58,8 +58,8 @@ namespace Shoot_em_Up {
         public void Init()
         {
                 for (int i = 0; i<NumberOfObjects; i++) {
-                   Game.Add(new Obstacle(Density, Restitution, StaticFriction, KineticFriction, new Texture(SpritePath), new Vector2f(SpawnStartPosition[0], SpawnStartPosition[1]),Health, Points, Damage));
-                    
+                   Game.Add(new Obstacle(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, new Texture(SpritePath), new Vector2f(SpawnStartPosition[0], SpawnStartPosition[1]),Health, Points, Damage));
+                   //here adjust SpawnStartPosition according to spawnPattern 
                 }
         }
     }
