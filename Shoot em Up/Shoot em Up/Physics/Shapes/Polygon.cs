@@ -32,8 +32,6 @@ namespace Physics {
             kineticFriction = EMath.Random(0, staticFriction);
             collision = new Collision();
             collision.collision = false;
-            foreach(Vector2f v in vertices)
-            Console.WriteLine(v);
         }
 
         public Polygon(Vector2f[] vertices, Vector2f position, float rotation, float density) : base() {
