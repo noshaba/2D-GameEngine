@@ -25,7 +25,11 @@ namespace Physics {
         public Vector2f[] normals;
         private Vector2f centroid;
 
-        public Polygon(Vector2f[] vertices, Vector2f position, float rotation) : base() {
+        public Polygon(Object parent, Vector2f[] vertices, Vector2f position, float rotation) : base() {
+            this.parent = parent;
+            FillColor = Color.Transparent;
+            OutlineThickness = 2;
+            OutlineColor = Color.White;
             GenerateConvexHull(vertices);
             current = new State(position, rotation);
             previous = current;
@@ -34,7 +38,11 @@ namespace Physics {
             collision.collision = false;
         }
 
-        public Polygon(Vector2f[] vertices, Vector2f position, float rotation, float density) : base() {
+        public Polygon(Object parent, Vector2f[] vertices, Vector2f position, float rotation, float density) : base() {
+            this.parent = parent;
+            FillColor = Color.Transparent;
+            OutlineThickness = 2;
+            OutlineColor = Color.White;
             GenerateConvexHull(vertices);
             InitState(position, rotation, density);
             kineticFriction = EMath.Random(0, staticFriction);

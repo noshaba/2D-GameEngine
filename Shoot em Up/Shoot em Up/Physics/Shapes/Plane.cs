@@ -25,7 +25,11 @@ namespace Physics {
         public float thickness;
 
 
-        public Plane(Vector2f normal, Vector2f position, Vector2f size, float orientation) : base(size) {
+        public Plane(Object parent, Vector2f normal, Vector2f position, Vector2f size, float orientation) : base(size) {
+            this.parent = parent;
+            FillColor = Color.Transparent;
+            OutlineThickness = 2;
+            OutlineColor = Color.White;
             Origin = new Vector2f(size.X * .5f, size.Y * .5f);
             current = new State(position, orientation);
             previous = current;

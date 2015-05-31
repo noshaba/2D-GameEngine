@@ -23,39 +23,31 @@ namespace Shoot_em_Up
 
         public GameObject(Vector2f normal, Vector2f position, Vector2f size, float rotation)
         {
-            this.rigidBody = new Plane(normal, position, size, rotation);
+            this.rigidBody = new Plane(this, normal, position, size, rotation);
             this.drawable = this.rigidBody as Shape;
-            this.rigidBody.Parent = this;
         }
 
         public GameObject(Vector2f position, float rotation, float radius)
         {
-            this.rigidBody = new Circle(position, rotation, radius);
+            this.rigidBody = new Circle(this, position, rotation, radius);
             this.drawable = this.rigidBody as Shape;
-            this.rigidBody.Parent = this;
         }
 
         public GameObject(Vector2f position, float rotation, float radius, float density)
         {
-            this.rigidBody = new Circle(position, rotation, radius, density);
+            this.rigidBody = new Circle(this, position, rotation, radius, density);
             this.drawable = this.rigidBody as Shape;
-            this.rigidBody.Parent = this;
         }
 
         public GameObject(Vector2f[] vertices, Vector2f position, float rotation)
         {
-            this.rigidBody = new Polygon(vertices, position, rotation);
+            this.rigidBody = new Polygon(this, vertices, position, rotation);
             this.drawable = this.rigidBody as Shape;
-            this.rigidBody.Parent = this;
         }
 
         public GameObject(Texture texture, Vector2f position, float rotation)
         {
-            this.rigidBody = new Polygon(CV.AlphaEdgeDetection(texture.CopyToImage().Pixels, texture.Size.X, texture.Size.Y, 0), position, rotation);
-            this.rigidBody.Parent = this;
-            (this.rigidBody as Shape).FillColor = Color.Transparent;
-            (this.rigidBody as Shape).OutlineThickness = 5;
-            (this.rigidBody as Shape).OutlineColor = Color.Red;
+            this.rigidBody = new Polygon(this, CV.AlphaEdgeDetection(texture.CopyToImage().Pixels, texture.Size.X, texture.Size.Y, 0), position, rotation);
             this.drawable = new RectangleShape((Vector2f)texture.Size);
             this.drawable.Origin = this.rigidBody.Centroid;
             this.drawable.Texture = texture;
@@ -64,15 +56,13 @@ namespace Shoot_em_Up
 
         public GameObject(Vector2f[] vertices, Vector2f position, float rotation, float density)
         {
-            this.rigidBody = new Polygon(vertices, position, rotation, density);
+            this.rigidBody = new Polygon(this, vertices, position, rotation, density);
             this.drawable = this.rigidBody as Shape;
-            this.rigidBody.Parent = this;
         }
 
         public GameObject(Texture texture, Vector2f position, float rotation, float density)
         {
-            this.rigidBody = new Polygon(CV.AlphaEdgeDetection(texture.CopyToImage().Pixels, texture.Size.X, texture.Size.Y, 0), position, rotation, density);
-            this.rigidBody.Parent = this;
+            this.rigidBody = new Polygon(this, CV.AlphaEdgeDetection(texture.CopyToImage().Pixels, texture.Size.X, texture.Size.Y, 0), position, rotation, density);
             this.drawable = new RectangleShape((Vector2f)texture.Size);
             this.drawable.Origin = new Vector2f(texture.Size.X * .5f, texture.Size.Y * .5f);
         }
