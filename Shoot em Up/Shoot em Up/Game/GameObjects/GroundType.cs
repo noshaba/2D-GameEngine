@@ -34,7 +34,7 @@ namespace Shoot_em_Up
                 return (SpriteSize[0] / SpriteTileSize[0]) * (SpriteSize[1] / SpriteTileSize[1]);
             }
         }
-        public GroundTile getTile(int index)
+        public GroundTile GetTile(int index)
         {
             return new GroundTile(Restitution, StaticFriction, KineticFriction, SpritePath, SpriteTileSize, SpriteSize, Tiles, index);
         }

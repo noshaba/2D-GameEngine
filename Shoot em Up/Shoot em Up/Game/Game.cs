@@ -22,6 +22,7 @@ namespace Shoot_em_Up
         private static List<IRigidBody> rigidBodies = new List<IRigidBody>();
         public static int WIDTH;
         public static int HEIGHT;
+        public static Faction[] factions;
         private int level;
         public Game(int width, int height)
         {
@@ -59,17 +60,20 @@ namespace Shoot_em_Up
             }
             physics = new Physic(rigidBodies, new Vector2f(planet.Gravity[0], planet.Gravity[1]), planet.Damping, planet.Friction);
             planet.AddGround();
+            using (StreamReader sr = new StreamReader("../Content/" + level + "/Factions.json"))
+            {
+                String json = sr.ReadToEnd();
+                factions = JSONManager.deserializeJson<Faction[]>(json);
+            }
             using (StreamReader sr = new StreamReader("../Content/" + level + "/Obstacles.json"))
             {
                 ObstacleContract[] obstacles;
-                String jsonO = sr.ReadToEnd();
-                //Console.WriteLine(jsonO);
-                obstacles = JSONManager.deserializeJson<ObstacleContract[]>(jsonO);
+                String json = sr.ReadToEnd();
+                obstacles = JSONManager.deserializeJson<ObstacleContract[]>(json);
                 for (int i = 0; i < obstacles.Length; i++)
                 {
                     obstacles[i].Init();
-                }
-                    
+                }  
             }
         }
 

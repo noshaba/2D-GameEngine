@@ -21,30 +21,35 @@ namespace Shoot_em_Up
         public bool shield;
         public int shieldHp;
         public int maxShieldHp;
+        public Faction faction;
         protected IRigidBody[] bodies;
 
-        public KillableObject( Vector2f position, float rotation, float radius)
+        public KillableObject(Faction faction, Vector2f position, float rotation, float radius)
             : base(position, rotation, radius)
         {
             this.bodies = new[] { this.rigidBody, new Circle(this, position, rotation, radius) };
+            this.faction = faction;
         }
 
-        public KillableObject( Vector2f position, float rotation, float radius, float density)
+        public KillableObject(Faction faction, Vector2f position, float rotation, float radius, float density)
             : base(position, rotation, radius, density)
         {
             this.bodies = new[] { this.rigidBody, new Circle(this, position, rotation, radius) };
+            this.faction = faction;
         }
 
-        public KillableObject( Vector2f normal, Vector2f position, Vector2f size, float rotation)
+        public KillableObject(Faction faction, Vector2f normal, Vector2f position, Vector2f size, float rotation)
             : base(normal, position, size, rotation)
         {
             this.bodies = new[] { this.rigidBody, new Circle(this, position, rotation, size.Y / 2) };
+            this.faction = faction;
         }
 
-        public KillableObject( Vector2f[] vertices, Vector2f position, float rotation)
+        public KillableObject(Faction faction, Vector2f[] vertices, Vector2f position, float rotation)
             : base(vertices, position, rotation)
         {
             this.bodies = new[] { this.rigidBody };
+            this.faction = faction;
         }
        /* public KillableObject( Texture texture, Vector2f position, float rotation)
             : base(texture, position, rotation)
@@ -52,15 +57,17 @@ namespace Shoot_em_Up
             this.bodies = new[] { this.rigidBody, new Circle(this, position, rotation, texture.Size.Y / 2) };
         }*/
 
-        public KillableObject( Vector2f[] vertices, Vector2f position, float rotation, float density)
+        public KillableObject(Faction faction, Vector2f[] vertices, Vector2f position, float rotation, float density)
             : base(vertices, position, rotation, density)
         {
+            this.faction = faction;
         }
 
-        public KillableObject( String texture, int[]ts, int[]spriteSize, int a, Vector2f position, float rotation, float density)
+        public KillableObject(Faction faction, String texture, int[]ts, int[]spriteSize, int a, Vector2f position, float rotation, float density)
             : base(texture, ts, spriteSize, a, position, 0, density)
         {
             this.bodies = new[] { this.rigidBody, new Circle(this, position, rotation, spriteSize[0] / 2) };
+            this.faction = faction;
         }
 
         public override void Update()
@@ -71,11 +78,16 @@ namespace Shoot_em_Up
                 if (opponent != null && !shield)
                 {
                     // decrease HP
-                    this.hp -= opponent.damage;
+                    this.hp -= opponent.damage * (100 - opponent.faction.Reputation[(int)this.faction.ID]) / 100;
+                    // decrease reputation with the opponent's faction if the opponent is dead
+                    this.faction.Reputation[(int)opponent.faction.ID] +=
+                        opponent.faction.GainableRep && !opponent.alive &&
+                        1 <= this.faction.Reputation[(int)opponent.faction.ID] ?
+                        -1 : 0;
                 }
                 if (opponent != null && shield)
                 {
-                    this.shieldHp -= opponent.damage;
+                    this.shieldHp -= opponent.damage * (100 - opponent.faction.Reputation[(int)this.faction.ID]) / 100;
                 }
             }
             base.Update();
@@ -91,7 +103,7 @@ namespace Shoot_em_Up
             base.LateUpdate();
         }
 
-        protected void updateBodies()
+        protected void UpdateBodies()
         {
             this.bodies[0].COM = this.rigidBody.COM;
             this.bodies[1].COM = this.rigidBody.COM;
@@ -103,18 +115,17 @@ namespace Shoot_em_Up
             this.bodies[1].Orientation = this.rigidBody.Orientation;
         }
 
-        protected void shieldOn(Vector2f velocity, Vector2f pos)
+        protected void ShieldOn(Vector2f velocity, Vector2f pos)
         {
             this.shield = true;
             this.rigidBody = this.bodies[1];
         }
 
-        protected void shieldOff(Vector2f velocity, Vector2f pos)
+        protected void ShieldOff(Vector2f velocity, Vector2f pos)
         {
             this.shield = false;
             this.rigidBody = this.bodies[0];
         }
-
 
     }
 }

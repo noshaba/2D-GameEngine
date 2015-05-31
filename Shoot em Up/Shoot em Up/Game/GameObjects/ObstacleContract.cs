@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using Physics;
 
 namespace Shoot_em_Up {
 
@@ -38,7 +39,9 @@ namespace Shoot_em_Up {
         [DataMember]
         public float KineticFriction { get; set; }
         [DataMember]
-        public int CollisionType { get; set; } 
+        public Collision.Type CollisionType { get; set; }
+        [DataMember]
+        public Faction.Type Faction { get; set; }
         [DataMember]
         public int  Health { get; set; }
         [DataMember]
@@ -61,7 +64,7 @@ namespace Shoot_em_Up {
         public void Init()
         {
                 for (int i = 0; i<NumberOfObjects; i++) {
-                   Game.Add(new Obstacle(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(SpawnStartPosition[0], SpawnStartPosition[1]),Health, Points, Damage));
+                   Game.Add(new Obstacle(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(SpawnStartPosition[0], SpawnStartPosition[1]),Health, Points, Damage, Game.factions[(int) Faction]));
                    //here adjust SpawnStartPosition according to spawnPattern 
                 }
         }
