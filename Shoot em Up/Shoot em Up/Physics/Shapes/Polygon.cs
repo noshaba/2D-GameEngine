@@ -23,6 +23,7 @@ namespace Physics {
 
         public Vector2f[] vertices;
         public Vector2f[] normals;
+        private Vector2f centroid;
 
         public Polygon(Vector2f[] vertices, Vector2f position, float rotation) : base() {
             GenerateConvexHull(vertices);
@@ -31,7 +32,8 @@ namespace Physics {
             kineticFriction = EMath.Random(0, staticFriction);
             collision = new Collision();
             collision.collision = false;
-         
+            foreach(Vector2f v in vertices)
+            Console.WriteLine(v);
         }
 
         public Polygon(Vector2f[] vertices, Vector2f position, float rotation, float density) : base() {
@@ -44,6 +46,7 @@ namespace Physics {
 
         public void SetBox(Vector2f position, float hw, float hh, float rotation) {
             SetPointCount(4);
+            centroid = new Vector2f(hw,hh);
             vertices = new Vector2f[4];
             vertices[0] = new Vector2f(-hw, -hh);
             vertices[1] = new Vector2f( hw, -hh);
@@ -62,6 +65,7 @@ namespace Physics {
 
         public void SetBox(Vector2f position, float hw, float hh, float rotation, float density) {
             SetPointCount(4);
+            centroid = new Vector2f(hw,hh);
             vertices = new Vector2f[4];
             vertices[0] = new Vector2f(-hw, -hh);
             vertices[1] = new Vector2f(hw, -hh);
@@ -174,7 +178,7 @@ namespace Physics {
                 }
             }
 
-            Vector2f centroid = new Vector2f();
+            this.centroid = new Vector2f();
 
             for (uint i = 0; i < GetPointCount(); ++i)
             {
@@ -231,6 +235,11 @@ namespace Physics {
         public Vector2f COM {
             get { return current.position; }
             set { current.position = value; previous.position = value; }
+        }
+
+        public Vector2f Centroid
+        {
+            get { return this.centroid; }
         }
 
         public float Orientation {

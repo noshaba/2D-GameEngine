@@ -59,6 +59,11 @@ namespace Physics {
             set { current.position = value; previous.position = value; }
         }
 
+        public Vector2f Centroid
+        {
+            get { return this.Origin; }
+        }
+
         public float Orientation {
             get { return current.orientation; }
             set

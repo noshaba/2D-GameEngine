@@ -189,6 +189,7 @@ namespace Physics {
             for (uint i = 0; i < GetPointCount(); ++i) {
                 vertices[i] = buffer[hull[i]];
                 centroid += vertices[i];
+                SetPoint(i, vertices[i]);
             }
 
             centroid /= (float) vertices.Length;

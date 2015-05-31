@@ -12,6 +12,7 @@ namespace Physics {
         Collision.Type Type{ get; }
         Collision Collision { get; set; }
         Vector2f COM { get; set; }
+        Vector2f Centroid { get; }
         float Orientation { get; set; }
         Mat22f WorldTransform { get; }
         Mat22f LocalTransform { get; }

@@ -16,7 +16,6 @@ namespace Shoot_em_Up
             this.rigidBody.Restitution = restitution;
             this.rigidBody.StaticFriction = staticFriction;
             this.rigidBody.KineticFriction = kineticFriction;
-            this.drawable.Texture = texture;
         }
     }
 }
