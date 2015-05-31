@@ -43,12 +43,8 @@ namespace Shoot_em_Up
 
         public void AddGround()
         {
-            int i = 0;
-            foreach(int g in Ground)
-            {
-                Game.Add(GroundTypes[g].getTile(i));
-                ++i;
-            }
+            for (int i = 0; i < Ground.Length; ++i)
+                Game.Add(GroundTypes[Ground[i]].getTile(i));
         }
     }
 }
