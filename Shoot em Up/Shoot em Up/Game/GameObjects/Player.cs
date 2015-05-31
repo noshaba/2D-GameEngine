@@ -21,8 +21,8 @@ namespace Shoot_em_Up
         public String shieldStatus;
         private String texturePath;
         //string texturePath, int[] spriteTileSize, int[] spriteSize, int animationIndex, Vector2f position, float rotation
-        public Player(Vector2f position, String texture, int[]tileSize, int[]spriteSize)
-            : base(texture+".png", tileSize, spriteSize, 0, position, 0, 0.9f)
+        public Player(Faction faction, Vector2f position, String texture, int[]tileSize, int[]spriteSize)
+            : base(faction, texture+".png", tileSize, spriteSize, 0, position, 0, 0.9f)
         {
             this.rigidBody.Restitution = 1.0f;
             this.speed = 50;
@@ -87,20 +87,20 @@ namespace Shoot_em_Up
             if (this.shieldHp > 0)
             {
                 this.shield = !this.shield;
-                this.checkShield();
+                this.CheckShield();
             }
         }
 
-        public void checkShield()
+        public void CheckShield()
         {
             if (this.shield)
             {
-                this.shieldOn(this.rigidBody.Velocity, this.rigidBody.COM);
+                this.ShieldOn(this.rigidBody.Velocity, this.rigidBody.COM);
                 this.drawable.Texture = new Texture(texturePath+"Shield.png");
             }
             else
             {
-                this.shieldOff(this.rigidBody.Velocity, this.rigidBody.COM);
+                this.ShieldOff(this.rigidBody.Velocity, this.rigidBody.COM);
                 this.drawable.Texture = new Texture(texturePath+".png");
             }
         }
@@ -111,7 +111,7 @@ namespace Shoot_em_Up
             this.rigidBody.AngularVelocity = 0;
         }
 
-        private void shoot()
+        private void Shoot()
         {
             //if (fire) this.weapon.shoot(this.rigidBody.COM);
         }
@@ -131,9 +131,9 @@ namespace Shoot_em_Up
                 this.clock.Stop();
                 this.shieldStatus = "sR";
             }
-            this.updateBodies();
-            this.checkShield();
-            this.shoot();
+            this.UpdateBodies();
+            this.CheckShield();
+            this.Shoot();
             base.Update();
         }
     }
