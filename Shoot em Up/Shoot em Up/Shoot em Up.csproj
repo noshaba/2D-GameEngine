@@ -63,6 +63,7 @@
     <Compile Include="Game\GameObjects\GameObject.cs" />
     <Compile Include="Game\GameObjects\GroundTile.cs" />
     <Compile Include="Game\GameObjects\GroundType.cs" />
+    <Compile Include="Game\GameObjects\KillableObject.cs" />
     <Compile Include="Game\GameObjects\Obstacle.cs" />
     <Compile Include="Game\GameObjects\ObstacleContract.cs" />
     <Compile Include="Game\GameObjects\Planet.cs" />

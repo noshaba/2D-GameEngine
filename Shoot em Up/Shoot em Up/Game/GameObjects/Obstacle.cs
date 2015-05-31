@@ -8,13 +8,12 @@ using System.Threading.Tasks;
 
 namespace Shoot_em_Up
 {
-    class Obstacle : GameObject
+    class Obstacle : KillableObject
     {
         private float hp;
         private float dmg;
         private float points;
         public int type;
-        public int[] tileSize;
 
        // string texturePath, int[] spriteTileSize, int[] spriteSize, int animationIndex, Vector2f position, float rotation, float density
          public Obstacle(int type, int[]ts, float density, float restitution, float staticFriction, float kineticFriction, String texture, int[]spriteSize, Vector2f position, float health, float points, float dmg)
