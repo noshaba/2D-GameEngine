@@ -297,7 +297,7 @@ namespace Physics {
         }
 
         private static void PullApart(IRigidBody obj1, IRigidBody obj2, Vector2f n, float overlap){
-            if (obj1.InverseMass > 0 && obj2.InverseMass > 0) {
+            if (obj1.InverseMass > 0 && obj2.InverseMass > 0 || obj1.InverseMass == 0 && obj2.InverseMass == 0) {
                 obj1.Pull(n,  overlap * 0.5f);
                 obj2.Pull(n, -overlap * 0.5f);
             } else {

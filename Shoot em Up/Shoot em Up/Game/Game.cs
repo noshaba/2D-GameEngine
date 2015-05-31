@@ -63,7 +63,7 @@ namespace Shoot_em_Up
 
         public void Update(float dt) 
         {
-
+            physics.Update(dt);
         }
 
         public void Draw(RenderWindow window, float alpha)
@@ -79,7 +79,7 @@ namespace Shoot_em_Up
                 t.Translate(interpol.position);
                 t.Rotate(interpol.DegOrientation);
                 window.Draw(obj.drawable, new RenderStates(t));
-            //    window.Draw(obj.rigidBody as Shape, new RenderStates(t));
+                window.Draw(obj.rigidBody as Shape, new RenderStates(t));
             }
         }
 
