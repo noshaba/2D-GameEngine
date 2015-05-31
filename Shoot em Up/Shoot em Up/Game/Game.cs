@@ -28,6 +28,7 @@ namespace Shoot_em_Up
             WIDTH = width;
             HEIGHT = height;
             Level = 1;
+            Add(new Player(new Vector2f(100,100), "../Content/cuteship", new int[]{100,89}, new int[]{100,89}));
         }
 
         public static void Add(GameObject obj)

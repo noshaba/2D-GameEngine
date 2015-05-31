@@ -67,6 +67,7 @@
     <Compile Include="Game\GameObjects\Obstacle.cs" />
     <Compile Include="Game\GameObjects\ObstacleContract.cs" />
     <Compile Include="Game\GameObjects\Planet.cs" />
+    <Compile Include="Game\GameObjects\Player.cs" />
     <Compile Include="Game\GameObjects\Wall.cs" />
     <Compile Include="Game\GUI\GUI.cs" />
     <Compile Include="GUI\Screen.cs" />
