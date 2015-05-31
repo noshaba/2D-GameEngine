@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
+using Maths;
 
 namespace Shoot_em_Up
 {
     class GroundTile : GameObject
     {
-        public GroundTile(float restitution, float staticFriction, float kineticFriction, Texture texture, float rotation, uint[] spriteTileSize, int index)
-            : base(texture, new Vector2f(0,0), rotation)
+        public GroundTile(float restitution, float staticFriction, float kineticFriction, string texturePath, int[] spriteTileSize, int[] spriteSize, int tiles, int index)
+            : base(texturePath, spriteTileSize, spriteSize, EMath.random.Next(0, tiles), new Vector2f(0,0), 0)
         {
             this.rigidBody.Restitution = restitution;
             this.rigidBody.StaticFriction = staticFriction;

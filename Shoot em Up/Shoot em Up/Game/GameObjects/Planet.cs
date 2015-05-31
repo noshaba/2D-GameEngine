@@ -38,7 +38,6 @@ namespace Shoot_em_Up
         public void Init()
         {
             backgroundSprite = new Sprite(new Texture(BackgroundImagePath));
-            foreach (GroundType g in GroundTypes) g.Init();
         }
 
         public void AddGround()

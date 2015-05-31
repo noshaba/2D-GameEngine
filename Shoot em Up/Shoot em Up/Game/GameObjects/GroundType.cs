@@ -23,20 +23,20 @@ namespace Shoot_em_Up
         [DataMember]
         public string SpritePath { get; set; }
         [DataMember]
-        public uint[] SpriteTileSize { get; set; }
+        public int[] SpriteTileSize { get; set; }
+        [DataMember]
+        public int[] SpriteSize { get; set; }
 
-        public Sprite groundSprite;
-        public uint tileNumber;
-
-        public void Init()
+        public int Tiles
         {
-            groundSprite = new Sprite(new Texture(SpritePath));
-            tileNumber = (SpriteTileSize[0] / groundSprite.Texture.Size.X) * (SpriteTileSize[1] / groundSprite.Texture.Size.Y);
+            get
+            {
+                return (SpriteSize[0] / SpriteTileSize[0]) * (SpriteSize[1] / SpriteTileSize[1]);
+            }
         }
-
         public GroundTile getTile(int index)
         {
-            return new GroundTile(Restitution, StaticFriction, KineticFriction, new Texture(SpritePath), 0, SpriteTileSize, index);
+            return new GroundTile(Restitution, StaticFriction, KineticFriction, SpritePath, SpriteTileSize, SpriteSize, Tiles, index);
         }
     }
 }
