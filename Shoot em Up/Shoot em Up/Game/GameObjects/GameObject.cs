@@ -74,7 +74,7 @@ namespace Shoot_em_Up
             for (int i = 0; i < tileNumber; ++i)
             {
                 tile = new Texture(texturePath, new IntRect((i * spriteTileSize[0]) % spriteSize[0], (i * spriteTileSize[0]) / spriteSize[0] * spriteTileSize[1], spriteTileSize[0], spriteTileSize[1]));
-                this.rigidBodies[i] = new Polygon(this, CV.AlphaEdgeDetection(tile.CopyToImage().Pixels, tile.Size.X, tile.Size.Y, 0), position, rotation);
+                this.rigidBodies[i] = new Polygon(this, CV.AlphaEdgeDetection(tile.CopyToImage().Pixels, tile.Size.X, tile.Size.Y, 254), position, rotation);
                 this.drawables[i] = new RectangleShape(new Vector2f(spriteTileSize[0], spriteTileSize[1]));
                 this.drawables[i].Origin = this.rigidBodies[i].Centroid;
                 this.drawables[i].Texture = tile;
@@ -93,7 +93,7 @@ namespace Shoot_em_Up
             for (int i = 0; i < tileNumber; ++i)
             {
                 tile = new Texture(texturePath, new IntRect((i * spriteTileSize[0]) % spriteSize[0], (i * spriteTileSize[0]) / spriteSize[0] * spriteTileSize[1], spriteTileSize[0], spriteTileSize[1]));
-                this.rigidBodies[i] = new Polygon(this, CV.AlphaEdgeDetection(tile.CopyToImage().Pixels, tile.Size.X, tile.Size.Y, 0), position, rotation, density);
+                this.rigidBodies[i] = new Polygon(this, CV.AlphaEdgeDetection(tile.CopyToImage().Pixels, tile.Size.X, tile.Size.Y, 254), position, rotation, density);
                 this.drawables[i] = new RectangleShape(new Vector2f(spriteTileSize[0], spriteTileSize[1]));
                 this.drawables[i].Origin = this.rigidBodies[i].Centroid;
                 this.drawables[i].Texture = tile;

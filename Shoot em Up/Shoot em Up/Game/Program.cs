@@ -151,6 +151,9 @@ namespace Shoot_em_Up
         {
             switch (e.Code)
             {
+                case Keyboard.Key.D:
+                    Game.debug = !Game.debug;
+                    break;
           /*      case Keyboard.Key.Escape:
                     window.Close();
                     break;
