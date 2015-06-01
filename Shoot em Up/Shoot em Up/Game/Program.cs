@@ -99,7 +99,7 @@ namespace Shoot_em_Up
 
         private static void ReadInput()
         {
-        /*    if (Keyboard.IsKeyPressed(Keyboard.Key.Left))
+           if (Keyboard.IsKeyPressed(Keyboard.Key.Left))
             {
                 sEmUp.MovePlayer(Keyboard.Key.Left);
             }
@@ -115,8 +115,8 @@ namespace Shoot_em_Up
             }
             if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
             {
-                sEmUp.Fire();
-            }*/
+                //sEmUp.Fire();
+            }
         }
 
         #region Listener

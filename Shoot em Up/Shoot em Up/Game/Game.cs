@@ -24,12 +24,14 @@ namespace Shoot_em_Up
         public static int HEIGHT;
         public static Faction[] factions;
         private int level;
+        public Player player;
         public Game(int width, int height)
         {
             WIDTH = width;
             HEIGHT = height;
             Level = 1;
-            Add(new Player(factions[1], new Vector2f(100,100), "../Content/cuteship", new int[]{100,89}, new int[]{100,89}));
+            this.player = new Player(factions[1], new Vector2f(100,100), "../Content/cuteship", new int[]{100,89}, new int[]{100,89});
+            Add(this.player);
         }
 
         public static void Add(GameObject obj)
@@ -151,6 +153,11 @@ namespace Shoot_em_Up
                 window.Draw(obj.drawable, new RenderStates(t));
                // window.Draw(obj.rigidBody as Shape, new RenderStates(t));
             }
+        }
+
+        public void MovePlayer(Keyboard.Key k)
+        {
+            this.player.Move(k);
         }
 
     }
