@@ -101,7 +101,7 @@ namespace Shoot_em_Up
             window.SetView(view);
             sEmUp.Draw(window, alpha);
             window.SetView(GUIview);
-            gui.Draw(window);
+            //gui.Draw(window);
             mouseSprite.Draw(window, RenderStates.Default);
         }
 
