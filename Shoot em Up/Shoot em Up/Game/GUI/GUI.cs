@@ -36,31 +36,32 @@ namespace Shoot_em_Up {
             this.welcome.Add(start);
             
 
-          //  restart = new Button(new Vector2f(150, 440), new Vector2f(200, 50), "Play Again!", this.color, 24, StartGame);
-         //   this.results = new Menue(new Vector2f(20, 140), new Vector2f(440, 260), this.color);
+            restart = new Button(new Vector2f(150, 440), new Vector2f(200, 50), "Play Again!", this.color, 24, StartGame);
+            this.results = new Menue(new Vector2f(20, 140), new Vector2f(440, 260), this.color);
             this.credits.Add(restart);
             this.resultScore = new Label(new Vector2f(80, 100), "Your Score: ", this.color, 24);
             this.results.Add(resultScore);
             this.credits.Add(results);
 
-            this.children = this.welcome;
-        }
-/*
-        private void StartGame()
-        {
-            game.StartGame();
+            this.children = this.credits;
         }
 
+        private void StartGame()
+        {
+            //game.StartGame();
+            Console.WriteLine("Yayayayaya");
+        }
+        /*
         private void ShowWelcome()
         {
             game.Reset();
             game.status = Game.GameStatus.Welcome;
         }
-
-        public void Draw(RenderWindow window)
+        */
+        public new void Draw(RenderWindow window)
         {
             //decide which elements to draw depending on game status
-            switch(this.game.status) {
+          /*  switch(this.game.status) {
                 case Game.GameStatus.Active: this.children = this.inGame;
                     this.createInGame();
                     break;
@@ -68,9 +69,15 @@ namespace Shoot_em_Up {
                     break;
                 case Game.GameStatus.Credits: this.children = this.credits;
                     break;
-            }
+            }*/
+            this.children = this.credits;
+           /* foreach (IGraphic child in children)
+            {
+                Console.WriteLine(child.ToString());
+                child.Position = new Vector2f(50,50);
+            }*/
             base.Draw(window);
-        }
+        }/*
 
         public void createInGame()
         {

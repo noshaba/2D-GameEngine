@@ -26,12 +26,13 @@ namespace Shoot_em_Up
         static Stopwatch FPSClock = new Stopwatch();
         static RenderWindow window;
         static View view = new View(new Vector2f(WIDTH * .5f, HEIGHT * .5f), new Vector2f(WIDTH, HEIGHT));
+        static View GUIview = new View(new Vector2f(WIDTH * .5f, HEIGHT * .5f), new Vector2f(WIDTH, HEIGHT));
 
         static Sprite mouseSprite = new Sprite(new Texture("../Content/Mouse.png"));
 
         //create game and gui fitting for the window
         static Game sEmUp = new Game(WIDTH, HEIGHT);
-//        static GUI gui = new GUI(WIDTH, HEIGHT, sEmUp);
+        static GUI gui = new GUI(WIDTH, HEIGHT, sEmUp);
 
         //main method
         static void Main(string[] args)
@@ -84,6 +85,7 @@ namespace Shoot_em_Up
                 if (Mouse.GetPosition(window).X < 50 && view.Center.X > WIDTH * .5f) view.Move(new Vector2f(-5, 0));
                 window.SetView(view);
                 mouseSprite.Position = window.MapPixelToCoords(Mouse.GetPosition(window), view);
+                Console.WriteLine(mouseSprite.Position);
                 sEmUp.Update(DT);
                 accumulator -= DT;
             }
@@ -92,8 +94,10 @@ namespace Shoot_em_Up
         //draw method
         private static void Draw(float alpha)
         {
+            window.SetView(view);
             sEmUp.Draw(window, alpha);
-         //   gui.Draw(window);
+            window.SetView(GUIview);
+            gui.Draw(window);
             mouseSprite.Draw(window, RenderStates.Default);
         }
 
@@ -124,6 +128,7 @@ namespace Shoot_em_Up
         private static void window_MouseMoved(object sender, MouseMoveEventArgs e)
         {
             mouseSprite.Position = window.MapPixelToCoords(Mouse.GetPosition(window), view);
+           
          //   gui.OnHover(e.X, e.Y);
         }
 
@@ -139,12 +144,12 @@ namespace Shoot_em_Up
 
         private static void window_MouseButtonReleased(object sender, MouseButtonEventArgs e)
         {
-         //   gui.Released(e.X, e.Y);
+            gui.Released(e.X, e.Y);
         }
 
         private static void window_MouseButtonPressed(object sender, MouseButtonEventArgs e)
         {
-         //   gui.Pressed(e.X, e.Y);
+            gui.Pressed(e.X, e.Y);
         }
 
         static void window_KeyReleased(object sender, KeyEventArgs e)

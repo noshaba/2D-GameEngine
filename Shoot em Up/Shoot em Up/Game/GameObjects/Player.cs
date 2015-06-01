@@ -68,6 +68,7 @@ namespace Shoot_em_Up
                 this.rigidBody.Orientation -= 0.01f;
             if (this.rigidBody.Orientation < 0)
                 this.rigidBody.Orientation += 0.01f;
+
             if (k == Keyboard.Key.Right )
             {
                 this.rigidBody.Velocity = new Vector2f(this.speed, 0);
