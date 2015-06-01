@@ -72,6 +72,8 @@
     <Compile Include="Game\GameObjects\Planet.cs" />
     <Compile Include="Game\GameObjects\Player.cs" />
     <Compile Include="Game\GameObjects\Wall.cs" />
+    <Compile Include="Game\GameObjects\Weapon.cs" />
+    <Compile Include="Game\GameObjects\WeaponContract.cs" />
     <Compile Include="Game\GUI\GUI.cs" />
     <Compile Include="GUI\Picture.cs" />
     <Compile Include="Game\Program.cs" />

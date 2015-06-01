@@ -69,16 +69,15 @@ namespace Shoot_em_Up
         public int[] SpriteTileSize { get; set; }
         [DataMember]
         public int MovementPattern { get; set; }
-        //[DataMember]
-       // public WeaponContract Weapon {get;set;};
+        [DataMember]
+        public WeaponContract Weapon {get;set;}
 
         public void Init()
         {
             for (int i = 0; i < NumberOfObjects; i++)
             {
-                Game.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(SpawnStartPosition[0], SpawnStartPosition[1]), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern));
+                Game.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(SpawnStartPosition[0], SpawnStartPosition[1]), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
                 //here adjust SpawnStartPosition according to spawnPattern 
-                //Console.WriteLine(SpritePath);
             }
         }
     }
