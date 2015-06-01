@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Shoot_em_Up
 {
-    class Weapon : RectangleShape
+    class Weapon
     {
         private int bulletSpeed;
         private Stopwatch charge;
@@ -22,8 +22,7 @@ namespace Shoot_em_Up
         private KillableObject owner;
         private Color color;
 
-        public Weapon(KillableObject owner, int damage, int fireRate, int bulletSpeed, Vector2f direction, Vector2f pos, Texture texture)
-            : base(pos)
+        public Weapon(KillableObject owner, int damage, int fireRate, int bulletSpeed, Vector2f direction, Vector2f pos)
         {
             this.fireRate = fireRate;
             this.bulletSpeed = bulletSpeed;
@@ -33,14 +32,12 @@ namespace Shoot_em_Up
             this.owner = owner;
             this.direction = direction;
             this.relativePos = pos;
-            this.Size = new Vector2f(texture.Size.X, texture.Size.Y);
-            this.Texture = texture;
         }
 
         public void shoot(Vector2f position)
         {
-            //this.relativePos = this.owner.rigidBody.WorldTransform * this.relativePos;
-            //this.direction = this.owner.rigidBody.WorldTransform * this.direction;
+            this.relativePos = this.owner.rigidBody.WorldTransform * this.relativePos;
+            this.direction = this.owner.rigidBody.WorldTransform * this.direction;
             if (this.charge.ElapsedMilliseconds > this.fireRate)
             {
                 //this.weapons[type](this.owner.rigidBody.WorldTransform * this.relativePos + position, this.owner.rigidBody.WorldTransform * this.direction * bulletSpeed);
