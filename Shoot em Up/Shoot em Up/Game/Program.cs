@@ -81,8 +81,7 @@ namespace Shoot_em_Up
             {
                 //update the game as long as the "lag" is not compensated
                 ReadInput();
-                if (Mouse.GetPosition(window).X > WIDTH - 50) view.Move(new Vector2f( 5, 0));
-                if (Mouse.GetPosition(window).X < 50 && view.Center.X > WIDTH * .5f) view.Move(new Vector2f(-5, 0));
+                if (sEmUp.player.rigidBody.COM.X > WIDTH / 2 && sEmUp.player.rigidBody.Velocity.X >0) view.Center = new Vector2f(sEmUp.player.rigidBody.COM.X, HEIGHT / 2);
                 window.SetView(view);
                 mouseSprite.Position = window.MapPixelToCoords(Mouse.GetPosition(window), GUIview);
                 sEmUp.Update(DT);
