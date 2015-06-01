@@ -15,14 +15,14 @@ namespace Shoot_em_Up {
         Button restart;
         Button toMain;
         Menue menue;
-        Screen title;
+        Picture title;
         Game game;
         Label scoreLabel;
         Label resultScore;
         Label hp;
         Label lvl;
         Menue results;
-        Screen shield;
+        Picture shield;
         private List<IGraphic> welcome = new List<IGraphic>();
         private List<IGraphic> inGame = new List<IGraphic>();
         private List<IGraphic> credits = new List<IGraphic>();
@@ -31,7 +31,7 @@ namespace Shoot_em_Up {
             game = g;
             this.color = new Color(255,255,255);
            // start = new Button(new Vector2f(150, 640), new Vector2f(200,50), "Start Game!", this.color, 24, StartGame);
-            title = new Screen(0,0,"../Content/title.png", this.color);
+            title = new Picture(0,0,"../Content/title.png", this.color);
             this.welcome.Add(title);
             this.welcome.Add(start);
             

@@ -7,12 +7,12 @@ using System.Text;
 
 namespace GUI
 {
-    class Screen : GUIElement, IGraphic
+    class Picture : GUIElement, IGraphic
     {
 
         private bool displayed;
         private IGraphic parentView;
-        public Screen(uint x, uint y, String src, Color c) : base(c)
+        public Picture(uint x, uint y, String src, Color c) : base(c)
         {
             this.img = new Texture(src);
             this.image = new RectangleShape(new Vector2f(this.img.Size.X, this.img.Size.Y));
