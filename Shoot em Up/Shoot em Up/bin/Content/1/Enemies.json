@@ -6,22 +6,21 @@
          "StaticFriction": 0.5,
          "KineticFriction": 0.1,
          "CollisionType": 1,
-	 "Faction": 0,
+         "Faction": 0,
          "Health": 25,
          "Points": 10,
          "Damage": 5,
-         "SpawnPatternID": 5,
+         "SpawnPatternID": 0,
          "NumberOfObjects": 15,
          "SpawnStartPosition": [100, 100],
          "SpritePath": "../Content/ships/1.png",
-	 "SpriteSize": [100, 100],
+         "SpriteSize": [100, 100],
          "SpriteTileSize": [100, 100],
-	 "MovementPattern": 0,
+         "MovementPattern": 0,
          "Weapon": {
             "BulletPattern": 1,
-            "WeaponImage": "../Content/w.png",
             "BulletImage": "../Content/b.png",
-		"FireRate": 10,
+            "FireRate": 10,
             "BulletCollisionType": 0
          }
       }

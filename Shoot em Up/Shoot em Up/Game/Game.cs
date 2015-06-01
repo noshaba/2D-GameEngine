@@ -23,6 +23,7 @@ namespace Shoot_em_Up
         public static int WIDTH;
         public static int HEIGHT;
         public static Faction[] factions;
+        public static bool debug = false;
         private int level;
         public Player player;
         public Game(int width, int height)
@@ -161,7 +162,8 @@ namespace Shoot_em_Up
                 t.Translate(interpol.position);
                 t.Rotate(interpol.DegOrientation);
                 window.Draw(obj.drawable, new RenderStates(t));
-               // window.Draw(obj.rigidBody as Shape, new RenderStates(t));
+                if(debug) 
+                    window.Draw(obj.rigidBody as Shape, new RenderStates(t));
             }
         }
 
