@@ -123,7 +123,7 @@ namespace Shoot_em_Up
             }
             if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
             {
-                //sEmUp.Fire();
+                sEmUp.Fire();
             }
         }
 
