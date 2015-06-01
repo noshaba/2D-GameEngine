@@ -78,6 +78,16 @@ namespace Shoot_em_Up
                     obstacles[i].Init();
                 }  
             }
+            using (StreamReader sr = new StreamReader("../Content/" + level + "/Enemies.json"))
+            {
+                EnemyContract[] enemies;
+                String json = sr.ReadToEnd();
+                enemies = JSONManager.deserializeJson<EnemyContract[]>(json);
+                for (int i = 0; i < enemies.Length; i++)
+                {
+                    enemies[i].Init();
+                }
+            }
         }
 
         public void Update(float dt) 

@@ -57,6 +57,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Game\GameObjects\Enemy.cs" />
+    <Compile Include="Game\GameObjects\EnemyContract.cs" />
     <Compile Include="Game\FileManager\JSONManager.cs" />
     <Compile Include="Game\Game.cs" />
     <Compile Include="Game\GameObjects\Achievement.cs" />
