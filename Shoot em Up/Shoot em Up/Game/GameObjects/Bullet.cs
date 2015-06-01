@@ -19,8 +19,8 @@ namespace Shoot_em_Up
         private Vector2f bend;
         private KillableObject shooter;
 
-        public Bullet(KillableObject shooter, Faction faction, Vector2f position, float radius, Color color, float mass, int dmg, Vector2f speed, Vector2f bend)
-            : base(faction, position + speed + bend, 0, radius, mass)
+        public Bullet(KillableObject shooter, Faction faction, Vector2f position, float radius, Color color, float density, int dmg, Vector2f speed, Vector2f bend)
+            : base(faction, position + speed + bend, 0, radius, density)
         {
             initPosition = position + speed + bend;
             (rigidBody as Circle).FillColor = color;

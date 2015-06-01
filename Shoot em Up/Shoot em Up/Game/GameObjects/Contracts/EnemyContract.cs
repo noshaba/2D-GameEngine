@@ -79,17 +79,9 @@ namespace Shoot_em_Up
             switch (SpawnPatternID) {
                 case 0: block();
                     break;
-                case 1: block(6);
+                case 1: vFormation();
                     break;
-                case 2: block(5);
-                    break;
-                case 3: block(4);
-                    break;
-                case 4: block(3);
-                    break;
-                case 5: block(2);
-                    break;
-                case 6: vFormation();
+                case 2: diagonal();
                     break;
                 default: standard();
                     break;
@@ -101,10 +93,36 @@ namespace Shoot_em_Up
         private void block()
         {
             int rows = (Game.HEIGHT - 100) / (SpriteTileSize[1] + 20);
+            int x, y;
             for (int i = 0; i < NumberOfObjects; ++i)
             {
+                x = SpawnStartPosition[0] + (i / rows) * SpriteTileSize[0];
+                y = SpawnStartPosition[1] + (i % rows) * SpriteTileSize[1];
+                Game.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
+            }
+        }
+        private void diagonal()
+        {
+            int rows = (Game.HEIGHT - 100) / (SpriteTileSize[1] + 20);
+            for (int i = 0; i < NumberOfObjects; ++i)
+            {
+                int x = SpawnStartPosition[0] + i * SpriteTileSize[0];
                 int y = SpawnStartPosition[1] + (i % rows) * SpriteTileSize[1];
-                int x = SpawnStartPosition[0] + (i / rows) * SpriteTileSize[0];
+                Game.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
+            }
+        }
+
+        private void vFormation()
+        {
+            int rows = (Game.HEIGHT - 100) / (SpriteTileSize[1] + 50);
+            int j = -1;
+            int x = SpawnStartPosition[0];
+            int y = SpawnStartPosition[1];
+            for (int i = 0; i < NumberOfObjects; ++i)
+            {
+                if (i % rows == 0) j = j * (-1);
+                x +=     SpriteTileSize[0];
+                y += j * SpriteTileSize[1];
                 Game.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
             }
         }
@@ -128,11 +146,6 @@ namespace Shoot_em_Up
                     int y = SpawnStartPosition[1] + k*100;
                     Game.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
             }
-        }
-
-        private void vFormation()
-        {
-            //needs to be done
         }
 
         private void standard()

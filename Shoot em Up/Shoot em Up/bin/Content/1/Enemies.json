@@ -10,7 +10,7 @@
          "Health": 25,
          "Points": 10,
          "Damage": 5,
-         "SpawnPatternID": 0,
+         "SpawnPatternID": 1,
          "NumberOfObjects": 50,
          "SpawnStartPosition": [100, 100],
          "SpritePath": "../Content/ships/1.png",
