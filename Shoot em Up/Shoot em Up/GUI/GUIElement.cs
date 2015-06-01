@@ -25,7 +25,7 @@ namespace GUI
         private RectangleShape bottomRightDest;
         protected RectangleShape image;
         protected String path;
-        private Color color;
+        public Color color;
 
         public GUIElement(Color c)
         {
@@ -57,6 +57,7 @@ namespace GUI
 
         public virtual void Draw(RenderTarget target, RenderStates states)
         {
+            //this.ScaleImage();
             if (this.topLeftDest != null)
             {
                 target.Draw(this.topLeftDest, states);

@@ -1,70 +1,28 @@
-[
+
    [
       {
-         "Name": "Canon",
          "Density": 0,
          "Restitution": 0.5,
          "StaticFriction": 0.5,
          "KineticFriction": 0.1,
          "CollisionType": 1,
+"Faction": 0,
          "Health": 25,
          "Points": 10,
          "Damage": 5,
          "SpawnPatternID": 0,
          "NumberOfObjects": 15,
          "SpawnStartPosition": [240, 200],
-         "Sprite": "sprite_path",
+         "SpritePath": "../Content/ships/1.png",
+"SpriteSize": [100, 100],
          "SpriteTileSize": [100, 100],
+"MovementPattern": 0,
          "Weapon": {
-            "Name": "name",
-            "WeaponImage": "image_path",
-            "BulletImage": "image_path",
-            "BulletCollisionType": 0
-         }
-      },
-      {
-         "Name": "SomeEnemy",
-         "Density": 0,
-         "Restitution": 0.5,
-         "StaticFriction": 0.5,
-         "KineticFriction": 0.1,
-         "CollisionType": 1,
-         "Health": 25,
-         "Points": 10,
-         "Damage": 5,
-         "SpawnPatternID": 0,
-         "NumberOfObjects": 15,
-         "SpawnStartPosition": [240, 200],
-         "Sprite": "sprite_path",
-         "SpriteTileSize": [100, 100],
-         "Weapon": {
-            "Name": "name",
-            "WeaponImage": "image_path",
-            "BulletImage": "image_path",
-            "BulletCollisionType": 0
-         }
-      },
-      {
-         "Name": "AnotherEnemy",
-         "Density": 0,
-         "Restitution": 0.5,
-         "StaticFriction": 0.5,
-         "KineticFriction": 0.1,
-         "CollisionType": 1,
-         "Health": 25,
-         "Points": 10,
-         "Damage": 5,
-         "SpawnPatternID": 0,
-         "NumberOfObjects": 15,
-         "SpawnStartPosition": [240, 200],
-         "Sprite": "sprite_path",
-         "SpriteTileSize": [100, 100],
-         "Weapon": {
-            "Name": "name",
-            "WeaponImage": "image_path",
-            "BulletImage": "image_path",
+            "BulletPattern": 1,
+            "WeaponImage": "../Content/w.png",
+            "BulletImage": "../Content/b.png",
+		"FireRate": 10,
             "BulletCollisionType": 0
          }
       }
    ]
-]

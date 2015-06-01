@@ -63,21 +63,30 @@ namespace Shoot_em_Up
                        break;
                     
                }*/
-            if (k == Keyboard.Key.Right && this.rigidBody.AngularVelocity != .5f)
+            this.rigidBody.AngularVelocity = 0;
+            if (this.rigidBody.Orientation > 0)
+                this.rigidBody.Orientation -= 0.01f;
+            if (this.rigidBody.Orientation < 0)
+                this.rigidBody.Orientation += 0.01f;
+
+            if (k == Keyboard.Key.Right )
             {
-                this.rigidBody.AngularVelocity = .5f;
+                this.rigidBody.Velocity = new Vector2f(this.speed, 0);
+                
             }
-            else if (k == Keyboard.Key.Left && this.rigidBody.AngularVelocity != -.5f)
+            else if (k == Keyboard.Key.Left)
             {
-                this.rigidBody.AngularVelocity = -.5f;
+                this.rigidBody.Velocity = new Vector2f(-this.speed,0);
             }
             if (k == Keyboard.Key.Up)
             {
-                this.rigidBody.Velocity = new Vector2f(0, -this.speed);
+                this.rigidBody.Velocity = new Vector2f(this.rigidBody.Velocity.X, -this.speed);
+
             }
             else if (k == Keyboard.Key.Down)
             {
-                this.rigidBody.Velocity = new Vector2f(0, this.speed);
+                this.rigidBody.Velocity = new Vector2f(this.rigidBody.Velocity.X, this.speed);
+
             }
             this.rigidBody.Velocity = this.rigidBody.WorldTransform * this.rigidBody.Velocity;
         }

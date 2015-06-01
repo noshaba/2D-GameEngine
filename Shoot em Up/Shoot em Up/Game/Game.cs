@@ -25,12 +25,14 @@ namespace Shoot_em_Up
         public static Faction[] factions;
         public static bool debug = false;
         private int level;
+        public Player player;
         public Game(int width, int height)
         {
             WIDTH = width;
             HEIGHT = height;
             Level = 1;
-            Add(new Player(factions[1], new Vector2f(100,100), "../Content/cuteship", new int[]{100,89}, new int[]{100,89}));
+            this.player = new Player(factions[1], new Vector2f(100,100), "../Content/cuteship", new int[]{100,89}, new int[]{100,89});
+            Add(this.player);
         }
 
         public static void Add(GameObject obj)
@@ -76,6 +78,16 @@ namespace Shoot_em_Up
                 {
                     obstacles[i].Init();
                 }  
+            }
+            using (StreamReader sr = new StreamReader("../Content/" + level + "/Enemies.json"))
+            {
+                EnemyContract[] enemies;
+                String json = sr.ReadToEnd();
+                enemies = JSONManager.deserializeJson<EnemyContract[]>(json);
+                for (int i = 0; i < enemies.Length; i++)
+                {
+                    enemies[i].Init();
+                }
             }
         }
 
@@ -153,6 +165,11 @@ namespace Shoot_em_Up
                 if(debug) 
                     window.Draw(obj.rigidBody as Shape, new RenderStates(t));
             }
+        }
+
+        public void MovePlayer(Keyboard.Key k)
+        {
+            this.player.Move(k);
         }
 
     }

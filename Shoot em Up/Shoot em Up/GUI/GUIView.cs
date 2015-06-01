@@ -49,7 +49,9 @@ namespace GUI {
 
         public void Draw(RenderWindow window) {
             foreach (IGraphic child in children)
+            {
                 child.Draw(window);
+            }
         }
 
         public void Released(float X, float Y) {

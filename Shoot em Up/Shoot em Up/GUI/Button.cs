@@ -18,6 +18,7 @@ namespace GUI {
         public ActionListener listener;
         private bool displayed;
         private IGraphic parentView;
+        private Vector2f size;
 
         //Button manual size
         public Button(Vector2f position, Vector2f size, String text, Color txtC, uint cSize, ActionListener listener)
@@ -27,6 +28,7 @@ namespace GUI {
             this.label = new Label(text, txtC);
             this.label.Color = txtC;
             this.label.CharacterSize = cSize;
+            this.size = size;
             this.centerLabel(this.label.GetLocalBounds(), position, size);
             //this.label.Position = position;
             status = Status.Released;
@@ -83,10 +85,12 @@ namespace GUI {
             set { displayed = value; }
         }
 
+
         new public void Draw(RenderWindow window) {
             if (displayed)
                 window.Draw(this);
             if (this.label != null)
+                //this.centerLabel(this.label.GetLocalBounds(), this.Position, this.size);
                 this.label.Draw(window);
         }
 
