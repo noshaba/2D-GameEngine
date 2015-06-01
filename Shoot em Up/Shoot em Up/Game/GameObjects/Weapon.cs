@@ -23,7 +23,7 @@ namespace Shoot_em_Up
         private KillableObject owner;
         private Color color;
 
-        public Weapon(KillableObject owner, int damage, int fireRate, int bulletSpeed, Vector2f direction, Vector2f pos, Texture texture)
+        public Weapon(KillableObject owner, int damage, int fireRate, int bulletSpeed, Vector2f direction, Vector2f pos)
         {
             this.fireRate = fireRate;
             this.bulletSpeed = bulletSpeed;
