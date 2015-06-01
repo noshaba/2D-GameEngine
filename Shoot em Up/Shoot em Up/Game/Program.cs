@@ -84,8 +84,7 @@ namespace Shoot_em_Up
                 if (Mouse.GetPosition(window).X > WIDTH - 50) view.Move(new Vector2f( 5, 0));
                 if (Mouse.GetPosition(window).X < 50 && view.Center.X > WIDTH * .5f) view.Move(new Vector2f(-5, 0));
                 window.SetView(view);
-                mouseSprite.Position = window.MapPixelToCoords(Mouse.GetPosition(window), view);
-                Console.WriteLine(mouseSprite.Position);
+                mouseSprite.Position = window.MapPixelToCoords(Mouse.GetPosition(window), GUIview);
                 sEmUp.Update(DT);
                 accumulator -= DT;
             }
@@ -127,7 +126,7 @@ namespace Shoot_em_Up
 
         private static void window_MouseMoved(object sender, MouseMoveEventArgs e)
         {
-            mouseSprite.Position = window.MapPixelToCoords(Mouse.GetPosition(window), view);
+            mouseSprite.Position = window.MapPixelToCoords(Mouse.GetPosition(window), GUIview);
            
          //   gui.OnHover(e.X, e.Y);
         }

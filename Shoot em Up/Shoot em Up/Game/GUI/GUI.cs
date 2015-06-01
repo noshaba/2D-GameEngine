@@ -37,7 +37,7 @@ namespace Shoot_em_Up {
             
 
             restart = new Button(new Vector2f(150, 440), new Vector2f(200, 50), "Play Again!", this.color, 24, StartGame);
-            this.results = new Menue(new Vector2f(20, 140), new Vector2f(440, 260), this.color);
+            this.results = new Menue(new Vector2f(0, 0), new Vector2f(width, 60), this.color);
             this.credits.Add(restart);
             this.resultScore = new Label(new Vector2f(80, 100), "Your Score: ", this.color, 24);
             this.results.Add(resultScore);
@@ -71,11 +71,6 @@ namespace Shoot_em_Up {
                     break;
             }*/
             this.children = this.credits;
-           /* foreach (IGraphic child in children)
-            {
-                Console.WriteLine(child.ToString());
-                child.Position = new Vector2f(50,50);
-            }*/
             base.Draw(window);
         }/*
 
