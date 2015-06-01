@@ -77,23 +77,36 @@ namespace Shoot_em_Up
                 //here adjust SpawnStartPosition according to spawnPattern 
                     //Game.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(SpawnStartPosition[0], SpawnStartPosition[1]), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
             switch (SpawnPatternID) {
-                case 0: block(6);
+                case 0: block();
                     break;
-                case 1: block(5);
+                case 1: block(6);
                     break;
-                case 2: block(4);
+                case 2: block(5);
                     break;
-                case 3: block(3);
+                case 3: block(4);
                     break;
-                case 4: block(2);
+                case 4: block(3);
                     break;
-                case 5: vFormation();
+                case 5: block(2);
+                    break;
+                case 6: vFormation();
                     break;
                 default: standard();
                     break;
             }   
             
             
+        }
+
+        private void block()
+        {
+            int rows = (Game.HEIGHT - 100) / (SpriteTileSize[1] + 20);
+            for (int i = 0; i < NumberOfObjects; ++i)
+            {
+                int y = SpawnStartPosition[1] + (i % rows) * SpriteTileSize[1];
+                int x = SpawnStartPosition[0] + (i / rows) * SpriteTileSize[0];
+                Game.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
+            }
         }
 
         private void block(int rows)
