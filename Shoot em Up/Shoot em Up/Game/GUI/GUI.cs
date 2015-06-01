@@ -29,7 +29,7 @@ namespace Shoot_em_Up {
 
         public GUI(int width, int height, Game g) : base(new Vector2f(0, 0), new Vector2f(width, height)) {
             game = g;
-            this.color = new Color(255,255,255);
+            this.color = new Color(255,180,255);
            // start = new Button(new Vector2f(150, 640), new Vector2f(200,50), "Start Game!", this.color, 24, StartGame);
             title = new Picture(0,0,"../Content/title.png", this.color);
             this.welcome.Add(title);
