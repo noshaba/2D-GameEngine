@@ -172,5 +172,10 @@ namespace Shoot_em_Up
             this.player.Move(k);
         }
 
+        public void Fire()
+        {
+            this.player.fire = !this.physics.frozen;
+        }
+
     }
 }

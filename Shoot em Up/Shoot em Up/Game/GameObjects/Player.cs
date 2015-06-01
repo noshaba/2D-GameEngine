@@ -20,6 +20,7 @@ namespace Shoot_em_Up
         Stopwatch clock;
         public String shieldStatus;
         private String texturePath;
+        private Weapon weapon;
         //string texturePath, int[] spriteTileSize, int[] spriteSize, int animationIndex, Vector2f position, float rotation
         public Player(Faction faction, Vector2f position, String texture, int[]tileSize, int[]spriteSize)
             : base(faction, texture+".png", tileSize, spriteSize, 0, position, 0, 0.9f)
@@ -31,7 +32,7 @@ namespace Shoot_em_Up
             this.hp = 1000;
             this.maxHP = 1000;
             //this.drawable.Texture = texture;
-            //this.weapon = new Weapon(this, 20, 500, 30, "singleShot", new Vector2f(0, -1), new Vector2f(0, -texture.Size.Y / 2), Color.Red);
+            this.weapon = new Weapon("singleShot", this, 20, 500, 60, new Vector2f(1, 0), new Vector2f(new Texture(texture+".png").Size.X / 2,0), Color.Red);
             this.shield = false;
             this.maxShieldHp = 150;
             this.shieldHp = this.maxShieldHp;
@@ -122,7 +123,7 @@ namespace Shoot_em_Up
 
         private void Shoot()
         {
-            //if (fire) this.weapon.shoot(this.rigidBody.COM);
+            if (fire) this.weapon.shoot(this.rigidBody.COM);
         }
 
 
