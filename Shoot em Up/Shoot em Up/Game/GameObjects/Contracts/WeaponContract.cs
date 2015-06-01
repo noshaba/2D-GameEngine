@@ -13,8 +13,6 @@ namespace Shoot_em_Up
         [DataMember]
         public int BulletPattern { get; set; }
         [DataMember]
-        public String WeaponImage { get; set; }
-        [DataMember]
         public String BulletImage { get; set; }
         [DataMember]
         public int FireRate { get; set; }

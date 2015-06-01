@@ -27,7 +27,7 @@ namespace Shoot_em_Up
              this.points = points;
              this.type = type;
              this.mPattern = pattern;
-             this.weapon = new Weapon(this, dmg, w.FireRate, 2, new Vector2f(1,0) , this.rigidBody.COM, new Texture(w.WeaponImage)); 
+             this.weapon = new Weapon(this, dmg, w.FireRate, 2, new Vector2f(1,0) , this.rigidBody.COM); 
          }
     }
 }

@@ -26,7 +26,7 @@
         "Points": 10,
         "Damage": 5,
         "SpawnPatternID": 0,
-        "NumberOfObjects": 5,
+        "NumberOfObjects": 15,
         "SpawnStartPosition": [540,300],
         "SpritePath": "../Content/astroids/2.png",
         "SpriteSize": [90,90],
