@@ -39,6 +39,12 @@ namespace Physics {
             kineticFriction = EMath.Random(0, staticFriction);
             collision = new Collision();
             collision.collision = false;
+            this.Radius = (float)Math.Sqrt(size.X * size.X * .25f + size.Y * size.Y * .25f);
+            this.BoundingCircle = new CircleShape(Radius);
+            this.BoundingCircle.Origin = new Vector2f(Radius, Radius);
+            this.BoundingCircle.FillColor = Color.Transparent;
+            this.BoundingCircle.OutlineThickness = 2;
+            this.BoundingCircle.OutlineColor = Color.White;
         }
 
 
@@ -57,6 +63,10 @@ namespace Physics {
         public Collision.Type Type {
             get { return type; }
         }
+
+        public float Radius { get; set; }
+
+        public CircleShape BoundingCircle { get; set; }
 
         public Vector2f COM {
             get { return current.position; }

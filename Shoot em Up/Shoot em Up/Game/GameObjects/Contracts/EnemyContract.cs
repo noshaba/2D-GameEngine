@@ -70,27 +70,38 @@ namespace Shoot_em_Up
         [DataMember]
         public int MovementPattern { get; set; }
         [DataMember]
-        public WeaponContract Weapon {get;set;}
+        public WeaponContract Weapon { get; set; }
 
         public void Init()
         {
-                //here adjust SpawnStartPosition according to spawnPattern 
-                    //Game.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(SpawnStartPosition[0], SpawnStartPosition[1]), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
+            //here adjust SpawnStartPosition according to spawnPattern 
             switch (SpawnPatternID) {
-                case 0: block();
+                case 0:
+                    Block();
                     break;
-                case 1: vFormation();
+                case 1:
+                    ZigZag();
                     break;
-                case 2: diagonal();
+                case 2:
+                    Diagonal();
                     break;
-                default: standard();
+                default:
+                    Standard();
                     break;
-            }   
-            
-            
+            } 
         }
 
-        private void block()
+        private void Standard()
+        {
+            int x, y;
+            for (int i = 0; i < NumberOfObjects; i++)
+            {
+                x = SpawnStartPosition[0] + i * SpriteTileSize[0];
+                y = SpawnStartPosition[1];
+                Game.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
+            }
+        }
+        private void Block()
         {
             int rows = (Game.HEIGHT - 100) / (SpriteTileSize[1] + 20);
             int x, y;
@@ -101,18 +112,19 @@ namespace Shoot_em_Up
                 Game.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
             }
         }
-        private void diagonal()
+        private void Diagonal()
         {
             int rows = (Game.HEIGHT - 100) / (SpriteTileSize[1] + 20);
+            int x, y;
             for (int i = 0; i < NumberOfObjects; ++i)
             {
-                int x = SpawnStartPosition[0] + i * SpriteTileSize[0];
-                int y = SpawnStartPosition[1] + (i % rows) * SpriteTileSize[1];
+                x = SpawnStartPosition[0] + i * SpriteTileSize[0];
+                y = SpawnStartPosition[1] + (i % rows) * SpriteTileSize[1];
                 Game.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
             }
         }
 
-        private void vFormation()
+        private void ZigZag()
         {
             int rows = (Game.HEIGHT - 100) / (SpriteTileSize[1] + 50);
             int j = -1;
@@ -121,39 +133,9 @@ namespace Shoot_em_Up
             for (int i = 0; i < NumberOfObjects; ++i)
             {
                 if (i % rows == 0) j = j * (-1);
-                x +=     SpriteTileSize[0];
+                x += SpriteTileSize[0];
                 y += j * SpriteTileSize[1];
                 Game.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
-            }
-        }
-
-        private void block(int rows)
-        {
-            int k =0;
-            for (int i = 0; i < NumberOfObjects/rows; i++)
-            {
-                k++;
-                for (int j = 0; j < rows; j++ )
-                {
-                    int x = SpawnStartPosition[0]+j*100;
-                    int y = SpawnStartPosition[1]+i*100;
-                    Game.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
-                }
-            }
-            for (int i = 0; i < NumberOfObjects % rows; i++)
-            {
-                    int x = SpawnStartPosition[0] + i * 100;
-                    int y = SpawnStartPosition[1] + k*100;
-                    Game.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
-            }
-        }
-
-        private void standard()
-        {
-            for (int i = 0; i < NumberOfObjects; i++)
-            {
-                //here adjust SpawnStartPosition according to spawnPattern 
-                Game.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(SpawnStartPosition[0], SpawnStartPosition[1]), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
             }
         }
     }

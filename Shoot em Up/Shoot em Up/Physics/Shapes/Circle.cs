@@ -31,6 +31,11 @@ namespace Physics {
             kineticFriction = EMath.Random(0, staticFriction);
             collision = new Collision();
             collision.collision = false;
+            this.BoundingCircle = new CircleShape(radius);
+            this.BoundingCircle.Origin = new Vector2f(radius, radius);
+            this.BoundingCircle.FillColor = Color.Transparent;
+            this.BoundingCircle.OutlineThickness = 2;
+            this.BoundingCircle.OutlineColor = Color.White;
 
         }
         
@@ -46,7 +51,11 @@ namespace Physics {
             kineticFriction = EMath.Random(0, staticFriction);
             collision = new Collision();
             collision.collision = false;
-
+            this.BoundingCircle = new CircleShape(radius);
+            this.BoundingCircle.Origin = new Vector2f(radius,radius);
+            this.BoundingCircle.FillColor = Color.Transparent;
+            this.BoundingCircle.OutlineThickness = 2;
+            this.BoundingCircle.OutlineColor = Color.White;
             // Console.WriteLine("Ball " + mass);
         }
 
@@ -66,6 +75,14 @@ namespace Physics {
             get { return collision; }
             set { collision = value; }
         }
+
+        new public float Radius
+        {
+            get { return base.Radius; }
+            set { base.Radius = value; }
+        }
+
+        public CircleShape BoundingCircle { get; set; }
 
         public Vector2f COM {
             get { return current.position; }

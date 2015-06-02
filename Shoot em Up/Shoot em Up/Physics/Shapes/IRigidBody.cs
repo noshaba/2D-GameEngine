@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SFML.System;
+using SFML.Graphics;
 using Maths;
 
 namespace Physics {
@@ -11,6 +12,8 @@ namespace Physics {
         object Parent { get; set; }
         Collision.Type Type{ get; }
         Collision Collision { get; set; }
+        float Radius { get; set; }
+        CircleShape BoundingCircle { get; set; }
         Vector2f COM { get; set; }
         Vector2f Centroid { get; }
         float Orientation { get; set; }

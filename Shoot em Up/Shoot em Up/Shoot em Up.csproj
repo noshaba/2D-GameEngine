@@ -93,6 +93,7 @@
     <Compile Include="Maths\Vec2fMath.cs" />
     <Compile Include="Physics\Collision.cs" />
     <Compile Include="Physics\Physic.cs" />
+    <Compile Include="Physics\Quadtree.cs" />
     <Compile Include="Physics\Shapes\Circle.cs" />
     <Compile Include="Physics\Shapes\IRigidBody.cs" />
     <Compile Include="Physics\Shapes\Plane.cs" />

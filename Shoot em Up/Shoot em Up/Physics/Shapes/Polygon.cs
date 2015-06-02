@@ -36,6 +36,11 @@ namespace Physics {
             kineticFriction = EMath.Random(0, staticFriction);
             collision = new Collision();
             collision.collision = false;
+            this.BoundingCircle = new CircleShape(Radius);
+            this.BoundingCircle.Origin = new Vector2f(Radius, Radius);
+            this.BoundingCircle.FillColor = Color.Transparent;
+            this.BoundingCircle.OutlineThickness = 2;
+            this.BoundingCircle.OutlineColor = Color.White;
         }
 
         public Polygon(Object parent, Vector2f[] vertices, Vector2f position, float rotation, float density) : base() {
@@ -48,6 +53,11 @@ namespace Physics {
             kineticFriction = EMath.Random(0, staticFriction);
             collision = new Collision();
             collision.collision = false;
+            this.BoundingCircle = new CircleShape(Radius);
+            this.BoundingCircle.Origin = new Vector2f(Radius, Radius);
+            this.BoundingCircle.FillColor = Color.Transparent;
+            this.BoundingCircle.OutlineThickness = 2;
+            this.BoundingCircle.OutlineColor = Color.White;
         }
 
         public void SetBox(Vector2f position, float hw, float hh, float rotation) {
@@ -65,8 +75,14 @@ namespace Physics {
             normals[1] = new Vector2f( 1,  0);
             normals[2] = new Vector2f( 0,  1);
             normals[3] = new Vector2f(-1,  0);
+            this.Radius = (float)Math.Sqrt(hw * hw + hh * hh);
             current = new State(position, rotation);
             previous = current;
+            this.BoundingCircle = new CircleShape(Radius);
+            this.BoundingCircle.Origin = new Vector2f(Radius, Radius);
+            this.BoundingCircle.FillColor = Color.Transparent;
+            this.BoundingCircle.OutlineThickness = 2;
+            this.BoundingCircle.OutlineColor = Color.White;
         }
 
         public void SetBox(Vector2f position, float hw, float hh, float rotation, float density) {
@@ -82,7 +98,13 @@ namespace Physics {
             normals[1] = new Vector2f(1, 0);
             normals[2] = new Vector2f(0, 1);
             normals[3] = new Vector2f(-1, 0);
+            this.Radius = (float)Math.Sqrt(hw * hw + hh * hh);
             InitState(position, rotation, density);
+            this.BoundingCircle = new CircleShape(Radius);
+            this.BoundingCircle.Origin = new Vector2f(Radius, Radius);
+            this.BoundingCircle.FillColor = Color.Transparent;
+            this.BoundingCircle.OutlineThickness = 2;
+            this.BoundingCircle.OutlineColor = Color.White;
         }
 
         private void InitState(Vector2f position, float rotation, float density) { 
@@ -208,6 +230,16 @@ namespace Physics {
                 Vector2f face = vertices[i2] - vertices[i1];
                 normals[i1] = new Vector2f(face.Y, -face.X).Norm();
             }
+
+            // calculate radius
+            float rad2 = vertices[0].Length2();
+            float len2;
+            for (uint i = 1; i < vertices.Length; ++i)
+            {
+                len2 = vertices[i].Length2();
+                if (rad2 < len2) rad2 = len2;
+            }
+            this.Radius = (float)Math.Sqrt(rad2);
         }
 
         private void InitVertices() {
@@ -237,6 +269,10 @@ namespace Physics {
         public Collision.Type Type {
             get { return type; }
         }
+
+        public float Radius { get; set; }
+
+        public CircleShape BoundingCircle { get; set; }
 
         public Vector2f COM {
             get { return current.position; }
