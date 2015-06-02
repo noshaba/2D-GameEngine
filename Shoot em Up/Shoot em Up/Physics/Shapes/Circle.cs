@@ -34,7 +34,7 @@ namespace Physics {
             this.BoundingCircle = new CircleShape(radius);
             this.BoundingCircle.Origin = new Vector2f(radius, radius);
             this.BoundingCircle.FillColor = Color.Transparent;
-            this.BoundingCircle.OutlineThickness = 2;
+            this.BoundingCircle.OutlineThickness = 1;
             this.BoundingCircle.OutlineColor = Color.White;
 
         }
@@ -54,9 +54,8 @@ namespace Physics {
             this.BoundingCircle = new CircleShape(radius);
             this.BoundingCircle.Origin = new Vector2f(radius,radius);
             this.BoundingCircle.FillColor = Color.Transparent;
-            this.BoundingCircle.OutlineThickness = 2;
+            this.BoundingCircle.OutlineThickness = 1;
             this.BoundingCircle.OutlineColor = Color.White;
-            // Console.WriteLine("Ball " + mass);
         }
 
 

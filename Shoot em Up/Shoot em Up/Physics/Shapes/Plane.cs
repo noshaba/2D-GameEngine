@@ -43,7 +43,7 @@ namespace Physics {
             this.BoundingCircle = new CircleShape(Radius);
             this.BoundingCircle.Origin = new Vector2f(Radius, Radius);
             this.BoundingCircle.FillColor = Color.Transparent;
-            this.BoundingCircle.OutlineThickness = 2;
+            this.BoundingCircle.OutlineThickness = 1;
             this.BoundingCircle.OutlineColor = Color.White;
         }
 
