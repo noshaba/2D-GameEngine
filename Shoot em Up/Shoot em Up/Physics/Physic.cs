@@ -14,22 +14,39 @@ namespace Physics {
         private float damping;
         private bool friction;
         public bool frozen = false;
+        private Quadtree quadtree;
+        private List<IRigidBody> possibleCollisionTargets;
 
-        public Physic(List<IRigidBody> shapes, Vector2f gravity, float damping, bool friction) {
+        public Physic(List<IRigidBody> shapes, Vector2f gravity, float damping, bool friction, FloatRect windowSize) {
             this.gravity = gravity;
             this.damping = damping;
             this.friction = friction;
             this.objects = shapes;
+            this.quadtree = new Quadtree(0, windowSize);
+            this.possibleCollisionTargets = new List<IRigidBody>();
+        }
+
+        public void DrawQuadtree(RenderWindow window)
+        {
+            this.quadtree.Draw(window);
         }
 
         //updates all objects in the list
         public void Update(float dt) {
             if (!frozen) {
-                Parallel.For(0, objects.Count, i =>
+                quadtree.Clear();
+                foreach (IRigidBody obj in objects)
+                    quadtree.Insert(obj);
+            /*    Parallel.For(0, objects.Count, i =>
                 {
                     objects[i].Update(dt);
                     ApplyForces(dt, i);
-                });
+                });*/
+                for (int i = 0; i < objects.Count; ++i)
+                {
+                    objects[i].Update(dt);
+                    ApplyForces(dt, i);
+                }
             }
         }
 
@@ -52,19 +69,24 @@ namespace Physics {
 
         //checks for collision between all objects
         private void AddCollisionImpulse(int i) {
-            for (int j = 0; j < objects.Count; ++j) {
-                if (i == j) continue;
-                Collision colli = Collision.CheckForCollision(objects[i], objects[j]);
+            possibleCollisionTargets.Clear();
+            quadtree.Retrieve(possibleCollisionTargets, objects[i]);
+
+            for (int j = 0; j < possibleCollisionTargets.Count; ++j)
+            {
+                if (objects[i] == possibleCollisionTargets[j]) continue;
+                Collision colli = Collision.CheckForCollision(objects[i], possibleCollisionTargets[j]);
                 if (colli.collision) {
-                    if (!objects[i].Collision.collision && !objects[j].Collision.collision) {
+                    if (!objects[i].Collision.collision && !possibleCollisionTargets[j].Collision.collision)
+                    {
                         objects[i].Collision = colli;
-                        objects[j].Collision = colli.other(objects[i]);
+                        possibleCollisionTargets[j].Collision = colli.other(objects[i]);
                     }
                     if (objects[i].InverseMass > 0) {
                         for (uint k = 0; k < colli.contacts.Length; ++k) {
                             Vector2f rad1 = colli.contacts[k] - objects[i].COM;
-                            Vector2f rad2 = colli.contacts[k] - objects[j].COM;
-                            CollisionImpulse(objects[i], objects[j], rad1, rad2, colli.normal, colli.contacts.Length);
+                            Vector2f rad2 = colli.contacts[k] - possibleCollisionTargets[j].COM;
+                            CollisionImpulse(objects[i], possibleCollisionTargets[j], rad1, rad2, colli.normal, colli.contacts.Length);
                         }
                     }
                 }

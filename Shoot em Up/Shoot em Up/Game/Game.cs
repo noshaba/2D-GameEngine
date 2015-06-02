@@ -62,7 +62,7 @@ namespace Shoot_em_Up
                 planet = JSONManager.deserializeJson<Planet>(json);
                 planet.Init();
             }
-            physics = new Physic(rigidBodies, new Vector2f(planet.Gravity[0], planet.Gravity[1]), planet.Damping, planet.Friction);
+            physics = new Physic(rigidBodies, new Vector2f(planet.Gravity[0], planet.Gravity[1]), planet.Damping, planet.Friction, (FloatRect) planet.backgroundSprite.TextureRect);
             planet.AddGround();
             using (StreamReader sr = new StreamReader("../Content/" + level + "/Factions.json"))
             {
@@ -155,6 +155,7 @@ namespace Shoot_em_Up
             window.Draw(planet.backgroundSprite);
             State interpol;
             Transform t;
+            if(debug) physics.DrawQuadtree(window);
             foreach (GameObject obj in objects)
             {
                 interpol = obj.rigidBody.Interpolation(alpha);

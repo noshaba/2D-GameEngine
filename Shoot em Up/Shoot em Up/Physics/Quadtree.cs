@@ -4,25 +4,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SFML.Graphics;
+using SFML.System;
 
 namespace Physics
 {
     class Quadtree
     {
         private int MAX_OBJECTS = 10;
-        private int MAX_HEIGHT = 5;
+        //private int MAX_HEIGHT = 1000;
 
         private int height;
         private List<IRigidBody> objects;
-        private FloatRect bounds;
         private Quadtree[] nodes;
+        private FloatRect bounds;
+        public RectangleShape drawable;
 
         public Quadtree(int height, FloatRect bounds)
         {
             this.height = height;
             this.bounds = bounds;
+            this.drawable = new RectangleShape(new Vector2f(bounds.Width,bounds.Height));
+            this.drawable.Position = new Vector2f(bounds.Left, bounds.Top);
+            this.drawable.FillColor = Color.Transparent;
+            this.drawable.OutlineThickness = 1;
+            this.drawable.OutlineColor = Color.White;
             this.objects = new List<IRigidBody>();
             this.nodes = new Quadtree[4];
+            // Console.WriteLine(height);
         }
 
         public void Clear()
@@ -104,7 +112,7 @@ namespace Physics
                 }
             }
             objects.Add(obj);
-            if (objects.Count > MAX_OBJECTS && height < MAX_HEIGHT)
+            if (objects.Count > MAX_OBJECTS)
             {
                 if (nodes[0] == null)
                     Split();
@@ -134,6 +142,13 @@ namespace Physics
 
             returnObjects.AddRange(objects);
             return returnObjects;
+        }
+
+        public void Draw(RenderWindow window)
+        {
+            window.Draw(this.drawable);
+            for (int i = 0; i < nodes.Length; ++i)
+                if(nodes[i] != null) nodes[i].Draw(window);
         }
     }
 }
