@@ -48,7 +48,6 @@ namespace Shoot_em_Up
                     if (opponent.hp <= 0 && opponent.alive)
                     {
                         shooter.score += (100 - opponent.faction.Reputation[(int)this.faction.ID]) * opponent.points / 100;
-                        Console.WriteLine("derp");
                         opponent.alive = false;
                     }
                 }
