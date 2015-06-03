@@ -17,7 +17,7 @@ namespace Shoot_em_Up
     class Game
     {
         private Physic physics;
-        private Planet planet;
+        public Planet planet;
         private static List<GameObject> objects = new List<GameObject>();
         private static List<IRigidBody> rigidBodies = new List<IRigidBody>();
         public static int WIDTH;
@@ -26,6 +26,7 @@ namespace Shoot_em_Up
         public static bool debug = false;
         private int level;
         public Player player;
+        public bool levelEnded;
         public Game(int width, int height)
         {
             WIDTH = width;
@@ -33,6 +34,7 @@ namespace Shoot_em_Up
             Level = 1;
             this.player = new Player(factions[1], new Vector2f(100,100), "../Content/cuteship", new int[]{100,89}, new int[]{100,89});
             Add(this.player);
+            this.planet.backgroundSprite.Texture.Repeated = true;
         }
 
         public static void Add(GameObject obj)

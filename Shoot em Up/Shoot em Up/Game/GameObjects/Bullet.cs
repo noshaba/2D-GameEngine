@@ -32,6 +32,7 @@ namespace Shoot_em_Up
             this.damage = dmg;
             this.points = 0;
             this.bend = bend;
+
         }
 
         public override void Update()

@@ -81,12 +81,17 @@ namespace Shoot_em_Up
             {
                 //update the game as long as the "lag" is not compensated
                 ReadInput();
-                if (sEmUp.player.rigidBody.COM.X >= view.Center.X && sEmUp.player.rigidBody.Velocity.X > 0)
+                if (sEmUp.player.rigidBody.COM.X >= view.Center.X && sEmUp.player.rigidBody.Velocity.X > 0 && sEmUp.player.rigidBody.COM.X < sEmUp.planet.backgroundSprite.TextureRect.Width-WIDTH/2)
                 {
                     view.Center = new Vector2f(sEmUp.player.rigidBody.COM.X, HEIGHT / 2);
                 }
                 else {
                     view.Center = new Vector2f(view.Center.X, HEIGHT / 2);
+                    if (sEmUp.player.rigidBody.COM.X > sEmUp.planet.backgroundSprite.TextureRect.Width - WIDTH / 2)
+                    {
+                        sEmUp.player.rigidBody.Velocity = new Vector2f(100, 0);
+                        sEmUp.levelEnded = true;
+                    }
                 }
                 window.SetView(view);
                 mouseSprite.Position = window.MapPixelToCoords(Mouse.GetPosition(window), GUIview);

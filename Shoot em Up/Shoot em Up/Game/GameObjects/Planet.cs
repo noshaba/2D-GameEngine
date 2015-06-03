@@ -37,7 +37,7 @@ namespace Shoot_em_Up
 
         public void Init()
         {
-            backgroundSprite = new Sprite(new Texture(BackgroundImagePath));
+            backgroundSprite = new Sprite(new Texture(BackgroundImagePath), new IntRect(0,0,8000, 700));
         }
 
         public void AddGround()
