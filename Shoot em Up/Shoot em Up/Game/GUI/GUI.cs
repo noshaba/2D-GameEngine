@@ -26,6 +26,7 @@ namespace Shoot_em_Up {
         private List<IGraphic> welcome = new List<IGraphic>();
         private List<IGraphic> inGame = new List<IGraphic>();
         private List<IGraphic> credits = new List<IGraphic>();
+        private List<IGraphic> nextLevel = new List<IGraphic>();
 
         public GUI(int width, int height, Game g) : base(new Vector2f(0, 0), new Vector2f(width, height)) {
             game = g;
@@ -34,7 +35,8 @@ namespace Shoot_em_Up {
             title = new Picture(0,0,"../Content/title.png", this.color);
             this.welcome.Add(title);
             this.welcome.Add(start);
-            
+            this.nextLevel.Add(title);
+            this.nextLevel.Add(new Button(new Vector2f(150, 640), new Vector2f(200, 50), "Start next Level!", this.color, 24, NextLevel));
 
             restart = new Button(new Vector2f(150, 440), new Vector2f(200, 50), "Play Again!", this.color, 24, StartGame);
             this.results = new Menue(new Vector2f(0, 0), new Vector2f(width, 60), this.color);
@@ -51,7 +53,12 @@ namespace Shoot_em_Up {
             //game.StartGame();
             game.startGame();
         }
-        
+
+        private void NextLevel()
+        {
+            game.Reset();
+            game.startGame();
+        }
         private void ShowWelcome()
         {
             //game.Reset();
@@ -69,6 +76,8 @@ namespace Shoot_em_Up {
                     break;
                 case Game.GameStatus.Credits: this.children = this.credits;
                     break;
+                case Game.GameStatus.Nextlevel: this.children = this.nextLevel;
+                    break;
             }
             base.Draw(window);
         }
@@ -83,7 +92,7 @@ namespace Shoot_em_Up {
                 scoreLabel = new Label(new Vector2f(390, 15), this.game.player.score.ToString(), this.color);
                 Label l2 = new Label(new Vector2f(350, 25), "HP", this.color);
                 hp = new Label(new Vector2f(390, 25), this.game.player.hp.ToString() + "/" + this.game.player.maxHP.ToString(), this.color);
-                lvl = new Label(new Vector2f(240, 20), this.game.level.ToString(), this.color);
+                lvl = new Label(new Vector2f(240, 20), this.game.Level.ToString(), this.color);
                 shield = new Picture(450, 45, "../Content/"+this.game.player.shieldStatus+".png", this.color);
                 menue.Add(toMain);
                 menue.Add(scoreLabel);
@@ -98,7 +107,7 @@ namespace Shoot_em_Up {
             {
                 scoreLabel.DisplayedString = this.game.player.score.ToString();
                 hp.DisplayedString = this.game.player.hp.ToString() + "/" + this.game.player.maxHP.ToString();
-                lvl.DisplayedString = this.game.level.ToString();
+                lvl.DisplayedString = this.game.Level.ToString();
                 shield.setImage("../Content/" + this.game.player.shieldStatus + ".png");
                 this.resultScore.DisplayedString = "Your Score: " + this.game.player.score.ToString();
             }

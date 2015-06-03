@@ -1,0 +1,35 @@
+[{
+        "Density": 10,
+        "Restitution": 0.5,
+        "StaticFriction": 0.5,
+        "KineticFriction": 0.1,
+        "CollisionType": 1,
+        "Faction": 0,
+        "Health": 25,
+        "Points": 10,
+        "Damage": 5,
+        "SpawnPatternID": 0,
+        "NumberOfObjects": 2,
+        "SpawnStartPosition": [140,200],
+        "SpritePath": "../Content/astroids/1.png",
+        "SpriteSize": [100,100],
+        "SpriteTileSize": [100, 100]
+     },
+     {
+        "Density": 10,
+        "Restitution": 0.5,
+        "StaticFriction": 0.5,
+        "KineticFriction": 0.1,
+        "CollisionType": 1,
+        "Faction": 0,
+        "Health": 25,
+        "Points": 10,
+        "Damage": 5,
+        "SpawnPatternID": 0,
+        "NumberOfObjects": 15,
+        "SpawnStartPosition": [540,300],
+        "SpritePath": "../Content/astroids/2.png",
+        "SpriteSize": [90,90],
+        "SpriteTileSize": [90, 90]
+     }
+  ]

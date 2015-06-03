@@ -24,7 +24,7 @@ namespace Shoot_em_Up
         public static int HEIGHT;
         public static Faction[] factions;
         public static bool debug = false;
-        public int level;
+        private int level;
         public Player player;
         public bool levelEnded;
         public GameStatus status;
@@ -54,7 +54,7 @@ namespace Shoot_em_Up
             rigidBodies.Add(obj.rigidBody);
         }
 
-        private int Level
+        public int Level
         {
             get
             {
@@ -201,6 +201,12 @@ namespace Shoot_em_Up
         public void StopFire()
         {
             this.player.fire = false;
+        }
+
+        public void Reset()
+        {
+            objects.RemoveRange(0, objects.Count);
+            rigidBodies.RemoveRange(0,rigidBodies.Count);
         }
 
     }
