@@ -124,6 +124,7 @@ namespace Shoot_em_Up
         private void Shoot()
         {
             if (fire) this.weapon.shoot(this.rigidBody.COM);
+
         }
 
 

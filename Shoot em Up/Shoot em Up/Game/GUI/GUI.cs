@@ -64,6 +64,11 @@ namespace Shoot_em_Up {
             game.status = Game.GameStatus.Start;
         }
 
+        private void ToggleSound()
+        {
+            SoundManager.on = !SoundManager.on;
+        }
+
         public new void Draw(RenderWindow window)
         {
             //decide which elements to draw depending on game status
@@ -94,6 +99,7 @@ namespace Shoot_em_Up {
                 lvl = new Label(new Vector2f(240, 20), this.game.Level.ToString(), this.textColor);
                 shield = new Picture(450, 45, "../Content/"+this.game.player.shieldStatus+".png", this.color);
                 menue.Add(toMain);
+                menue.Add(new Button(10, 30, "Sound", this.color, this.textColor, ToggleSound));
                 menue.Add(scoreLabel);
                 menue.Add(l);
                 menue.Add(l2);
