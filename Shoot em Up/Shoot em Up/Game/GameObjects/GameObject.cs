@@ -140,6 +140,13 @@ namespace Shoot_em_Up
             this.rigidBody = this.rigidBodies[animationIndex];
             this.drawable = this.drawables[animationIndex];
         }
+        public GameObject(Texture texture, Vector2f position, float rotation, float density)
+        {
+            this.rigidBody = new Polygon(this, CV.AlphaEdgeDetection(texture.CopyToImage().Pixels, texture.Size.X, texture.Size.Y, 0), position, rotation, density);
+            this.rigidBody.Parent = this;
+            this.drawable = new RectangleShape((Vector2f)texture.Size);
+            this.drawable.Origin = new Vector2f(texture.Size.X * .5f, texture.Size.Y * .5f);
+        }
 
 
 

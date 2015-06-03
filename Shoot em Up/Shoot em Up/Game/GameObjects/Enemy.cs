@@ -14,6 +14,7 @@ namespace Shoot_em_Up
          public Collision.Type type;
          public int mPattern;
          public Weapon weapon;
+         public Game.GameItem drop;
 
        // string texturePath, int[] spriteTileSize, int[] spriteSize, int animationIndex, Vector2f position, float rotation, float density
          public Enemy(Collision.Type type, int[]ts, float density, float restitution, float staticFriction, float kineticFriction, String texture, int[]spriteSize, Vector2f position, int health, int points, int dmg, Faction faction, int pattern, WeaponContract w)
@@ -27,7 +28,24 @@ namespace Shoot_em_Up
              this.points = points;
              this.type = type;
              this.mPattern = pattern;
+             this.drop = this.DetermineDrop();
              this.weapon = new Weapon(this, dmg, w.FireRate, 2, new Vector2f(1,0) , this.rigidBody.COM); 
+         }
+
+         private Game.GameItem DetermineDrop()
+         {
+             Game.GameItem i;
+             Random r = new Random();
+             int no = r.Next(0, 100);
+             if (no > 50)
+             {
+                 i = Game.GameItem.Bomb;
+             }
+             else
+             {
+                 i = Game.GameItem.Heal;
+             }
+             return i;
          }
     }
 }

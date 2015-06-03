@@ -29,12 +29,23 @@ namespace Shoot_em_Up
         public Player player;
         public bool levelEnded;
         public GameStatus status;
+
+        public enum GameStatus
+        {
+            Start, Active, Nextlevel, Credits
+        }
+
+        public enum GameItem
+        {
+            Heal, Bomb
+        }
         public Game(int width, int height)
         {
             WIDTH = width;
             HEIGHT = height;
             this.status = GameStatus.Start;
         }
+
 
         public void startGame()
         {
@@ -56,10 +67,7 @@ namespace Shoot_em_Up
             Add(this.player);
         }
 
-        public enum GameStatus
-        {
-            Start,Active,Nextlevel,Credits
-        }
+
 
         public static void Add(GameObject obj)
         {
@@ -144,6 +152,10 @@ namespace Shoot_em_Up
                         objects[i].LateUpdate();
 
                         if(!objects[i].display) {
+                            if (objects[i] is Enemy)
+                            {
+                                AddItem((objects[i] as Enemy).drop, objects[i].rigidBody.COM);
+                            }
                             objects.RemoveAt(i);
                             rigidBodies.RemoveAt(i);
                         }
@@ -226,6 +238,30 @@ namespace Shoot_em_Up
         {
             objects.RemoveRange(0, objects.Count);
             rigidBodies.RemoveRange(0,rigidBodies.Count);
+        }
+
+        public void AddItem(Game.GameItem item, Vector2f pos)
+        {
+            switch (item)
+            {
+                case Game.GameItem.Heal: Add(new Item("../Content/items/heal.png", Heal, pos));
+                    break;
+                case Game.GameItem.Bomb: Add(new Item("../Content/items/bomb.png", Bomb, pos));
+                    break;
+                default:
+                    break;
+
+            }
+        }
+
+        private void Heal()
+        {
+            this.player.hp += 150;
+        }
+
+        private void Bomb()
+        {
+            this.player.hp -= 150;
         }
 
     }
