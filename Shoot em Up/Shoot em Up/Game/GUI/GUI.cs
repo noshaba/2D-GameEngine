@@ -38,7 +38,7 @@ namespace Shoot_em_Up {
             this.nextLevel.Add(title);
             this.nextLevel.Add(new Button(new Vector2f(150, 640), new Vector2f(200, 50), "Start next Level!", this.color, 24, NextLevel));
 
-            restart = new Button(new Vector2f(150, 440), new Vector2f(200, 50), "Play Again!", this.color, 24, StartGame);
+            restart = new Button(new Vector2f(150, 440), new Vector2f(200, 50), "Play Again!", this.color, 24, ShowWelcome);
             this.results = new Menue(new Vector2f(0, 0), new Vector2f(width, 60), this.color);
             this.credits.Add(restart);
             this.resultScore = new Label(new Vector2f(80, 100), "Your Score: ", this.color, 24);
@@ -56,8 +56,7 @@ namespace Shoot_em_Up {
 
         private void NextLevel()
         {
-            game.Reset();
-            game.startGame();
+            game.NextLevel();
         }
         private void ShowWelcome()
         {
@@ -86,7 +85,7 @@ namespace Shoot_em_Up {
         {
             if (this.inGame.Count == 0)
             {
-                menue = new Menue(new Vector2f(0, 0), new Vector2f(480, 75), this.color);
+                menue = new Menue(new Vector2f(0, 0), new Vector2f(1200, 75), this.color);
                 toMain = new Button(10, 10, "Main Menue", this.color, ShowWelcome);
                 Label l = new Label(new Vector2f(350,15), "Score", this.color);
                 scoreLabel = new Label(new Vector2f(390, 15), this.game.player.score.ToString(), this.color);

@@ -25,6 +25,7 @@ namespace Shoot_em_Up
         public static Faction[] factions;
         public static bool debug = false;
         private int level;
+        private int maxLevel = 2;
         public Player player;
         public bool levelEnded;
         public GameStatus status;
@@ -37,9 +38,22 @@ namespace Shoot_em_Up
 
         public void startGame()
         {
+            this.Reset();
             this.status = GameStatus.Active;
+            this.levelEnded = false;
             Level = 1;
             this.player = new Player(factions[1], new Vector2f(100, 100), "../Content/cuteship", new int[] { 100, 89 }, new int[] { 100, 89 });
+            Add(this.player);
+        }
+
+        public void NextLevel()
+        {
+            this.Reset();
+            this.levelEnded = false;
+            this.status = GameStatus.Active;
+            Level++;
+            this.player.rigidBody.COM = new Vector2f(100, 100);
+            //this.player = new Player(factions[1], new Vector2f(100, 100), "../Content/cuteship", new int[] { 100, 89 }, new int[] { 100, 89 });
             Add(this.player);
         }
 
@@ -136,8 +150,14 @@ namespace Shoot_em_Up
                         }
                     }
                     if(this.levelEnded) {
-                        if(this.player.rigidBody.COM.X > this.planet.Length)
-                         this.status = GameStatus.Nextlevel;
+                        if (this.player.rigidBody.COM.X > this.planet.Length && this.level + 1 <= this.maxLevel)
+                        {
+                            this.status = GameStatus.Nextlevel;
+                        }
+                        else if (this.level + 1 > this.maxLevel)
+                        {
+                            this.status = GameStatus.Credits;
+                        }
                     }
                     /*for (int i = 0; i < objects.Count; ++i)
                     {

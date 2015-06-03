@@ -105,7 +105,8 @@ namespace Shoot_em_Up
         //draw method
         private static void Draw(float alpha)
         {
-            if(sEmUp.status == Game.GameStatus.Nextlevel) {
+            if (sEmUp.status == Game.GameStatus.Nextlevel || sEmUp.status == Game.GameStatus.Credits || sEmUp.status == Game.GameStatus.Start)
+            { 
                 view = new View(new Vector2f(WIDTH * .5f, HEIGHT * .5f), new Vector2f(WIDTH, HEIGHT));
             }
             window.SetView(view);
