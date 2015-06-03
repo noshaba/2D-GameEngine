@@ -57,7 +57,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Game\FileManager\RNG.cs" />
     <Compile Include="Game\FileManager\SoundManager.cs" />
     <Compile Include="Game\GameObjects\Bullet.cs" />
     <Compile Include="Game\GameObjects\Enemy.cs" />

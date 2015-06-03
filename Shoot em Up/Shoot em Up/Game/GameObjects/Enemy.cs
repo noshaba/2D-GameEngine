@@ -1,4 +1,5 @@
-﻿using Physics;
+﻿using Maths;
+using Physics;
 using SFML.Graphics;
 using SFML.System;
 using System;
@@ -35,7 +36,7 @@ namespace Shoot_em_Up
          private Game.GameItem DetermineDrop()
          {
              Game.GameItem i;
-             int no = RNG.rng.Next(1, 100);
+             int no = EMath.random.Next(1,100);
              Console.WriteLine(no);
              if (no > 75)
              {
