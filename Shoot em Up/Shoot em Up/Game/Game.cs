@@ -44,6 +44,9 @@ namespace Shoot_em_Up
             WIDTH = width;
             HEIGHT = height;
             this.status = GameStatus.Start;
+
+            SoundManager.Play(SoundManager.ambient);
+            SoundManager.ambient.Loop = true;
         }
 
 

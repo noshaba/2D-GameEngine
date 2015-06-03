@@ -64,7 +64,6 @@ namespace Shoot_em_Up
             //this.direction = this.owner.rigidBody.WorldTransform * this.direction;
             if (this.charge.ElapsedMilliseconds > this.fireRate)
             {
-                SoundManager.Play(SoundManager.hitSound);
                 this.weapons[this.type](this.owner.rigidBody.WorldTransform * this.relativePos + position, this.owner.rigidBody.WorldTransform * this.direction * bulletSpeed);
                 this.charge.Restart();
             }

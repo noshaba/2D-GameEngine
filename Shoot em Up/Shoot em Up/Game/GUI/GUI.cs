@@ -67,6 +67,10 @@ namespace Shoot_em_Up {
         private void ToggleSound()
         {
             SoundManager.on = !SoundManager.on;
+            if (!SoundManager.on)
+                SoundManager.stop();
+            if (SoundManager.on)
+                SoundManager.ambient.Play();
         }
 
         public new void Draw(RenderWindow window)
