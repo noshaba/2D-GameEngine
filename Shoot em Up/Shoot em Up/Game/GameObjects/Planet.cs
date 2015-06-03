@@ -25,6 +25,8 @@ namespace Shoot_em_Up
         [DataMember]
         public float Damping { get; set; }
         [DataMember]
+        public int Length { get; set; }
+        [DataMember]
         public Achievement Achievement { get; set; }
         [DataMember]
         public int AchievementMinRequirement { get; set; }
@@ -37,7 +39,7 @@ namespace Shoot_em_Up
 
         public void Init()
         {
-            backgroundSprite = new Sprite(new Texture(BackgroundImagePath), new IntRect(0,0,8000, 700));
+            backgroundSprite = new Sprite(new Texture(BackgroundImagePath), new IntRect(0, 0, Length, 700));
         }
 
         public void AddGround()

@@ -5,6 +5,7 @@
   "Gravity": [0, 9.81],
   "Friction": true,
   "Damping": 0.1,
+  "Length": 8000,
   "Achievement": 14,
   "AchievementMinRequirement": 1000,
   "GroundTypes": [
