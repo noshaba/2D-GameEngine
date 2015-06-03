@@ -11,6 +11,7 @@ using GUI;
 namespace Shoot_em_Up {
     class GUI : GUIView {
         Color color;
+        Color textColor;
         Button start;
         Button restart;
         Button toMain;
@@ -31,17 +32,18 @@ namespace Shoot_em_Up {
         public GUI(int width, int height, Game g) : base(new Vector2f(0, 0), new Vector2f(width, height)) {
             game = g;
             this.color = new Color(255,180,255);
-            start = new Button(new Vector2f(150, 640), new Vector2f(200,50), "Start Game!", this.color, 24, StartGame);
+            this.textColor = new Color(245,220,253);
+            start = new Button(new Vector2f(150, 640), new Vector2f(200,50), "Start Game!", this.color, this.textColor, 24, StartGame);
             title = new Picture(0,0,"../Content/title.png", this.color);
             this.welcome.Add(title);
             this.welcome.Add(start);
             this.nextLevel.Add(title);
-            this.nextLevel.Add(new Button(new Vector2f(150, 640), new Vector2f(200, 50), "Start next Level!", this.color, 24, NextLevel));
+            this.nextLevel.Add(new Button(new Vector2f(150, 640), new Vector2f(200, 50), "Start next Level!", this.color,this.textColor, 24, NextLevel));
 
-            restart = new Button(new Vector2f(150, 440), new Vector2f(200, 50), "Play Again!", this.color, 24, ShowWelcome);
+            restart = new Button(new Vector2f(150, 440), new Vector2f(200, 50), "Play Again!", this.color, this.textColor, 24, ShowWelcome);
             this.results = new Menue(new Vector2f(0, 0), new Vector2f(width, 60), this.color);
             this.credits.Add(restart);
-            this.resultScore = new Label(new Vector2f(80, 100), "Your Score: ", this.color, 24);
+            this.resultScore = new Label(new Vector2f(80, 100), "Your Score: ", this.textColor, 24);
             this.results.Add(resultScore);
             this.credits.Add(results);
 
@@ -86,12 +88,12 @@ namespace Shoot_em_Up {
             if (this.inGame.Count == 0)
             {
                 menue = new Menue(new Vector2f(0, 0), new Vector2f(1200, 75), this.color);
-                toMain = new Button(10, 10, "Main Menue", this.color, ShowWelcome);
-                Label l = new Label(new Vector2f(350,15), "Score", this.color);
-                scoreLabel = new Label(new Vector2f(390, 15), this.game.player.score.ToString(), this.color);
-                Label l2 = new Label(new Vector2f(350, 25), "HP", this.color);
-                hp = new Label(new Vector2f(390, 25), this.game.player.hp.ToString() + "/" + this.game.player.maxHP.ToString(), this.color);
-                lvl = new Label(new Vector2f(240, 20), this.game.Level.ToString(), this.color);
+                toMain = new Button(10, 10, "Main Menue", this.color, this.textColor, ShowWelcome);
+                Label l = new Label(new Vector2f(350,15), "Score", this.textColor);
+                scoreLabel = new Label(new Vector2f(390, 15), this.game.player.score.ToString(), this.textColor);
+                Label l2 = new Label(new Vector2f(350, 25), "HP", this.textColor);
+                hp = new Label(new Vector2f(390, 25), this.game.player.hp.ToString() + "/" + this.game.player.maxHP.ToString(), this.textColor);
+                lvl = new Label(new Vector2f(240, 20), this.game.Level.ToString(), this.textColor);
                 shield = new Picture(450, 45, "../Content/"+this.game.player.shieldStatus+".png", this.color);
                 menue.Add(toMain);
                 menue.Add(scoreLabel);

@@ -53,7 +53,6 @@ namespace Shoot_em_Up
             this.status = GameStatus.Active;
             Level++;
             this.player.rigidBody.COM = new Vector2f(100, 100);
-            //this.player = new Player(factions[1], new Vector2f(100, 100), "../Content/cuteship", new int[] { 100, 89 }, new int[] { 100, 89 });
             Add(this.player);
         }
 
