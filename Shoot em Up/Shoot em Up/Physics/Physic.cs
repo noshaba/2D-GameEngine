@@ -33,13 +33,12 @@ namespace Physics {
 
         //updates all objects in the list
         public void Update(float dt) {
-            if (!frozen) {
             //    quadtree.Clear();
             //    foreach (IRigidBody obj in objects)
             //       quadtree.Insert(obj);
                 Parallel.For(0, objects.Count, i =>
                 {
-                    objects[i].Update(dt);
+                    if(!frozen) objects[i].Update(dt);
                     ApplyForces(dt, i);
                 });
            /*     for (int i = 0; i < objects.Count; ++i)
@@ -47,15 +46,17 @@ namespace Physics {
                     objects[i].Update(dt);
                     ApplyForces(dt, i);
                 }*/
-            }
         }
 
         #region Physical Methods
 
         private void ApplyForces(float dt, int i) {
-            Gravity(dt, i);
-            Drag(dt, i);
-            Damping(dt, i);
+            if (!frozen)
+            {
+                Gravity(dt, i);
+                Drag(dt, i);
+                Damping(dt, i);
+            }
             AddCollisionImpulse(i);
         }
 

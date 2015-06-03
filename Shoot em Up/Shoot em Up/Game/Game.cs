@@ -29,6 +29,7 @@ namespace Shoot_em_Up
         public Player player;
         public bool levelEnded;
         public GameStatus status;
+        public bool directionSet = false;
 
         public enum GameStatus
         {
@@ -56,8 +57,9 @@ namespace Shoot_em_Up
             this.status = GameStatus.Active;
             this.levelEnded = false;
             Level = 1;
-            this.player = new Player(factions[1], new Vector2f(100, 100), "../Content/cuteship", new int[] { 100, 89 }, new int[] { 100, 89 });
+            this.player = new Player(factions[1], new Vector2f(250, HEIGHT-100), "../Content/cuteship", new int[] { 100, 89 }, new int[] { 100, 89 });
             Add(this.player);
+            this.physics.frozen = true;
         }
 
         public void NextLevel()
@@ -66,8 +68,17 @@ namespace Shoot_em_Up
             this.levelEnded = false;
             this.status = GameStatus.Active;
             Level++;
-            this.player.rigidBody.COM = new Vector2f(100, 100);
+            this.player.rigidBody.COM = new Vector2f(250, HEIGHT-100);
             Add(this.player);
+            this.physics.frozen = true;
+        }
+
+        public void SetDirectionAndImpulse(Vector2f mousePos)
+        {
+            Vector2f origin = new Vector2f(50, HEIGHT - 100);
+            Vector2f direction = (mousePos - origin).Norm();
+            this.player.rigidBody.COM = origin + direction * 200;
+            this.player.rigidBody.Orientation = -(float) Math.Acos(direction.Dot(new Vector2f(1,0)));
         }
 
 
@@ -236,6 +247,11 @@ namespace Shoot_em_Up
         public void StopFire()
         {
             this.player.fire = false;
+        }
+
+        public void Pause()
+        {
+            this.physics.frozen = !this.physics.frozen;
         }
 
         public void Reset()

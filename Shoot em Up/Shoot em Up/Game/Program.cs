@@ -63,7 +63,7 @@ namespace Shoot_em_Up
             window.Closed += window_Closed;
             window.KeyReleased += window_KeyReleased;
             //window.KeyPressed += window_KeyPressed;
-         //   window.MouseMoved += window_MouseMoved;
+            window.MouseMoved += window_MouseMoved;
            // window.MouseEntered += window_MouseEntered;
           //  window.MouseLeft += window_MouseLeft;
             window.MouseButtonReleased += window_MouseButtonReleased;
@@ -96,7 +96,7 @@ namespace Shoot_em_Up
                     }
                 }
                 window.SetView(view);
-                mouseSprite.Position = window.MapPixelToCoords(Mouse.GetPosition(window), GUIview);
+               // mouseSprite.Position = window.MapPixelToCoords(Mouse.GetPosition(window), GUIview);
                 sEmUp.Update(DT);
                 accumulator -= DT;
             }
@@ -143,7 +143,10 @@ namespace Shoot_em_Up
         private static void window_MouseMoved(object sender, MouseMoveEventArgs e)
         {
             mouseSprite.Position = window.MapPixelToCoords(Mouse.GetPosition(window), GUIview);
-           
+            if (sEmUp.status == Game.GameStatus.Active && !sEmUp.directionSet)
+            {
+                sEmUp.SetDirectionAndImpulse((Vector2f) Mouse.GetPosition(window));
+            }
          //   gui.OnHover(e.X, e.Y);
         }
 
@@ -184,7 +187,7 @@ namespace Shoot_em_Up
                     sEmUp.StopFire();
                     break;
                 case Keyboard.Key.P:
-                    //sEmUp.Pause();
+                    sEmUp.Pause();
                     break;
                 case Keyboard.Key.S:
                     sEmUp.player.ToggleShield();
