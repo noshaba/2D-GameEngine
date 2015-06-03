@@ -24,7 +24,7 @@ namespace Shoot_em_Up
         public static int HEIGHT;
         public static Faction[] factions;
         public static bool debug = false;
-        private int level;
+        public int level;
         public Player player;
         public bool levelEnded;
         public GameStatus status;
@@ -32,10 +32,15 @@ namespace Shoot_em_Up
         {
             WIDTH = width;
             HEIGHT = height;
-            Level = 1;
-            this.player = new Player(factions[1], new Vector2f(100,100), "../Content/cuteship", new int[]{100,89}, new int[]{100,89});
-            Add(this.player);
+            this.status = GameStatus.Start;
+        }
+
+        public void startGame()
+        {
             this.status = GameStatus.Active;
+            Level = 1;
+            this.player = new Player(factions[1], new Vector2f(100, 100), "../Content/cuteship", new int[] { 100, 89 }, new int[] { 100, 89 });
+            Add(this.player);
         }
 
         public enum GameStatus
@@ -102,11 +107,9 @@ namespace Shoot_em_Up
         public void Update(float dt) 
         {
             //physics.Update(dt);
-            if (!this.physics.frozen)
-            {
-               /* if (this.status == GameStatus.Active)
+            if (this.status == GameStatus.Active)
                 {
-
+                /*
                     if (!this.player.display)
                     {
                         this.status = GameStatus.Credits;
@@ -131,6 +134,10 @@ namespace Shoot_em_Up
                             objects.RemoveAt(i);
                             rigidBodies.RemoveAt(i);
                         }
+                    }
+                    if(this.levelEnded) {
+                        if(this.player.rigidBody.COM.X > this.planet.Length)
+                         this.status = GameStatus.Nextlevel;
                     }
                     /*for (int i = 0; i < objects.Count; ++i)
                     {
@@ -160,21 +167,23 @@ namespace Shoot_em_Up
         public void Draw(RenderWindow window, float alpha)
         {
             //all the drawing
-            window.Draw(planet.backgroundSprite);
-            State interpol;
-            Transform t;
-            if(debug) physics.DrawQuadtree(window);
-            foreach (GameObject obj in objects)
-            {
-                interpol = obj.rigidBody.Interpolation(alpha);
-                t = Transform.Identity;
-                t.Translate(interpol.position);
-                t.Rotate(interpol.DegOrientation);
-                window.Draw(obj.drawable, new RenderStates(t));
-                if (debug)
+            if(status == GameStatus.Active) {
+                window.Draw(planet.backgroundSprite);
+                State interpol;
+                Transform t;
+                if(debug) physics.DrawQuadtree(window);
+                foreach (GameObject obj in objects)
                 {
-                    window.Draw(obj.rigidBody as Shape, new RenderStates(t));
-                    window.Draw(obj.rigidBody.BoundingCircle, new RenderStates(t));
+                    interpol = obj.rigidBody.Interpolation(alpha);
+                    t = Transform.Identity;
+                    t.Translate(interpol.position);
+                    t.Rotate(interpol.DegOrientation);
+                    window.Draw(obj.drawable, new RenderStates(t));
+                    if (debug)
+                    {
+                        window.Draw(obj.rigidBody as Shape, new RenderStates(t));
+                        window.Draw(obj.rigidBody.BoundingCircle, new RenderStates(t));
+                    }
                 }
             }
         }

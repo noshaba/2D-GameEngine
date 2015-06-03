@@ -81,16 +81,18 @@ namespace Shoot_em_Up
             {
                 //update the game as long as the "lag" is not compensated
                 ReadInput();
-                if (sEmUp.player.rigidBody.COM.X >= view.Center.X && sEmUp.player.rigidBody.Velocity.X > 0 && sEmUp.player.rigidBody.COM.X < sEmUp.planet.backgroundSprite.TextureRect.Width-WIDTH/2)
-                {
-                    view.Center = new Vector2f(sEmUp.player.rigidBody.COM.X, HEIGHT / 2);
-                }
-                else {
-                    view.Center = new Vector2f(view.Center.X, HEIGHT / 2);
-                    if (sEmUp.player.rigidBody.COM.X > sEmUp.planet.backgroundSprite.TextureRect.Width - WIDTH / 2)
+                if(sEmUp.status == Game.GameStatus.Active) {
+                    if (sEmUp.player.rigidBody.COM.X >= view.Center.X && sEmUp.player.rigidBody.Velocity.X > 0 && sEmUp.player.rigidBody.COM.X < sEmUp.planet.backgroundSprite.TextureRect.Width-WIDTH/2)
                     {
-                        sEmUp.player.rigidBody.Velocity = new Vector2f(100, 0);
-                        sEmUp.levelEnded = true;
+                        view.Center = new Vector2f(sEmUp.player.rigidBody.COM.X, HEIGHT / 2);
+                    }
+                    else {
+                        view.Center = new Vector2f(view.Center.X, HEIGHT / 2);
+                        if (sEmUp.player.rigidBody.COM.X > sEmUp.planet.backgroundSprite.TextureRect.Width - WIDTH / 2)
+                        {
+                            sEmUp.player.rigidBody.Velocity = new Vector2f(100, 0);
+                            sEmUp.levelEnded = true;
+                        }
                     }
                 }
                 window.SetView(view);
@@ -106,7 +108,7 @@ namespace Shoot_em_Up
             window.SetView(view);
             sEmUp.Draw(window, alpha);
             window.SetView(GUIview);
-            //gui.Draw(window);
+            gui.Draw(window);
             mouseSprite.Draw(window, RenderStates.Default);
         }
 

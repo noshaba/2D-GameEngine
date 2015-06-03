@@ -30,7 +30,7 @@ namespace Shoot_em_Up {
         public GUI(int width, int height, Game g) : base(new Vector2f(0, 0), new Vector2f(width, height)) {
             game = g;
             this.color = new Color(255,180,255);
-           // start = new Button(new Vector2f(150, 640), new Vector2f(200,50), "Start Game!", this.color, 24, StartGame);
+            start = new Button(new Vector2f(150, 640), new Vector2f(200,50), "Start Game!", this.color, 24, StartGame);
             title = new Picture(0,0,"../Content/title.png", this.color);
             this.welcome.Add(title);
             this.welcome.Add(start);
@@ -49,30 +49,29 @@ namespace Shoot_em_Up {
         private void StartGame()
         {
             //game.StartGame();
-            Console.WriteLine("Yayayayaya");
+            game.startGame();
         }
-        /*
+        
         private void ShowWelcome()
         {
-            game.Reset();
-            game.status = Game.GameStatus.Welcome;
+            //game.Reset();
+            game.status = Game.GameStatus.Start;
         }
-        */
+
         public new void Draw(RenderWindow window)
         {
             //decide which elements to draw depending on game status
-          /*  switch(this.game.status) {
+            switch(this.game.status) {
                 case Game.GameStatus.Active: this.children = this.inGame;
                     this.createInGame();
                     break;
-                case Game.GameStatus.Welcome: this.children = this.welcome;
+                case Game.GameStatus.Start: this.children = this.welcome;
                     break;
                 case Game.GameStatus.Credits: this.children = this.credits;
                     break;
-            }*/
-            this.children = this.credits;
+            }
             base.Draw(window);
-        }/*
+        }
 
         public void createInGame()
         {
@@ -85,7 +84,7 @@ namespace Shoot_em_Up {
                 Label l2 = new Label(new Vector2f(350, 25), "HP", this.color);
                 hp = new Label(new Vector2f(390, 25), this.game.player.hp.ToString() + "/" + this.game.player.maxHP.ToString(), this.color);
                 lvl = new Label(new Vector2f(240, 20), this.game.level.ToString(), this.color);
-                shield = new Screen(450, 45, "../Content/"+this.game.player.shieldStatus+".png", this.color);
+                shield = new Picture(450, 45, "../Content/"+this.game.player.shieldStatus+".png", this.color);
                 menue.Add(toMain);
                 menue.Add(scoreLabel);
                 menue.Add(l);
@@ -103,6 +102,6 @@ namespace Shoot_em_Up {
                 shield.setImage("../Content/" + this.game.player.shieldStatus + ".png");
                 this.resultScore.DisplayedString = "Your Score: " + this.game.player.score.ToString();
             }
-        }*/
+        }
     }
 }
