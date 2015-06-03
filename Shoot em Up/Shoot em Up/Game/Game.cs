@@ -205,7 +205,7 @@ namespace Shoot_em_Up
                 window.Draw(planet.backgroundSprite);
                 State interpol;
                 Transform t;
-                if(debug) physics.DrawQuadtree(window);
+            //    if(debug) physics.DrawQuadtree(window);
                 foreach (GameObject obj in objects)
                 {
                     interpol = obj.rigidBody.Interpolation(alpha);
@@ -216,7 +216,7 @@ namespace Shoot_em_Up
                     if (debug)
                     {
                         window.Draw(obj.rigidBody as Shape, new RenderStates(t));
-                        window.Draw(obj.rigidBody.BoundingCircle, new RenderStates(t));
+                    //    window.Draw(obj.rigidBody.BoundingCircle, new RenderStates(t));
                     }
                 }
             }

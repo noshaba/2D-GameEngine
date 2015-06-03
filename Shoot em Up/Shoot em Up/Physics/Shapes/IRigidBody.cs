@@ -27,6 +27,7 @@ namespace Physics {
         float Restitution { get; set; }
         float StaticFriction { get; set; }
         float KineticFriction { get; set; }
+        float DragCoefficient { get; set; }
         void ApplyImpulse(Vector2f J, Vector2f r);
         Vector2f Velocity { get; set; }
         float AngularVelocity { get; set; }

@@ -12,10 +12,11 @@ namespace Shoot_em_Up
         public delegate void ActionListener();
         public ActionListener listener;
         public Item(String texture, ActionListener listener, Vector2f pos)
-            : base(new Texture(texture), pos, 1, 0)
+            : base(new Texture(texture), pos, 1, 0.01f)
         {
             this.listener = listener;
             this.drawable.Texture = new Texture(texture);
+            this.rigidBody.DragCoefficient = 1;
         }
 
         public override void Update()

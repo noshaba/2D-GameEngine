@@ -22,8 +22,8 @@ namespace Physics {
             this.damping = damping;
             this.friction = friction;
             this.objects = shapes;
-            this.quadtree = new Quadtree(0, windowSize);
-            this.possibleCollisionTargets = new List<IRigidBody>();
+        //    this.quadtree = new Quadtree(0, windowSize);
+        //    this.possibleCollisionTargets = new List<IRigidBody>();
         }
 
         public void DrawQuadtree(RenderWindow window)
@@ -34,19 +34,19 @@ namespace Physics {
         //updates all objects in the list
         public void Update(float dt) {
             if (!frozen) {
-                quadtree.Clear();
-                foreach (IRigidBody obj in objects)
-                    quadtree.Insert(obj);
-            /*    Parallel.For(0, objects.Count, i =>
+            //    quadtree.Clear();
+            //    foreach (IRigidBody obj in objects)
+            //       quadtree.Insert(obj);
+                Parallel.For(0, objects.Count, i =>
                 {
                     objects[i].Update(dt);
                     ApplyForces(dt, i);
-                });*/
-                for (int i = 0; i < objects.Count; ++i)
+                });
+           /*     for (int i = 0; i < objects.Count; ++i)
                 {
                     objects[i].Update(dt);
                     ApplyForces(dt, i);
-                }
+                }*/
             }
         }
 
@@ -54,6 +54,7 @@ namespace Physics {
 
         private void ApplyForces(float dt, int i) {
             Gravity(dt, i);
+            Drag(dt, i);
             Damping(dt, i);
             AddCollisionImpulse(i);
         }
@@ -67,26 +68,32 @@ namespace Physics {
             objects[i].Velocity += dt * gravity * 10f * objects[i].Mass * objects[i].InverseMass;
         }
 
+        private void Drag(float dt, int i)
+        {
+            if (objects[i].DragCoefficient == 0 || objects[i].InverseMass == 0) return;
+            objects[i].Velocity -= dt * objects[i].DragCoefficient * objects[i].InverseMass * objects[i].Velocity.Length2() * objects[i].Velocity.Norm();
+        }
+
         //checks for collision between all objects
         private void AddCollisionImpulse(int i) {
-            possibleCollisionTargets.Clear();
-            quadtree.Retrieve(possibleCollisionTargets, objects[i]);
+        //    possibleCollisionTargets.Clear();
+        //    quadtree.Retrieve(possibleCollisionTargets, objects[i]);
 
-            for (int j = 0; j < possibleCollisionTargets.Count; ++j)
+            for (int j = 0; j < objects.Count; ++j)
             {
-                if (objects[i] == possibleCollisionTargets[j]) continue;
-                Collision colli = Collision.CheckForCollision(objects[i], possibleCollisionTargets[j]);
+                if (i == j) continue;
+                Collision colli = Collision.CheckForCollision(objects[i], objects[j]);
                 if (colli.collision) {
-                    if (!objects[i].Collision.collision && !possibleCollisionTargets[j].Collision.collision)
+                    if (!objects[i].Collision.collision && !objects[j].Collision.collision)
                     {
                         objects[i].Collision = colli;
-                        possibleCollisionTargets[j].Collision = colli.other(objects[i]);
+                        objects[j].Collision = colli.other(objects[i]);
                     }
                     if (objects[i].InverseMass > 0) {
                         for (uint k = 0; k < colli.contacts.Length; ++k) {
                             Vector2f rad1 = colli.contacts[k] - objects[i].COM;
-                            Vector2f rad2 = colli.contacts[k] - possibleCollisionTargets[j].COM;
-                            CollisionImpulse(objects[i], possibleCollisionTargets[j], rad1, rad2, colli.normal, colli.contacts.Length);
+                            Vector2f rad2 = colli.contacts[k] - objects[j].COM;
+                            CollisionImpulse(objects[i], objects[j], rad1, rad2, colli.normal, colli.contacts.Length);
                         }
                     }
                 }

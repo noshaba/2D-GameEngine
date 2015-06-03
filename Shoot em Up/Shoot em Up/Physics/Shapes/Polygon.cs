@@ -13,6 +13,7 @@ namespace Physics {
         private Collision.Type type = Collision.Type.Polygon;
         private float restitution = (float) EMath.random.NextDouble(); 
         private float staticFriction = (float) EMath.random.NextDouble();
+        private float dragCoefficient = 0;
         private float kineticFriction;
         private Collision collision;
 
@@ -339,6 +340,12 @@ namespace Physics {
         public float KineticFriction {
             get { return kineticFriction; }
             set { kineticFriction = value; }
+        }
+
+        public float DragCoefficient
+        {
+            get { return dragCoefficient; }
+            set { dragCoefficient = value; }
         }
 
         public Vector2f Velocity {

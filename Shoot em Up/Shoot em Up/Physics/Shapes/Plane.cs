@@ -13,6 +13,7 @@ namespace Physics {
         private float restitution = (float) EMath.random.NextDouble();
         private float staticFriction = (float) EMath.random.NextDouble();
         private float kineticFriction;
+        private float dragCoefficient = 0;
         private Collision collision;
 
         protected State previous;
@@ -133,6 +134,12 @@ namespace Physics {
         public float KineticFriction {
             get { return kineticFriction; }
             set { kineticFriction = value; }
+        }
+
+        public float DragCoefficient
+        {
+            get { return dragCoefficient; }
+            set { dragCoefficient = value; }
         }
 
         public Vector2f Velocity {
