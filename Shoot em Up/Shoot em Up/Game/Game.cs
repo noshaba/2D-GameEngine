@@ -78,6 +78,11 @@ namespace Shoot_em_Up
             Vector2f origin = new Vector2f(50, HEIGHT - 100);
             Vector2f direction = (mousePos - origin).Norm();
             this.player.rigidBody.COM = origin + direction * 200;
+            if (this.player.rigidBody.COM.Y > HEIGHT - 100)
+            {
+                this.player.rigidBody.Current.position.Y = HEIGHT - 100;
+                if (this.player.rigidBody.COM.X < 250) this.player.rigidBody.Current.position.X = 250;
+            }
             this.player.rigidBody.Orientation = -(float) Math.Acos(direction.Dot(new Vector2f(1,0)));
         }
 
