@@ -33,19 +33,17 @@ namespace Shoot_em_Up {
             game = g;
             this.color = new Color(255,180,255);
             this.textColor = new Color(245,220,253);
-            start = new Button(new Vector2f(150, 640), new Vector2f(200,50), "Start Game!", this.color, this.textColor, 24, StartGame);
+            start = new Button(new Vector2f(500, 400), new Vector2f(200,50), "Start Game!", this.color, this.textColor, 24, StartGame);
             title = new Picture(0,0,"../Content/title.png", this.color);
             this.welcome.Add(title);
             this.welcome.Add(start);
             this.nextLevel.Add(title);
-            this.nextLevel.Add(new Button(new Vector2f(150, 640), new Vector2f(200, 50), "Start next Level!", this.color,this.textColor, 24, NextLevel));
+            this.nextLevel.Add(new Button(new Vector2f(500, 400), new Vector2f(200, 50), "Start next Level!", this.color,this.textColor, 24, NextLevel));
 
-            restart = new Button(new Vector2f(150, 440), new Vector2f(200, 50), "Play Again!", this.color, this.textColor, 24, ShowWelcome);
-            this.results = new Menue(new Vector2f(0, 0), new Vector2f(width, 60), this.color);
+            restart = new Button(new Vector2f(500, 400), new Vector2f(200, 50), "Play Again!", this.color, this.textColor, 24, ShowWelcome);
             this.credits.Add(restart);
             this.resultScore = new Label(new Vector2f(80, 100), "Your Score: ", this.textColor, 24);
-            this.results.Add(resultScore);
-            this.credits.Add(results);
+            this.credits.Add(resultScore);
 
             this.children = this.credits;
         }

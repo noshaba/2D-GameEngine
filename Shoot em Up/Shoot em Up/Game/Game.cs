@@ -165,7 +165,7 @@ namespace Shoot_em_Up
                         {
                             this.status = GameStatus.Nextlevel;
                         }
-                        else if (this.level + 1 > this.maxLevel)
+                        else if (this.player.rigidBody.COM.X > this.planet.Length && this.level + 1 > this.maxLevel)
                         {
                             this.status = GameStatus.Credits;
                         }
