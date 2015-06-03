@@ -168,29 +168,23 @@ namespace Shoot_em_Up
                 case Keyboard.Key.D:
                     Game.debug = !Game.debug;
                     break;
-          /*      case Keyboard.Key.Escape:
+                case Keyboard.Key.Escape:
                     window.Close();
                     break;
                 case Keyboard.Key.Return:
-                    sEmUp.StartGame();
+                    //sEmUp.StartGame();
                     break;
                 case Keyboard.Key.Space:
                     sEmUp.StopFire();
                     break;
                 case Keyboard.Key.P:
-                    sEmUp.Pause();
-                    break;
-                case Keyboard.Key.Left:
-                case Keyboard.Key.Right:
-                case Keyboard.Key.Up:
-                case Keyboard.Key.Down:
-                    sEmUp.StopPlayer();
+                    //sEmUp.Pause();
                     break;
                 case Keyboard.Key.S:
                     sEmUp.player.ToggleShield();
                     break;
                 default:
-                    break;*/
+                    break;
             }
         }
 

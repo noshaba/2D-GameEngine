@@ -27,6 +27,7 @@ namespace Shoot_em_Up
         private int level;
         public Player player;
         public bool levelEnded;
+        public GameStatus status;
         public Game(int width, int height)
         {
             WIDTH = width;
@@ -34,7 +35,12 @@ namespace Shoot_em_Up
             Level = 1;
             this.player = new Player(factions[1], new Vector2f(100,100), "../Content/cuteship", new int[]{100,89}, new int[]{100,89});
             Add(this.player);
-            this.planet.backgroundSprite.Texture.Repeated = true;
+            this.status = GameStatus.Active;
+        }
+
+        public enum GameStatus
+        {
+            Start,Active,Nextlevel,Credits
         }
 
         public static void Add(GameObject obj)
@@ -181,6 +187,11 @@ namespace Shoot_em_Up
         public void Fire()
         {
             this.player.fire = !this.physics.frozen;
+        }
+
+        public void StopFire()
+        {
+            this.player.fire = false;
         }
 
     }

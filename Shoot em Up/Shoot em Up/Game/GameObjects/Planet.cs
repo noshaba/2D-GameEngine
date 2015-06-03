@@ -40,6 +40,7 @@ namespace Shoot_em_Up
         public void Init()
         {
             backgroundSprite = new Sprite(new Texture(BackgroundImagePath), new IntRect(0, 0, Length, 700));
+            backgroundSprite.Texture.Repeated = true;
         }
 
         public void AddGround()
