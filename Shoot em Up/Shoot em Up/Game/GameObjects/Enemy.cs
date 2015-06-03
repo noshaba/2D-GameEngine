@@ -35,15 +35,18 @@ namespace Shoot_em_Up
          private Game.GameItem DetermineDrop()
          {
              Game.GameItem i;
-             Random r = new Random();
-             int no = r.Next(0, 100);
-             if (no > 50)
+             int no = RNG.rng.Next(1, 100);
+             Console.WriteLine(no);
+             if (no > 75)
              {
                  i = Game.GameItem.Bomb;
              }
-             else
+             else if (no > 50)
              {
                  i = Game.GameItem.Heal;
+             }
+             else {
+                 i = Game.GameItem.None;
              }
              return i;
          }

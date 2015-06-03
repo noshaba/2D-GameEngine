@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Game\FileManager\RNG.cs" />
     <Compile Include="Game\GameObjects\Bullet.cs" />
     <Compile Include="Game\GameObjects\Enemy.cs" />
     <Compile Include="Game\GameObjects\Contracts\EnemyContract.cs" />

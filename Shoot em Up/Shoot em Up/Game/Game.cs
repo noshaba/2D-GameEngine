@@ -37,7 +37,7 @@ namespace Shoot_em_Up
 
         public enum GameItem
         {
-            Heal, Bomb
+            Heal, Bomb, None
         }
         public Game(int width, int height)
         {
