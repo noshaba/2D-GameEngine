@@ -105,6 +105,9 @@ namespace Shoot_em_Up
         //draw method
         private static void Draw(float alpha)
         {
+            if(sEmUp.status == Game.GameStatus.Nextlevel) {
+                view = new View(new Vector2f(WIDTH * .5f, HEIGHT * .5f), new Vector2f(WIDTH, HEIGHT));
+            }
             window.SetView(view);
             sEmUp.Draw(window, alpha);
             window.SetView(GUIview);
