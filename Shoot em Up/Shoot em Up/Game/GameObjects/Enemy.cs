@@ -37,7 +37,6 @@ namespace Shoot_em_Up
          {
              Game.GameItem i;
              int no = EMath.random.Next(1,100);
-             Console.WriteLine(no);
              if (no > 75)
              {
                  i = Game.GameItem.Bomb;

@@ -25,7 +25,7 @@ namespace Shoot_em_Up
             initPosition = position + speed + bend;
             (rigidBody as Circle).FillColor = color;
             rigidBody.Restitution = 1.0f;
-            rigidBody.Velocity = speed;
+            rigidBody.Velocity = speed*5;
             this.shooter = shooter;
             this.hp = 1;
             this.maxHP = 1;
