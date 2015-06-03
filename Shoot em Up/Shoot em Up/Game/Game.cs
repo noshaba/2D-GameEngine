@@ -93,6 +93,7 @@ namespace Shoot_em_Up
 
         private void LoadLevel()
         {
+            Add(new Wall(new Vector2f(1,0),new Vector2f(0,HEIGHT*.5f),new Vector2f(.1f,.1f),Color.Transparent));
             using (StreamReader sr = new StreamReader("../Content/" + level + "/Planet.json"))
             {
                 String json = sr.ReadToEnd();
