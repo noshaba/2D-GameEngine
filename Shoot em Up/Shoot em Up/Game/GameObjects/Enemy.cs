@@ -32,7 +32,7 @@ namespace Shoot_em_Up
              this.damage = dmg;
              this.points = points;
              this.type = type;
-             this.speed = 10;
+             this.speed = -20;
              this.rigidBody.Velocity = new Vector2f(0, this.speed);
              this.mPattern = pattern;
              this.drop = this.DetermineDrop();
@@ -73,12 +73,14 @@ namespace Shoot_em_Up
          {
              if (this.rigidBody.COM.Y >= this.initPos.Y + 30 && this.rigidBody.Velocity.Y > 0)
              {
-                 this.rigidBody.Velocity = new Vector2f(0, -this.speed);
+                 this.rigidBody.Velocity = new Vector2f(0, this.speed);
              }
              else if (this.rigidBody.COM.Y <= this.initPos.Y - 30)
              {
-                 this.rigidBody.Velocity = new Vector2f(0,0);
+                 this.rigidBody.Velocity = new Vector2f(0,-this.speed);
              }
+             if (this.rigidBody.Velocity.Y < 0)
+                this.rigidBody.Velocity = new Vector2f(0, this.speed);
          }
 
 
