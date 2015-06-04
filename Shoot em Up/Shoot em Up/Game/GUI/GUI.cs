@@ -40,9 +40,10 @@ namespace Shoot_em_Up {
             this.nextLevel.Add(title);
             this.nextLevel.Add(new Button(new Vector2f(500, 400), new Vector2f(200, 50), "Start next Level!", this.color,this.textColor, 24, NextLevel));
 
-            restart = new Button(new Vector2f(500, 400), new Vector2f(200, 50), "Play Again!", this.color, this.textColor, 24, ShowWelcome);
+            this.credits.Add(new Picture(0,0, "../Content/end.png", this.color));
+            restart = new Button(new Vector2f(500, 500), new Vector2f(200, 50), "Play Again!", this.color, this.textColor, 24, ShowWelcome);
             this.credits.Add(restart);
-            this.resultScore = new Label(new Vector2f(80, 100), "Your Score: ", this.textColor, 24);
+            this.resultScore = new Label(new Vector2f(450, 350), "Your Score: ", this.textColor, 30);
             this.credits.Add(resultScore);
 
             this.children = this.credits;
@@ -96,28 +97,28 @@ namespace Shoot_em_Up {
             {
                 menue = new Menue(new Vector2f(0, 0), new Vector2f(1200, 75), this.color);
                 toMain = new Button(10, 10, "Main Menue", this.color, this.textColor, ShowWelcome);
-                Label l = new Label(new Vector2f(350,15), "Score", this.textColor);
-                scoreLabel = new Label(new Vector2f(390, 15), this.game.player.score.ToString(), this.textColor);
-                Label l2 = new Label(new Vector2f(350, 25), "HP", this.textColor);
-                hp = new Label(new Vector2f(390, 25), this.game.player.hp.ToString() + "/" + this.game.player.maxHP.ToString(), this.textColor);
-                lvl = new Label(new Vector2f(240, 20), this.game.Level.ToString(), this.textColor);
-                shield = new Picture(450, 45, "../Content/"+this.game.player.shieldStatus+".png", this.color);
+                Label l = new Label(new Vector2f(600,40), "Score", this.textColor);
+                scoreLabel = new Label(new Vector2f(650, 40), this.game.player.score.ToString(), this.textColor);
+                Label l2 = new Label(new Vector2f(350, 40), "HP", this.textColor);
+                hp = new Label(new Vector2f(390, 40), this.game.player.hp.ToString() + "/" + this.game.player.maxHP.ToString(), this.textColor);
+                lvl = new Label(new Vector2f(500, 10), this.game.Level.ToString(), this.textColor);
+                //shield = new Picture(850, 10, "../Content/"+this.game.player.shieldStatus+".png", this.color);
                 menue.Add(toMain);
-                menue.Add(new Button(10, 30, "Sound", this.color, this.textColor, ToggleSound));
+                menue.Add(new Button(10, 40, "Sound", this.color, this.textColor, ToggleSound));
                 menue.Add(scoreLabel);
                 menue.Add(l);
                 menue.Add(l2);
                 menue.Add(hp);
                 menue.Add(lvl);
-                menue.Add(shield);
+               // menue.Add(shield);
                 this.inGame.Add(menue);
             }
             else
             {
                 scoreLabel.DisplayedString = this.game.player.score.ToString();
                 hp.DisplayedString = this.game.player.hp.ToString() + "/" + this.game.player.maxHP.ToString();
-                lvl.DisplayedString = this.game.Level.ToString();
-                shield.setImage("../Content/" + this.game.player.shieldStatus + ".png");
+                lvl.DisplayedString = "Level " + this.game.Level.ToString();
+                //shield.setImage("../Content/" + this.game.player.shieldStatus + ".png");
                 this.resultScore.DisplayedString = "Your Score: " + this.game.player.score.ToString();
             }
         }

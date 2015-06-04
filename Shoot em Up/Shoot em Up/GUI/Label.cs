@@ -16,7 +16,7 @@ namespace GUI
         public Label(String text, Color c)
         {
             this.DisplayedString = text;
-            this.CharacterSize = 12;
+            this.CharacterSize = 18;
             this.Color = c;
             this.Font = new Font("../Content/arial.ttf");
         }
@@ -34,7 +34,7 @@ namespace GUI
         {
             this.DisplayedString = text;
             this.Position = position;
-            this.CharacterSize = 12;
+            this.CharacterSize = 18;
             this.Color = c;
             this.Font = new Font("../Content/arial.ttf");
         }

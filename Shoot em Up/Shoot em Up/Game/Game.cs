@@ -132,17 +132,6 @@ namespace Shoot_em_Up
             //physics.Update(dt);
             if (this.status == GameStatus.Active)
                 {
-                /*
-                    if (!this.player.display)
-                    {
-                        this.status = GameStatus.Credits;
-                        this.Reset();
-                    }
-
-                    if (levelEnded)
-                        CheckFinal();
-                    //all the updating
-                    this.progressor.Progress((uint)this.clock.ElapsedMilliseconds);*/
                     physics.Update(dt);
 
                     for (int i = 0; i < objects.Count; ++i)
@@ -162,6 +151,10 @@ namespace Shoot_em_Up
                             rigidBodies.RemoveAt(i);
                         }
                     }
+                    if (this.player.hp <= 0)
+                    {
+                        this.status = GameStatus.Credits;
+                    }
                     if(this.levelEnded) {
                         if (this.player.rigidBody.COM.X > this.planet.Length && this.level + 1 <= this.maxLevel)
                         {
@@ -172,28 +165,6 @@ namespace Shoot_em_Up
                             this.status = GameStatus.Credits;
                         }
                     }
-                    /*for (int i = 0; i < objects.Count; ++i)
-                    {
-                        objects[i].LateUpdate();
-                        if (objects[i].rigidBody.COM.Y < 0 || objects[i].rigidBody.COM.Y > this.HEIGHT || objects[i].rigidBody.COM.X < 0 || objects[i].rigidBody.COM.X > this.WIDTH)
-                        {
-                            objects[i].display = false;
-                        }
-                        if (!objects[i].display)
-                        {
-                            if (objects[i] is Enemy)
-                            {
-                                AddItem((objects[i] as Enemy).drop, objects[i].rigidBody.COM);
-                            }
-                            if ((objects[i] is Enemy || objects[i] is Astroid))
-                            {
-                                this.numberOfFoes--;
-                            }
-                            objects.RemoveAt(i);
-                            shapes.RemoveAt(i);
-                        }
-                    }*/
-                //}
             }
         }
 
