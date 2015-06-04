@@ -16,11 +16,14 @@ namespace Shoot_em_Up
          public int mPattern;
          public Weapon weapon;
          public Game.GameItem drop;
+         private Vector2f initPos;
+         private int speed;
 
        // string texturePath, int[] spriteTileSize, int[] spriteSize, int animationIndex, Vector2f position, float rotation, float density
          public Enemy(Collision.Type type, int[]ts, float density, float restitution, float staticFriction, float kineticFriction, String texture, int[]spriteSize, Vector2f position, int health, int points, int dmg, Faction faction, int pattern, WeaponContract w)
             : base(faction, texture, ts, spriteSize,0, position, 0, density)
          {
+             this.initPos = position;
              this.rigidBody.Restitution = restitution;
              this.rigidBody.StaticFriction = staticFriction;
              this.rigidBody.KineticFriction = kineticFriction;
@@ -28,6 +31,8 @@ namespace Shoot_em_Up
              this.damage = dmg;
              this.points = points;
              this.type = type;
+             this.speed = 10;
+             this.rigidBody.Velocity = new Vector2f(0, this.speed);
              this.mPattern = pattern;
              this.drop = this.DetermineDrop();
              this.weapon = new Weapon(this, dmg, w.FireRate, 2, new Vector2f(1,0) , this.rigidBody.COM); 
@@ -61,6 +66,25 @@ namespace Shoot_em_Up
                  i = Game.GameItem.None;
              }
              return i;
+         }
+
+         public void Move()
+         {
+             if (this.rigidBody.COM.Y >= this.initPos.Y + 30 && this.rigidBody.Velocity.Y > 0)
+             {
+                 this.rigidBody.Velocity = new Vector2f(0, -this.speed);
+             }
+             else if (this.rigidBody.COM.Y <= this.initPos.Y - 30)
+             {
+                 this.rigidBody.Velocity = new Vector2f(0,this.speed);
+             }
+         }
+
+
+         public override void Update()
+         {
+             this.Move();
+             base.Update();
          }
     }
 }
