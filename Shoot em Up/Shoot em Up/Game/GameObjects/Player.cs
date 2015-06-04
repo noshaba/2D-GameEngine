@@ -26,7 +26,7 @@ namespace Shoot_em_Up
             : base(faction, texture+".png", tileSize, spriteSize, 0, position, 0, 0.9f)
         {
             this.rigidBody.Restitution = 1.0f;
-            this.speed = 60;
+            this.speed = 50;
             this.fire = false;
             this.score = 0;
             this.hp = 1000;
@@ -65,11 +65,14 @@ namespace Shoot_em_Up
                     
                }*/
             this.rigidBody.AngularVelocity = 0;
-            this.rigidBody.Orientation = 0;
+            if (this.rigidBody.Orientation > 0)
+                this.rigidBody.Orientation -= 0.01f;
+            if (this.rigidBody.Orientation < 0)
+                this.rigidBody.Orientation += 0.01f;
 
             if (k == Keyboard.Key.Right )
             {
-                this.rigidBody.Velocity = new Vector2f(this.speed+10, 0);
+                this.rigidBody.Velocity = new Vector2f(this.speed, 0);
                 
             }
             else if (k == Keyboard.Key.Left)
@@ -86,7 +89,7 @@ namespace Shoot_em_Up
                 this.rigidBody.Velocity = new Vector2f(this.rigidBody.Velocity.X, this.speed);
 
             }
-            //this.rigidBody.Velocity = this.rigidBody.WorldTransform * this.rigidBody.Velocity;
+            this.rigidBody.Velocity = this.rigidBody.WorldTransform * this.rigidBody.Velocity;
         }
 
         public void ToggleShield()
@@ -127,8 +130,6 @@ namespace Shoot_em_Up
 
         public override void Update()
         {
-            if(this.rigidBody.Velocity.X < this.speed)
-                this.rigidBody.Velocity = new Vector2f(this.speed, this.rigidBody.Velocity.X);
             if (this.shieldHp <= 0 && this.shield)
             {
                 this.shield = false;
