@@ -18,6 +18,7 @@ namespace Shoot_em_Up
          public Game.GameItem drop;
          private Vector2f initPos;
          private int speed;
+         private bool fire;
 
        // string texturePath, int[] spriteTileSize, int[] spriteSize, int animationIndex, Vector2f position, float rotation, float density
          public Enemy(Collision.Type type, int[]ts, float density, float restitution, float staticFriction, float kineticFriction, String texture, int[]spriteSize, Vector2f position, int health, int points, int dmg, Faction faction, int pattern, WeaponContract w)
@@ -36,7 +37,8 @@ namespace Shoot_em_Up
              this.rigidBody.Velocity = new Vector2f(0, this.speed);
              this.mPattern = pattern;
              this.drop = this.DetermineDrop();
-             this.weapon = new Weapon(this, dmg, w.FireRate, 2, new Vector2f(1,0) , this.rigidBody.COM); 
+             this.weapon = new Weapon("singleShot", this, dmg / 10, w.FireRate, 2, new Vector2f(-1, 0), new Vector2f(-new Texture(texture).Size.X/2, 0), Color.Magenta);
+             //this.fire = true;
          }
 
          private Game.GameItem DetermineDrop()
@@ -83,10 +85,16 @@ namespace Shoot_em_Up
                 this.rigidBody.Velocity = new Vector2f(0, this.speed);
          }
 
+         private void shoot()
+         {
+             if (fire) this.weapon.shoot(this.rigidBody.COM); 
+         }
+
 
          public override void Update()
          {
              this.Move();
+             this.shoot();
              base.Update();
          }
     }
