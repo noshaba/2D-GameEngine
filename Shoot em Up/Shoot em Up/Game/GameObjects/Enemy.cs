@@ -24,6 +24,7 @@ namespace Shoot_em_Up
             : base(faction, texture, ts, spriteSize, 0, position, 0, density)
          {
              this.initPos = position;
+             this.rigidBody.DragCoefficient = 1;
              this.rigidBody.Restitution = restitution;
              this.rigidBody.StaticFriction = staticFriction;
              this.rigidBody.KineticFriction = kineticFriction;
@@ -31,7 +32,7 @@ namespace Shoot_em_Up
              this.damage = dmg;
              this.points = points;
              this.type = type;
-             this.speed = 30;
+             this.speed = 10;
              this.rigidBody.Velocity = new Vector2f(0, this.speed);
              this.mPattern = pattern;
              this.drop = this.DetermineDrop();
@@ -76,7 +77,7 @@ namespace Shoot_em_Up
              }
              else if (this.rigidBody.COM.Y <= this.initPos.Y - 30)
              {
-                 this.rigidBody.Velocity = new Vector2f(0,this.speed);
+                 this.rigidBody.Velocity = new Vector2f(0,0);
              }
          }
 
