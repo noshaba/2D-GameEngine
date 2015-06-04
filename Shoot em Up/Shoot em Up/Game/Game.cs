@@ -29,9 +29,6 @@ namespace Shoot_em_Up
         public Player player;
         public bool levelEnded;
         public GameStatus status;
-        public bool directionSet = false;
-        public bool impulseSet = false;
-        private ImpulseSlider impulse;
 
         public enum GameStatus
         {
@@ -59,10 +56,8 @@ namespace Shoot_em_Up
             this.status = GameStatus.Active;
             this.levelEnded = false;
             Level = 1;
-            this.player = new Player(factions[1], new Vector2f(250, HEIGHT-100), "../Content/cuteship", new int[] { 100, 89 }, new int[] { 100, 89 });
+            this.player = new Player(factions[1], new Vector2f(250, 250), "../Content/cuteship", new int[] { 100, 89 }, new int[] { 100, 89 });
             Add(this.player);
-            this.physics.frozen = true;
-            this.impulse = new ImpulseSlider(new Texture("../Content/sliderBar.png"), new Texture("../Content/slider.png"), 0, 100);
         }
 
         public void NextLevel()
@@ -71,27 +66,8 @@ namespace Shoot_em_Up
             this.levelEnded = false;
             this.status = GameStatus.Active;
             Level++;
-            this.player.rigidBody.COM = new Vector2f(250, HEIGHT-100);
+            this.player.rigidBody.COM = new Vector2f(250, 250);
             Add(this.player);
-            this.physics.frozen = true;
-            this.impulse = new ImpulseSlider(new Texture("../Content/sliderBar.png"), new Texture("../Content/slider.png"), 0, 100);
-        }
-
-        public void SetImpulseDirection(Vector2f mousePos)
-        {
-            Vector2f origin = new Vector2f(50, HEIGHT - 100);
-            Vector2f direction = (mousePos - origin).Norm();
-            if (direction.Y > 0) direction.Y = 0;
-            this.player.rigidBody.COM = origin + direction * 200;
-            this.player.rigidBody.Orientation = -(float) Math.Acos(direction.Dot(new Vector2f(1,0)));
-            this.player.rigidBody.Velocity = direction;
-        }
-
-        public void SetImpulse()
-        {
-            this.player.rigidBody.Velocity *= this.impulse.Value * 5;
-            this.impulseSet = true;
-            this.physics.frozen = false;
         }
 
         public static void Add(GameObject obj)
@@ -168,7 +144,6 @@ namespace Shoot_em_Up
                     //all the updating
                     this.progressor.Progress((uint)this.clock.ElapsedMilliseconds);*/
                     physics.Update(dt);
-                    if(directionSet && !impulseSet) impulse.Update(dt);
 
                     for (int i = 0; i < objects.Count; ++i)
                     {
@@ -243,7 +218,6 @@ namespace Shoot_em_Up
                     //    window.Draw(obj.rigidBody.BoundingCircle, new RenderStates(t));
                     }
                 }
-                if(directionSet && !impulseSet) impulse.Draw(window);
             }
         }
 
@@ -271,8 +245,6 @@ namespace Shoot_em_Up
         {
             objects.RemoveRange(0, objects.Count);
             rigidBodies.RemoveRange(0,rigidBodies.Count);
-            directionSet = false;
-            impulseSet = false;
         }
 
         public void AddItem(Game.GameItem item, Vector2f pos)

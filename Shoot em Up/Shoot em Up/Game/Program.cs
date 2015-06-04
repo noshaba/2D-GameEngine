@@ -145,10 +145,6 @@ namespace Shoot_em_Up
         private static void window_MouseMoved(object sender, MouseMoveEventArgs e)
         {
             mouseSprite.Position = window.MapPixelToCoords(Mouse.GetPosition(window), GUIview);
-            if (sEmUp.status == Game.GameStatus.Active && !sEmUp.directionSet)
-            {
-                sEmUp.SetImpulseDirection((Vector2f) Mouse.GetPosition(window));
-            }
          //   gui.OnHover(e.X, e.Y);
         }
 
@@ -164,9 +160,6 @@ namespace Shoot_em_Up
 
         private static void window_MouseButtonReleased(object sender, MouseButtonEventArgs e)
         {
-            if (sEmUp.directionSet && !sEmUp.impulseSet) sEmUp.SetImpulse();
-            if (!sEmUp.directionSet && sEmUp.status == Game.GameStatus.Active)
-                sEmUp.directionSet = true;
             gui.Released(e.X, e.Y);
         }
 
