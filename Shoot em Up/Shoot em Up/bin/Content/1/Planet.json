@@ -17,10 +17,19 @@
         "SpritePath": "../Content/1/images/4.png",
         "SpriteTileSize": [100,100],
         "SpriteSize": [300,100]
+     },
+     {
+        "Name": "ice",
+        "Restitution": 0.2,
+        "StaticFriction": 0,
+        "KineticFriction": 0,
+        "SpritePath": "../Content/1/images/ice.png",
+        "SpriteTileSize": [100,100],
+        "SpriteSize": [300,100]
      }
   ],
   "Ground": [0,0,0,0,0,0,0,0,0,0,
              0,0,0,0,0,0,0,0,0,0,
-             0,0,0,0,0,0,0,0,0,0,
+             1,1,1,1,1,1,1,1,1,1,
              0,0,0,0,0,0,0,0,0,0,0]
 }
