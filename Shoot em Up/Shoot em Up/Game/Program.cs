@@ -64,8 +64,8 @@ namespace Shoot_em_Up
             window.KeyReleased += window_KeyReleased;
             //window.KeyPressed += window_KeyPressed;
             window.MouseMoved += window_MouseMoved;
-           // window.MouseEntered += window_MouseEntered;
-          //  window.MouseLeft += window_MouseLeft;
+            window.MouseEntered += window_MouseEntered;
+            window.MouseLeft += window_MouseLeft;
             window.MouseButtonReleased += window_MouseButtonReleased;
             window.MouseButtonPressed += window_MouseButtonPressed;
         }
