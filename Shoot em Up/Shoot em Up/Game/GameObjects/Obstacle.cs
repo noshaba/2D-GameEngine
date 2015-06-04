@@ -34,8 +34,10 @@ namespace Shoot_em_Up
          {
              base.Update();
              if (this.hover)
+             {
                  this.rigidBody.COM = new Vector2f(this.rigidBody.COM.X, this.initPos.Y);
-             this.rigidBody.Velocity = new Vector2f(0,0);
+                 this.rigidBody.Velocity = new Vector2f(0, 0);
+             }
          }
     }
 }
