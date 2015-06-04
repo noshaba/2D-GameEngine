@@ -16,7 +16,7 @@ namespace Shoot_em_Up
         {
             this.listener = listener;
             this.drawable.Texture = new Texture(texture);
-            this.rigidBody.DragCoefficient = 1;
+            this.rigidBody.DragCoefficient = 2;
         }
 
         public override void Update()

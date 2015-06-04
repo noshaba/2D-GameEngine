@@ -20,7 +20,7 @@ namespace Shoot_em_Up
         Stopwatch clock;
         public String shieldStatus;
         private String texturePath;
-        private Weapon weapon;
+        public Weapon weapon;
         //string texturePath, int[] spriteTileSize, int[] spriteSize, int animationIndex, Vector2f position, float rotation
         public Player(Faction faction, Vector2f position, String texture, int[]tileSize, int[]spriteSize)
             : base(faction, texture+".png", tileSize, spriteSize, 0, position, 0, 0.9f)

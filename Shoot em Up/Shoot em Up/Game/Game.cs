@@ -38,7 +38,7 @@ namespace Shoot_em_Up
 
         public enum GameItem
         {
-            Heal, Bomb, None
+            Heal, Bomb, Points, NoPoints, Weapon, None
         }
         public Game(int width, int height)
         {
@@ -273,6 +273,12 @@ namespace Shoot_em_Up
                     break;
                 case Game.GameItem.Bomb: Add(new Item("../Content/items/bomb.png", Bomb, pos));
                     break;
+                case Game.GameItem.Points: Add(new Item("../Content/items/points.png", Points, pos));
+                    break;
+                case Game.GameItem.NoPoints: Add(new Item("../Content/items/noPoints.png", NoPoints, pos));
+                    break;
+                case Game.GameItem.Weapon: Add(new Item("../Content/items/weapon.png", Weapon, pos));
+                    break;
                 default:
                     break;
 
@@ -281,12 +287,27 @@ namespace Shoot_em_Up
 
         private void Heal()
         {
-            this.player.hp += 150;
+            this.player.hp += 200;
         }
 
         private void Bomb()
         {
-            this.player.hp -= 150;
+            this.player.hp -= 200;
+        }
+
+        private void Points()
+        {
+            this.player.score += 100;
+        }
+
+        private void NoPoints()
+        {
+            this.player.score -= 100;
+        }
+
+        private void Weapon()
+        {
+            this.player.weapon.damage += 20;
         }
 
     }

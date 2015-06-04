@@ -37,13 +37,25 @@ namespace Shoot_em_Up
          {
              Game.GameItem i;
              int no = EMath.random.Next(1,100);
-             if (no > 75)
+             if (no > 90)
+             {
+                 i = Game.GameItem.Weapon;
+             }
+             else if (no > 80)
              {
                  i = Game.GameItem.Bomb;
              }
-             else if (no > 50)
+             else if (no > 70)
              {
                  i = Game.GameItem.Heal;
+             }
+             else if (no > 60)
+             {
+                 i = Game.GameItem.Points;
+             }
+             else if (no > 50)
+             {
+                 i = Game.GameItem.NoPoints;
              }
              else {
                  i = Game.GameItem.None;

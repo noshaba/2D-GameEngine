@@ -13,7 +13,7 @@ namespace Shoot_em_Up
         private int bulletSpeed;
         private Stopwatch charge;
         private int fireRate;
-        private int damage;
+        public int damage;
         public string type;
         private Vector2f direction;
         private Vector2f relativePos;
