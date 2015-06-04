@@ -17,7 +17,7 @@
         "SpriteTileSize": [100, 100]
      },
      {
-        "Density": 10,
+        "Density": 1,
         "Restitution": 0.5,
         "StaticFriction": 0.5,
         "KineticFriction": 0.1,
