@@ -23,7 +23,7 @@
         "KineticFriction": 0.1,
         "CollisionType": 1,
         "Faction": 0,
-	"Hover": false,
+	"Hover": true,
         "Health": 25,
         "Points": 10,
         "Damage": 5,

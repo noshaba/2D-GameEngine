@@ -33,7 +33,7 @@ namespace GUI
         public Label(Vector2f position, String text, Color c)
         {
             this.DisplayedString = text;
-            this.Position = new Vector2f(this.Position.X + this.GetGlobalBounds().Left / 2, this.Position.Y);
+            this.Position = position;
             this.CharacterSize = 18;
             this.Color = c;
             this.Font = new Font("../Content/arial.ttf");
