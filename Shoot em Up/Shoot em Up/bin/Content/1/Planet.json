@@ -14,7 +14,7 @@
         "Restitution": 0.2,
         "StaticFriction": 0.2,
         "KineticFriction": 0.5,
-        "SpritePath": "../Content/1/images/pink_ground.png",
+        "SpritePath": "../Content/1/images/4.png",
         "SpriteTileSize": [100,100],
         "SpriteSize": [300,100]
      }
