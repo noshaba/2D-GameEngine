@@ -21,7 +21,7 @@ namespace Shoot_em_Up
 
        // string texturePath, int[] spriteTileSize, int[] spriteSize, int animationIndex, Vector2f position, float rotation, float density
          public Enemy(Collision.Type type, int[]ts, float density, float restitution, float staticFriction, float kineticFriction, String texture, int[]spriteSize, Vector2f position, int health, int points, int dmg, Faction faction, int pattern, WeaponContract w)
-            : base(faction, texture, ts, spriteSize,0, position, 0, density)
+            : base(faction, texture, ts, spriteSize, 0, position, 0, density)
          {
              this.initPos = position;
              this.rigidBody.Restitution = restitution;
@@ -31,7 +31,7 @@ namespace Shoot_em_Up
              this.damage = dmg;
              this.points = points;
              this.type = type;
-             this.speed = 10;
+             this.speed = 30;
              this.rigidBody.Velocity = new Vector2f(0, this.speed);
              this.mPattern = pattern;
              this.drop = this.DetermineDrop();

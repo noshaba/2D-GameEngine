@@ -1,7 +1,7 @@
 
    [
       {
-         "Density": 0,
+         "Density": 0.1,
          "Restitution": 0.5,
          "StaticFriction": 0.5,
          "KineticFriction": 0.1,
@@ -12,7 +12,7 @@
          "Damage": 5,
          "SpawnPatternID": 0,
          "NumberOfObjects": 10,
-         "SpawnStartPosition": [100, 100],
+         "SpawnStartPosition": [500, 100],
          "SpritePath": "../Content/ships/1.png",
          "SpriteSize": [100, 100],
          "SpriteTileSize": [100, 100],
