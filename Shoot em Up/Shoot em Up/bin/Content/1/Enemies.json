@@ -13,7 +13,7 @@
          "SpawnPatternID": 0,
          "NumberOfObjects": 10,
          "SpawnStartPosition": [500, 100],
-         "SpritePath": "../Content/ships/1.png",
+         "SpritePath": "../Content/ufo.png",
          "SpriteSize": [100, 100],
          "SpriteTileSize": [100, 100],
          "MovementPattern": 0,
