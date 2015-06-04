@@ -128,7 +128,7 @@ namespace Shoot_em_Up
         public override void Update()
         {
             if(this.rigidBody.Velocity.X < this.speed)
-                this.rigidBody.Velocity = new Vector2f(this.speed, 0);
+                this.rigidBody.Velocity = new Vector2f(this.speed, this.rigidBody.Velocity.X);
             if (this.shieldHp <= 0 && this.shield)
             {
                 this.shield = false;
