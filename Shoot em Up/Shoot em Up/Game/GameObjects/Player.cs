@@ -26,7 +26,7 @@ namespace Shoot_em_Up
             : base(faction, texture+".png", tileSize, spriteSize, 0, position, 0, 0.9f)
         {
             this.rigidBody.Restitution = 1.0f;
-            this.speed = 50;
+            this.speed = 70;
             this.fire = false;
             this.score = 0;
             this.hp = 1000;
