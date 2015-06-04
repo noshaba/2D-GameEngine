@@ -126,9 +126,11 @@ namespace Shoot_em_Up
             {
                 sEmUp.MovePlayer(Keyboard.Key.Right);
             }
-            if(Keyboard.IsKeyPressed(Keyboard.Key.Up)) {
+            if(Keyboard.IsKeyPressed(Keyboard.Key.Up))
+            {
                 sEmUp.MovePlayer(Keyboard.Key.Up);
-            } else if (Keyboard.IsKeyPressed(Keyboard.Key.Down))
+            } 
+            else if (Keyboard.IsKeyPressed(Keyboard.Key.Down))
             {
                 sEmUp.MovePlayer(Keyboard.Key.Down);
             }

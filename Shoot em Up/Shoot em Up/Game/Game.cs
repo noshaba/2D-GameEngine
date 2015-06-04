@@ -271,6 +271,8 @@ namespace Shoot_em_Up
         {
             objects.RemoveRange(0, objects.Count);
             rigidBodies.RemoveRange(0,rigidBodies.Count);
+            directionSet = false;
+            impulseSet = false;
         }
 
         public void AddItem(Game.GameItem item, Vector2f pos)
