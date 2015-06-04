@@ -24,7 +24,7 @@ namespace Shoot_em_Up
         public override void Update()
         {
             base.Update();
-            this.rigidBody.COM = this.initPos;
+            //this.rigidBody.COM = this.initPos;
             if (rigidBody.Collision.collision && rigidBody.Collision.obj.Parent is Player)
             {
                 this.display = false;
