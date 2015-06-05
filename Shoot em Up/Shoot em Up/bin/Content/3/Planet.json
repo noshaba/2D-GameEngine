@@ -1,0 +1,26 @@
+{
+  "Name": "some name",
+  "BackgroundImagePath": "../Content/candyLand.png",
+  "BackgroundMusicPath": "audio_path",
+  "Gravity": [0, 9.81],
+  "Friction": true,
+  "Damping": 0.1,
+  "Length": 5000,
+  "Achievement": 14,
+  "AchievementMinRequirement": 1000,
+  "GroundTypes": [
+     {
+        "Name": "ground",
+        "Restitution": 0.2,
+        "StaticFriction": 0.2,
+        "KineticFriction": 0.5,
+        "SpritePath": "../Content/3/images/clouds.png",
+        "SpriteTileSize": [100,100],
+        "SpriteSize": [300,100]
+     }
+  ],
+  "Ground": [0,0,0,0,0,0,0,0,0,0,
+             0,0,0,0,0,0,0,0,0,0,
+             0,0,0,0,0,0,0,0,0,0,
+             0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+}
