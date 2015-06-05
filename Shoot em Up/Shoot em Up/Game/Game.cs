@@ -25,7 +25,7 @@ namespace Shoot_em_Up
         public static Faction[] factions;
         public static bool debug = false;
         private int level;
-        private int maxLevel = 2;
+        private int maxLevel = 3;
         public Player player;
         public bool levelEnded;
         public GameStatus status;
