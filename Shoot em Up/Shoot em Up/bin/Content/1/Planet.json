@@ -2,7 +2,7 @@
   "Name": "some name",
   "BackgroundImagePath": "../Content/1/images/space.png",
   "BackgroundMusicPath": "audio_path",
-  "Gravity": [0, 9.81],
+  "Gravity": [0, 5],
   "Friction": true,
   "Damping": 0.1,
   "Length": 4000,
@@ -12,9 +12,9 @@
      {
         "Name": "pink stone",
         "Restitution": 0.2,
-        "StaticFriction": 0.2,
-        "KineticFriction": 0.5,
-        "SpritePath": "../Content/1/images/clouds.png",
+        "StaticFriction": 0,
+        "KineticFriction": 0,
+        "SpritePath": "../Content/1/images/ice2.png",
         "SpriteTileSize": [100,100],
         "SpriteSize": [300,100]
      },

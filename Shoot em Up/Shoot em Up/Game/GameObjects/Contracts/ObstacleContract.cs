@@ -69,8 +69,8 @@ namespace Shoot_em_Up {
             for (int i = 0; i<NumberOfObjects; i++) {
                 Game.Add(new Obstacle(Hover,CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(SpawnStartPosition[0], SpawnStartPosition[1]),Health, Points, Damage, Game.factions[(int) Faction]));
                 //here adjust SpawnStartPosition according to spawnPattern 
-                SpawnStartPosition[0] += EMath.random.Next(-100, 100);
-                SpawnStartPosition[1] += EMath.random.Next(-100, 100);
+                SpawnStartPosition[0] += EMath.random.Next(500, 1000);
+                SpawnStartPosition[1] += EMath.random.Next(0, 100);
             }
         }
     }

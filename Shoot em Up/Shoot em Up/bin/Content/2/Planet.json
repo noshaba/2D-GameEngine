@@ -1,16 +1,16 @@
 {
   "Name": "some name",
-  "BackgroundImagePath": "../Content/1/images/space.png",
+  "BackgroundImagePath": "../Content/clouds.png",
   "BackgroundMusicPath": "audio_path",
   "Gravity": [0, 9.81],
   "Friction": true,
   "Damping": 0.1,
-  "Length": 3000,
+  "Length": 4500,
   "Achievement": 14,
   "AchievementMinRequirement": 1000,
   "GroundTypes": [
      {
-        "Name": "pink stone",
+        "Name": "ground",
         "Restitution": 0.2,
         "StaticFriction": 0.2,
         "KineticFriction": 0.5,
@@ -22,5 +22,5 @@
   "Ground": [0,0,0,0,0,0,0,0,0,0,
              0,0,0,0,0,0,0,0,0,0,
              0,0,0,0,0,0,0,0,0,0,
-             0,0,0,0,0,0,0,0,0,0,0]
+             0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 }
