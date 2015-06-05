@@ -1,3 +1,5 @@
+Aufgabe Pong
+
 Note: 1-
 
 Positiv:
@@ -43,3 +45,24 @@ Sprich, wenn man die Physikengine zum Kernfeature der Aufgabe macht, dann ist de
 		SoundManager.scoreSound.Play();
 		Reset();
 	}
+
+Aufgabe Shoot’m Up
+
+Note: 3
+
+Positiv:
+
+Weiter an der Physik-Engine gearbeitet.
+Das GUI System sieht auch vielversprechend aus.
+
+Kritik & Tips:
+
+Die Aufgabe, auf einen Satz reduziert, bestand darin ein Spiel zu entwickeln. Und was das angeht, ist die Abgabe leider ziemlich mangelhaft. Naürlich habt ihr immer noch eine beeindruckende Technik auf die Beine gestellt und weiter daran gefeilt aber allerspätestens im nächsten Projekt kommt es dann drauf an diese auch zu nutzen. Jede Engine muss sich daran messen lassen, was man mit ihr anstellen kann.
+
+Persönliche Meinung: Wenn man kein Unit-testing einsetzt, dann ist der einzige Test für die Module die man schreibt das Spiel, dass diesen verwendet - es sollte deshalb keine Methoden geben, die nicht regelmäßig verwendet werden. Und keine Flexibilität die nicht voll ausgenutzt wird oder wenigstens zwischenzeitlich wurde. Diese Art Reality-Check ist wirklich nützlich und leitet einen wie ein roter Faden durch die Entwicklung.
+
+Zum Code:
+
+Verschiedene Movementpatterns sind ne gute Sache. Die Umsetzung deutet Modularität an, verwirrt aber eher als das sie hilft, denn die Collection verfügbarer Movementpatterns wird vom Constructor der Enemy Klasse selbst gefüllt und ist private. Das Dictionary benutzt strings als Keys, die aber auch nur intern verwendet werden. Enums wären dann besser, wenn keine Erweiterbarkeit zur Laufzeit (e.g. data-driven) existiert! Und ein Switch, statt eines Dictionaries, in dem die member direkt aufgerufen werden. KISS.
+Sinn würde machen das Movement von außen (durch eine Factory?) zu setzen. Dann kann man - wenn einem eine extra Klasse zu aufwändig ist - durchaus auch nur eine Funktion zuweisen. Aber bitte keine private Methoden eben jener Klasse die man flexibler gestalten will. Wie wär’s mit was ganz dynamisch erstelltem unter Verwendung von Closures?
+Gleiches gilt für die verschiedene Waffen.
