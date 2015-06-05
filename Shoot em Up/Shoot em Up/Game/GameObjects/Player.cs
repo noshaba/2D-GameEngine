@@ -32,7 +32,7 @@ namespace Shoot_em_Up
             this.hp = 1000;
             this.maxHP = 1000;
             //this.drawable.Texture = texture;
-            this.weapon = new Weapon("singleShot", this, 20, 500, 60, new Vector2f(1, 0), new Vector2f(new Texture(texture+".png").Size.X / 2,0), Color.Red);
+            this.weapon = new Weapon("tripleShot", this, 20, 500, 60, new Vector2f(1, 0), new Vector2f(new Texture(texture+".png").Size.X / 2,0), Color.Red);
             this.shield = false;
             this.maxShieldHp = 150;
             this.shieldHp = this.maxShieldHp;

@@ -79,11 +79,6 @@ namespace Shoot_em_Up
                 {
                     // decrease HP
                     this.hp -= opponent.damage * (100 - opponent.faction.Reputation[(int)this.faction.ID]) / 100;
-                    // decrease reputation with the opponent's faction if the opponent is dead
-                    this.faction.Reputation[(int)opponent.faction.ID] +=
-                        opponent.faction.GainableRep && !opponent.alive &&
-                        1 <= this.faction.Reputation[(int)opponent.faction.ID] ?
-                        -1 : 0;
                 }
                 if (opponent != null && shield)
                 {

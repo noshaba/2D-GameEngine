@@ -37,8 +37,8 @@ namespace Shoot_em_Up
              this.rigidBody.Velocity = new Vector2f(0, this.speed);
              this.mPattern = pattern;
              this.drop = this.DetermineDrop();
-             this.weapon = new Weapon("singleShot", this, dmg / 10, w.FireRate, 2, new Vector2f(-1, 0), new Vector2f(-new Texture(texture).Size.X/2, 0), Color.Magenta);
-             //this.fire = true;
+             this.weapon = new Weapon("singleShot", this, dmg, 2000, 60, new Vector2f(-1, 0), new Vector2f(-new Texture(texture).Size.X/2, 0), Color.Magenta);
+             this.fire = true;
          }
 
          private Game.GameItem DetermineDrop()
