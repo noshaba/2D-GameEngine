@@ -72,8 +72,7 @@ namespace Shoot_em_Up
 
             if (k == Keyboard.Key.Right )
             {
-                this.rigidBody.Velocity = new Vector2f(this.speed, 0);
-                
+                this.rigidBody.Velocity = new Vector2f(this.speed,0);
             }
             else if (k == Keyboard.Key.Left)
             {
@@ -87,7 +86,6 @@ namespace Shoot_em_Up
             else if (k == Keyboard.Key.Down)
             {
                 this.rigidBody.Velocity = new Vector2f(this.rigidBody.Velocity.X, this.speed);
-
             }
             this.rigidBody.Velocity = this.rigidBody.WorldTransform * this.rigidBody.Velocity;
         }
