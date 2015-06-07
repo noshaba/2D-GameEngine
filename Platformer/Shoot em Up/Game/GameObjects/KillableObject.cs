@@ -108,6 +108,7 @@ namespace Platformer
                 this.bodies[i].Orientation = this.rigidBody.Orientation;
                 this.drawables[i].Position = this.drawable.Position;
                 this.drawables[i].Origin = this.drawable.Origin;
+                this.drawables[i].Rotation = this.drawable.Rotation;
             }
         }
 

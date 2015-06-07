@@ -46,15 +46,7 @@ namespace Platformer
 
         public void Move(Keyboard.Key k)
         {
-            if (this.animationIndex < 5)
-            {
-                this.animationIndex++;
 
-            }
-            else
-            {
-                this.animationIndex = 0;
-            }
             /*
                switch (k)
                {
@@ -98,6 +90,9 @@ namespace Platformer
                 this.rigidBody.Velocity = new Vector2f(this.rigidBody.Velocity.X, this.speed);
             }
             this.rigidBody.Velocity = this.rigidBody.WorldTransform * this.rigidBody.Velocity;
+
+
+
         }
 
         public void Stop()
@@ -115,12 +110,20 @@ namespace Platformer
 
         public override void Update()
         {
+            if (this.animationIndex < 5)
+            {
+                this.animationIndex++;
+
+            }
+            else
+            {
+                this.animationIndex = 0;
+            }
+            base.Update();
             this.UpdateBodies();
+
             this.rigidBody = this.rigidBodies[this.animationIndex];
             this.drawable = this.drawables[this.animationIndex];
-            
-            this.Shoot();
-            base.Update();
         }
     }
 }
