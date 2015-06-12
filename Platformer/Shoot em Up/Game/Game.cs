@@ -60,7 +60,8 @@ namespace Platformer
             this.status = GameStatus.Active;
             this.levelEnded = false;
             Level = 1;
-            this.player = new Player(factions[1], new Vector2f(250, 250), "../Content/cat", new int[] { 130, 80 }, new int[] { 780, 80 });
+            this.player = new Player(factions[1], new Vector2f(250, 250), "../Content/cat", 
+                new int[] { 130, 80 }, new int[] { 780, 80 });
             Add(this.player);
         }
 
@@ -102,7 +103,8 @@ namespace Platformer
                 planet = JSONManager.deserializeJson<Planet>(json);
                 planet.Init();
             }
-            physics = new Physic(rigidBodies, new Vector2f(planet.Gravity[0], planet.Gravity[1]), planet.Damping, planet.Friction, (FloatRect) planet.backgroundSprite.TextureRect);
+            physics = new Physic(rigidBodies, new Vector2f(planet.Gravity[0], planet.Gravity[1]), planet.Damping, 
+                planet.Friction, (FloatRect) planet.backgroundSprite.TextureRect);
             planet.AddGround();
             using (StreamReader sr = new StreamReader("../Content/" + level + "/Factions.json"))
             {
@@ -167,11 +169,13 @@ namespace Platformer
                     this.status = GameStatus.Credits;
                 }
                 if(this.levelEnded) {
-                    if (this.player.rigidBody.COM.X > this.planet.Length && this.level + 1 <= this.maxLevel)
+                    if (this.player.rigidBody.COM.X > this.planet.Length && 
+                        this.level + 1 <= this.maxLevel)
                     {
                         this.status = GameStatus.Nextlevel;
                     }
-                    else if (this.player.rigidBody.COM.X > this.planet.Length && this.level + 1 > this.maxLevel)
+                    else if (this.player.rigidBody.COM.X > this.planet.Length && 
+                        this.level + 1 > this.maxLevel)
                     {
                         this.status = GameStatus.Credits;
                     }
@@ -233,15 +237,20 @@ namespace Platformer
         {
             switch (item)
             {
-                case Game.GameItem.Heal: Add(new Item("../Content/items/heal.png", Heal, pos));
+                case Game.GameItem.Heal: 
+                    Add(new Item("../Content/items/heal.png", Heal, pos));
                     break;
-                case Game.GameItem.Bomb: Add(new Item("../Content/items/bomb.png", Bomb, pos));
+                case Game.GameItem.Bomb: 
+                    Add(new Item("../Content/items/bomb.png", Bomb, pos));
                     break;
-                case Game.GameItem.Points: Add(new Item("../Content/items/points.png", Points, pos));
+                case Game.GameItem.Points: 
+                    Add(new Item("../Content/items/points.png", Points, pos));
                     break;
-                case Game.GameItem.NoPoints: Add(new Item("../Content/items/noPoints.png", NoPoints, pos));
+                case Game.GameItem.NoPoints: 
+                    Add(new Item("../Content/items/noPoints.png", NoPoints, pos));
                     break;
-                case Game.GameItem.Weapon: Add(new Item("../Content/items/weapon.png", Weapon, pos));
+                case Game.GameItem.Weapon: 
+                    Add(new Item("../Content/items/weapon.png", Weapon, pos));
                     break;
                 default:
                     break;
