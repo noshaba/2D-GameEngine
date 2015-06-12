@@ -46,26 +46,6 @@ namespace Platformer
 
         public void Move(Keyboard.Key k)
         {
-
-            /*
-               switch (k)
-               {
-                   case Keyboard.Key.Right:
-                       this.rigidBody.Velocity = new Vector2f(0, 0);
-                       this.rigidBody.AngularVelocity = .5f;
-                       break;
-                   case Keyboard.Key.Left:
-                       this.rigidBody.Velocity = new Vector2f(0, 0);
-                       this.rigidBody.AngularVelocity = -.5f;
-                       break;
-                   case Keyboard.Key.Up:
-                       this.rigidBody.Velocity = new Vector2f(0,-speed);
-                       break;
-                   case Keyboard.Key.Down:
-                       this.rigidBody.Velocity = new Vector2f(0, speed);
-                       break;
-                    
-               }*/
             this.rigidBody.AngularVelocity = 0;
             if (this.rigidBody.Orientation > 0)
                 this.rigidBody.Orientation -= 0.01f;

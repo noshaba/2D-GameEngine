@@ -26,30 +26,15 @@ namespace Physics {
         public Vector2f[] normals;
         private Vector2f centroid;
 
-        public Polygon(Object parent, Vector2f[] vertices, Vector2f position, float rotation) : base() {
-            this.parent = parent;
-            FillColor = Color.Transparent;
-            OutlineThickness = 2;
-            OutlineColor = Color.White;
-            GenerateConvexHull(vertices);
-            current = new State(position, rotation);
-            previous = current;
-            kineticFriction = EMath.Random(0, staticFriction);
-            collision = new Collision();
-            collision.collision = false;
-            this.BoundingCircle = new CircleShape(Radius);
-            this.BoundingCircle.Origin = new Vector2f(Radius, Radius);
-            this.BoundingCircle.FillColor = Color.Transparent;
-            this.BoundingCircle.OutlineThickness = 1;
-            this.BoundingCircle.OutlineColor = Color.White;
-        }
-
         public Polygon(Object parent, Vector2f[] vertices, Vector2f position, float rotation, float density) : base() {
             this.parent = parent;
             FillColor = Color.Transparent;
             OutlineThickness = 2;
             OutlineColor = Color.White;
             GenerateConvexHull(vertices);
+            SetCentroid();
+            SetNormals();
+            SetRadius();
             InitState(position, rotation, density);
             kineticFriction = EMath.Random(0, staticFriction);
             collision = new Collision();
@@ -139,7 +124,25 @@ namespace Physics {
            // Console.WriteLine(Mass);
         }
 
+        private void SetCentroid()
+        {
+            this.centroid = new Vector2f();
+
+            for (uint i = 0; i < GetPointCount(); ++i)
+                centroid += vertices[i];
+
+            centroid /= (float)vertices.Length;
+
+            // Translate vertices to centroid (make the centroid (0, 0) for the polygon in model space)
+            for (uint i = 0; i < GetPointCount(); ++i)
+            {
+                vertices[i] -= centroid;
+                SetPoint(i, vertices[i]);
+            }
+        }
+
         private void GenerateConvexHull(Vector2f[] buffer) {
+
             // find right most vertex in hull
             uint rightMost = 0;
             float highestXCoord = buffer[0].X;
@@ -207,23 +210,12 @@ namespace Physics {
                 }
             }
 
-            this.centroid = new Vector2f();
-
             for (uint i = 0; i < GetPointCount(); ++i)
-            {
                 vertices[i] = buffer[hull[i]];
-                centroid += vertices[i];
-            }
+        }
 
-            centroid /= (float)vertices.Length;
-
-            // Translate vertices to centroid (make the centroid (0, 0) for the polygon in model space)
-            for (uint i = 0; i < GetPointCount(); ++i)
-            {
-                vertices[i] -= centroid;
-                SetPoint(i, vertices[i]);
-            }
-
+        private void SetNormals()
+        {
             // Compute face normals
             for (int i1 = 0; i1 < vertices.Length; ++i1)
             {
@@ -231,7 +223,10 @@ namespace Physics {
                 Vector2f face = vertices[i2] - vertices[i1];
                 normals[i1] = new Vector2f(face.Y, -face.X).Norm();
             }
+        }
 
+        private void SetRadius()
+        {
             // calculate radius
             float rad2 = vertices[0].Length2();
             float len2;

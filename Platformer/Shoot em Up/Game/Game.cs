@@ -135,52 +135,47 @@ namespace Platformer
         {
             //physics.Update(dt);
             if (this.status == GameStatus.Active)
+            {
+                physics.Update(dt);
+                if (this.clock.ElapsedMilliseconds > 100 && !this.physics.frozen)
                 {
-                    physics.Update(dt);
-                    if (this.clock.ElapsedMilliseconds >30) {
-                        if (this.player.animationIndex < 5)
-                        {
-                            this.player.animationIndex++;
+                    this.player.animationIndex = (this.player.animationIndex + 1)
+                        % this.player.rigidBodies.Length;
+                    this.clock.Restart();
+                }
+                //physics.frozen = true;
 
-                        }
-                        else
+                for (int i = 0; i < objects.Count; ++i)
+                {
+                    objects[i].Update();
+                    //there exists a better way for this???
+                    rigidBodies[i] = objects[i].rigidBody;
+
+                    objects[i].LateUpdate();
+
+                    if(!objects[i].display) {
+                        if (objects[i] is Enemy)
                         {
-                            this.player.animationIndex = 0;
+                            AddItem((objects[i] as Enemy).drop, objects[i].rigidBody.COM);
                         }
-                        this.clock.Restart();
+                        objects.RemoveAt(i);
+                        rigidBodies.RemoveAt(i);
                     }
-
-                    for (int i = 0; i < objects.Count; ++i)
+                }
+                if (this.player.hp <= 0)
+                {
+                    this.status = GameStatus.Credits;
+                }
+                if(this.levelEnded) {
+                    if (this.player.rigidBody.COM.X > this.planet.Length && this.level + 1 <= this.maxLevel)
                     {
-                        objects[i].Update();
-                        //there exists a better way for this???
-                        rigidBodies[i] = objects[i].rigidBody;
-
-                        objects[i].LateUpdate();
-
-                        if(!objects[i].display) {
-                            if (objects[i] is Enemy)
-                            {
-                                AddItem((objects[i] as Enemy).drop, objects[i].rigidBody.COM);
-                            }
-                            objects.RemoveAt(i);
-                            rigidBodies.RemoveAt(i);
-                        }
+                        this.status = GameStatus.Nextlevel;
                     }
-                    if (this.player.hp <= 0)
+                    else if (this.player.rigidBody.COM.X > this.planet.Length && this.level + 1 > this.maxLevel)
                     {
                         this.status = GameStatus.Credits;
                     }
-                    if(this.levelEnded) {
-                        if (this.player.rigidBody.COM.X > this.planet.Length && this.level + 1 <= this.maxLevel)
-                        {
-                            this.status = GameStatus.Nextlevel;
-                        }
-                        else if (this.player.rigidBody.COM.X > this.planet.Length && this.level + 1 > this.maxLevel)
-                        {
-                            this.status = GameStatus.Credits;
-                        }
-                    }
+                }
             }
         }
 
@@ -202,7 +197,7 @@ namespace Platformer
                     if (debug)
                     {
                         window.Draw(obj.rigidBody as Shape, new RenderStates(t));
-                    //    window.Draw(obj.rigidBody.BoundingCircle, new RenderStates(t));
+                        window.Draw(obj.rigidBody.BoundingCircle, new RenderStates(t));
                     }
                 }
             }

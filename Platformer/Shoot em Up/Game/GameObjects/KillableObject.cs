@@ -22,40 +22,24 @@ namespace Platformer
         public int shieldHp;
         public int maxShieldHp;
         public Faction faction;
-        protected IRigidBody[] bodies;
 
         public KillableObject(Faction faction, Vector2f position, float rotation, float radius)
             : base(position, rotation, radius)
         {
-            this.bodies = new[] { this.rigidBody, new Circle(this, position, rotation, radius) };
             this.faction = faction;
         }
 
         public KillableObject(Faction faction, Vector2f position, float rotation, float radius, float density)
             : base(position, rotation, radius, density)
         {
-            this.bodies = new[] { this.rigidBody, new Circle(this, position, rotation, radius) };
             this.faction = faction;
         }
 
         public KillableObject(Faction faction, Vector2f normal, Vector2f position, Vector2f size, float rotation)
             : base(normal, position, size, rotation)
         {
-            this.bodies = new[] { this.rigidBody, new Circle(this, position, rotation, size.Y / 2) };
             this.faction = faction;
         }
-
-        public KillableObject(Faction faction, Vector2f[] vertices, Vector2f position, float rotation)
-            : base(vertices, position, rotation)
-        {
-            this.bodies = new[] { this.rigidBody };
-            this.faction = faction;
-        }
-       /* public KillableObject( Texture texture, Vector2f position, float rotation)
-            : base(texture, position, rotation)
-        {
-            this.bodies = new[] { this.rigidBody, new Circle(this, position, rotation, texture.Size.Y / 2) };
-        }*/
 
         public KillableObject(Faction faction, Vector2f[] vertices, Vector2f position, float rotation, float density)
             : base(vertices, position, rotation, density)
@@ -66,7 +50,6 @@ namespace Platformer
         public KillableObject(Faction faction, String texture, int[]ts, int[]spriteSize, int a, Vector2f position, float rotation, float density)
             : base(texture, ts, spriteSize, a, position, 0, density)
         {
-            this.bodies = new[] { this.rigidBody, new Circle(this, position, rotation, spriteSize[0] / 2) };
             this.faction = faction;
         }
 
@@ -100,30 +83,17 @@ namespace Platformer
 
         protected void UpdateBodies()
         {
-            for (int i = 0; i < this.bodies.Length; i++)
+            for (int i = 0; i < this.rigidBodies.Length; i++)
             {
-                this.bodies[i].COM = this.rigidBody.COM;
-                this.bodies[i].Velocity = this.rigidBody.Velocity;
-                this.bodies[i].AngularVelocity = this.rigidBody.AngularVelocity;
-                this.bodies[i].Orientation = this.rigidBody.Orientation;
-                this.bodies[i].LocalTransform = this.rigidBody.LocalTransform;
-                this.bodies[i].WorldTransform = this.rigidBody.WorldTransform;
-                this.bodies[i].Current = this.rigidBody.Current;
-                this.bodies[i].Previous = this.rigidBody.Previous;
+                this.rigidBodies[i].COM = this.rigidBody.COM;
+                this.rigidBodies[i].Velocity = this.rigidBody.Velocity;
+                this.rigidBodies[i].AngularVelocity = this.rigidBody.AngularVelocity;
+                this.rigidBodies[i].Orientation = this.rigidBody.Orientation;
+                this.rigidBodies[i].LocalTransform = this.rigidBody.LocalTransform;
+                this.rigidBodies[i].WorldTransform = this.rigidBody.WorldTransform;
+                this.rigidBodies[i].Current = this.rigidBody.Current;
+                this.rigidBodies[i].Previous = this.rigidBody.Previous;
             }
         }
-
-        protected void ShieldOn(Vector2f velocity, Vector2f pos)
-        {
-            this.shield = true;
-            this.rigidBody = this.bodies[1];
-        }
-
-        protected void ShieldOff(Vector2f velocity, Vector2f pos)
-        {
-            this.shield = false;
-            this.rigidBody = this.bodies[0];
-        }
-
     }
 }
