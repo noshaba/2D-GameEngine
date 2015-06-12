@@ -291,12 +291,10 @@ namespace Physics {
 
         public Mat22f WorldTransform {
             get { return current.worldTransform; }
-            set { current.worldTransform = value; }
         }
 
         public Mat22f LocalTransform {
             get { return current.localTransform; }
-            set { current.localTransform = value; }
         }
 
         public State Current {

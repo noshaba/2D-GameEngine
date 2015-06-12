@@ -85,12 +85,6 @@ namespace Platformer
         {
             for (int i = 0; i < this.rigidBodies.Length; i++)
             {
-                this.rigidBodies[i].COM = this.rigidBody.COM;
-                this.rigidBodies[i].Velocity = this.rigidBody.Velocity;
-                this.rigidBodies[i].AngularVelocity = this.rigidBody.AngularVelocity;
-                this.rigidBodies[i].Orientation = this.rigidBody.Orientation;
-                this.rigidBodies[i].LocalTransform = this.rigidBody.LocalTransform;
-                this.rigidBodies[i].WorldTransform = this.rigidBody.WorldTransform;
                 this.rigidBodies[i].Current = this.rigidBody.Current;
                 this.rigidBodies[i].Previous = this.rigidBody.Previous;
             }

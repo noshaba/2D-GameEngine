@@ -96,19 +96,19 @@ namespace Physics {
 
         public float Orientation {
             get { return current.orientation; }
-            set { current.orientation = value;
-            previous.orientation = value;
+            set 
+            { 
+                current.orientation = value;
+                previous.orientation = value;
             }
         }
 
         public Mat22f WorldTransform {
             get { return current.worldTransform; }
-            set { current.worldTransform = value; }
         }
 
         public Mat22f LocalTransform {
             get { return current.localTransform; }
-            set { current.localTransform = value; }
         }
 
         public State Current {
