@@ -80,7 +80,10 @@ namespace Platformer
             while (accumulator >= DT)
             {
                 //update the game as long as the "lag" is not compensated
-                ReadInput();
+                if (sEmUp.status == Game.GameStatus.Active)
+                {
+                    ReadInput();
+                }
                 if(sEmUp.status == Game.GameStatus.Active) {
                     if (sEmUp.player.rigidBody.COM.X >= view.Center.X && sEmUp.player.rigidBody.Velocity.X > 0 && sEmUp.player.rigidBody.COM.X < sEmUp.planet.backgroundSprite.TextureRect.Width-WIDTH/2)
                     {
@@ -182,10 +185,10 @@ namespace Platformer
                     //sEmUp.StartGame();
                     break;
                 case Keyboard.Key.Space:
-                    sEmUp.StopFire();
+                    if (sEmUp.status == Game.GameStatus.Active)sEmUp.StopFire();
                     break;
                 case Keyboard.Key.P:
-                    sEmUp.Pause();
+                    if (sEmUp.status == Game.GameStatus.Active) sEmUp.Pause();
                     break;
                 case Keyboard.Key.S:
                     //sEmUp.player.ToggleShield();
@@ -196,16 +199,18 @@ namespace Platformer
         }
 
         static void window_KeyPressed(object sender, KeyEventArgs e) {
-            switch(e.Code) {
-                case Keyboard.Key.Left:
-                case Keyboard.Key.Right:
-                case Keyboard.Key.Up:
-                case Keyboard.Key.Down:
-             //       sEmUp.MovePlayer(e.Code);
-                    break;
-                case Keyboard.Key.Space:
-              //      sEmUp.Fire();
-                    break;
+            if (sEmUp.status == Game.GameStatus.Active) {
+                switch(e.Code) {
+                    case Keyboard.Key.Left:
+                    case Keyboard.Key.Right:
+                    case Keyboard.Key.Up:
+                    case Keyboard.Key.Down:
+                 //       sEmUp.MovePlayer(e.Code);
+                        break;
+                    case Keyboard.Key.Space:
+                  //      sEmUp.Fire();
+                        break;
+                }
             }
         }
 

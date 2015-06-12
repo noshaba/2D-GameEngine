@@ -21,7 +21,7 @@ namespace Platformer
         public String shieldStatus;
         private String texturePath;
         public Weapon weapon;
-        private int animationIndex;
+        public int animationIndex;
         //string texturePath, int[] spriteTileSize, int[] spriteSize, int animationIndex, Vector2f position, float rotation
         public Player(Faction faction, Vector2f position, String texture, int[]tileSize, int[]spriteSize)
             : base(faction, texture+".png", tileSize, spriteSize, 0, position, 0, 0.9f)
@@ -110,7 +110,7 @@ namespace Platformer
 
         public override void Update()
         {
-            if (this.animationIndex < 5)
+            /*if (this.animationIndex < 5)
             {
                 this.animationIndex++;
 
@@ -118,7 +118,7 @@ namespace Platformer
             else
             {
                 this.animationIndex = 0;
-            }
+            }*/
             base.Update();
             this.UpdateBodies();
 

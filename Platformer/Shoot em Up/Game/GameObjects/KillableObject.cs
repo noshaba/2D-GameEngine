@@ -106,9 +106,10 @@ namespace Platformer
                 this.bodies[i].Velocity = this.rigidBody.Velocity;
                 this.bodies[i].AngularVelocity = this.rigidBody.AngularVelocity;
                 this.bodies[i].Orientation = this.rigidBody.Orientation;
-                this.drawables[i].Position = this.drawable.Position;
-                this.drawables[i].Origin = this.drawable.Origin;
-                this.drawables[i].Rotation = this.drawable.Rotation;
+                this.bodies[i].LocalTransform = this.rigidBody.LocalTransform;
+                this.bodies[i].WorldTransform = this.rigidBody.WorldTransform;
+                this.bodies[i].Current = this.rigidBody.Current;
+                this.bodies[i].Previous = this.rigidBody.Previous;
             }
         }
 

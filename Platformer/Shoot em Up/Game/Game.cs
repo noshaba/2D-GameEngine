@@ -29,6 +29,7 @@ namespace Platformer
         public Player player;
         public bool levelEnded;
         public GameStatus status;
+        public Stopwatch clock;
 
         public enum GameStatus
         {
@@ -47,6 +48,9 @@ namespace Platformer
 
             SoundManager.Play(SoundManager.ambient);
             SoundManager.ambient.Loop = true;
+
+            this.clock = new Stopwatch();
+            this.clock.Start();
         }
 
 
@@ -133,6 +137,18 @@ namespace Platformer
             if (this.status == GameStatus.Active)
                 {
                     physics.Update(dt);
+                    if (this.clock.ElapsedMilliseconds >30) {
+                        if (this.player.animationIndex < 5)
+                        {
+                            this.player.animationIndex++;
+
+                        }
+                        else
+                        {
+                            this.player.animationIndex = 0;
+                        }
+                        this.clock.Restart();
+                    }
 
                     for (int i = 0; i < objects.Count; ++i)
                     {
