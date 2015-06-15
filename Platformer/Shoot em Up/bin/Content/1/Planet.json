@@ -10,26 +10,23 @@
   "AchievementMinRequirement": 1000,
   "GroundTypes": [
      {
-        "Name": "pink stone",
+        "Name": "ground",
         "Restitution": 0.2,
         "StaticFriction": 0,
         "KineticFriction": 0,
-        "SpritePath": "../Content/1/images/ice2.png",
-        "SpriteTileSize": [100,100],
-        "SpriteSize": [300,100]
-     },
-     {
-        "Name": "ice",
-        "Restitution": 0.2,
-        "StaticFriction": 0,
-        "KineticFriction": 0,
-        "SpritePath": "../Content/1/images/ice.png",
-        "SpriteTileSize": [100,100],
-        "SpriteSize": [300,100]
+        "SpritePath": "../Content/1/images/ground.png",
+        "SpriteTileSize": [64,64],
+        "SpriteSize": [192,64]
      }
   ],
   "Ground": [0,0,0,0,0,0,0,0,0,0,
              0,0,0,0,0,0,0,0,0,0,
-             1,1,1,1,1,1,1,1,1,1,
-             0,0,0,0,0,0,0,0,0,0,0]
+             0,0,0,0,0,0,0,0,0,0,
+             0,0,0,0,0,0,0,0,0,0,0
+  ],
+  "GroundTiles": [1,2,0,0,0,0,0,0,0,0,
+             0,0,0,0,0,0,0,0,0,0,
+             0,0,0,0,0,0,0,0,0,0,
+             0,0,0,0,0,0,0,0,0,0,0
+  ]
 }
