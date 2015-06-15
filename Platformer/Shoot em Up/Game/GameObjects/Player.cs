@@ -24,7 +24,7 @@ namespace Platformer
         public int animationIndex;
         //string texturePath, int[] spriteTileSize, int[] spriteSize, int animationIndex, Vector2f position, float rotation
         public Player(Faction faction, Vector2f position, String texture, int[]tileSize, int[]spriteSize)
-            : base(faction, texture+".png", tileSize, spriteSize, 0, position, 0, 0.9f)
+            : base(faction, texture+".png", tileSize, spriteSize, 0, new Vector2f(tileSize[0]*.5f, tileSize[1]*.5f), position, 0, 0.9f)
         {
             this.rigidBody.Restitution = 1.0f;
             this.speed = 80;

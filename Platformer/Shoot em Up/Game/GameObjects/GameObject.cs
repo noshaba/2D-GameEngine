@@ -121,6 +121,24 @@ namespace Platformer
             this.rigidBody = this.rigidBodies[animationIndex];
             this.drawable = this.drawables[animationIndex];
         }
+        public GameObject(string texturePath, int[] spriteTileSize, int[] spriteSize, int animationIndex, Vector2f centroid, Vector2f position, float rotation, float density)
+        {
+            int tileNumber = (spriteSize[0] / spriteTileSize[0]) * (spriteSize[1] / spriteTileSize[1]);
+            this.rigidBodies = new IRigidBody[tileNumber];
+            this.drawables = new Shape[tileNumber];
+            Texture tile;
+            for (int i = 0; i < tileNumber; ++i)
+            {
+                tile = new Texture(texturePath, new IntRect((i * spriteTileSize[0]) % spriteSize[0], (i * spriteTileSize[0]) / spriteSize[0] * spriteTileSize[1], spriteTileSize[0], spriteTileSize[1]));
+                this.rigidBodies[i] = new Polygon(this, CV.AlphaEdgeDetection(tile.CopyToImage().Pixels, tile.Size.X, tile.Size.Y, 254), centroid, position, rotation, density);
+                this.drawables[i] = new RectangleShape(new Vector2f(spriteTileSize[0], spriteTileSize[1]));
+                this.drawables[i].Origin = this.rigidBodies[i].Centroid;
+                this.drawables[i].Texture = tile;
+                this.drawables[i].Texture.Smooth = true;
+            }
+            this.rigidBody = this.rigidBodies[animationIndex];
+            this.drawable = this.drawables[animationIndex];
+        }
         public GameObject(Texture texture, Vector2f position, float rotation, float density)
         {
             this.rigidBody = new Polygon(this, CV.AlphaEdgeDetection(texture.CopyToImage().Pixels, texture.Size.X, texture.Size.Y, 0), position, rotation, density);

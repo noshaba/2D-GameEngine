@@ -41,14 +41,14 @@ namespace Platformer
             this.faction = faction;
         }
 
-        public KillableObject(Faction faction, Vector2f[] vertices, Vector2f position, float rotation, float density)
-            : base(vertices, position, rotation, density)
+        public KillableObject(Faction faction, String texture, int[]spriteTileSize, int[]spriteSize, int animationIndex, Vector2f position, float rotation, float density)
+            : base(texture, spriteTileSize, spriteSize, animationIndex, position, rotation, density)
         {
             this.faction = faction;
         }
 
-        public KillableObject(Faction faction, String texture, int[]ts, int[]spriteSize, int a, Vector2f position, float rotation, float density)
-            : base(texture, ts, spriteSize, a, position, 0, density)
+        public KillableObject(Faction faction, String texture, int[] spriteTileSize, int[] spriteSize, int animationIndex, Vector2f centroid, Vector2f position, float rotation, float density)
+            : base(texture, spriteTileSize, spriteSize, animationIndex, centroid, position, rotation, density)
         {
             this.faction = faction;
         }

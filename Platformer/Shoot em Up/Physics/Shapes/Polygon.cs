@@ -46,6 +46,27 @@ namespace Physics {
             this.BoundingCircle.OutlineColor = Color.White;
         }
 
+        public Polygon(Object parent, Vector2f[] vertices, Vector2f centroid, Vector2f position, float rotation, float density)
+        {
+            this.parent = parent;
+            FillColor = Color.Transparent;
+            OutlineThickness = 2;
+            OutlineColor = Color.White;
+            GenerateConvexHull(vertices);
+            SetCentroid(centroid);
+            SetNormals();
+            SetRadius();
+            InitState(position, rotation, density);
+            kineticFriction = EMath.Random(0, staticFriction);
+            collision = new Collision();
+            collision.collision = false;
+            this.BoundingCircle = new CircleShape(Radius);
+            this.BoundingCircle.Origin = new Vector2f(Radius, Radius);
+            this.BoundingCircle.FillColor = Color.Transparent;
+            this.BoundingCircle.OutlineThickness = 1;
+            this.BoundingCircle.OutlineColor = Color.White;
+        }
+
         public void SetBox(Vector2f position, float hw, float hh, float rotation) {
             SetPointCount(4);
             centroid = new Vector2f(hw,hh);
@@ -133,6 +154,17 @@ namespace Physics {
 
             centroid /= (float)vertices.Length;
 
+            // Translate vertices to centroid (make the centroid (0, 0) for the polygon in model space)
+            for (uint i = 0; i < GetPointCount(); ++i)
+            {
+                vertices[i] -= centroid;
+                SetPoint(i, vertices[i]);
+            }
+        }
+
+        private void SetCentroid(Vector2f centroid)
+        {
+            this.centroid = centroid;
             // Translate vertices to centroid (make the centroid (0, 0) for the polygon in model space)
             for (uint i = 0; i < GetPointCount(); ++i)
             {
