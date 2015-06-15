@@ -11,13 +11,13 @@ namespace Platformer
 {
     class GroundTile : GameObject
     {
-        public GroundTile(float restitution, float staticFriction, float kineticFriction, string texturePath, int[] spriteTileSize, int[] spriteSize, int tile, int index)
+        public GroundTile(float restitution, float staticFriction, float kineticFriction, string texturePath, int[] spriteTileSize, int[] spriteSize, int tile, int index, int height)
             : base(texturePath, spriteTileSize, spriteSize, tile, new Vector2f(0,0), 0, 0)
         {
             this.rigidBody.Restitution = restitution;
             this.rigidBody.StaticFriction = staticFriction;
             this.rigidBody.KineticFriction = kineticFriction;
-            this.rigidBody.COM = new Vector2f(spriteTileSize[0] * 0.95f * (index + .5f), Game.HEIGHT - spriteTileSize[1] + this.rigidBody.Centroid.Y);
+            this.rigidBody.COM = new Vector2f(spriteTileSize[0] * 0.95f * (index + .5f), Game.HEIGHT/2 - height*-spriteTileSize[1]);
         }
     }
 }
