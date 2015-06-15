@@ -34,6 +34,10 @@ namespace Platformer
         public GroundType[] GroundTypes { get; set; }
         [DataMember]
         public int[] Ground { get; set; }
+        [DataMember]
+        public int[] GroundTiles { get; set; }
+        [DataMember]
+        public int[] GroundTileHeight { get; set; }
 
         public Sprite backgroundSprite;
 
@@ -46,7 +50,9 @@ namespace Platformer
         public void AddGround()
         {
             for (int i = 0; i < Ground.Length; ++i)
-                Game.Add(GroundTypes[Ground[i]].GetTile(i));
+            {
+                Game.Add(GroundTypes[Ground[i]].GetTile(i, GroundTiles[i], GroundTileHeight[i]));
+            }
         }
     }
 }

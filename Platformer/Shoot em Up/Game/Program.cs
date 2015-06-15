@@ -83,12 +83,10 @@ namespace Platformer
                 if (sEmUp.status == Game.GameStatus.Active)
                 {
                     ReadInput();
-                }
-                if(sEmUp.status == Game.GameStatus.Active) {
-                    if (sEmUp.player.rigidBody.COM.X >= view.Center.X && sEmUp.player.rigidBody.Velocity.X > 0 && sEmUp.player.rigidBody.COM.X < sEmUp.planet.backgroundSprite.TextureRect.Width-WIDTH/2)
-                    {
-                        view.Center = new Vector2f(sEmUp.player.rigidBody.COM.X, HEIGHT / 2);
-                    }
+                    /*if (sEmUp.player.rigidBody.COM.X >= view.Center.X && sEmUp.player.rigidBody.Velocity.X > 0 && sEmUp.player.rigidBody.COM.X < sEmUp.planet.backgroundSprite.TextureRect.Width-WIDTH/2)
+                    {*/
+                        view.Center = new Vector2f(sEmUp.player.rigidBody.COM.X, sEmUp.player.rigidBody.COM.Y);
+                    /*}
                     else {
                         view.Center = new Vector2f(view.Center.X, HEIGHT / 2);
                         if (sEmUp.player.rigidBody.COM.X > sEmUp.planet.backgroundSprite.TextureRect.Width - WIDTH / 2)
@@ -96,7 +94,7 @@ namespace Platformer
                             sEmUp.player.rigidBody.Velocity = new Vector2f(100, 0);
                             sEmUp.levelEnded = true;
                         }
-                    }
+                    }*/
                 }
                 window.SetView(view);
                // mouseSprite.Position = window.MapPixelToCoords(Mouse.GetPosition(window), GUIview);

@@ -34,9 +34,9 @@ namespace Platformer
                 return (SpriteSize[0] / SpriteTileSize[0]) * (SpriteSize[1] / SpriteTileSize[1]);
             }
         }
-        public GroundTile GetTile(int index)
+        public GroundTile GetTile(int index, int tileSprite, int tileHeight)
         {
-            return new GroundTile(Restitution, StaticFriction, KineticFriction, SpritePath, SpriteTileSize, SpriteSize, Tiles, index);
+            return new GroundTile(Restitution, StaticFriction, KineticFriction, SpritePath, SpriteTileSize, SpriteSize, tileSprite, index, tileHeight);
         }
     }
 }
