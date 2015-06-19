@@ -115,7 +115,7 @@
     <Compile Include="Physics\Shapes\IRigidBody.cs" />
     <Compile Include="Physics\Shapes\Plane.cs" />
     <Compile Include="Physics\Shapes\Polygon.cs" />
-    <Compile Include="Physics\Shapes\RigidBody.cs" />
+    <Compile Include="Physics\Shapes\Body.cs" />
     <Compile Include="Physics\State.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

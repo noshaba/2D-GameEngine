@@ -1,4 +1,0 @@
-C:\Users\Noshaba\Documents\Visual Studio 2015\Projects\ConsoleApplication1\ConsoleApplication1\bin\x86\Debug\ConsoleApplication1.exe.config
-C:\Users\Noshaba\Documents\Visual Studio 2015\Projects\ConsoleApplication1\ConsoleApplication1\obj\x86\Debug\ConsoleApplication1.csprojResolveAssemblyReference.cache
-C:\Users\Noshaba\Documents\Visual Studio 2015\Projects\ConsoleApplication1\ConsoleApplication1\obj\x86\Debug\ConsoleApplication1.exe
-C:\Users\Noshaba\Documents\Visual Studio 2015\Projects\ConsoleApplication1\ConsoleApplication1\obj\x86\Debug\ConsoleApplication1.pdb
