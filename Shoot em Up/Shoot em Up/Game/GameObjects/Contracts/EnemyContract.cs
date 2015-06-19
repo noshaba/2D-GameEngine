@@ -93,39 +93,46 @@ namespace Shoot_em_Up
 
         private void Standard()
         {
+            Spawner s = new Spawner(new Vector2f(SpawnStartPosition[0], SpawnStartPosition[1]));
             int x, y;
             for (int i = 0; i < NumberOfObjects; i++)
             {
                 x = SpawnStartPosition[0] + i * SpriteTileSize[0];
                 y = SpawnStartPosition[1];
-                Game.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
+                s.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
             }
+            Game.spawners.Add(s);
         }
         private void Block()
         {
+            Spawner s = new Spawner(new Vector2f(SpawnStartPosition[0], SpawnStartPosition[1]));
             int rows = (Game.HEIGHT - 100) / (SpriteTileSize[1] + 20);
             int x, y;
             for (int i = 0; i < NumberOfObjects; ++i)
             {
                 x = SpawnStartPosition[0] + (i / rows) * SpriteTileSize[0];
                 y = SpawnStartPosition[1] + (i % rows) * SpriteTileSize[1];
-                Game.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
+                s.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
             }
+            Game.spawners.Add(s);
         }
         private void Diagonal()
         {
+            Spawner s = new Spawner(new Vector2f(SpawnStartPosition[0], SpawnStartPosition[1]));
             int rows = (Game.HEIGHT - 100) / (SpriteTileSize[1] + 20);
             int x, y;
             for (int i = 0; i < NumberOfObjects; ++i)
             {
                 x = SpawnStartPosition[0] + i * SpriteTileSize[0];
                 y = SpawnStartPosition[1] + (i % rows) * SpriteTileSize[1];
-                Game.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
+                s.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
             }
+            Game.spawners.Add(s);
         }
 
         private void ZigZag()
         {
+            Spawner s = new Spawner(new Vector2f(SpawnStartPosition[0], SpawnStartPosition[1]));
             int rows = (Game.HEIGHT - 100) / (SpriteTileSize[1] + 50);
             int j = -1;
             int x = SpawnStartPosition[0];
@@ -135,8 +142,9 @@ namespace Shoot_em_Up
                 if (i % rows == 0) j = j * (-1);
                 x += SpriteTileSize[0];
                 y += j * SpriteTileSize[1];
-                Game.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
+                s.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
             }
+            Game.spawners.Add(s);
         }
     }
 }

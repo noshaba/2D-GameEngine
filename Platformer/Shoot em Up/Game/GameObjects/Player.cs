@@ -131,7 +131,7 @@ namespace Platformer
             if (fire) this.weapon.shoot(this.rigidBody.COM);
 
         }
-
+        //TO-DO move to gameObject later so enemies can use this too
         public void AdvanceAnim()
         {
             if (this.animationIndex <= this.states[(int)status].max && this.animationIndex >= this.states[(int)status].min)
