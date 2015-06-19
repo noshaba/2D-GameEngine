@@ -121,12 +121,14 @@ namespace Platformer
             this.rigidBody = this.rigidBodies[animationIndex];
             this.drawable = this.drawables[animationIndex];
         }
+        //Player constructor
         public GameObject(string texturePath, int[] spriteTileSize, int[] spriteSize, int animationIndex, Vector2f centroid, Vector2f position, float rotation, float density)
         {
             int tileNumber = (spriteSize[0] / spriteTileSize[0]) * (spriteSize[1] / spriteTileSize[1]);
             this.rigidBodies = new IRigidBody[tileNumber];
             this.drawables = new Shape[tileNumber];
             Texture tile;
+            Console.WriteLine(tileNumber);
             for (int i = 0; i < tileNumber; ++i)
             {
                 tile = new Texture(texturePath, new IntRect((i * spriteTileSize[0]) % spriteSize[0], (i * spriteTileSize[0]) / spriteSize[0] * spriteTileSize[1], spriteTileSize[0], spriteTileSize[1]));
@@ -148,6 +150,8 @@ namespace Platformer
             this.drawable.Texture = texture;
             this.drawable.Origin = new Vector2f(texture.Size.X * .5f, texture.Size.Y * .5f);
         }
+
+        //away with this
         public GameObject(String path, Vector2f position, Vector2f size, float rotation, float density)
         {
             Texture texture = ScaleImage(path, position, (uint)size.X, (uint)size.Y);

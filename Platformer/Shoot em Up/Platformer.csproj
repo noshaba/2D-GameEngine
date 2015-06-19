@@ -89,6 +89,7 @@
     <Compile Include="Game\GameObjects\Contracts\ObstacleContract.cs" />
     <Compile Include="Game\GameObjects\Planet.cs" />
     <Compile Include="Game\GameObjects\Player.cs" />
+    <Compile Include="Game\GameObjects\AnimState.cs" />
     <Compile Include="Game\GameObjects\Wall.cs" />
     <Compile Include="Game\GameObjects\Weapon.cs" />
     <Compile Include="Game\GameObjects\Contracts\WeaponContract.cs" />
