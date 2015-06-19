@@ -77,6 +77,7 @@ namespace Physics {
         public Vector2f Centroid
         {
             get { return this.Origin; }
+            set { this.Origin = value; }
         }
 
         public float Orientation {
@@ -120,6 +121,11 @@ namespace Physics {
 
         public float InverseInertia {
             get { return current.inverseInertiaTensor; }
+        }
+
+        public float Inertia
+        {
+            get { return current.inertiaTensor; }
         }
 
         public float Restitution {

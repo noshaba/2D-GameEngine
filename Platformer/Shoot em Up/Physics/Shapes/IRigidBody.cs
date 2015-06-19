@@ -15,7 +15,7 @@ namespace Physics {
         float Radius { get; set; }
         CircleShape BoundingCircle { get; set; }
         Vector2f COM { get; set; }
-        Vector2f Centroid { get; }
+        Vector2f Centroid { get; set; }
         float Orientation { get; set; }
         Mat22f WorldTransform { get; }
         Mat22f LocalTransform { get; }
@@ -23,6 +23,7 @@ namespace Physics {
         State Previous { get; set; }
         float Mass { get; }
         float InverseMass { get; }
+        float Inertia { get; }
         float InverseInertia { get; }
         float Restitution { get; set; }
         float StaticFriction { get; set; }

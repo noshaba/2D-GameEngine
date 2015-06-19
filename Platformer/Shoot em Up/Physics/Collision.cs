@@ -86,16 +86,20 @@ namespace Physics {
             if (colli.collision) {
                 poly.Pull(colli.normal, colli.overlap);
                 colli.obj = obj2;
-                if ((poly.Vertex((v + 1) % poly.vertices.Length).Dot(colli.normal) - plane.constant) < plane.thickness) {
+                // check if the other vertex of the face is also touching the plane
+                if ((poly.Vertex((v + 1) % poly.vertices.Length).Dot(colli.normal) - plane.constant) <= plane.thickness) {
                     colli.contacts = new Vector2f[2];
                     colli.contacts[0] = poly.Vertex(v);
                     colli.contacts[1] = poly.Vertex((v + 1) % poly.vertices.Length);
                 }
-                else if ((poly.Vertex((v - 1 + poly.vertices.Length) % poly.vertices.Length).Dot(colli.normal) - plane.constant) < plane.thickness) {
+                // check if the other vertex of the other face is also touching the plane
+                else if ((poly.Vertex((v - 1 + poly.vertices.Length) % poly.vertices.Length).Dot(colli.normal) - plane.constant) <= plane.thickness) {
                     colli.contacts = new Vector2f[2];
                     colli.contacts[0] = poly.Vertex(v);
                     colli.contacts[1] = poly.Vertex((v - 1 + poly.vertices.Length) % poly.vertices.Length);
-                } else {
+                } 
+                // just this vertex is touching the plane
+                else {
                     colli.contacts = new Vector2f[1];
                     colli.contacts[0] = poly.Vertex(v);
                 }

@@ -25,7 +25,7 @@ namespace Platformer
         public static Faction[] factions;
         public static bool debug = false;
         private int level;
-        private int maxLevel = 1;
+        private const int MAXLEVEL = 1;
         public Player player;
         public bool levelEnded;
         public GameStatus status;
@@ -170,12 +170,12 @@ namespace Platformer
                 }
                 if(this.levelEnded) {
                     if (this.player.rigidBody.COM.X > this.planet.Length && 
-                        this.level + 1 <= this.maxLevel)
+                        this.level + 1 <= MAXLEVEL)
                     {
                         this.status = GameStatus.Nextlevel;
                     }
                     else if (this.player.rigidBody.COM.X > this.planet.Length && 
-                        this.level + 1 > this.maxLevel)
+                        this.level + 1 > MAXLEVEL)
                     {
                         this.status = GameStatus.Credits;
                     }
@@ -257,6 +257,8 @@ namespace Platformer
 
             }
         }
+
+        // TODO: gehört in die item klasse und nich hier..!!
 
         private void Heal()
         {
