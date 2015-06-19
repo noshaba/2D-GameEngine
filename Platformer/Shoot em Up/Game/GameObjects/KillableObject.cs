@@ -29,6 +29,12 @@ namespace Platformer
             this.faction = faction;
         }
 
+        public KillableObject(Faction faction, String tx, Vector2f position, Vector2f size, float rotation, float radius)
+            : base(tx, position, size, rotation, radius)
+        {
+            this.faction = faction;
+        }
+
         public KillableObject(Faction faction, Vector2f position, float rotation, float radius, float density)
             : base(position, rotation, radius, density)
         {

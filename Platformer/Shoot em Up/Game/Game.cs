@@ -63,6 +63,8 @@ namespace Platformer
             this.player = new Player(factions[1], new Vector2f(250, 250), "../Content/cat", 
                 new int[] { 130, 80 }, new int[] { 780, 80 });
             Add(this.player);
+            //Platform test
+           // Add(new Obstacle(Collision.Type.Polygon, 10, 1, 0.1f, 0.1f, "../Content/platformDummy.png", new Vector2f(500,250), new Vector2f(100,500), factions[0]));
         }
 
         public void NextLevel()
