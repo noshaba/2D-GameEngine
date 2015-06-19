@@ -1,0 +1,12 @@
+To-Do
+
+- platforms
+- can be stationary
+- platforms move(up/down left/right)
+- scenery is filled properly
+- enemies 
+- pendulums
+- enemy animation states coupled with "AI"
+
+Visuals -> nice spritesheets etc.
+Audio   -> music and sfx
