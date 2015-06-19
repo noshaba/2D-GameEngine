@@ -29,6 +29,20 @@ namespace Platformer
              this.points = points;
              this.type = type;
         }
+        //platform
+         public Obstacle(Collision.Type type, float density, float restitution, float staticFriction, float kineticFriction, String texture, Vector2f position, Vector2f size, Faction faction)
+             : base(faction, texture, position, size, 0, density)
+         { 
+             this.hover = true;
+             this.initPos = position;
+             this.rigidBody.Restitution = restitution;
+             this.rigidBody.StaticFriction = staticFriction;
+             this.rigidBody.KineticFriction = kineticFriction;
+             this.hp = 10000;
+             this.damage = 0;
+             this.points = 0;
+             this.type = type;
+         } 
 
          public override void Update()
          {

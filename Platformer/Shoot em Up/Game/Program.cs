@@ -192,6 +192,7 @@ namespace Platformer
                     //sEmUp.player.ToggleShield();
                     break;
                 default:
+                    sEmUp.player.Release(e.Code);
                     break;
             }
         }

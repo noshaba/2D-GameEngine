@@ -17,7 +17,6 @@ namespace Platformer
         {
             this.listener = listener;
             this.initPos = pos;
-            this.drawable.Texture = new Texture(texture);
             this.rigidBody.DragCoefficient = 2;
         }
 

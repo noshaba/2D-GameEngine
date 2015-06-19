@@ -20,6 +20,7 @@ namespace Shoot_em_Up
         public Planet planet;
         private static List<GameObject> objects = new List<GameObject>();
         private static List<IRigidBody> rigidBodies = new List<IRigidBody>();
+        public static List<Spawner> spawners = new List<Spawner>();
         public static int WIDTH;
         public static int HEIGHT;
         public static Faction[] factions;
@@ -163,6 +164,13 @@ namespace Shoot_em_Up
                         else if (this.player.rigidBody.COM.X > this.planet.Length && this.level + 1 > this.maxLevel)
                         {
                             this.status = GameStatus.Credits;
+                        }
+                    }
+                    for (int i = 0; i < spawners.Count; i++ )
+                    {
+                        if(spawners[i].NearPlayer(player.rigidBody.COM.X, WIDTH/2)) {
+                            spawners[i].Spawn();
+                            spawners.RemoveAt(i);
                         }
                     }
             }
