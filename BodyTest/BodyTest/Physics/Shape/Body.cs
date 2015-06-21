@@ -39,10 +39,10 @@ namespace Physics
             KineticFriction = EMath.Random(0, staticFriction);
             DragCoefficient = 0;
             collision = new Collision();
-            Orientation = (float)(rotation * Math.PI / 180.0);
-            COM = position;
             SetCentroid();
             InitBoundingCircle();
+            COM = position;
+            Orientation = (float)(rotation * Math.PI / 180.0);
             COMDrawable = new RectangleShape(new Vector2f(10, 10));
             COMDrawable.Origin = new Vector2f(5,5);
             COMDrawable.FillColor = Color.Red;
@@ -55,6 +55,8 @@ namespace Physics
                 c += body.COM;
             c /= bodies.Length;
             Centroid = c;
+            foreach (IRigidBody body in bodies)
+                body.Centroid = c;
         }
 
         private void InitBoundingCircle()
@@ -63,7 +65,7 @@ namespace Physics
             Radius = 0;
             foreach (IRigidBody body in bodies)
             {
-                rad = (COM - body.COM).Length() + body.Radius;
+                rad = (Centroid - body.COM).Length() + body.Radius;
                 if (rad > 0) Radius = rad;
             }
             this.BoundingCircle = new CircleShape(Radius);
@@ -119,7 +121,7 @@ namespace Physics
                 this.current.position = value;
                 this.previous.position = value;
                 foreach (IRigidBody body in bodies)
-                    body.COM += value;
+                    body.COM = value;
             }
             get { return this.current.position; }
         }
@@ -131,7 +133,7 @@ namespace Physics
                 this.current.Orientation = value;
                 this.previous.Orientation = value;
                 foreach (IRigidBody body in bodies)
-                    body.Orientation += value;
+                    body.Orientation = value;
             }
             get { return this.current.Orientation; }
         }
@@ -247,14 +249,8 @@ namespace Physics
 
         public Vector2f Centroid
         {
-            set
-            {
-                this.centroid = value;
-            }
-            get
-            {
-                return this.centroid;
-            }
+            set { this.centroid = value; }
+            get { return this.centroid; }
         }
 
 
@@ -268,14 +264,13 @@ namespace Physics
 
         public void ApplyImpulse(Vector2f J, Vector2f r)
         {
-            foreach (IRigidBody body in bodies)
-                body.ApplyImpulse(J,r);
+            Velocity += J * current.inverseMass;
+            AngularVelocity += r.CrossProduct(J) * current.inverseInertiaTensor;
         }
 
         public void Pull(Vector2f n, float overlap)
         {
-            foreach (IRigidBody body in bodies)
-                body.Pull(n,overlap);
+            COM += n * overlap;
         }
 
         public State Interpolation(float alpha)

@@ -21,20 +21,17 @@ namespace Physics {
         public object obj;
 
         public static Collision CheckForCollision(Body obj1, Body obj2) {
-            if((obj1.COM - obj2.COM).Length2() < (obj1.Radius + obj2.Radius) * (obj1.Radius + obj2.Radius))
+            Collision colli = new Collision();
+            foreach(IRigidBody body1 in obj1.bodies)
             {
-                foreach (IRigidBody body1 in obj1.bodies)
+                foreach (IRigidBody body2 in obj2.bodies)
                 {
-                    foreach (IRigidBody body2 in obj2.bodies)
-                    {
-                        Collision colli = new Collision();
-                        Dispatch[(int)body1.Type, (int)body2.Type](body1, body2, ref colli);
-                        if (colli.collision)
-                            return colli;
-                    }
+                    Dispatch[(int)body1.Type, (int)body2.Type](body1, body2, ref colli);
+                    if (colli.collision)
+                        return colli;
                 }
             }
-            return new Collision();
+            return colli;
         }
 
         public Collision other(object other) {
@@ -80,6 +77,7 @@ namespace Physics {
             Polygon poly = obj1 as Polygon;
             Plane plane = obj2 as Plane;
             colli.normal = plane.normal;
+            colli.collision = false;
             float distance = float.MaxValue;
             colli.distance = float.MaxValue;
             int v = 0;
@@ -126,7 +124,9 @@ namespace Physics {
             colli.obj = obj2.Parent;
         }
 
-        private static void PlaneToPlane(IRigidBody obj1, IRigidBody obj2, ref Collision colli) { }
+        private static void PlaneToPlane(IRigidBody obj1, IRigidBody obj2, ref Collision colli) {
+            colli.collision = false;
+        }
 
 
         private static void CircleToCircle(IRigidBody obj1, IRigidBody obj2, ref Collision colli) {
@@ -158,6 +158,7 @@ namespace Physics {
             for (int i = 0; i < poly.vertices.Length; ++i) {
                 value = poly.normals[i].Dot(center - poly.vertices[i]);
                 if (value >= cir.Radius) {
+                    colli.collision = false;
                     return;
                 }
                 if (value > colli.distance) {
@@ -196,6 +197,7 @@ namespace Physics {
             else if (dot2 < 0) {
                 colli.distance = (center - v2).Length2();
                 if (colli.distance >= cir.Radius * cir.Radius) {
+                    colli.collision = false;
                     return;
                 }
                 colli.collision = true;
@@ -206,6 +208,7 @@ namespace Physics {
             else {
                 colli.distance = (center - v1).Dot(poly.normals[normal]);
                 if ((center - v1).Dot(poly.normals[normal]) >= cir.Radius) {
+                    colli.collision = false;
                     return;
                 }
                 colli.collision = true;
@@ -228,13 +231,13 @@ namespace Physics {
         private static void PolygonToPolygon(IRigidBody obj1, IRigidBody obj2, ref Collision colli) {
             Polygon poly1 = obj1 as Polygon;
             Polygon poly2 = obj2 as Polygon;
-            //Console.WriteLine(poly1.Current.DegOrientation);
             Vector2f T = poly2.COM - poly1.COM;
             colli.overlap = float.MaxValue;
             Collision c = new Collision();
             for (uint i = 0; i < poly1.normals.Length; ++i) {
                 c = SeperatingAxisTest(poly1, poly2, poly1.Normal(i), T);
                 if(!c.collision) {
+                    colli.collision = false;
                     return;
                 }
                 if (c.overlap < colli.overlap)
@@ -243,6 +246,7 @@ namespace Physics {
             for (uint i = 0; i < poly2.normals.Length; ++i) {
                 c = SeperatingAxisTest(poly1, poly2, poly2.Normal(i), T);
                 if (!c.collision) {
+                    colli.collision = false;
                     return;
                 }
                 if (c.overlap < colli.overlap)
@@ -268,6 +272,8 @@ namespace Physics {
             } else if (buffer.Count == 1) {
                 colli.contacts = new Vector2f[1];
                 colli.contacts[0] = buffer[0];
+            } else {
+                colli.collision = false;
             }
         }
 

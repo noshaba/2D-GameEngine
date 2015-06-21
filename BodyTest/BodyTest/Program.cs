@@ -25,7 +25,7 @@ namespace BodyTest
             Polygon p1 = new Polygon();
             p1.SetBox(new Vector2f(50,50), 50, 50, 45, .1f);
             Polygon p2 = new Polygon();
-            p2.SetBox(new Vector2f(-50,50), 50, 50, 0, .1f);
+            p2.SetBox(new Vector2f(-50,50), 50, 50, 90, .1f);
             IRigidBody[] pbodies = { p1, p2 };
             Body p = new Body(pbodies, new Vector2f(300, 250), 0);
             bodies.Add(p);
@@ -35,9 +35,9 @@ namespace BodyTest
             Polygon g2 = new Polygon();
             g2.SetBox(new Vector2f(-50, 50), 50, 50, 0, .1f);
             IRigidBody[] gbodies = { g1, g2 };
-            Body g = new Body(gbodies, new Vector2f(700, 50), 45);
+            Body g = new Body(gbodies, new Vector2f(700, 50), 0);
             bodies.Add(g);
-            g.Velocity = new Vector2f(-1,1);
+            g.Velocity = new Vector2f(-10,10);
 
             /*for (int i = 0; i < p1.normals.Length; ++i)
                 Console.WriteLine(p1.Normal(i));
