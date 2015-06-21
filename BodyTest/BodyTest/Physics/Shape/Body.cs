@@ -299,7 +299,7 @@ namespace Physics
                 t.Rotate(interpol.DegOrientation);
                 r = new RenderStates(t);
                 window.Draw(body as Shape, r);
-                body.COMDrawable.Position = interpol.position;
+                body.COMDrawable.Position = body.Center;
                 window.Draw(body.COMDrawable);
             }
         }

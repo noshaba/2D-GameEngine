@@ -64,14 +64,14 @@ namespace Physics {
             Circle cir = obj1 as Circle;
             Plane plane = obj2 as Plane;
             float r = cir.Radius + plane.thickness;
-            colli.distance = PointToPlaneDistance(cir.COM, plane);
+            colli.distance = PointToPlaneDistance(cir.Center, plane);
             colli.collision = colli.distance < r;
             if (colli.collision) {
                 colli.normal = plane.normal;
                 colli.overlap = r - colli.distance;
                 cir.Pull(colli.normal, colli.overlap);
                 colli.contacts = new Vector2f[1];
-                colli.contacts[0] = cir.COM - colli.normal * cir.Radius;
+                colli.contacts[0] = cir.Center - colli.normal * cir.Radius;
                 colli.obj = obj2.Parent;
             }
         }
@@ -136,7 +136,7 @@ namespace Physics {
             Circle cir1 = obj1 as Circle;
             Circle cir2 = obj2 as Circle;
             float r = cir1.Radius + cir2.Radius;
-            colli.normal = cir1.COM - cir2.COM;
+            colli.normal = cir1.Center - cir2.Center;
             colli.distance = colli.normal.Length2();
             colli.collision = colli.distance < r * r;
             if (colli.collision) {
@@ -145,7 +145,7 @@ namespace Physics {
                 colli.normal /= colli.distance;
                 PullApart(cir1, cir2, colli.normal, colli.overlap);
                 colli.contacts = new Vector2f[1];
-                colli.contacts[0] = cir2.COM + colli.normal * cir2.Radius;
+                colli.contacts[0] = cir2.Center + colli.normal * cir2.Radius;
                 colli.obj = obj2.Parent;
             }
         }
@@ -154,7 +154,7 @@ namespace Physics {
             Circle cir = obj1 as Circle;
             Polygon poly = obj2 as Polygon;
             // Transform circle center to polygon model space
-            Vector2f center = poly.WorldTransform.Transponent * (cir.COM - poly.COM);
+            Vector2f center = poly.WorldTransform.Transponent * (cir.Center - poly.COM);
             colli.distance = float.MinValue;
             float value;
             int normal = 0;
@@ -176,7 +176,7 @@ namespace Physics {
                 colli.normal = poly.Normal(normal);
                 PullApart(cir, poly, colli.normal, colli.overlap);
                 colli.contacts = new Vector2f[1];
-                colli.contacts[0] = cir.COM - colli.normal * cir.Radius;
+                colli.contacts[0] = cir.Center - colli.normal * cir.Radius;
                 colli.obj = obj2.Parent;
                 return;
             }
@@ -221,7 +221,7 @@ namespace Physics {
                 colli.overlap = cir.Radius - colli.distance;
                 PullApart(cir, poly, colli.normal, colli.overlap);
                 colli.contacts = new Vector2f[1];
-                colli.contacts[0] = cir.COM - colli.normal * cir.Radius;
+                colli.contacts[0] = cir.Center - colli.normal * cir.Radius;
                 colli.obj = obj2.Parent;
             }
         }

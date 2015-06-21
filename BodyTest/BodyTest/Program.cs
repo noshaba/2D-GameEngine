@@ -42,6 +42,7 @@ namespace BodyTest
             Circle c3 = new Circle(new Vector2f(0, 0), 0, 20, .1f);
             Body c = new Body(new []{c1, c2, c3}, new Vector2f(40,40), 0);
             bodies.Add(c);
+            c.Velocity = new Vector2f(50,50);
 
 
             /*for (int i = 0; i < p1.normals.Length; ++i)

@@ -16,6 +16,7 @@ namespace Physics {
         private float dragCoefficient = 0;
         private float kineticFriction;
         private Collision collision;
+        private Vector2f center;
 
         protected State previous;
         protected State current;
@@ -39,6 +40,7 @@ namespace Physics {
             collision = new Collision();
             InitBoundingCircle();
             InitCOMDrawable();
+            this.center = new Vector2f(0,0);
         }
 
         public Polygon(Vector2f[] vertices, Vector2f centroid, Vector2f position, float rotation, float density)
@@ -55,6 +57,7 @@ namespace Physics {
             collision = new Collision();
             InitBoundingCircle();
             InitCOMDrawable();
+            this.center = new Vector2f(0,0);
         }
 
         public Polygon() 
@@ -87,6 +90,7 @@ namespace Physics {
             InitState(position, rotation, density);
             InitBoundingCircle();
             InitCOMDrawable();
+            this.center = new Vector2f(0,0);
         }
 
         private void InitBoundingCircle()
@@ -304,6 +308,11 @@ namespace Physics {
         {
             get { return this.centroid; }
             set { SetCentroid(value); }
+        }
+
+        public Vector2f Center
+        {
+            get { return current.worldTransform * (center - Centroid) + current.position; }
         }
 
         public float Orientation {

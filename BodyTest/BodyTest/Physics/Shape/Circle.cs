@@ -15,6 +15,7 @@ namespace Physics {
         private float staticFriction = (float) EMath.random.NextDouble();
         private float kineticFriction;
         private float dragCoefficient = 0;
+        private Vector2f center;
 
         protected State current;
         protected State previous;
@@ -37,7 +38,7 @@ namespace Physics {
             this.BoundingCircle.OutlineThickness = 1;
             this.BoundingCircle.OutlineColor = Color.White;
             InitCOMDrawable();
-
+            this.center = new Vector2f(radius, radius);
         }
         
         public Circle(Vector2f position, float rotation, float radius, float density) : base(radius) {
@@ -53,6 +54,7 @@ namespace Physics {
             collision.collision = false;
             InitBoundingCircle(radius);
             InitCOMDrawable();
+            this.center = new Vector2f(radius, radius);
         }
 
         private void InitBoundingCircle(float radius)
@@ -106,6 +108,11 @@ namespace Physics {
         {
             get { return this.Origin; }
             set { this.Origin = new Vector2f(Radius, Radius) + value; }
+        }
+
+        public Vector2f Center
+        {
+            get { return current.worldTransform * (center - Centroid) + current.position;}
         }
 
         public float Orientation {

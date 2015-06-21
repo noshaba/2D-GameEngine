@@ -14,6 +14,7 @@ namespace Physics {
         private float staticFriction = (float) EMath.random.NextDouble();
         private float kineticFriction;
         private float dragCoefficient = 0;
+        private Vector2f center;
         private Collision collision;
 
         protected State previous;
@@ -48,6 +49,7 @@ namespace Physics {
             COMDrawable = new RectangleShape(new Vector2f(5,5));
             COMDrawable.FillColor = Color.White;
             COMDrawable.Origin = new Vector2f(2.5f, 2.5f);
+            this.center = new Vector2f(Size.X * .5f, Size.Y * .5f);
         }
 
 
@@ -82,6 +84,11 @@ namespace Physics {
         {
             get { return this.Origin; }
             set { this.Origin = new Vector2f(Size.X * .5f, Size.Y * .5f) + value; }
+        }
+
+        public Vector2f Center
+        {
+            get { return current.worldTransform * (center - Centroid) + current.position; }
         }
 
         public float Orientation {
