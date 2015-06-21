@@ -303,18 +303,7 @@ namespace Physics {
         public Vector2f Centroid
         {
             get { return this.centroid; }
-            set
-            {
-                this.centroid = value;
-                for (uint i = 0; i < GetPointCount(); ++i)
-                {
-                    // Translate to world coordinates
-                    vertices[i] = Vertex(i);
-                    // Translate vertices to centroid (make the centroid (0, 0) for the polygon in model space)
-                    vertices[i] -= centroid;
-                    SetPoint(i, vertices[i]);
-                }
-            }
+            set { SetCentroid(value); }
         }
 
         public float Orientation {

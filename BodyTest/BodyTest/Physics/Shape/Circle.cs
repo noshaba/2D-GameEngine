@@ -36,6 +36,7 @@ namespace Physics {
             this.BoundingCircle.FillColor = Color.Transparent;
             this.BoundingCircle.OutlineThickness = 1;
             this.BoundingCircle.OutlineColor = Color.White;
+            InitCOMDrawable();
 
         }
         
@@ -51,6 +52,7 @@ namespace Physics {
             collision = new Collision();
             collision.collision = false;
             InitBoundingCircle(radius);
+            InitCOMDrawable();
         }
 
         private void InitBoundingCircle(float radius)
@@ -103,7 +105,7 @@ namespace Physics {
         public Vector2f Centroid
         {
             get { return this.Origin; }
-            set { this.Origin = value; }
+            set { this.Origin = new Vector2f(Radius, Radius) + value; }
         }
 
         public float Orientation {

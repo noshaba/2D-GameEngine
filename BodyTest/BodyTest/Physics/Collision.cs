@@ -22,13 +22,16 @@ namespace Physics {
 
         public static Collision CheckForCollision(Body obj1, Body obj2) {
             Collision colli = new Collision();
-            foreach(IRigidBody body1 in obj1.bodies)
+            if ((obj1.COM - obj2.COM).Length2() < (obj1.Radius + obj2.Radius) * (obj1.Radius + obj2.Radius))
             {
-                foreach (IRigidBody body2 in obj2.bodies)
+                foreach (IRigidBody body1 in obj1.bodies)
                 {
-                    Dispatch[(int)body1.Type, (int)body2.Type](body1, body2, ref colli);
-                    if (colli.collision)
-                        return colli;
+                    foreach (IRigidBody body2 in obj2.bodies)
+                    {
+                        Dispatch[(int)body1.Type, (int)body2.Type](body1, body2, ref colli);
+                        if (colli.collision)
+                            return colli;
+                    }
                 }
             }
             return colli;

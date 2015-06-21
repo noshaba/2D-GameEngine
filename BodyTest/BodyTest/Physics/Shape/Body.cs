@@ -39,13 +39,13 @@ namespace Physics
             KineticFriction = EMath.Random(0, staticFriction);
             DragCoefficient = 0;
             collision = new Collision();
+            Orientation = (float)(rotation * Math.PI / 180.0);
             SetCentroid();
             InitBoundingCircle();
-            COM = position;
-            Orientation = (float)(rotation * Math.PI / 180.0);
             COMDrawable = new RectangleShape(new Vector2f(10, 10));
             COMDrawable.Origin = new Vector2f(5,5);
             COMDrawable.FillColor = Color.Red;
+            COM = position;
         }
 
         private void SetCentroid()
@@ -56,7 +56,7 @@ namespace Physics
             c /= bodies.Length;
             Centroid = c;
             foreach (IRigidBody body in bodies)
-                body.Centroid = c;
+                body.Centroid = c - body.COM;
         }
 
         private void InitBoundingCircle()
@@ -66,7 +66,7 @@ namespace Physics
             foreach (IRigidBody body in bodies)
             {
                 rad = (Centroid - body.COM).Length() + body.Radius;
-                if (rad > 0) Radius = rad;
+                if (rad > Radius) Radius = rad;
             }
             this.BoundingCircle = new CircleShape(Radius);
             this.BoundingCircle.Origin = new Vector2f(Radius, Radius);
@@ -133,7 +133,7 @@ namespace Physics
                 this.current.Orientation = value;
                 this.previous.Orientation = value;
                 foreach (IRigidBody body in bodies)
-                    body.Orientation = value;
+                    body.Orientation += value;
             }
             get { return this.current.Orientation; }
         }
@@ -299,7 +299,7 @@ namespace Physics
                 t.Rotate(interpol.DegOrientation);
                 r = new RenderStates(t);
                 window.Draw(body as Shape, r);
-                body.COMDrawable.Position = body.COM;
+                body.COMDrawable.Position = interpol.position;
                 window.Draw(body.COMDrawable);
             }
         }

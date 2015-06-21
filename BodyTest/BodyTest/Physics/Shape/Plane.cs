@@ -81,7 +81,7 @@ namespace Physics {
         public Vector2f Centroid
         {
             get { return this.Origin; }
-            set { this.Origin = value; }
+            set { this.Origin = new Vector2f(Size.X * .5f, Size.Y * .5f) + value; }
         }
 
         public float Orientation {
