@@ -23,7 +23,7 @@ namespace BodyTest
             Physic phy = new Physic(bodies, new Vector2f(0,0), 0, false, new FloatRect(0,0,WIDTH,HEIGHT));
 
             Polygon p1 = new Polygon();
-            p1.SetBox(new Vector2f(50,50), 50, 50, 45, .1f);
+            p1.SetBox(new Vector2f(50,50), 50, 25, 45, .1f);
             Polygon p2 = new Polygon();
             p2.SetBox(new Vector2f(-50,50), 50, 50, 90, .1f);
             Body p = new Body(new []{p1, p2}, new Vector2f(300, 250), 45);
@@ -32,7 +32,7 @@ namespace BodyTest
             Polygon g1 = new Polygon();
             g1.SetBox(new Vector2f(50, 50), 50, 50, 45, .1f);
             Polygon g2 = new Polygon();
-            g2.SetBox(new Vector2f(-50, 50), 50, 50, 0, .1f);
+            g2.SetBox(new Vector2f(-50, 50), 50, 25, 0, .1f);
             Body g = new Body(new []{g1, g2}, new Vector2f(700, 50), 0);
             bodies.Add(g);
             g.Velocity = new Vector2f(-10,10);
@@ -40,9 +40,17 @@ namespace BodyTest
             Circle c1 = new Circle(new Vector2f(20, 20), 0, 20, .1f);
             Circle c2 = new Circle(new Vector2f(-20, 20), 0, 20, .1f);
             Circle c3 = new Circle(new Vector2f(0, 0), 0, 20, .1f);
-            Body c = new Body(new []{c1, c2, c3}, new Vector2f(40,40), 0);
+            Polygon c4 = new Polygon();
+            c4.SetBox(new Vector2f(0,-15), 20, 15, 0, .1f);
+            Body c = new Body(new IRigidBody[]{c1, c2, c3, c4}, new Vector2f(40,40), 90);
             bodies.Add(c);
             c.Velocity = new Vector2f(50,50);
+
+            Plane pl1 = new Plane(new Vector2f(0, -1), new Vector2f(WIDTH * .5f, HEIGHT), new Vector2f(WIDTH, 10), 0);
+            Circle pl2 = new Circle(new Vector2f(WIDTH * .5f, HEIGHT), 0, 50);
+            Body pl = new Body(new IRigidBody[]{ pl1, pl2 }, new Vector2f(WIDTH * .5f, HEIGHT), 0);
+            bodies.Add(pl);
+
 
 
             /*for (int i = 0; i < p1.normals.Length; ++i)

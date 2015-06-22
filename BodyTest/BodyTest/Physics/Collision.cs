@@ -234,7 +234,7 @@ namespace Physics {
         private static void PolygonToPolygon(IRigidBody obj1, IRigidBody obj2, ref Collision colli) {
             Polygon poly1 = obj1 as Polygon;
             Polygon poly2 = obj2 as Polygon;
-            Vector2f T = poly2.COM - poly1.COM;
+            Vector2f T = poly2.Center - poly1.Center;
             colli.overlap = float.MaxValue;
             Collision c = new Collision();
             for (uint i = 0; i < poly1.normals.Length; ++i) {
