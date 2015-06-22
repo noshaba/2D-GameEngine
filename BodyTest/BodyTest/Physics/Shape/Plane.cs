@@ -36,7 +36,6 @@ namespace Physics {
             previous = current;
             thickness = Math.Abs(normal.Dot(size) * .5f);
             this.normal = current.worldTransform * normal;
-            constant = position.Dot(this.normal);
             kineticFriction = EMath.Random(0, staticFriction);
             collision = new Collision();
             collision.collision = false;
@@ -50,6 +49,7 @@ namespace Physics {
             COMDrawable.FillColor = Color.White;
             COMDrawable.Origin = new Vector2f(2.5f, 2.5f);
             this.center = new Vector2f(Size.X * .5f, Size.Y * .5f);
+            constant = Center.Dot(this.normal);
         }
 
 
@@ -97,6 +97,8 @@ namespace Physics {
             {
                 current.Orientation = value;
                 previous.Orientation = value;
+                normal = current.worldTransform * normal;
+                constant = Center.Dot(normal);
             }
         }
 

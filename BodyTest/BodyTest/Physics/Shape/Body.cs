@@ -105,12 +105,7 @@ namespace Physics
 
         public object Parent
         {
-            set 
-            { 
-                this.parent = value;
-                foreach (IRigidBody body in bodies)
-                    body.Parent = value;
-            }
+            set { this.parent = value; }
             get { return this.parent; }
         }
 

@@ -20,15 +20,15 @@ namespace Physics {
         public Vector2f[] contacts;
         public object obj;
 
-        public static Collision CheckForCollision(Body obj1, Body obj2) {
+        public static Collision CheckForCollision(Body b1, Body b2) {
             Collision colli = new Collision();
-            if ((obj1.COM - obj2.COM).Length2() < (obj1.Radius + obj2.Radius) * (obj1.Radius + obj2.Radius))
+            if ((b1.COM - b2.COM).Length2() < (b1.Radius + b2.Radius) * (b1.Radius + b2.Radius))
             {
-                foreach (IRigidBody body1 in obj1.bodies)
+                foreach (IRigidBody obj1 in b1.bodies)
                 {
-                    foreach (IRigidBody body2 in obj2.bodies)
+                    foreach (IRigidBody obj2 in b2.bodies)
                     {
-                        Dispatch[(int)body1.Type, (int)body2.Type](body1, body2, ref colli);
+                        Dispatch[(int)obj1.Type, (int)obj2.Type](obj1, obj2, b1, b2, ref colli);
                         if (colli.collision)
                             return colli;
                     }
@@ -48,7 +48,7 @@ namespace Physics {
             return colli;
         }
 
-        private delegate void CollisionType(IRigidBody obj1, IRigidBody obj2, ref Collision colli);
+        private delegate void CollisionType(IRigidBody obj1, IRigidBody obj2, Body b1, Body b2, ref Collision colli);
 
         private static CollisionType[,] Dispatch = {
             { CircleToCircle, CircleToPolygon, CircleToPlane },
@@ -60,7 +60,7 @@ namespace Physics {
             return point.Dot(plane.normal) - plane.constant;
         }
 
-        private static void CircleToPlane(IRigidBody obj1, IRigidBody obj2, ref Collision colli) {
+        private static void CircleToPlane(IRigidBody obj1, IRigidBody obj2, Body b1, Body b2, ref Collision colli) {
             Circle cir = obj1 as Circle;
             Plane plane = obj2 as Plane;
             float r = cir.Radius + plane.thickness;
@@ -69,14 +69,14 @@ namespace Physics {
             if (colli.collision) {
                 colli.normal = plane.normal;
                 colli.overlap = r - colli.distance;
-                cir.Pull(colli.normal, colli.overlap);
+                b1.Pull(colli.normal, colli.overlap);
                 colli.contacts = new Vector2f[1];
                 colli.contacts[0] = cir.Center - colli.normal * cir.Radius;
                 colli.obj = obj2.Parent;
             }
         }
 
-        private static void PolygonToPlane(IRigidBody obj1, IRigidBody obj2, ref Collision colli) {
+        private static void PolygonToPlane(IRigidBody obj1, IRigidBody obj2, Body b1, Body b2, ref Collision colli) {
             Polygon poly = obj1 as Polygon;
             Plane plane = obj2 as Plane;
             colli.normal = plane.normal;
@@ -95,7 +95,7 @@ namespace Physics {
                 }
             }
             if (colli.collision) {
-                poly.Pull(colli.normal, colli.overlap);
+                b1.Pull(colli.normal, colli.overlap);
                 colli.obj = obj2.Parent;
                 // check if the other vertex of the face is also touching the plane
                 if ((poly.Vertex((v + 1) % poly.vertices.Length).Dot(colli.normal) - plane.constant) <= plane.thickness) {
@@ -117,22 +117,22 @@ namespace Physics {
             }
         }
 
-        private static void PlaneToCircle(IRigidBody obj1, IRigidBody obj2, ref Collision colli) {
-            CircleToPlane(obj2, obj1, ref colli);
+        private static void PlaneToCircle(IRigidBody obj1, IRigidBody obj2, Body b1, Body b2, ref Collision colli) {
+            CircleToPlane(obj2, obj1, b2, b1, ref colli);
             colli.obj = obj2.Parent;
         }
 
-        private static void PlaneToPolygon(IRigidBody obj1, IRigidBody obj2, ref Collision colli) {
-            PolygonToPlane(obj2, obj1, ref colli);
+        private static void PlaneToPolygon(IRigidBody obj1, IRigidBody obj2, Body b1, Body b2, ref Collision colli) {
+            PolygonToPlane(obj2, obj1, b2, b1, ref colli);
             colli.obj = obj2.Parent;
         }
 
-        private static void PlaneToPlane(IRigidBody obj1, IRigidBody obj2, ref Collision colli) {
+        private static void PlaneToPlane(IRigidBody obj1, IRigidBody obj2, Body b1, Body b2, ref Collision colli) {
             colli.collision = false;
         }
 
 
-        private static void CircleToCircle(IRigidBody obj1, IRigidBody obj2, ref Collision colli) {
+        private static void CircleToCircle(IRigidBody obj1, IRigidBody obj2, Body b1, Body b2, ref Collision colli) {
             Circle cir1 = obj1 as Circle;
             Circle cir2 = obj2 as Circle;
             float r = cir1.Radius + cir2.Radius;
@@ -143,14 +143,14 @@ namespace Physics {
                 colli.distance = (float) Math.Sqrt(colli.distance);
                 colli.overlap = r - colli.distance;
                 colli.normal /= colli.distance;
-                PullApart(cir1, cir2, colli.normal, colli.overlap);
+                PullApart(b1, b2, colli.normal, colli.overlap);
                 colli.contacts = new Vector2f[1];
                 colli.contacts[0] = cir2.Center + colli.normal * cir2.Radius;
                 colli.obj = obj2.Parent;
             }
         }
 
-        private static void CircleToPolygon(IRigidBody obj1, IRigidBody obj2, ref Collision colli) {
+        private static void CircleToPolygon(IRigidBody obj1, IRigidBody obj2, Body b1, Body b2, ref Collision colli) {
             Circle cir = obj1 as Circle;
             Polygon poly = obj2 as Polygon;
             // Transform circle center to polygon model space
@@ -174,7 +174,7 @@ namespace Physics {
                 colli.collision = true;
                 colli.overlap = cir.Radius - colli.distance;
                 colli.normal = poly.Normal(normal);
-                PullApart(cir, poly, colli.normal, colli.overlap);
+                PullApart(b1, b2, colli.normal, colli.overlap);
                 colli.contacts = new Vector2f[1];
                 colli.contacts[0] = cir.Center - colli.normal * cir.Radius;
                 colli.obj = obj2.Parent;
@@ -219,19 +219,19 @@ namespace Physics {
             }
             if (colli.collision) {
                 colli.overlap = cir.Radius - colli.distance;
-                PullApart(cir, poly, colli.normal, colli.overlap);
+                PullApart(b1, b2, colli.normal, colli.overlap);
                 colli.contacts = new Vector2f[1];
                 colli.contacts[0] = cir.Center - colli.normal * cir.Radius;
                 colli.obj = obj2.Parent;
             }
         }
 
-        private static void PolygonToCircle(IRigidBody obj1, IRigidBody obj2, ref Collision colli) {
-            CircleToPolygon(obj2, obj1, ref colli);
+        private static void PolygonToCircle(IRigidBody obj1, IRigidBody obj2, Body b1, Body b2, ref Collision colli) {
+            CircleToPolygon(obj2, obj1, b2, b1, ref colli);
             colli.obj = obj2.Parent;
         }
 
-        private static void PolygonToPolygon(IRigidBody obj1, IRigidBody obj2, ref Collision colli) {
+        private static void PolygonToPolygon(IRigidBody obj1, IRigidBody obj2, Body b1, Body b2, ref Collision colli) {
             Polygon poly1 = obj1 as Polygon;
             Polygon poly2 = obj2 as Polygon;
             Vector2f T = poly2.Center - poly1.Center;
@@ -256,7 +256,7 @@ namespace Physics {
                     colli = c;
             }
             if (colli.collision) {
-                PullApart(poly1, poly2, colli.normal, colli.overlap);
+                PullApart(b1, b2, colli.normal, colli.overlap);
                 ContactPoints(poly1, poly2, colli.normal, ref colli);
                 colli.obj = obj2.Parent;
             }
@@ -311,13 +311,13 @@ namespace Physics {
             return colli;
         }
 
-        private static void PullApart(IRigidBody obj1, IRigidBody obj2, Vector2f n, float overlap){
-            if (obj1.InverseMass > 0 && obj2.InverseMass > 0 || obj1.InverseMass == 0 && obj2.InverseMass == 0) {
-                obj1.Pull(n,  overlap * 0.5f);
-                obj2.Pull(n, -overlap * 0.5f);
+        private static void PullApart(Body b1, Body b2, Vector2f n, float overlap){
+            if (b1.InverseMass > 0 && b2.InverseMass > 0 || b1.InverseMass == 0 && b2.InverseMass == 0) {
+                b1.Pull(n,  overlap * 0.5f);
+                b2.Pull(n, -overlap * 0.5f);
             } else {
-                obj1.Pull(n,  overlap * obj1.InverseMass * obj1.Mass);
-                obj2.Pull(n, -overlap * obj2.InverseMass * obj2.Mass);
+                b1.Pull(n,  overlap * b1.InverseMass * b1.Mass);
+                b2.Pull(n, -overlap * b2.InverseMass * b2.Mass);
             }
         }
     }

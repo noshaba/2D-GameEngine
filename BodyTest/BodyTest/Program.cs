@@ -48,7 +48,7 @@ namespace BodyTest
 
             Plane pl1 = new Plane(new Vector2f(0, -1), new Vector2f(WIDTH * .5f, HEIGHT), new Vector2f(WIDTH, 10), 0);
             Circle pl2 = new Circle(new Vector2f(WIDTH * .5f, HEIGHT), 0, 50);
-            Body pl = new Body(new IRigidBody[]{ pl1, pl2 }, new Vector2f(WIDTH * .5f, HEIGHT), 0);
+            Body pl = new Body(new IRigidBody[]{ pl1, pl2 }, new Vector2f(WIDTH * .5f, HEIGHT), 45);
             bodies.Add(pl);
 
 
