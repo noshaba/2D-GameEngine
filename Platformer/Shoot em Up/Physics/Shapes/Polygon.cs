@@ -16,6 +16,7 @@ namespace Physics {
         private float dragCoefficient = 0;
         private float kineticFriction;
         private Collision collision;
+        private Vector2f center;
 
         protected State previous;
         protected State current;
@@ -26,8 +27,7 @@ namespace Physics {
         public Vector2f[] normals;
         private Vector2f centroid;
 
-        public Polygon(Object parent, Vector2f[] vertices, Vector2f position, float rotation, float density) : base() {
-            this.parent = parent;
+        public Polygon(Vector2f[] vertices, Vector2f position, float rotation, float density) : base() {
             FillColor = Color.Transparent;
             OutlineThickness = 2;
             OutlineColor = Color.White;
@@ -38,17 +38,13 @@ namespace Physics {
             InitState(position, rotation, density);
             kineticFriction = EMath.Random(0, staticFriction);
             collision = new Collision();
-            collision.collision = false;
-            this.BoundingCircle = new CircleShape(Radius);
-            this.BoundingCircle.Origin = new Vector2f(Radius, Radius);
-            this.BoundingCircle.FillColor = Color.Transparent;
-            this.BoundingCircle.OutlineThickness = 1;
-            this.BoundingCircle.OutlineColor = Color.White;
+            InitBoundingCircle();
+            InitCOMDrawable();
+            this.center = new Vector2f(0,0);
         }
 
-        public Polygon(Object parent, Vector2f[] vertices, Vector2f centroid, Vector2f position, float rotation, float density)
+        public Polygon(Vector2f[] vertices, Vector2f centroid, Vector2f position, float rotation, float density)
         {
-            this.parent = parent;
             FillColor = Color.Transparent;
             OutlineThickness = 2;
             OutlineColor = Color.White;
@@ -59,37 +55,18 @@ namespace Physics {
             InitState(position, rotation, density);
             kineticFriction = EMath.Random(0, staticFriction);
             collision = new Collision();
-            collision.collision = false;
-            this.BoundingCircle = new CircleShape(Radius);
-            this.BoundingCircle.Origin = new Vector2f(Radius, Radius);
-            this.BoundingCircle.FillColor = Color.Transparent;
-            this.BoundingCircle.OutlineThickness = 1;
-            this.BoundingCircle.OutlineColor = Color.White;
+            InitBoundingCircle();
+            InitCOMDrawable();
+            this.center = new Vector2f(0,0);
         }
 
-        public void SetBox(Vector2f position, float hw, float hh, float rotation) {
-            SetPointCount(4);
-            centroid = new Vector2f(hw,hh);
-            vertices = new Vector2f[4];
-            vertices[0] = new Vector2f(-hw, -hh);
-            vertices[1] = new Vector2f( hw, -hh);
-            vertices[2] = new Vector2f( hw,  hh);
-            vertices[3] = new Vector2f(-hw,  hh);
-            for (uint i = 0; i < vertices.Length; ++i)
-                SetPoint(i, vertices[i]);
-            normals = new Vector2f[4];
-            normals[0] = new Vector2f( 0, -1);
-            normals[1] = new Vector2f( 1,  0);
-            normals[2] = new Vector2f( 0,  1);
-            normals[3] = new Vector2f(-1,  0);
-            this.Radius = (float)Math.Sqrt(hw * hw + hh * hh);
-            current = new State(position, rotation);
-            previous = current;
-            this.BoundingCircle = new CircleShape(Radius);
-            this.BoundingCircle.Origin = new Vector2f(Radius, Radius);
-            this.BoundingCircle.FillColor = Color.Transparent;
-            this.BoundingCircle.OutlineThickness = 1;
-            this.BoundingCircle.OutlineColor = Color.White;
+        public Polygon() 
+        {
+            collision = new Collision();
+            kineticFriction = EMath.Random(0, staticFriction);
+            FillColor = Color.Transparent;
+            OutlineThickness = 2;
+            OutlineColor = Color.White;
         }
 
         public void SetBox(Vector2f position, float hw, float hh, float rotation, float density) {
@@ -100,6 +77,10 @@ namespace Physics {
             vertices[1] = new Vector2f(hw, -hh);
             vertices[2] = new Vector2f(hw, hh);
             vertices[3] = new Vector2f(-hw, hh);
+            SetPoint(0, vertices[0]);
+            SetPoint(1, vertices[1]);
+            SetPoint(2, vertices[2]);
+            SetPoint(3, vertices[3]);
             normals = new Vector2f[4];
             normals[0] = new Vector2f(0, -1);
             normals[1] = new Vector2f(1, 0);
@@ -107,11 +88,25 @@ namespace Physics {
             normals[3] = new Vector2f(-1, 0);
             this.Radius = (float)Math.Sqrt(hw * hw + hh * hh);
             InitState(position, rotation, density);
+            InitBoundingCircle();
+            InitCOMDrawable();
+            this.center = new Vector2f(0,0);
+        }
+
+        private void InitBoundingCircle()
+        {
             this.BoundingCircle = new CircleShape(Radius);
             this.BoundingCircle.Origin = new Vector2f(Radius, Radius);
             this.BoundingCircle.FillColor = Color.Transparent;
             this.BoundingCircle.OutlineThickness = 1;
             this.BoundingCircle.OutlineColor = Color.White;
+        }
+
+        private void InitCOMDrawable()
+        {
+            COMDrawable = new RectangleShape(new Vector2f(5, 5));
+            COMDrawable.FillColor = Color.White;
+            COMDrawable.Origin = new Vector2f(2.5f, 2.5f);
         }
 
         private void InitState(Vector2f position, float rotation, float density) { 
@@ -302,6 +297,8 @@ namespace Physics {
 
         public CircleShape BoundingCircle { get; set; }
 
+        public RectangleShape COMDrawable { get; set; }
+
         public Vector2f COM {
             get { return current.position; }
             set { current.position = value; previous.position = value; }
@@ -310,26 +307,20 @@ namespace Physics {
         public Vector2f Centroid
         {
             get { return this.centroid; }
-            set
-            {
-                this.centroid = value;
-                for (uint i = 0; i < GetPointCount(); ++i)
-                {
-                    // Translate to world coordinates
-                    vertices[i] = Vertex(i);
-                    // Translate vertices to centroid (make the centroid (0, 0) for the polygon in model space)
-                    vertices[i] -= centroid;
-                    SetPoint(i, vertices[i]);
-                }
-            }
+            set { SetCentroid(value); }
+        }
+
+        public Vector2f Center
+        {
+            get { return current.worldTransform * (center - Centroid) + current.position; }
         }
 
         public float Orientation {
-            get { return current.orientation; }
+            get { return current.Orientation; }
             set
             {
-                current.orientation = value;
-                previous.orientation = value;
+                current.Orientation = value;
+                previous.Orientation = value;
             }
         }
 

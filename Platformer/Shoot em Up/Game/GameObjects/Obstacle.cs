@@ -16,8 +16,8 @@ namespace Platformer
         private bool hover;
 
        // string texturePath, int[] spriteTileSize, int[] spriteSize, int animationIndex, Vector2f position, float rotation, float density
-         public Obstacle(bool hover,Collision.Type type, int[]ts, float density, float restitution, float staticFriction, float kineticFriction, String texture, int[]spriteSize, Vector2f position, int health, int points, int dmg, Faction faction)
-            : base(faction, texture, ts, spriteSize,0, position, 0, density)
+        public Obstacle(bool hover, Collision.Type type, int[] spriteTileSize, float density, float restitution, float staticFriction, float kineticFriction, String texture, int[] spriteSize, Vector2f position, int health, int points, int dmg, Faction faction)
+            : base(faction, texture, spriteTileSize, spriteSize, 0, position, 0, density)
          {
              this.hover = hover;
              this.initPos = position;
@@ -29,20 +29,6 @@ namespace Platformer
              this.points = points;
              this.type = type;
         }
-        //platform
-         public Obstacle(Collision.Type type, float density, float restitution, float staticFriction, float kineticFriction, String texture, Vector2f position, Vector2f size, Faction faction)
-             : base(faction, texture, position, size, 0, density)
-         { 
-             this.hover = true;
-             this.initPos = position;
-             this.rigidBody.Restitution = restitution;
-             this.rigidBody.StaticFriction = staticFriction;
-             this.rigidBody.KineticFriction = kineticFriction;
-             this.hp = 10000;
-             this.damage = 0;
-             this.points = 0;
-             this.type = type;
-         } 
 
          public override void Update()
          {

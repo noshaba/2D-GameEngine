@@ -29,12 +29,6 @@ namespace Platformer
             this.faction = faction;
         }
 
-        public KillableObject(Faction faction, String tx, Vector2f position, Vector2f size, float rotation, float radius)
-            : base(tx, position, size, rotation, radius)
-        {
-            this.faction = faction;
-        }
-
         public KillableObject(Faction faction, Vector2f position, float rotation, float radius, float density)
             : base(position, rotation, radius, density)
         {
@@ -63,7 +57,7 @@ namespace Platformer
         {
             if (rigidBody.Collision.collision)
             {
-                opponent = this.rigidBody.Collision.obj.Parent as KillableObject;
+                opponent = this.rigidBody.Collision.obj as KillableObject;
                 if (opponent != null && !shield)
                 {
                     // decrease HP
@@ -82,17 +76,23 @@ namespace Platformer
 
             opponent = null;
             // change color with hp / MAXHP
-            this.drawable.FillColor = this.hp <= this.maxHP * 0.25 ? Color.Red : drawable.FillColor;
+            foreach (Shape shape in drawable)
+                shape.FillColor = this.hp <= this.maxHP * 0.25 ? Color.Red : shape.FillColor;
             this.display = this.hp > 0;
             base.LateUpdate();
         }
 
         protected void UpdateBodies()
         {
-            for (int i = 0; i < this.rigidBodies.Length; i++)
+            foreach(Body body in this.rigidBodies)
             {
-                this.rigidBodies[i].Current = this.rigidBody.Current;
-                this.rigidBodies[i].Previous = this.rigidBody.Previous;
+                body.Current = rigidBody.Current;
+                body.Previous = rigidBody.Previous;
+                for (int i = 0; i < body.bodies.Length; ++i)
+                {
+                    body.bodies[i].Current = this.rigidBody.bodies[i].Current;
+                    body.bodies[i].Previous = this.rigidBody.bodies[i].Previous;
+                }
             }
         }
     }

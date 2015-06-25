@@ -11,13 +11,15 @@ namespace Platformer {
     class Wall : GameObject {
 
         public Wall(Vector2f normal, Vector2f position, Vector2f size, Color color) : base(normal, position, size, 0) {
-            (rigidBody as Plane).FillColor = color;
             rigidBody.Restitution = 1.0f;
+            drawable[0].FillColor = color;
+            drawable[0].OutlineThickness = 0;
         }
 
         public Wall(Vector2f normal, Vector2f position, Vector2f size, Color color, float orientation) : base(normal, position, size, orientation) {
-           (rigidBody as Plane).FillColor = color;
            rigidBody.Restitution = 1.0f;
+           drawable[0].FillColor = color;
+           drawable[0].OutlineThickness = 0;
         }
     }
 }

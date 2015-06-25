@@ -19,7 +19,7 @@ namespace Platformer
         private Physic physics;
         public Planet planet;
         private static List<GameObject> objects = new List<GameObject>();
-        private static List<IRigidBody> rigidBodies = new List<IRigidBody>();
+        private static List<Body> rigidBodies = new List<Body>();
         public static int WIDTH;
         public static int HEIGHT;
         public static Faction[] factions;
@@ -98,7 +98,7 @@ namespace Platformer
 
         private void LoadLevel()
         {
-            Add(new Wall(new Vector2f(1,0),new Vector2f(0,HEIGHT*.5f),new Vector2f(.1f,.1f),Color.Transparent));
+            Add(new Wall(new Vector2f(1,0),new Vector2f(0,HEIGHT*.5f),new Vector2f(.1f,HEIGHT),Color.Transparent));
             using (StreamReader sr = new StreamReader("../Content/" + level + "/Planet.json"))
             {
                 String json = sr.ReadToEnd();
@@ -190,21 +190,12 @@ namespace Platformer
             //all the drawing
             if(status == GameStatus.Active) {
                 window.Draw(planet.backgroundSprite);
-                State interpol;
-                Transform t;
             //    if(debug) physics.DrawQuadtree(window);
                 foreach (GameObject obj in objects)
                 {
-                    interpol = obj.rigidBody.Interpolation(alpha);
-                    t = Transform.Identity;
-                    t.Translate(interpol.position);
-                    t.Rotate(interpol.DegOrientation);
-                    window.Draw(obj.drawable, new RenderStates(t));
+                    obj.Draw(window, alpha);
                     if (debug)
-                    {
-                        window.Draw(obj.rigidBody as Shape, new RenderStates(t));
-                        window.Draw(obj.rigidBody.BoundingCircle, new RenderStates(t));
-                    }
+                        obj.rigidBody.Draw(window, alpha);
                 }
             }
         }

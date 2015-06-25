@@ -14,6 +14,7 @@ namespace Physics {
         private float staticFriction = (float) EMath.random.NextDouble();
         private float kineticFriction;
         private float dragCoefficient = 0;
+        private Vector2f center;
         private Collision collision;
 
         protected State previous;
@@ -26,8 +27,7 @@ namespace Physics {
         public float thickness;
 
 
-        public Plane(Object parent, Vector2f normal, Vector2f position, Vector2f size, float orientation) : base(size) {
-            this.parent = parent;
+        public Plane(Vector2f normal, Vector2f position, Vector2f size, float orientation) : base(size) {
             FillColor = Color.Transparent;
             OutlineThickness = 2;
             OutlineColor = Color.White;
@@ -36,16 +36,20 @@ namespace Physics {
             previous = current;
             thickness = Math.Abs(normal.Dot(size) * .5f);
             this.normal = current.worldTransform * normal;
-            constant = position.Dot(this.normal);
             kineticFriction = EMath.Random(0, staticFriction);
             collision = new Collision();
             collision.collision = false;
-            this.Radius = (float)Math.Sqrt(size.X * size.X * .25f + size.Y * size.Y * .25f);
-            this.BoundingCircle = new CircleShape(Radius);
-            this.BoundingCircle.Origin = new Vector2f(Radius, Radius);
-            this.BoundingCircle.FillColor = Color.Transparent;
-            this.BoundingCircle.OutlineThickness = 1;
-            this.BoundingCircle.OutlineColor = Color.White;
+            Radius = (float)Math.Sqrt(size.X * size.X * .25f + size.Y * size.Y * .25f);
+            BoundingCircle = new CircleShape(Radius);
+            BoundingCircle.Origin = new Vector2f(Radius, Radius);
+            BoundingCircle.FillColor = Color.Transparent;
+            BoundingCircle.OutlineThickness = 1;
+            BoundingCircle.OutlineColor = Color.White;
+            COMDrawable = new RectangleShape(new Vector2f(5,5));
+            COMDrawable.FillColor = Color.White;
+            COMDrawable.Origin = new Vector2f(2.5f, 2.5f);
+            this.center = new Vector2f(Size.X * .5f, Size.Y * .5f);
+            constant = Center.Dot(this.normal);
         }
 
 
@@ -69,6 +73,8 @@ namespace Physics {
 
         public CircleShape BoundingCircle { get; set; }
 
+        public RectangleShape COMDrawable { get; set; }
+
         public Vector2f COM {
             get { return current.position; }
             set { current.position = value; previous.position = value; }
@@ -77,15 +83,22 @@ namespace Physics {
         public Vector2f Centroid
         {
             get { return this.Origin; }
-            set { this.Origin = value; }
+            set { this.Origin = new Vector2f(Size.X * .5f, Size.Y * .5f) + value; }
+        }
+
+        public Vector2f Center
+        {
+            get { return current.worldTransform * (center - Centroid) + current.position; }
         }
 
         public float Orientation {
-            get { return current.orientation; }
+            get { return current.Orientation; }
             set
             {
-                current.orientation = value;
-                previous.orientation = value;
+                current.Orientation = value;
+                previous.Orientation = value;
+                normal = current.worldTransform * normal;
+                constant = Center.Dot(normal);
             }
         }
 

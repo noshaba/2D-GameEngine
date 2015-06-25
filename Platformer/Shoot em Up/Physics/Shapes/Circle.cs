@@ -15,14 +15,14 @@ namespace Physics {
         private float staticFriction = (float) EMath.random.NextDouble();
         private float kineticFriction;
         private float dragCoefficient = 0;
+        private Vector2f center;
 
         protected State current;
         protected State previous;
 
         private Object parent;
 
-        public Circle(Object parent, Vector2f position, float rotation, float radius) : base(radius) {
-            this.parent = parent;
+        public Circle(Vector2f position, float rotation, float radius) : base(radius) {
             FillColor = Color.Transparent;
             OutlineThickness = 2;
             OutlineColor = Color.White;
@@ -37,11 +37,11 @@ namespace Physics {
             this.BoundingCircle.FillColor = Color.Transparent;
             this.BoundingCircle.OutlineThickness = 1;
             this.BoundingCircle.OutlineColor = Color.White;
-
+            InitCOMDrawable();
+            this.center = new Vector2f(radius, radius);
         }
         
-        public Circle(Object parent, Vector2f position, float rotation, float radius, float density) : base(radius) {
-            this.parent = parent;
+        public Circle(Vector2f position, float rotation, float radius, float density) : base(radius) {
             FillColor = Color.Transparent;
             OutlineThickness = 2;
             OutlineColor = Color.White;
@@ -52,13 +52,26 @@ namespace Physics {
             kineticFriction = EMath.Random(0, staticFriction);
             collision = new Collision();
             collision.collision = false;
+            InitBoundingCircle(radius);
+            InitCOMDrawable();
+            this.center = new Vector2f(radius, radius);
+        }
+
+        private void InitBoundingCircle(float radius)
+        {
             this.BoundingCircle = new CircleShape(radius);
-            this.BoundingCircle.Origin = new Vector2f(radius,radius);
+            this.BoundingCircle.Origin = new Vector2f(radius, radius);
             this.BoundingCircle.FillColor = Color.Transparent;
             this.BoundingCircle.OutlineThickness = 1;
             this.BoundingCircle.OutlineColor = Color.White;
         }
 
+        private void InitCOMDrawable()
+        {
+            COMDrawable = new RectangleShape(new Vector2f(5, 5));
+            COMDrawable.FillColor = Color.White;
+            COMDrawable.Origin = new Vector2f(2.5f, 2.5f);
+        }
 
         public Collision.Type Type {
             get { return type; }
@@ -84,6 +97,8 @@ namespace Physics {
 
         public CircleShape BoundingCircle { get; set; }
 
+        public RectangleShape COMDrawable { get; set; }
+
         public Vector2f COM {
             get { return current.position; }
             set { current.position = value; previous.position = value; }
@@ -92,15 +107,20 @@ namespace Physics {
         public Vector2f Centroid
         {
             get { return this.Origin; }
-            set { this.Origin = value; }
+            set { this.Origin = new Vector2f(Radius, Radius) + value; }
+        }
+
+        public Vector2f Center
+        {
+            get { return current.worldTransform * (center - Centroid) + current.position;}
         }
 
         public float Orientation {
-            get { return current.orientation; }
+            get { return current.Orientation; }
             set 
             { 
-                current.orientation = value;
-                previous.orientation = value;
+                current.Orientation = value;
+                previous.Orientation = value;
             }
         }
 

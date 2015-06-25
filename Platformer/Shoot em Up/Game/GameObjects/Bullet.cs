@@ -23,7 +23,7 @@ namespace Platformer
             : base(faction, position + speed + bend, 0, radius, density)
         {
             initPosition = position + speed + bend;
-            (rigidBody as Circle).FillColor = color;
+            (rigidBody.bodies[0] as Circle).FillColor = color;
             rigidBody.Restitution = 1.0f;
             rigidBody.Velocity = speed*5;
             this.shooter = shooter;

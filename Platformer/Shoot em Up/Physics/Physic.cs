@@ -9,7 +9,7 @@ using Maths;
 
 namespace Physics {
     class Physic {
-        public List<IRigidBody> objects;
+        public List<Body> objects;
         private Vector2f gravity;
         private float damping;
         private bool friction;
@@ -17,7 +17,7 @@ namespace Physics {
         private Quadtree quadtree;
         private List<IRigidBody> possibleCollisionTargets;
 
-        public Physic(List<IRigidBody> shapes, Vector2f gravity, float damping, bool friction, FloatRect windowSize) {
+        public Physic(List<Body> shapes, Vector2f gravity, float damping, bool friction, FloatRect windowSize) {
             this.gravity = gravity;
             this.damping = damping;
             this.friction = friction;
@@ -36,16 +36,16 @@ namespace Physics {
             //    quadtree.Clear();
             //    foreach (IRigidBody obj in objects)
             //       quadtree.Insert(obj);
-                Parallel.For(0, objects.Count, i =>
+            /*    Parallel.For(0, objects.Count, i =>
                 {
                     if(!frozen) objects[i].Update(dt);
                     ApplyForces(dt, i);
-                });
-           /*     for (int i = 0; i < objects.Count; ++i)
+                });*/
+                for (int i = 0; i < objects.Count; ++i)
                 {
                     objects[i].Update(dt);
                     ApplyForces(dt, i);
-                }*/
+                }
         }
 
         #region Physical Methods
@@ -101,7 +101,7 @@ namespace Physics {
             }
         }
 
-        private void CollisionImpulse(IRigidBody obj1, IRigidBody obj2, Vector2f r1, Vector2f r2, Vector2f n, int contacts) {
+        private void CollisionImpulse(Body obj1, Body obj2, Vector2f r1, Vector2f r2, Vector2f n, int contacts) {
             // init collision stats
             Vector2f v1 = obj1.Velocity;
             Vector2f v2 = obj2.Velocity;

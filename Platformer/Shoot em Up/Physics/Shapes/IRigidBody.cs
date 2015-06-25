@@ -14,8 +14,10 @@ namespace Physics {
         Collision Collision { get; set; }
         float Radius { get; set; }
         CircleShape BoundingCircle { get; set; }
+        RectangleShape COMDrawable { get; set; }
         Vector2f COM { get; set; }
         Vector2f Centroid { get; set; }
+        Vector2f Center { get; }
         float Orientation { get; set; }
         Mat22f WorldTransform { get; }
         Mat22f LocalTransform { get; }

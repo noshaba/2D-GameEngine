@@ -24,7 +24,7 @@ namespace Platformer
         {
             base.Update();
             //this.rigidBody.COM = this.initPos;
-            if (rigidBody.Collision.collision && rigidBody.Collision.obj.Parent is Player)
+            if (rigidBody.Collision.collision && rigidBody.Collision.obj is Player)
             {
                 this.display = false;
                 this.listener();

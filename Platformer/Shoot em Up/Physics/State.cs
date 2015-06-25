@@ -11,7 +11,7 @@ namespace Physics {
 
         // primary physics state
         public Vector2f position;
-        public float orientation;
+        private float orientation;
         public Mat22f worldTransform;
         public Mat22f localTransform;
 
@@ -148,6 +148,17 @@ namespace Physics {
         public float DegOrientation {
             get {
                 return (float)(orientation * 180.0 / Math.PI);
+            }
+        }
+
+        public float Orientation
+        {
+            get { return this.orientation; }
+            set
+            {
+                this.orientation = value;
+                this.worldTransform = Mat22f.RotationMatrix(orientation);
+                this.localTransform = ~worldTransform;
             }
         }
     }
