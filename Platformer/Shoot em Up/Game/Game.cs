@@ -64,7 +64,11 @@ namespace Platformer
                 new int[] { 130, 80 }, new int[] { 780, 160 });
             Add(this.player);
             //Platform test
-           // Add(new Obstacle(Collision.Type.Polygon, 10, 1, 0.1f, 0.1f, "../Content/platformDummy.png", new Vector2f(500,250), new Vector2f(100,500), factions[0]));
+            Polygon g1 = new Polygon();
+            g1.SetBox(new Vector2f(50, 50), 50, 50, 45, 0);
+            Polygon g2 = new Polygon();
+            g2.SetBox(new Vector2f(-50, 50), 50, 25, 0, 0);
+            Add(new Platform(new IRigidBody[]{g1,g2}, new Vector2f(800, 500), 0));
         }
 
         public void NextLevel()

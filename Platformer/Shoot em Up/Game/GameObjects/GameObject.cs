@@ -95,16 +95,16 @@ namespace Platformer
             this.drawable = this.drawables[animationIndex];
         }
 
-    /*    public GameObject(IRigidBody[] bodies, Vector2f position, float rotation)
+        public GameObject(IRigidBody[] bodies, Vector2f position, float rotation)
         {
             this.rigidBodies = new Body[] { new Body(this, bodies, position, rotation) };
-            this.drawables = new Shape[][] { Array.ConvertAll(rigidBody.bodies, body => (Shape)body) };
-            this.rigidBodies[0].Parent = this;
+            this.drawables = new Shape[][] { Array.ConvertAll(rigidBodies[0].bodies, body => (Shape)body) };
+           // this.rigidBodies[0].Parent = this;
             this.rigidBody = rigidBodies[0];
             this.drawable = this.drawables[0];
         }
 
-        public GameObject()
+      /*  public GameObject()
         {
 
         }*/

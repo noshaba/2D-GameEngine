@@ -104,6 +104,12 @@ namespace Platformer
                         break;
                 }
             }
+            if (k == Keyboard.Key.Left)
+            {
+                this.rigidBody.Velocity = new Vector2f(-this.speed, this.rigidBody.Velocity.Y);
+            } else if(k == Keyboard.Key.Right) {
+                this.rigidBody.Velocity = new Vector2f(this.speed,this.rigidBody.Velocity.Y);
+            }
         }
 
         public void Release(Keyboard.Key k)
@@ -174,11 +180,15 @@ namespace Platformer
                     break;
                 case state.runLeft: this.rigidBody.Velocity = new Vector2f(-this.speed,this.rigidBody.Velocity.Y);
                     break;
-                case state.jumpStart: this.rigidBody.Velocity = new Vector2f(this.rigidBody.Velocity.X, -this.speed / 2); status = state.jump;
+                case state.jumpStart: this.rigidBody.Velocity = new Vector2f(this.rigidBody.Velocity.X, -this.speed ); status = state.jump;
                     break;
-                case state.jump: 
-                    if (rigidBody.Collision.collision) 
-                        status = state.idle; 
+                case state.jump:
+                    if (rigidBody.Collision.collision)
+                    {
+                        Console.WriteLine("Colli");
+                        status = state.idle;
+                        break;
+                    }
                     this.animationIndex = 2; 
                     this.rigidBody.AngularVelocity = 0;
                     break;
