@@ -28,7 +28,7 @@ namespace Platformer
         public Player(Faction faction, Vector2f position, String texture, int[]tileSize, int[]spriteSize)
             : base(faction, texture+".png", tileSize, spriteSize, 0, new Vector2f(tileSize[0]*.5f, tileSize[1]*.5f), position, 0, 0.9f)
         {
-            this.rigidBody.Restitution = 1.0f;
+            this.rigidBody.Restitution = 0;
             this.speed = 80;
             this.fire = false;
             this.score = 0;
@@ -185,7 +185,6 @@ namespace Platformer
                 case state.jump:
                     if (rigidBody.Collision.collision)
                     {
-                        Console.WriteLine("Colli");
                         status = state.idle;
                         break;
                     }

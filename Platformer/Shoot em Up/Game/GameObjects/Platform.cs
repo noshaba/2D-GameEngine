@@ -1,4 +1,5 @@
 ﻿using Physics;
+using SFML.Graphics;
 using SFML.System;
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,8 @@ namespace Platformer
 {
     class Platform : GameObject
     {
-        public Platform(IRigidBody[] bodies, Vector2f position, float rotation)
-            : base(bodies, position, rotation)
+        public Platform(IRigidBody[] bodies, Vector2f position, float rotation, float tileSize)
+            : base("../Content/platform.png", new[] {100,100}, new[] {300,100}, bodies, position, rotation)
         {
 
         }

@@ -104,10 +104,27 @@ namespace Platformer
             this.drawable = this.drawables[0];
         }
 
-      /*  public GameObject()
+        public GameObject(string texturePath, int[] spriteTileSize, int[] spriteSize, IRigidBody[] bodies, Vector2f position, float rotation)
         {
-
-        }*/
+            this.rigidBodies = new Body[] { new Body(this, bodies, position, rotation) };
+            int tileNumber = (spriteSize[0] / spriteTileSize[0]) * (spriteSize[1] / spriteTileSize[1]);
+            this.drawables = new Shape[rigidBodies.Length][];
+            Texture tile;
+            for (int i = 0; i < rigidBodies.Length; ++i)
+            {
+                tile = new Texture(texturePath, new IntRect((0 * spriteTileSize[0]) % spriteSize[0], (0 * spriteTileSize[0]) / spriteSize[0] * spriteTileSize[1], spriteTileSize[0], spriteTileSize[1]));
+                this.drawables[i] = new[] { new RectangleShape(new Vector2f(spriteTileSize[0], spriteTileSize[1])), new RectangleShape(new Vector2f(spriteTileSize[0], spriteTileSize[1])) };
+                this.drawables[i][0].Origin = new Vector2f(50,50);
+                this.drawables[i][0].Texture = tile;
+                this.drawables[i][0].Texture.Smooth = true;
+                this.drawables[i][1].Origin = new Vector2f(50,50);
+                tile = new Texture(texturePath, new IntRect((1 * spriteTileSize[0]) % spriteSize[0], (1 * spriteTileSize[0]) / spriteSize[0] * spriteTileSize[1], spriteTileSize[0], spriteTileSize[1]));
+                this.drawables[i][1].Texture = tile;
+                this.drawables[i][1].Texture.Smooth = true;
+            }
+            this.rigidBody = rigidBodies[0];
+            this.drawable = this.drawables[0];
+        }
 
         public GameObject(string texturePath, int[] spriteTileSize, int[] spriteSize, int animationIndex, Vector2f position, float rotation, float density)
         {
@@ -134,7 +151,6 @@ namespace Platformer
             this.rigidBodies = new Body[tileNumber];
             this.drawables = new Shape[tileNumber][];
             Texture tile;
-            Console.WriteLine(tileNumber);
             for (int i = 0; i < tileNumber; ++i)
             {
                 tile = new Texture(texturePath, new IntRect((i * spriteTileSize[0]) % spriteSize[0], (i * spriteTileSize[0]) / spriteSize[0] * spriteTileSize[1], spriteTileSize[0], spriteTileSize[1]));
@@ -176,7 +192,7 @@ namespace Platformer
             {
                 interpol = rigidBody.bodies[i].Interpolation(alpha);
                 t = Transform.Identity;
-                t.Translate(interpol.position);
+                t.Translate(rigidBody.bodies[i].Center);
                 t.Rotate(interpol.DegOrientation);
                 r = new RenderStates(t);
                 window.Draw(drawable[i], new RenderStates(t));

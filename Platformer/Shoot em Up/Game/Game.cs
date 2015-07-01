@@ -11,6 +11,7 @@ using SFML.System;
 using Maths;
 using Physics;
 using System.Diagnostics;
+using ImageProcessing;
 
 namespace Platformer 
 {
@@ -64,11 +65,13 @@ namespace Platformer
                 new int[] { 130, 80 }, new int[] { 780, 160 });
             Add(this.player);
             //Platform test
-            Polygon g1 = new Polygon();
-            g1.SetBox(new Vector2f(50, 50), 50, 50, 45, 0);
-            Polygon g2 = new Polygon();
-            g2.SetBox(new Vector2f(-50, 50), 50, 25, 0, 0);
-            Add(new Platform(new IRigidBody[]{g1,g2}, new Vector2f(800, 500), 0));
+           /* Texture tile = new Texture("../Content/platform.png", new IntRect(0, 0, 100, 100));
+            Polygon p =  new Polygon(CV.AlphaEdgeDetection(tile.CopyToImage().Pixels, tile.Size.X, tile.Size.Y, 254), new Vector2f(50,50), new Vector2f(800,500), 0, 0);
+            tile = new Texture("../Content/platform.png", new IntRect(100, 0, 100, 100));
+            Polygon p2 = new Polygon(CV.AlphaEdgeDetection(tile.CopyToImage().Pixels, tile.Size.X, tile.Size.Y, 254), new Vector2f(50,50), new Vector2f(800,500), 0, 0);
+            Add(new Platform(new IRigidBody[]{p,p2}, new Vector2f(800, 500), 0,100));*/
+            PlatformContract p = new PlatformContract();
+            p.Init();
         }
 
         public void NextLevel()
