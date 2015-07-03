@@ -13,9 +13,9 @@ namespace Platformer
     {
         //string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density
         public Platform(String path, Vector2f position, float rotation, int tileSize, int[] tiles)
-            : base(path, new[] {tileSize,tileSize}, new[] {300,100}, tiles,0, position, rotation,0)
+            : base(path, new[] {tileSize,tileSize}, new[] {300,100}, tiles, 0, position, rotation,0)
         {
-
+           
         }
     }
 }

@@ -204,6 +204,7 @@ namespace Platformer
             for (int i = 0; i < rows; ++i)
             {
                 IRigidBody[] bodies = new IRigidBody[cols];
+                drawables[i] = new Shape[cols];
                 for (int j = 0; j < cols; ++j)
                 {
                     tileIndex = tileIndices[j];
@@ -212,7 +213,6 @@ namespace Platformer
                             spriteTileSize[0], spriteTileSize[1]));
                     bodies[j] = new Polygon(CV.AlphaEdgeDetection(tile.CopyToImage().Pixels, tile.Size.X, tile.Size.Y, 254), 
                         origin, new Vector2f(), 0, density);
-                    drawables[i] = new Shape[cols];
                     drawables[i][j] = new RectangleShape(new Vector2f(spriteTileSize[0], spriteTileSize[1]));
                     drawables[i][j].Origin = origin;
                     drawables[i][j].Texture = tile;
@@ -222,7 +222,6 @@ namespace Platformer
             }
             this.rigidBody = this.rigidBodies[animationIndex];
             this.drawable = this.drawables[animationIndex];
-            Debug.Assert(rigidBody.bodies.Length == drawable.Length);
         }
 
         public virtual void Update()

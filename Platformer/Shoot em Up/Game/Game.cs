@@ -71,7 +71,8 @@ namespace Platformer
             Polygon p2 = new Polygon(CV.AlphaEdgeDetection(tile.CopyToImage().Pixels, tile.Size.X, tile.Size.Y, 254), new Vector2f(50,50), new Vector2f(800,500), 0, 0);
             Add(new Platform(new IRigidBody[]{p,p2}, new Vector2f(800, 500), 0,100));*/
             PlatformContract p = new PlatformContract();
-          //  p.Init();
+            Console.WriteLine("Platform");
+            p.Init();
         }
 
         public void NextLevel()
