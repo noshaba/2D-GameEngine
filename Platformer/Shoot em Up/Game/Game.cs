@@ -61,8 +61,8 @@ namespace Platformer
             this.status = GameStatus.Active;
             this.levelEnded = false;
             Level = 1;
-            this.player = new Player(factions[1], new Vector2f(250, 250), "../Content/cat", 
-                new int[] { 130, 80 }, new int[] { 780, 160 });
+            this.player = new Player(factions[1], new Vector2f(250, 250), "../Content/catNew", 
+                new int[] { 130, 80 }, new int[] { 130, 960 }, new int[]{0});
             Add(this.player);
             //Platform test
            /* Texture tile = new Texture("../Content/platform.png", new IntRect(0, 0, 100, 100));
@@ -71,7 +71,7 @@ namespace Platformer
             Polygon p2 = new Polygon(CV.AlphaEdgeDetection(tile.CopyToImage().Pixels, tile.Size.X, tile.Size.Y, 254), new Vector2f(50,50), new Vector2f(800,500), 0, 0);
             Add(new Platform(new IRigidBody[]{p,p2}, new Vector2f(800, 500), 0,100));*/
             PlatformContract p = new PlatformContract();
-            p.Init();
+          //  p.Init();
         }
 
         public void NextLevel()
@@ -238,19 +238,19 @@ namespace Platformer
             switch (item)
             {
                 case Game.GameItem.Heal: 
-                    Add(new Item("../Content/items/heal.png", Heal, pos));
+                 //   Add(new Item("../Content/items/heal.png", Heal, pos));
                     break;
                 case Game.GameItem.Bomb: 
-                    Add(new Item("../Content/items/bomb.png", Bomb, pos));
+                 //   Add(new Item("../Content/items/bomb.png", Bomb, pos));
                     break;
                 case Game.GameItem.Points: 
-                    Add(new Item("../Content/items/points.png", Points, pos));
+                 //   Add(new Item("../Content/items/points.png", Points, pos));
                     break;
                 case Game.GameItem.NoPoints: 
-                    Add(new Item("../Content/items/noPoints.png", NoPoints, pos));
+                 //   Add(new Item("../Content/items/noPoints.png", NoPoints, pos));
                     break;
                 case Game.GameItem.Weapon: 
-                    Add(new Item("../Content/items/weapon.png", Weapon, pos));
+                 //   Add(new Item("../Content/items/weapon.png", Weapon, pos));
                     break;
                 default:
                     break;
