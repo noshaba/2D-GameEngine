@@ -11,8 +11,9 @@ namespace Platformer
 {
     class Platform : GameObject
     {
-        public Platform(IRigidBody[] bodies, Vector2f position, float rotation, float tileSize)
-            : base("../Content/platform.png", new[] {100,100}, new[] {300,100}, bodies, position, rotation)
+        //string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density
+        public Platform(String path, Vector2f position, float rotation, int tileSize, int[] tiles)
+            : base(path, new[] {tileSize,tileSize}, new[] {300,100}, tiles,0, position, rotation,0)
         {
 
         }

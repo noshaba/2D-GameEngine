@@ -98,7 +98,7 @@ namespace Platformer
             {
                 x = SpawnStartPosition[0] + i * SpriteTileSize[0];
                 y = SpawnStartPosition[1];
-                Game.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
+            //    Game.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
             }
         }
         private void Block()
@@ -109,7 +109,7 @@ namespace Platformer
             {
                 x = SpawnStartPosition[0] + (i / rows) * SpriteTileSize[0];
                 y = SpawnStartPosition[1] + (i % rows) * SpriteTileSize[1];
-                Game.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
+             //   Game.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
             }
         }
         private void Diagonal()
@@ -120,7 +120,7 @@ namespace Platformer
             {
                 x = SpawnStartPosition[0] + i * SpriteTileSize[0];
                 y = SpawnStartPosition[1] + (i % rows) * SpriteTileSize[1];
-                Game.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
+            //    Game.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
             }
         }
 
@@ -135,7 +135,7 @@ namespace Platformer
                 if (i % rows == 0) j = j * (-1);
                 x += SpriteTileSize[0];
                 y += j * SpriteTileSize[1];
-                Game.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
+            //    Game.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
             }
         }
     }

@@ -15,9 +15,9 @@ namespace Platformer
         private Vector2f initPos;
         private bool hover;
 
-       // string texturePath, int[] spriteTileSize, int[] spriteSize, int animationIndex, Vector2f position, float rotation, float density
-        public Obstacle(bool hover, Collision.Type type, int[] spriteTileSize, float density, float restitution, float staticFriction, float kineticFriction, String texture, int[] spriteSize, Vector2f position, int health, int points, int dmg, Faction faction)
-            : base(faction, texture, spriteTileSize, spriteSize, 0, position, 0, density)
+        // Faction faction, string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density
+        public Obstacle(bool hover, Collision.Type type, int[] spriteTileSize, int[] tileIndices, int animationIndex, float density, float restitution, float staticFriction, float kineticFriction, String texturePath, int[] spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction)
+            : base(faction, texturePath, spriteTileSize, spriteSize, tileIndices, animationIndex, position, rotation, density)
          {
              this.hover = hover;
              this.initPos = position;

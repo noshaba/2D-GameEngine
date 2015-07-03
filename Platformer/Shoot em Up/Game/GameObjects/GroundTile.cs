@@ -11,8 +11,9 @@ namespace Platformer
 {
     class GroundTile : GameObject
     {
-        public GroundTile(float restitution, float staticFriction, float kineticFriction, string texturePath, int[] spriteTileSize, int[] spriteSize, int tile, int index, int height)
-            : base(texturePath, spriteTileSize, spriteSize, tile, new Vector2f(spriteTileSize[0]*.5f, spriteTileSize[1]*.5f), new Vector2f(0,0), 0, 0)
+        //string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density
+        public GroundTile(float restitution, float staticFriction, float kineticFriction, string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, int index, int height)
+            : base(texturePath, spriteTileSize, spriteSize, tileIndices, animationIndex, new Vector2f(0,0), 0, 0)
         {
             this.rigidBody.Restitution = restitution;
             this.rigidBody.StaticFriction = staticFriction;

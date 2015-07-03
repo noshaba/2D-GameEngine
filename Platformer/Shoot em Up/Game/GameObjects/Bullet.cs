@@ -19,11 +19,12 @@ namespace Platformer
         private Vector2f bend;
         private KillableObject shooter;
 
-        public Bullet(KillableObject shooter, Faction faction, Vector2f position, float radius, Color color, float density, int dmg, Vector2f speed, Vector2f bend)
-            : base(faction, position + speed + bend, 0, radius, density)
+        //Faction faction, IRigidBody[] bodies, Vector2f position, float rotation
+        public Bullet(KillableObject shooter, Faction faction, Vector2f position, float radius, Color color, float density, float rotation, int dmg, Vector2f speed, Vector2f bend)
+            : base(faction, new[] { new Circle(position + speed + bend, 0, radius, density) }, position + speed + bend, rotation)
         {
             initPosition = position + speed + bend;
-            (rigidBody.bodies[0] as Circle).FillColor = color;
+            drawable[0].FillColor = color;
             rigidBody.Restitution = 1.0f;
             rigidBody.Velocity = speed*5;
             this.shooter = shooter;

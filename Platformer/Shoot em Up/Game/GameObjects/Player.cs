@@ -24,9 +24,9 @@ namespace Platformer
         public int animationIndex;
         private state status;
         protected AnimState[] states;
-        //string texturePath, int[] spriteTileSize, int[] spriteSize, int animationIndex, Vector2f position, float rotation
-        public Player(Faction faction, Vector2f position, String texture, int[]tileSize, int[]spriteSize)
-            : base(faction, texture+".png", tileSize, spriteSize, 0, new Vector2f(tileSize[0]*.5f, tileSize[1]*.5f), position, 0, 0.9f)
+        //Faction faction, string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density
+        public Player(Faction faction, Vector2f position, String texture, int[]tileSize, int[]spriteSize, int[]tileIndices)
+            : base(faction, texture+".png", tileSize, spriteSize,tileIndices, 0, position, 0, 0.9f)
         {
             this.rigidBody.Restitution = 0;
             this.speed = 80;

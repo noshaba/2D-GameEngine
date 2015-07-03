@@ -20,7 +20,7 @@ namespace Platformer
             int tileSize = 100;
             int[] tiles = new int[] { 0,2};
 
-
+            /*
             //number of platforms in json
             for (int i = 0; i < 1; i++)
             {
@@ -34,8 +34,8 @@ namespace Platformer
                     
                     bodies[j] = new Polygon(CV.AlphaEdgeDetection(tile.CopyToImage().Pixels, tile.Size.X, tile.Size.Y, 254), new Vector2f(tileSize/2,tileSize/2), new Vector2f(pos.X+j*100,pos.Y), 0, 0);
                 }
-            }
-            Game.Add(new Platform(bodies, pos, 0, tileSize));
+            }*/
+            Game.Add(new Platform(path, pos, 0, tileSize, tiles));
         }
     }
 }
