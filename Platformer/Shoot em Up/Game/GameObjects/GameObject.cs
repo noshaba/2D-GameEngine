@@ -12,10 +12,11 @@ namespace Platformer
     {
         public bool display = true;
         public Body[] rigidBodies;
-        public Shape[][] drawables;
+        public Shape[,] drawables;
         public Body rigidBody;
         public Shape[] drawable;
 
+        /*
         public GameObject(Body rigidBody)
         {
             this.rigidBodies = new Body[] { rigidBody };
@@ -171,8 +172,36 @@ namespace Platformer
             this.drawable = new [] { new RectangleShape((Vector2f)texture.Size) };
             this.drawable[0].Texture = texture;
             this.drawable[0].Origin = new Vector2f(texture.Size.X * .5f, texture.Size.Y * .5f);
-        }
+        }*/
 
+        public GameObject(string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density)
+        {
+            int cols = tileIndices.Length;
+            int rows = spriteSize[1] / spriteTileSize[1];
+
+            this.rigidBodies = new Body[rows];
+            this.drawables = new Shape[rows, cols];
+            Vector2f origin = new Vector2f(spriteTileSize[0] * .5f, spriteTileSize[1] * .5f);
+            Texture tile;
+            int tileIndex;
+            for (int i = 0; i < rows; ++i)
+            {
+                IRigidBody[] bodies = new IRigidBody[cols];
+                for (int j = 0; j < cols; ++j)
+                {
+                    tileIndex = tileIndices[j];
+                    tile = new Texture(texturePath, 
+                        new IntRect(tileIndex * spriteTileSize[0], tileIndex * spriteTileSize[0] + spriteTileSize[0], 
+                                    i * spriteTileSize[1], i * spriteTileSize[1] + spriteTileSize[1]));
+                    bodies[j] = new Polygon(CV.AlphaEdgeDetection(tile.CopyToImage().Pixels, tile.Size.X, tile.Size.Y, 254), 
+                        origin, new Vector2f(), 0, density);
+                    drawables[i, j] = new RectangleShape(new Vector2f(spriteTileSize[0], spriteTileSize[1]));
+                    drawables[i, j].Origin = origin;
+                    drawables[i, j].Texture = tile;
+                    drawables[i, j].Texture.Smooth = true;
+                }
+            }
+        }
 
         public virtual void Update()
         {
