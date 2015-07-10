@@ -312,14 +312,19 @@ namespace Physics {
         }
 
         private static void PullApart(Body b1, Body b2, Vector2f n, float overlap){
-            if (b1.moveable && b2.moveable) {
+            if (b1.moveable && b2.moveable || b1.rotateable && b2.rotateable) {
                 b1.Pull(n,  overlap * 0.5f);
                 b2.Pull(n, -overlap * 0.5f);
             } else {
-                if(b1.moveable)
-                    b1.Pull(n,  overlap);
-                if(b2.moveable)
+                if (b1.moveable)
+                    b1.Pull(n, overlap);
+                else if (b2.rotateable)
                     b2.Pull(n, -overlap);
+
+                if (b2.moveable)
+                    b2.Pull(n, -overlap);
+                else if (b1.rotateable)
+                    b1.Pull(n, overlap);
             }
         }
     }
