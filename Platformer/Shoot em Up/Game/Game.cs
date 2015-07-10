@@ -70,9 +70,7 @@ namespace Platformer
             tile = new Texture("../Content/platform.png", new IntRect(100, 0, 100, 100));
             Polygon p2 = new Polygon(CV.AlphaEdgeDetection(tile.CopyToImage().Pixels, tile.Size.X, tile.Size.Y, 254), new Vector2f(50,50), new Vector2f(800,500), 0, 0);
             Add(new Platform(new IRigidBody[]{p,p2}, new Vector2f(800, 500), 0,100));*/
-            PlatformContract p = new PlatformContract();
-            Console.WriteLine("Platform");
-            p.Init();
+
         }
 
         public void NextLevel()
@@ -112,6 +110,16 @@ namespace Platformer
                 String json = sr.ReadToEnd();
                 planet = JSONManager.deserializeJson<Planet>(json);
                 planet.Init();
+            }
+            using (StreamReader sr = new StreamReader("../Content/" + level + "/Platforms.json"))
+            {
+                PlatformContract[] platforms;
+                String json = sr.ReadToEnd();
+                platforms = JSONManager.deserializeJson<PlatformContract[]>(json);
+                for (int i = 0; i < platforms.Length; i++)
+                {
+                    platforms[i].Init();
+                }
             }
             physics = new Physic(rigidBodies, new Vector2f(planet.Gravity[0], planet.Gravity[1]), planet.Damping, 
                 planet.Friction, (FloatRect) planet.backgroundSprite.TextureRect);

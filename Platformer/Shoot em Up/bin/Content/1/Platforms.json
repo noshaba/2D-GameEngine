@@ -1,0 +1,26 @@
+[
+    {
+        "Density": 0.01,
+        "Restitution": 0,
+        "StaticFriction": 2,
+        "KineticFriction": 2,
+        "Position": [800,500],
+        "Rotation": 0,
+        "SpritePath": "../Content/platform.png",
+        "SpriteSize": [300,100],
+        "SpriteTileSize": [100, 100],
+        "Tiles": [0,1,2]
+    },
+    {
+        "Density": 0.01,
+        "Restitution": 0,
+        "StaticFriction": 2,
+        "KineticFriction": 2,
+        "Position": [1000,400],
+        "Rotation": 10,
+        "SpritePath": "../Content/platform.png",
+        "SpriteSize": [300,100],
+        "SpriteTileSize": [100, 100],
+        "Tiles": [0,1,2]
+    }
+]

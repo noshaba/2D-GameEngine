@@ -12,19 +12,20 @@ namespace Platformer
     class Platform : GameObject
     {
         Vector2f globalPosition;
-        //string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density
-        public Platform(String path, Vector2f position, float rotation, int tileSize, int[] tiles)
-            : base(path, new[] {tileSize,tileSize}, new[] {300,100}, tiles, 0, position, rotation,0.01f)
+        // SpritePath, Position, Rotation, SpriteSize, SpriteTileSize, Tiles, KineticFriction, StaticFriction, Restitution, Density
+       public Platform(String path, Vector2f position, float rotation, int[] spriteSize, int[] tileSize, int[] tiles,
+           float kineticFriction, float staticFriction, float restitution, float density)
+            : base(path, tileSize, spriteSize, tiles, 0, position, rotation,density)
         {
             globalPosition = position;
             foreach (Body body in rigidBodies)
             {
-                body.Restitution = 0;
-                body.StaticFriction = 2;
-                body.KineticFriction = 2;
+                body.Restitution = restitution;
+                body.StaticFriction = staticFriction;
+                body.KineticFriction = kineticFriction;
                 for (int i = 0; i < body.bodies.Length; ++i)
                 {
-                    body.bodies[i].COM += new Vector2f(i * tileSize, 0);
+                    body.bodies[i].COM += new Vector2f(i * tileSize[0], 0);
                 }
                 body.UpdateCentroid();
                 body.COM = position;
@@ -36,7 +37,6 @@ namespace Platformer
         {
             base.LateUpdate();
             rigidBody.COM = globalPosition;
-            Console.WriteLine(rigidBody.AngularVelocity);
         }
     }
 }
