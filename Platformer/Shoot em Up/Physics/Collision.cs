@@ -313,11 +313,11 @@ namespace Physics {
 
         private static void PullApart(Body b1, Body b2, Vector2f n, float overlap){
             if (b1.InverseMass > 0 && b2.InverseMass > 0 || b1.InverseMass == 0 && b2.InverseMass == 0) {
-                b1.Pull(n,  overlap * 0.5f);
-                b2.Pull(n, -overlap * 0.5f);
+                b1.Pull(n,  overlap * 0.5f + 0.01f);
+                b2.Pull(n, -overlap * 0.5f + 0.01f);
             } else {
-                b1.Pull(n,  overlap * b1.InverseMass * b1.Mass);
-                b2.Pull(n, -overlap * b2.InverseMass * b2.Mass);
+                b1.Pull(n,  overlap * b1.InverseMass * b1.Mass + 0.01f);
+                b2.Pull(n, -overlap * b2.InverseMass * b2.Mass + 0.01f);
             }
         }
     }

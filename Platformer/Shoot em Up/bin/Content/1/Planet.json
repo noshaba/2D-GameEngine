@@ -4,7 +4,7 @@
   "BackgroundMusicPath": "audio_path",
   "Gravity": [0, 5],
   "Friction": true,
-  "Damping": 1,
+  "Damping": 2,
   "Length": 4000,
   "Achievement": 14,
   "AchievementMinRequirement": 1000,

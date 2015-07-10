@@ -20,6 +20,8 @@ namespace Platformer
             foreach (Body body in rigidBodies)
             {
                 body.Restitution = 0;
+                body.StaticFriction = 2;
+                body.KineticFriction = 2;
                 for (int i = 0; i < body.bodies.Length; ++i)
                 {
                     body.bodies[i].COM += new Vector2f(i * tileSize, 0);
@@ -34,6 +36,7 @@ namespace Platformer
         {
             base.LateUpdate();
             rigidBody.COM = globalPosition;
+            Console.WriteLine(rigidBody.AngularVelocity);
         }
     }
 }

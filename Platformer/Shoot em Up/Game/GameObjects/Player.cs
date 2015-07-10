@@ -26,7 +26,7 @@ namespace Platformer
         protected AnimState[] states;
         //Faction faction, string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density
         public Player(Faction faction, Vector2f position, String texture, int[]tileSize, int[]spriteSize, int[]tileIndices)
-            : base(faction, texture+".png", tileSize, spriteSize,tileIndices, 0, position, 0, 0.9f)
+            : base(faction, texture+".png", tileSize, spriteSize,tileIndices, 0, position, 0, 1)
         {
             this.rigidBody.Restitution = 0;
             this.speed = 80;
@@ -69,9 +69,9 @@ namespace Platformer
             {
                 this.rigidBody.Velocity = new Vector2f(-this.speed, this.rigidBody.Velocity.Y);
             }
-            if (k == Keyboard.Key.Up)
+            if (k == Keyboard.Key.Down)
             {
-                this.rigidBody.Velocity = new Vector2f(this.rigidBody.Velocity.X, -this.speed/2);
+                this.rigidBody.Velocity = new Vector2f(this.rigidBody.Velocity.X, this.speed/2);
 
             }
             this.rigidBody.Velocity = this.rigidBody.WorldTransform * this.rigidBody.Velocity;
@@ -194,6 +194,12 @@ namespace Platformer
             }
             this.rigidBody = this.rigidBodies[this.animationIndex];
             this.drawable = this.drawables[this.animationIndex];
+        }
+
+        public override void LateUpdate()
+        {
+            base.LateUpdate();
+            rigidBody.AngularVelocity = 0;
         }
     }
 }

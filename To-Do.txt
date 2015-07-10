@@ -1,7 +1,7 @@
 To-Do
-
+- constraints solver
 - platforms
-- can be stationary
+- can rotate
 - platforms move(up/down left/right)
 - scenery is filled properly
 - enemies 
