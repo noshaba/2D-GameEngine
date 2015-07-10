@@ -20,6 +20,8 @@ namespace Physics
         private float dragCoefficient;
         private float kineticFriction;
         private Vector2f centroid;
+        public bool moveable;
+        public bool rotateable;
 
         public IRigidBody[] bodies;
 
@@ -33,6 +35,8 @@ namespace Physics
             foreach (IRigidBody body in bodies)
                 inertiaTensor += body.Inertia;
             current = new State(position, rotation, mass, inertiaTensor);
+            moveable = InverseMass > 0 ? true : false;
+            rotateable = moveable;
             previous = current;
             Restitution = (float)EMath.random.NextDouble();
             StaticFriction = (float)EMath.random.NextDouble();
@@ -291,8 +295,8 @@ namespace Physics
 
         public void ApplyImpulse(Vector2f J, Vector2f r)
         {
-            Velocity += J * current.inverseMass;
-            AngularVelocity += r.CrossProduct(J) * current.inverseInertiaTensor;
+            if(moveable) Velocity += J * current.inverseMass;
+            if(rotateable) AngularVelocity += r.CrossProduct(J) * current.inverseInertiaTensor;
         }
 
         public void Pull(Vector2f n, float overlap)

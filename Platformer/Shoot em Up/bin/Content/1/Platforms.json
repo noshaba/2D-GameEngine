@@ -1,9 +1,9 @@
 [
     {
-        "Density": 0.01,
+        "Density": 1,
         "Restitution": 0,
-        "StaticFriction": 2,
-        "KineticFriction": 2,
+        "StaticFriction": 1,
+        "KineticFriction": 1,
         "Position": [800,500],
         "Rotation": 0,
         "SpritePath": "../Content/platform.png",

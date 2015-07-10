@@ -61,17 +61,17 @@ namespace Physics {
         }
 
         private void Damping(float dt, int i) {
-            objects[i].Velocity -= dt * damping * objects[i].Velocity;
-            objects[i].AngularVelocity -= dt * damping * objects[i].AngularVelocity;
+            if(objects[i].moveable) objects[i].Velocity -= dt * damping * objects[i].Velocity;
+            if(objects[i].rotateable) objects[i].AngularVelocity -= dt * damping * objects[i].AngularVelocity;
         }
 
         private void Gravity(float dt, int i) {
-            objects[i].Velocity += dt * gravity * 10f * objects[i].Mass * objects[i].InverseMass;
+            if(objects[i].moveable) objects[i].Velocity += dt * gravity * 10f;
         }
 
         private void Drag(float dt, int i)
         {
-            if (objects[i].DragCoefficient == 0 || objects[i].InverseMass == 0) return;
+            if (objects[i].DragCoefficient == 0 || !objects[i].moveable) return;
             objects[i].Velocity -= dt * objects[i].DragCoefficient * objects[i].InverseMass * objects[i].Velocity.Length2() * objects[i].Velocity.Norm();
         }
 
@@ -128,25 +128,23 @@ namespace Physics {
             obj1.ApplyImpulse( J, r1);
             obj2.ApplyImpulse(-J, r2);
 
-            if (friction) {
-                // apply friction impule
-                Vector2f t = (rv - n * rv.Dot(n)).Norm();
-                // j tangent magnitude
-                float jt = -rv.Dot(t);
-                jt /= (invMassSum * contacts);
+            // apply friction impule
+            Vector2f t = (rv - n * rv.Dot(n)).Norm();
+            // j tangent magnitude
+            float jt = -rv.Dot(t);
+            jt /= (invMassSum * contacts);
 
-                // Don't apply tiny friction impulses
-                if (Math.Abs(jt) < EMath.EPSILON)
-                    return;
-                // Coulumb's law
-                Vector2f T;
-                if (Math.Abs(jt) < j * sf)
-                    T = t * jt;
-                else
-                    T = t * -j * kf;
-                obj1.ApplyImpulse(T, r1);
-                obj2.ApplyImpulse(-T, r2);
-            }
+            // Don't apply tiny friction impulses
+            if (Math.Abs(jt) < EMath.EPSILON)
+                return;
+            // Coulumb's law
+            Vector2f T;
+            if (Math.Abs(jt) < j * sf)
+                T = t * jt;
+            else
+                T = t * -j * kf;
+            obj1.ApplyImpulse(T, r1);
+            obj2.ApplyImpulse(-T, r2);
         }
 
         #endregion

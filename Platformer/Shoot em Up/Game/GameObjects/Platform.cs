@@ -20,6 +20,7 @@ namespace Platformer
             globalPosition = position;
             foreach (Body body in rigidBodies)
             {
+                body.moveable = false;
                 body.Restitution = restitution;
                 body.StaticFriction = staticFriction;
                 body.KineticFriction = kineticFriction;
@@ -31,12 +32,6 @@ namespace Platformer
                 body.COM = position;
                 body.UpdateBoundingCircle();
             }
-        }
-
-        public override void LateUpdate()
-        {
-            base.LateUpdate();
-            rigidBody.COM = globalPosition;
         }
     }
 }
