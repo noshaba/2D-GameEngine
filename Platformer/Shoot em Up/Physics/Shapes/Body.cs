@@ -40,8 +40,8 @@ namespace Physics
             DragCoefficient = 0;
             collision = new Collision();
             Orientation = (float)(rotation * Math.PI / 180.0);
-            SetCentroid();
-            InitBoundingCircle();
+            UpdateCentroid();
+            UpdateBoundingCircle();
             COMDrawable = new RectangleShape(new Vector2f(10, 10));
             COMDrawable.Origin = new Vector2f(5,5);
             COMDrawable.FillColor = Color.Red;
@@ -65,8 +65,8 @@ namespace Physics
             DragCoefficient = 0;
             collision = new Collision();
             Orientation = (float)(rotation * Math.PI / 180.0);
-            SetCentroid();
-            InitBoundingCircle();
+            UpdateCentroid();
+            UpdateBoundingCircle();
             COMDrawable = new RectangleShape(new Vector2f(10, 10));
             COMDrawable.Origin = new Vector2f(5, 5);
             COMDrawable.FillColor = Color.Red;
@@ -74,7 +74,7 @@ namespace Physics
             this.Parent = parent;
         }
 
-        private void SetCentroid()
+        public void UpdateCentroid()
         {
             Vector2f c = new Vector2f();
             foreach (IRigidBody body in bodies)
@@ -85,7 +85,7 @@ namespace Physics
                 body.Centroid = c - body.COM;
         }
 
-        private void InitBoundingCircle()
+        public void UpdateBoundingCircle()
         {
             float rad;
             Radius = 0;
