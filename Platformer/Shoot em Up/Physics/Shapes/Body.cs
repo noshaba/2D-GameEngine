@@ -329,6 +329,8 @@ namespace Physics
                 window.Draw(body as Shape, r);
                 body.COMDrawable.Position = body.Center;
                 window.Draw(body.COMDrawable);
+                body.BoundingCircle.Position = body.Center;
+                window.Draw(body.BoundingCircle);
             }
         }
 

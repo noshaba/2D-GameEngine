@@ -9,7 +9,7 @@
         "SpritePath": "../Content/platform.png",
         "SpriteSize": [300,100],
         "SpriteTileSize": [100, 100],
-        "Tiles": [0,1,2]
+        "Tiles": [0,1,1,1,1,1,1,1,1,1,2]
     },
     {
         "Density": 0.01,

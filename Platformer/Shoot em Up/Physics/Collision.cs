@@ -28,9 +28,12 @@ namespace Physics {
                 {
                     foreach (IRigidBody obj2 in b2.bodies)
                     {
-                        Dispatch[(int)obj1.Type, (int)obj2.Type](obj1, obj2, b1, b2, ref colli);
-                        if (colli.collision)
-                            return colli;
+                        if ((obj1.Center - obj2.Center).Length2() < (obj1.Radius + obj2.Radius) * (obj1.Radius + obj2.Radius))
+                        {
+                            Dispatch[(int)obj1.Type, (int)obj2.Type](obj1, obj2, b1, b2, ref colli);
+                            if (colli.collision)
+                                return colli;
+                        }
                     }
                 }
             }
