@@ -31,6 +31,9 @@ namespace Platformer
         public bool levelEnded;
         public GameStatus status;
         public Stopwatch clock;
+        Texture normalMap = new Texture("../Content/textures/car_normal.tga");
+        Shader shader = new Shader(null, "../Content/shaders/procedural.frag");
+        Sprite sprite = new Sprite(new Texture("../Content/textures/car_colour.png"));
 
         public enum GameStatus
         {
@@ -45,6 +48,7 @@ namespace Platformer
         {
             WIDTH = width;
             HEIGHT = height;
+            sprite.Position = new Vector2f(400, HEIGHT * .5f);
             this.status = GameStatus.Start;
 
             SoundManager.Play(SoundManager.ambient);
@@ -214,6 +218,11 @@ namespace Platformer
                         obj.rigidBody.Draw(window, alpha);
                 }
             }
+            shader.SetParameter("normalMap", normalMap);
+            shader.SetParameter("lightPosition", Mouse.GetPosition(window).X, HEIGHT - Mouse.GetPosition(window).Y, 0.04f);
+            RenderStates s = new RenderStates(Transform.Identity);
+            s.Shader = shader;
+            window.Draw(sprite,s);
         }
 
         public void MovePlayer(Keyboard.Key k)
