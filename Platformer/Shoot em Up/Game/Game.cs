@@ -31,9 +31,10 @@ namespace Platformer
         public bool levelEnded;
         public GameStatus status;
         public Stopwatch clock;
-        Texture normalMap = new Texture("../Content/textures/car_normal.tga");
         Shader shader = new Shader(null, "../Content/shaders/procedural.frag");
-        Sprite sprite = new Sprite(new Texture("../Content/textures/car_colour.png"));
+        Shader shaderBG = new Shader(null, "../Content/shaders/procedural.frag");
+        Sprite sprite1 = new Sprite(new Texture("../Content/textures/car_colour.png"));
+        Sprite sprite2 = new Sprite(new Texture("../Content/textures/car_colour.png"));
 
         public enum GameStatus
         {
@@ -48,7 +49,15 @@ namespace Platformer
         {
             WIDTH = width;
             HEIGHT = height;
-            sprite.Position = new Vector2f(400, HEIGHT * .5f);
+
+            shader.SetParameter("normalMap", new Texture("../Content/textures/car_normal.tga"));
+            shader.SetParameter("specularMap", new Texture("../Content/textures/car_specular.png"));
+            shader.SetParameter("reflectMap", new Texture("../Content/textures/car_reflect.png"));
+
+            shaderBG.SetParameter("normalMap", new Texture("../Content/textures/NormalMap.png"));
+
+            sprite1.Position = new Vector2f(400, HEIGHT * .5f);
+            sprite2.Position = new Vector2f(350, HEIGHT * .5f);
             this.status = GameStatus.Start;
 
             SoundManager.Play(SoundManager.ambient);
@@ -207,9 +216,13 @@ namespace Platformer
 
         public void Draw(RenderWindow window, float alpha)
         {
+            shader.SetParameter("lightPosition", Mouse.GetPosition(window).X, HEIGHT - Mouse.GetPosition(window).Y, 0.04f);
+            shaderBG.SetParameter("lightPosition", Mouse.GetPosition(window).X, HEIGHT - Mouse.GetPosition(window).Y, 0.04f);
+            RenderStates s = new RenderStates(Transform.Identity);
             //all the drawing
             if(status == GameStatus.Active) {
-                window.Draw(planet.backgroundSprite);
+                s.Shader = shaderBG;
+                window.Draw(planet.backgroundSprite, s);
             //    if(debug) physics.DrawQuadtree(window);
                 foreach (GameObject obj in objects)
                 {
@@ -218,11 +231,9 @@ namespace Platformer
                         obj.rigidBody.Draw(window, alpha);
                 }
             }
-            shader.SetParameter("normalMap", normalMap);
-            shader.SetParameter("lightPosition", Mouse.GetPosition(window).X, HEIGHT - Mouse.GetPosition(window).Y, 0.04f);
-            RenderStates s = new RenderStates(Transform.Identity);
             s.Shader = shader;
-            window.Draw(sprite,s);
+            window.Draw(sprite1,s);
+            window.Draw(sprite2,s);
         }
 
         public void MovePlayer(Keyboard.Key k)

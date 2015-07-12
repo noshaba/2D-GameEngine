@@ -245,7 +245,7 @@ namespace Platformer
                 t.Translate(rigidBody.bodies[i].Center);
                 t.Rotate(interpol.DegOrientation);
                 r = new RenderStates(t);
-                window.Draw(drawable[i], new RenderStates(t));
+                window.Draw(drawable[i], r);
             }
         }
     }
