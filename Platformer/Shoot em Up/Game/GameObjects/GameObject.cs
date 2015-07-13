@@ -233,6 +233,22 @@ namespace Platformer
             rigidBody.Collision.collision = false;
         }
 
+        public void Draw(RenderTexture buffer, float alpha)
+        {
+            State interpol;
+            Transform t;
+            RenderStates r;
+            for (int i = 0; i < rigidBody.bodies.Length; ++i)
+            {
+                interpol = rigidBody.bodies[i].Interpolation(alpha);
+                t = Transform.Identity;
+                t.Translate(rigidBody.bodies[i].Center);
+                t.Rotate(interpol.DegOrientation);
+                r = new RenderStates(t);
+                buffer.Draw(drawable[i], r);
+            }
+        }
+
         public void Draw(RenderWindow window, float alpha)
         {
             State interpol;

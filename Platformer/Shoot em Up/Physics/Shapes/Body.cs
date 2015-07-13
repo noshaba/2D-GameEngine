@@ -309,6 +309,31 @@ namespace Physics
             return current + alpha * (current - previous);
         }
 
+        public void Draw(RenderTexture buffer, float alpha)
+        {
+            State interpol = Interpolation(alpha);
+            Transform t = Transform.Identity;
+            t.Translate(interpol.position);
+            t.Rotate(interpol.DegOrientation);
+            RenderStates r = new RenderStates(t);
+            buffer.Draw(BoundingCircle, r);
+            COMDrawable.Position = COM;
+            buffer.Draw(COMDrawable);
+            foreach (IRigidBody body in bodies)
+            {
+                interpol = body.Interpolation(alpha);
+                t = Transform.Identity;
+                t.Translate(interpol.position);
+                t.Rotate(interpol.DegOrientation);
+                r = new RenderStates(t);
+                buffer.Draw(body as Shape, r);
+                body.COMDrawable.Position = body.Center;
+                buffer.Draw(body.COMDrawable);
+                body.BoundingCircle.Position = body.Center;
+                buffer.Draw(body.BoundingCircle);
+            }
+        }
+
         public void Draw(RenderWindow window, float alpha) 
         {
             State interpol = Interpolation(alpha);

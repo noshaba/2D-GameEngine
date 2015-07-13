@@ -35,6 +35,8 @@ namespace Platformer
         Shader shaderBG = new Shader(null, "../Content/shaders/procedural.frag");
         Sprite sprite1 = new Sprite(new Texture("../Content/textures/car_colour.png"));
         Sprite sprite2 = new Sprite(new Texture("../Content/textures/car_colour.png"));
+        RenderTexture sceneBuffer;
+        Sprite scene = new Sprite();
 
         public enum GameStatus
         {
@@ -49,6 +51,8 @@ namespace Platformer
         {
             WIDTH = width;
             HEIGHT = height;
+            sceneBuffer = new RenderTexture((uint) WIDTH, (uint) HEIGHT);
+            scene.Texture = sceneBuffer.Texture;
 
             shader.SetParameter("normalMap", new Texture("../Content/textures/car_normal.tga"));
             shader.SetParameter("specularMap", new Texture("../Content/textures/car_specular.png"));
@@ -58,6 +62,7 @@ namespace Platformer
 
             sprite1.Position = new Vector2f(400, HEIGHT * .5f);
             sprite2.Position = new Vector2f(350, HEIGHT * .5f);
+         
             this.status = GameStatus.Start;
 
             SoundManager.Play(SoundManager.ambient);
@@ -216,24 +221,32 @@ namespace Platformer
 
         public void Draw(RenderWindow window, float alpha)
         {
-            shader.SetParameter("lightPosition", Mouse.GetPosition(window).X, HEIGHT - Mouse.GetPosition(window).Y, 0.04f);
-            shaderBG.SetParameter("lightPosition", Mouse.GetPosition(window).X, HEIGHT - Mouse.GetPosition(window).Y, 0.04f);
+            // shader.SetParameter("lightPosition", Mouse.GetPosition(window).X, HEIGHT - Mouse.GetPosition(window).Y, 0.04f);
+            // shaderBG.SetParameter("lightPosition", Mouse.GetPosition(window).X, HEIGHT - Mouse.GetPosition(window).Y, 0.04f);
+            sceneBuffer.Clear();
             RenderStates s = new RenderStates(Transform.Identity);
-            //all the drawing
             if(status == GameStatus.Active) {
-                s.Shader = shaderBG;
-                window.Draw(planet.backgroundSprite, s);
-            //    if(debug) physics.DrawQuadtree(window);
+                // s.Shader = shaderBG;
+                sceneBuffer.Draw(planet.backgroundSprite, s);
+                // window.Draw(planet.backgroundSprite, s);
                 foreach (GameObject obj in objects)
                 {
-                    obj.Draw(window, alpha);
+                    // obj.Draw(window, alpha);
+                    obj.Draw(sceneBuffer, alpha);
                     if (debug)
-                        obj.rigidBody.Draw(window, alpha);
+                        obj.rigidBody.Draw(sceneBuffer, alpha);
+                        // obj.rigidBody.Draw(window, alpha);
                 }
             }
-            s.Shader = shader;
-            window.Draw(sprite1,s);
-            window.Draw(sprite2,s);
+            // s.Shader = shader;
+            sceneBuffer.Draw(sprite1, s);
+            sceneBuffer.Draw(sprite2, s);
+
+            sceneBuffer.Display();
+            window.Draw(scene);
+
+            //window.Draw(sprite1,s);
+            //window.Draw(sprite2,s);
         }
 
         public void MovePlayer(Keyboard.Key k)
