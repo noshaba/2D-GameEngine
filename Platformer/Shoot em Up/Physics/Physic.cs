@@ -113,7 +113,7 @@ namespace Physics {
             Vector2f rv = v1 + w1.CrossProduct(r1) - v2 - w2.CrossProduct(r2);
             float r1CrossN = r1.CrossProduct(n);
             float r2CrossN = r2.CrossProduct(n);
-            float invMassSum = (float) (iM1 + iM2 + Math.Pow(r1CrossN, 2) * iI1 + Math.Pow(r2CrossN, 2) * iI2);
+            float invMassSum = (float) (iM1 + iM2 + r1CrossN * r1CrossN * iI1 + r2CrossN * r2CrossN * iI2);
             float e = Math.Min(obj1.Restitution, obj2.Restitution);
             float sf = (float) Math.Sqrt(obj1.StaticFriction * obj2.StaticFriction);
             float kf = (float) Math.Sqrt(obj1.KineticFriction * obj2.KineticFriction);
@@ -122,6 +122,8 @@ namespace Physics {
             float cv = n.Dot(rv);
             float j = -(1 + e) * cv;
             j /= (invMassSum * contacts);
+
+            if (j < 0) return;
 
             Vector2f J = j*n;
             obj1.ApplyImpulse( J, r1);
