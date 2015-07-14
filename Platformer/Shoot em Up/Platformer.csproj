@@ -112,13 +112,15 @@
     <Compile Include="Maths\Splines\Spline.cs" />
     <Compile Include="Maths\Vec2fMath.cs" />
     <Compile Include="Physics\Collision.cs" />
+    <Compile Include="Physics\Dynamics\Constraint.cs" />
+    <Compile Include="Physics\Dynamics\DistanceConstraint.cs" />
     <Compile Include="Physics\Physic.cs" />
     <Compile Include="Physics\Quadtree.cs" />
     <Compile Include="Physics\Shapes\Circle.cs" />
     <Compile Include="Physics\Shapes\IRigidBody.cs" />
     <Compile Include="Physics\Shapes\Plane.cs" />
     <Compile Include="Physics\Shapes\Polygon.cs" />
-    <Compile Include="Physics\Shapes\Body.cs" />
+    <Compile Include="Physics\Dynamics\Body.cs" />
     <Compile Include="Physics\State.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

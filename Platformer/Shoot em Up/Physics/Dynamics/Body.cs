@@ -299,6 +299,11 @@ namespace Physics
             if(rotateable) AngularVelocity += r.CrossProduct(J) * current.inverseInertiaTensor;
         }
 
+        public void ApplyLinearImpulse(Vector2f J)
+        {
+            if (moveable) Velocity += J * current.inverseMass;
+        }
+
         public void Pull(Vector2f n, float overlap)
         {
             COM += n * overlap;
