@@ -9,21 +9,25 @@ namespace ImageProcessing
 {
     static class CV
     {
-        public static void AlphaThresholding(ref byte[] dst, byte[] src, uint cols, uint rows, uint threshold)
+        public static void ChannelThresholding(ref byte[] dst, byte[] src, uint cols, uint rows, uint threshold, uint channel)
         {
+            --channel;
+            uint idx;
+
             for (uint i = 0; i < cols * rows * 4; i += 4)
             {
-                // R, G, B
-                dst[i] = dst[i + 1] = dst[i + 2] = 255;
-                // A
-                if (src[i + 3] > threshold)
+                idx = i + channel;
+
+                if (src[idx] > threshold)
                 {
-                    dst[i + 3] = 255;
+                    dst[idx] = 255;
                 }
                 else
                 {
-                    dst[i + 3] = 0;
+                    dst[idx] = 0;
                 }
+
+                dst[(idx + 1) % 4] = dst[(idx + 2) % 4] = dst[(idx + 2) % 4] = 255;
             }
         }
 
@@ -72,7 +76,7 @@ namespace ImageProcessing
         public static Vector2f[] AlphaEdgeDetection(ref byte[] dst, byte[] src, uint cols, uint rows, uint threshold)
         {
 
-            AlphaThresholding(ref src, src, cols, rows, threshold);
+            ChannelThresholding(ref src, src, cols, rows, threshold, 4);
 
             List<Vector2f> indexBuffer = new List<Vector2f>();
 
@@ -116,7 +120,7 @@ namespace ImageProcessing
         // just returns the needed index buffer and no dst image to show
         public static Vector2f[] AlphaEdgeDetection(byte[] src, uint cols, uint rows, uint threshold)
         {
-            AlphaThresholding(ref src, src, cols, rows, threshold);
+            ChannelThresholding(ref src, src, cols, rows, threshold, 4);
 
             List<Vector2f> indexBuffer = new List<Vector2f>();
             byte[] src_tmp = new byte[(cols + 2) * (rows + 2) << 2];

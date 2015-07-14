@@ -31,8 +31,11 @@ namespace Platformer
         public bool levelEnded;
         public GameStatus status;
         public Stopwatch clock;
-        Shader shader = new Shader(null, "../Content/shaders/procedural.frag");
-        Shader shaderBG = new Shader(null, "../Content/shaders/procedural.frag");
+
+        Shader light = new Shader(null, "../Content/shaders/light.frag");
+        Shader sceneBufferShader = new Shader(null, "../Content/shaders/scene_buffer.frag");
+        Shader shadow = new Shader(null, "../Content/shaders/shadow.frag");
+
         Sprite sprite1 = new Sprite(new Texture("../Content/textures/car_colour.png"));
         Sprite sprite2 = new Sprite(new Texture("../Content/textures/car_colour.png"));
         RenderTexture sceneBuffer;
@@ -51,14 +54,10 @@ namespace Platformer
         {
             WIDTH = width;
             HEIGHT = height;
-            sceneBuffer = new RenderTexture((uint) WIDTH, (uint) HEIGHT);
-            scene.Texture = sceneBuffer.Texture;
 
-            shader.SetParameter("normalMap", new Texture("../Content/textures/car_normal.tga"));
-            shader.SetParameter("specularMap", new Texture("../Content/textures/car_specular.png"));
-            shader.SetParameter("reflectMap", new Texture("../Content/textures/car_reflect.png"));
-
-            shaderBG.SetParameter("normalMap", new Texture("../Content/textures/NormalMap.png"));
+            light.SetParameter("normalMap", new Texture("../Content/textures/car_normal.tga"));
+            light.SetParameter("specularMap", new Texture("../Content/textures/car_specular.png"));
+            light.SetParameter("reflectMap", new Texture("../Content/textures/car_reflect.png"));
 
             sprite1.Position = new Vector2f(400, HEIGHT * .5f);
             sprite2.Position = new Vector2f(350, HEIGHT * .5f);
@@ -128,6 +127,8 @@ namespace Platformer
                 String json = sr.ReadToEnd();
                 planet = JSONManager.deserializeJson<Planet>(json);
                 planet.Init();
+                sceneBuffer = new RenderTexture((uint)planet.Length, (uint)HEIGHT, true);
+                scene.Texture = sceneBuffer.Texture;
             }
             using (StreamReader sr = new StreamReader("../Content/" + level + "/Platforms.json"))
             {
@@ -223,11 +224,10 @@ namespace Platformer
         {
             // shader.SetParameter("lightPosition", Mouse.GetPosition(window).X, HEIGHT - Mouse.GetPosition(window).Y, 0.04f);
             // shaderBG.SetParameter("lightPosition", Mouse.GetPosition(window).X, HEIGHT - Mouse.GetPosition(window).Y, 0.04f);
-            sceneBuffer.Clear();
             RenderStates s = new RenderStates(Transform.Identity);
             if(status == GameStatus.Active) {
                 // s.Shader = shaderBG;
-                sceneBuffer.Draw(planet.backgroundSprite, s);
+                sceneBuffer.Clear(Color.Transparent);
                 // window.Draw(planet.backgroundSprite, s);
                 foreach (GameObject obj in objects)
                 {
@@ -237,13 +237,22 @@ namespace Platformer
                         obj.rigidBody.Draw(sceneBuffer, alpha);
                         // obj.rigidBody.Draw(window, alpha);
                 }
-            }
-            // s.Shader = shader;
-            sceneBuffer.Draw(sprite1, s);
-            sceneBuffer.Draw(sprite2, s);
 
-            sceneBuffer.Display();
-            window.Draw(scene);
+                sceneBuffer.Draw(sprite1, s);
+                sceneBuffer.Draw(sprite2, s);
+
+                sceneBufferShader.SetParameter("rt_scene", sceneBuffer.Texture);
+                s.Shader = sceneBufferShader;
+                sceneBuffer.Draw(scene, s);
+                sceneBuffer.Display();
+
+                //godsRay.SetParameter("lightPosition", 0,0,1);
+                shadow.SetParameter("texture", scene.Texture);
+                s.Shader = shadow;
+
+                window.Draw(planet.backgroundSprite);
+                window.Draw(scene, s);
+            }
 
             //window.Draw(sprite1,s);
             //window.Draw(sprite2,s);
