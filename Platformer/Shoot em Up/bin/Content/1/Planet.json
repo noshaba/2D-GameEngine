@@ -3,7 +3,6 @@
   "BackgroundImagePath": "../Content/1/images/space.png",
   "BackgroundMusicPath": "audio_path",
   "Gravity": [0, 9.81],
-  "Friction": true,
   "Damping": 1,
   "Length": 4000,
   "Achievement": 14,

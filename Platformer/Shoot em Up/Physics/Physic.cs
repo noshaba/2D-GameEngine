@@ -12,15 +12,13 @@ namespace Physics {
         public List<Body> objects;
         private Vector2f gravity;
         private float damping;
-        private bool friction;
         public bool frozen = false;
         private Quadtree quadtree;
         private List<IRigidBody> possibleCollisionTargets;
 
-        public Physic(List<Body> shapes, Vector2f gravity, float damping, bool friction, FloatRect windowSize) {
+        public Physic(List<Body> shapes, Vector2f gravity, float damping, FloatRect windowSize) {
             this.gravity = gravity;
             this.damping = damping;
-            this.friction = friction;
             this.objects = shapes;
         //    this.quadtree = new Quadtree(0, windowSize);
         //    this.possibleCollisionTargets = new List<IRigidBody>();
@@ -111,6 +109,7 @@ namespace Physics {
             float iM2 = obj2.InverseMass;
             float iI1 = obj1.InverseInertia;
             float iI2 = obj2.InverseInertia;
+
             Vector2f rv = v1 + w1.CrossProduct(r1) - v2 - w2.CrossProduct(r2);
             float r1CrossN = r1.CrossProduct(n);
             float r2CrossN = r2.CrossProduct(n);

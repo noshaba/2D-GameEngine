@@ -21,8 +21,6 @@ namespace Platformer
         [DataMember]
         public float[] Gravity { get; set; }
         [DataMember]
-        public bool Friction { get; set; }
-        [DataMember]
         public float Damping { get; set; }
         [DataMember]
         public int Length { get; set; }

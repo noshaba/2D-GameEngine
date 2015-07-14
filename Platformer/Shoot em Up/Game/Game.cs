@@ -141,7 +141,7 @@ namespace Platformer
                 }
             }
             physics = new Physic(rigidBodies, new Vector2f(planet.Gravity[0], planet.Gravity[1]), planet.Damping, 
-                planet.Friction, (FloatRect) planet.backgroundSprite.TextureRect);
+                (FloatRect) planet.backgroundSprite.TextureRect);
             planet.AddGround();
             using (StreamReader sr = new StreamReader("../Content/" + level + "/Factions.json"))
             {
