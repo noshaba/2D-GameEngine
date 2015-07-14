@@ -35,9 +35,9 @@ namespace Physics
             foreach (IRigidBody body in bodies)
                 inertiaTensor += body.Inertia;
             current = new State(position, rotation, mass, inertiaTensor);
+            previous = current;
             moveable = InverseMass > 0 ? true : false;
             rotateable = moveable;
-            previous = current;
             Restitution = (float)EMath.random.NextDouble();
             StaticFriction = (float)EMath.random.NextDouble();
             KineticFriction = EMath.Random(0, staticFriction);
@@ -63,6 +63,8 @@ namespace Physics
                 inertiaTensor += body.Inertia;
             current = new State(position, rotation, mass, inertiaTensor);
             previous = current;
+            moveable = InverseMass > 0 ? true : false;
+            rotateable = moveable;
             Restitution = (float)EMath.random.NextDouble();
             StaticFriction = (float)EMath.random.NextDouble();
             KineticFriction = EMath.Random(0, staticFriction);

@@ -21,25 +21,6 @@ namespace Physics {
         protected State previous;
 
         private Object parent;
-
-        public Circle(Vector2f position, float rotation, float radius) : base(radius) {
-            FillColor = Color.Transparent;
-            OutlineThickness = 2;
-            OutlineColor = Color.White;
-            Origin = new Vector2f(radius, radius);
-            current = new State(position, rotation);
-            previous = current;
-            kineticFriction = EMath.Random(0, staticFriction);
-            collision = new Collision();
-            collision.collision = false;
-            this.BoundingCircle = new CircleShape(radius);
-            this.BoundingCircle.Origin = new Vector2f(radius, radius);
-            this.BoundingCircle.FillColor = Color.Transparent;
-            this.BoundingCircle.OutlineThickness = 1;
-            this.BoundingCircle.OutlineColor = Color.White;
-            InitCOMDrawable();
-            this.center = new Vector2f(radius, radius);
-        }
         
         public Circle(Vector2f position, float rotation, float radius, float density) : base(radius) {
             FillColor = Color.Transparent;

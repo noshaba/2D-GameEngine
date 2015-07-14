@@ -27,7 +27,7 @@ namespace Physics
             float rv = (body2.Velocity - body1.Velocity).Dot(n);
             float rd = currentDistance - distance;
 
-            float remove = rv + rd * dt;
+            float remove = rv + rd;
             float j = remove / (body1.InverseMass + body2.InverseMass);
 
             Vector2f J = j * n;

@@ -17,6 +17,26 @@ namespace Platformer
         public Body rigidBody;
         public Shape[] drawable;
 
+        public bool Moveable
+        {
+            get { return rigidBody.moveable; }
+            set
+            {
+                foreach (Body body in rigidBodies)
+                    body.moveable = value;
+            }
+        }
+
+        public bool Rotateable
+        {
+            get { return rigidBody.rotateable; }
+            set
+            {
+                foreach (Body body in rigidBodies)
+                    body.rotateable = value;
+            }
+        }
+
         /*
         public GameObject(Body rigidBody)
         {

@@ -10,16 +10,18 @@ using Maths;
 namespace Physics {
     class Physic {
         public List<Body> objects;
+        public List<Constraint> constraints;
         private Vector2f gravity;
         private float damping;
         public bool frozen = false;
         private Quadtree quadtree;
         private List<IRigidBody> possibleCollisionTargets;
 
-        public Physic(List<Body> shapes, Vector2f gravity, float damping, FloatRect windowSize) {
+        public Physic(List<Body> shapes, List<Constraint> constraints, Vector2f gravity, float damping, FloatRect windowSize) {
             this.gravity = gravity;
             this.damping = damping;
             this.objects = shapes;
+            this.constraints = constraints;
         //    this.quadtree = new Quadtree(0, windowSize);
         //    this.possibleCollisionTargets = new List<IRigidBody>();
         }
@@ -44,6 +46,8 @@ namespace Physics {
                     objects[i].Update(dt);
                     ApplyForces(dt, i);
                 }
+                foreach (Constraint constraint in constraints)
+                    constraint.Solve(dt);
         }
 
         #region Physical Methods
