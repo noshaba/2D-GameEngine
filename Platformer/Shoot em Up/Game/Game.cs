@@ -22,6 +22,7 @@ namespace Platformer
         private static List<GameObject> objects = new List<GameObject>();
         private static List<Body> rigidBodies = new List<Body>();
         private static List<Constraint> constraints = new List<Constraint>();
+        public static List<Spawner> spawners = new List<Spawner>();
         public static int WIDTH;
         public static int HEIGHT;
         public static Faction[] factions;
@@ -213,6 +214,14 @@ namespace Platformer
                         }
                         objects.RemoveAt(i);
                         rigidBodies.RemoveAt(i);
+                    }
+                }
+                for (int i = 0; i < spawners.Count; i++)
+                {
+                    if (spawners[i].NearPlayer(player.rigidBody.COM.X, WIDTH / 2))
+                    {
+                        spawners[i].Spawn();
+                        spawners.RemoveAt(i);
                     }
                 }
                 if (this.player.hp <= 0)
