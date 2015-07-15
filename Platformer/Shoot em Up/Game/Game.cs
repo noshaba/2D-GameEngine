@@ -161,7 +161,7 @@ namespace Platformer
                 {
                     platforms[i].Init();
                 }
-                breakable = objects.Last() as Platform;
+                //breakable = objects.Last() as Platform;
             }
             physics = new Physic(rigidBodies, joints, new Vector2f(planet.Gravity[0], planet.Gravity[1]), planet.Damping, 
                 (FloatRect) planet.backgroundSprite.TextureRect);

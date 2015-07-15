@@ -190,6 +190,7 @@ namespace Platformer
                     break;
                 case Keyboard.Key.S:
                     //sEmUp.player.ToggleShield();
+                    Console.WriteLine("s");
                     if (Game.breakable != null) Game.breakable.Shatter();
                     break;
                 default:

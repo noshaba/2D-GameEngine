@@ -99,7 +99,8 @@ namespace Platformer
             {
                 x = SpawnStartPosition[0] + i * SpriteTileSize[0];
                 y = SpawnStartPosition[1];
-                //s.Add(new Enemy(CollisionType, SpriteTileSize, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
+                //Collision.Type type, int[] tileSize, int[] tileIndices,float density, int animationIndex, float restitution, float staticFriction, float kineticFriction, String texturePath, int[]spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction, int pattern, WeaponContract w
+                //s.Add(new Enemy(CollisionType, SpriteTileSize, Density, 0, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), 0, Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
             }
            // Game.spawners.Add(s);
         }
