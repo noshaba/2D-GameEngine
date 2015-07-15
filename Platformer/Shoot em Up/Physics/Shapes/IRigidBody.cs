@@ -19,6 +19,7 @@ namespace Physics {
         Vector2f Centroid { get; set; }
         Vector2f Center { get; }
         float Orientation { get; set; }
+        float DegOrientation { get; set; }
         Mat22f WorldTransform { get; }
         Mat22f LocalTransform { get; }
         State Current { get; set; }

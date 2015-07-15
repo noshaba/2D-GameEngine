@@ -21,7 +21,7 @@ namespace Platformer
         public Planet planet;
         private static List<GameObject> objects = new List<GameObject>();
         private static List<Body> rigidBodies = new List<Body>();
-        private static List<Constraint> constraints = new List<Constraint>();
+        private static List<Constraint> joints = new List<Constraint>();
         public static int WIDTH;
         public static int HEIGHT;
         public static Faction[] factions;
@@ -41,6 +41,8 @@ namespace Platformer
         Sprite sprite2 = new Sprite(new Texture("../Content/textures/car_colour.png"));
         RenderTexture sceneBuffer;
         Sprite scene = new Sprite();
+
+        public static Platform breakable;
 
         public enum GameStatus
         {
@@ -86,14 +88,13 @@ namespace Platformer
             GameObject cir2 = new GameObject(new IRigidBody[] { new Circle(new Vector2f(), 0, 25, 0.01f) }, new Vector2f(1000, HEIGHT * .5f - 200), 0);
             GameObject cir3 = new GameObject(new IRigidBody[] { new Circle(new Vector2f(), 0, 25, 0.01f) }, new Vector2f(1000, HEIGHT * .5f - 100), 0);
             cir1.Moveable = false;
-            cir1.Rotateable = false;
             Add(cir1);
             Add(cir2);
             Add(cir3);
-            DistanceConstraint cirCons1 = new DistanceConstraint(cir1.rigidBody, cir2.rigidBody, 100);
-            DistanceConstraint cirCons2 = new DistanceConstraint(cir2.rigidBody, cir3.rigidBody, 100);
-            constraints.Add(cirCons1);
-            constraints.Add(cirCons2);
+            DistanceConstraint joint1 = new DistanceConstraint(cir1.rigidBody, cir2.rigidBody, 100);
+            DistanceConstraint joint2 = new DistanceConstraint(cir2.rigidBody, cir3.rigidBody, 100);
+            joints.Add(joint1);
+            joints.Add(joint2);
 
             //Platform test
            /* Texture tile = new Texture("../Content/platform.png", new IntRect(0, 0, 100, 100));
@@ -118,6 +119,12 @@ namespace Platformer
         {
             objects.Add(obj);
             rigidBodies.Add(obj.rigidBody);
+        }
+
+        public static void Remove(GameObject obj)
+        {
+            objects.Remove(obj);
+            rigidBodies.Remove(obj.rigidBody);
         }
 
         public int Level
@@ -153,8 +160,9 @@ namespace Platformer
                 {
                     platforms[i].Init();
                 }
+                breakable = objects.Last() as Platform;
             }
-            physics = new Physic(rigidBodies, constraints, new Vector2f(planet.Gravity[0], planet.Gravity[1]), planet.Damping, 
+            physics = new Physic(rigidBodies, joints, new Vector2f(planet.Gravity[0], planet.Gravity[1]), planet.Damping, 
                 (FloatRect) planet.backgroundSprite.TextureRect);
             planet.AddGround();
             using (StreamReader sr = new StreamReader("../Content/" + level + "/Factions.json"))

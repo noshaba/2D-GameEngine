@@ -324,6 +324,18 @@ namespace Physics {
             }
         }
 
+        public float DegOrientation
+        {
+            get
+            {
+                return (float)(Orientation * 180.0 / Math.PI);
+            }
+            set
+            {
+                Orientation = (float)(value * Math.PI / 180.0);
+            }
+        }
+
         public Mat22f WorldTransform {
             get { return current.worldTransform; }
         }

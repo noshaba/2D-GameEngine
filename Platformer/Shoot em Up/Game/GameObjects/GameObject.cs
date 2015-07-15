@@ -211,6 +211,14 @@ namespace Platformer
             this.drawable = this.drawables[0];
         }
 
+        public GameObject(IRigidBody[] bodies, Shape[] shapes, Vector2f position, float rotation)
+        {
+            this.rigidBodies = new Body[] { new Body(this, bodies, position, rotation) };
+            this.drawables = new Shape[][] { shapes };
+            this.rigidBody = rigidBodies[0];
+            this.drawable = this.drawables[0];
+        }
+
         public GameObject(string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density)
         {
             int cols = tileIndices.Length;

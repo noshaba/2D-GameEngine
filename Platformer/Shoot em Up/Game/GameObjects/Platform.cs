@@ -33,5 +33,17 @@ namespace Platformer
                 body.UpdateBoundingCircle();
             }
         }
+
+       public void Shatter()
+       {
+           Game.Remove(this);
+           Vector2f pos;
+            for (int i = 0; i < rigidBody.bodies.Length; ++i)
+            {
+                pos = rigidBody.bodies[i].Center;
+                rigidBody.bodies[i].Centroid = -rigidBody.bodies[i].Centroid;
+                Game.Add(new GameObject(new[] { rigidBody.bodies[i] }, new[] { drawables[0][i] }, pos, 0));
+            }
+       }
     }
 }

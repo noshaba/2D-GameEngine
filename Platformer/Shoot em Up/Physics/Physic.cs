@@ -10,7 +10,7 @@ using Maths;
 namespace Physics {
     class Physic {
         public List<Body> objects;
-        public List<Constraint> constraints;
+        public List<Constraint> joints;
         private Vector2f gravity;
         private float damping;
         public bool frozen = false;
@@ -21,7 +21,7 @@ namespace Physics {
             this.gravity = gravity;
             this.damping = damping;
             this.objects = shapes;
-            this.constraints = constraints;
+            this.joints = constraints;
         //    this.quadtree = new Quadtree(0, windowSize);
         //    this.possibleCollisionTargets = new List<IRigidBody>();
         }
@@ -46,7 +46,7 @@ namespace Physics {
                     objects[i].Update(dt);
                     ApplyForces(dt, i);
                 }
-                foreach (Constraint constraint in constraints)
+                foreach (Constraint constraint in joints)
                     constraint.Solve(dt);
         }
 
