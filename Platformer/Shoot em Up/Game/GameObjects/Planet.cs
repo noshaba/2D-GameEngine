@@ -49,7 +49,9 @@ namespace Platformer
         {
            for (int i = 0; i < Ground.Length; ++i)
             {
-                Game.Add(GroundTypes[Ground[i]].GetTile(i, GroundTiles[i], GroundTileHeight[i]));
+               Game.Add(GroundTypes[Ground[i]].GetTile(i, GroundTiles[i], GroundTileHeight[i]));
+               for (int j = 0; j < GroundTileHeight[i] - 1; ++j)
+                   Game.Add(GroundTypes[Ground[i]].GetTile(i, 0, j+1));
             }
         }
     }
