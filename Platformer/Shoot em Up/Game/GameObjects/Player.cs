@@ -47,7 +47,7 @@ namespace Platformer
             this.shieldStatus = "sR";
             this.texturePath = texture;
             this.status = state.idle;
-            this.states = new AnimState[] { new AnimState(new int[] { 8, 9, 10, 9, 8 }), new AnimState(new int[] { 5, 6, 7, 6 }), new AnimState(new int[] { 4 }), new AnimState(new int[] { 10 }), new AnimState(new int[] { 7 }), new AnimState(new int[] { 0, 1, 2, 3, 4, 3, 2, 1 }), new AnimState(new int[] { 4 }) };
+            this.states = new AnimState[] { new AnimState(new int[] { 8, 9, 10, 9, 8 }), new AnimState(new int[] { 5, 6, 7, 6 }), new AnimState(new int[] { 4 }), new AnimState(new int[] { 10 }), new AnimState(new int[] { 7 }), new AnimState(new int[] { 0, 1, 2, 3, 4, 3, 2, 1 }), new AnimState(new int[] { 11 }) };
             //this.bodies = new [] { this.rigidBody, new Circle(this.rigidBody.COM, this.drawable.Texture.Size.Y/2) };
             //checkShield();
             this.animated = true;
@@ -157,9 +157,12 @@ namespace Platformer
                     }
             }
             if(status == state.shatter ) {
+                Console.WriteLine("shatter");
                 if (rigidBody.Collision.obj is Platform)
+                {
                     (rigidBody.Collision.obj as Platform).Shatter();
-                status = state.idle;
+                    status = state.idle;
+                }
             }
             this.rigidBody = this.rigidBodies[this.animationFrame];
             this.drawable = this.drawables[this.animationFrame];
