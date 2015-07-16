@@ -47,7 +47,7 @@ namespace Platformer
             this.shieldStatus = "sR";
             this.texturePath = texture;
             this.status = state.idle;
-            this.states = new AnimState[]{new AnimState(0,7), new AnimState(0,7), new AnimState(0,7), new AnimState(0,7), new AnimState(0,7)};
+            this.states = new AnimState[] { new AnimState(new int[] { 1, 1, 1, 1, 1, 1, 1, 1 }), new AnimState(new int[] { 0, 1, 2, 3, 4, 5, 6, 7 }), new AnimState(new int[] { 0, 1, 2, 3, 4, 5, 6, 7 }), new AnimState(new int[] { 0, 1, 2, 3, 4, 5, 6, 7 }), new AnimState(new int[] { 0, 1, 2, 3, 4, 5, 6, 7 }) };
             //this.bodies = new [] { this.rigidBody, new Circle(this.rigidBody.COM, this.drawable.Texture.Size.Y/2) };
             //checkShield();
         }
@@ -144,11 +144,11 @@ namespace Platformer
                         status = state.idle;
                         break;
                     }
-                    this.animationIndex = 2; 
+                    this.animationFrame = 2; 
                     break;
             }
-            this.rigidBody = this.rigidBodies[this.animationIndex];
-            this.drawable = this.drawables[this.animationIndex];
+            this.rigidBody = this.rigidBodies[this.animationFrame];
+            this.drawable = this.drawables[this.animationFrame];
         }
     }
 }

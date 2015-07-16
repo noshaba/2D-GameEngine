@@ -16,7 +16,7 @@ namespace Platformer
         public Shape[][] drawables;
         public Body rigidBody;
         public Shape[] drawable;
-        protected int animationIndex;
+        protected int animationFrame;
         protected AnimState[] states;
 
         public bool Moveable
@@ -157,20 +157,15 @@ namespace Platformer
         }
         public void AdvanceAnim(int status)
         {
-            if (this.animationIndex <= this.states[status].max && this.animationIndex >= this.states[status].min)
+            this.animationFrame = this.states[status].sequence[this.states[status].index];
+
+            if (this.states[status].index < this.states[status].sequence.Length - 1)
             {
-                if (this.animationIndex < this.states[status].max)
-                {
-                    this.animationIndex++;
-                }
-                else
-                {
-                    this.animationIndex = this.states[status].min;
-                }
+                this.states[status].index++;
             }
             else
             {
-                this.animationIndex = this.states[status].min;
+                this.states[status].index = 0;
             }
         }
     }
