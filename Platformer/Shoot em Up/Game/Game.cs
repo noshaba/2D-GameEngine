@@ -104,6 +104,9 @@ namespace Platformer
             });
 
             this.status = GameStatus.Active;
+            //Collision.Type type, int[] tileSize, int[] tileIndices,float density, int animationIndex, float restitution, float staticFriction, float kineticFriction, String texturePath, int[]spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction
+            Add(new Enemy(Collision.Type.Polygon, new int[] {70,70},  new int[] { 0 }, 1, 0, 0, 0.1f, 0.1f, "../Content/blobSprite.png", new int[]{70,210}, new Vector2f(450, 250),
+                    0, 100,10,0, factions[2]));
 
             //Platform test
            /* Texture tile = new Texture("../Content/platform.png", new IntRect(0, 0, 100, 100));
@@ -173,8 +176,8 @@ namespace Platformer
                 String json = sr.ReadToEnd();
                 planet = JSONManager.deserializeJson<Planet>(json);
                 planet.Init();
-                player = new Player(factions[1], new Vector2f(250, 250), "../Content/catNew",
-                    new int[] { 130, 80 }, new int[] { 130, 960 }, new int[] { 0 });
+                player = new Player(factions[1], new Vector2f(250, 250), "../Content/ghostSprite",
+                    new int[] { 100, 100 }, new int[] { 100, 800 }, new int[] { 0 });
 
                 sceneBuffer = new RenderTexture((uint)planet.Length, (uint)HEIGHT, true);
                 scene.Texture = sceneBuffer.Texture;
