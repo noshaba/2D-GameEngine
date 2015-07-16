@@ -8,13 +8,13 @@ namespace Platformer
 {
     class AnimState
     {
-        public int min;
-        public int max;
+        public int[] sequence;
+        public int index;
 
-        public AnimState(int min, int max)
+        public AnimState(int[] sequence)
         {
-            this.min = min;
-            this.max = max;
+            this.sequence = sequence;
+            this.index = 0;
         }
     }
 }

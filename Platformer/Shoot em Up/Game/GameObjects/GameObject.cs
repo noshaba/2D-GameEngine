@@ -16,7 +16,7 @@ namespace Platformer
         public Shape[][] drawables;
         public Body rigidBody;
         public Shape[] drawable;
-        protected int animationIndex;
+        protected int animationFrame;
         protected AnimState[] states;
 
         public bool Moveable
@@ -91,9 +91,9 @@ namespace Platformer
                 {
                     tileIndex = tileIndices[j];
                     tile = new Texture(texturePath,
-                        new IntRect(tileIndex * spriteTileSize[0], i * spriteTileSize[1], 
+                        new IntRect(tileIndex * spriteTileSize[0], i * spriteTileSize[1],
                             spriteTileSize[0], spriteTileSize[1]));
-                    bodies[j] = new Polygon(CV.AlphaEdgeDetection(tile.CopyToImage().Pixels, tile.Size.X, tile.Size.Y, 254), 
+                    bodies[j] = new Polygon(CV.AlphaEdgeDetection(tile.CopyToImage().Pixels, tile.Size.X, tile.Size.Y, 254),
                         origin, new Vector2f(), 0, density);
                     drawables[i][j] = new RectangleShape(new Vector2f(spriteTileSize[0], spriteTileSize[1]));
                     drawables[i][j].Origin = origin;
@@ -157,20 +157,15 @@ namespace Platformer
         }
         public void AdvanceAnim(int status)
         {
-            if (this.animationIndex <= this.states[status].max && this.animationIndex >= this.states[status].min)
+            this.animationFrame = this.states[status].sequence[this.states[status].index];
+
+            if (this.states[status].index < this.states[status].sequence.Length - 1)
             {
-                if (this.animationIndex < this.states[status].max)
-                {
-                    this.animationIndex++;
-                }
-                else
-                {
-                    this.animationIndex = this.states[status].min;
-                }
+                this.states[status].index++;
             }
             else
             {
-                this.animationIndex = this.states[status].min;
+                this.states[status].index = 0;
             }
         }
     }
