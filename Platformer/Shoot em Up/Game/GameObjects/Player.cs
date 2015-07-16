@@ -47,7 +47,7 @@ namespace Platformer
             this.shieldStatus = "sR";
             this.texturePath = texture;
             this.status = state.idle;
-            this.states = new AnimState[] { new AnimState(new int[] { 8, 9, 10, 9, 8 }), new AnimState(new int[] { 5, 6, 7, 6 }), new AnimState(new int[] { 0 }), new AnimState(new int[] { 0 }), new AnimState(new int[] { 0, 1, 2, 3, 4, 3, 2, 1 }) };
+            this.states = new AnimState[] { new AnimState(new int[] { 8, 9, 10, 9, 8 }), new AnimState(new int[] { 5, 6, 7, 6 }), new AnimState(new int[] { 4 }), new AnimState(new int[] { 10 }), new AnimState(new int[] { 7 }), new AnimState(new int[] { 0, 1, 2, 3, 4, 3, 2, 1 }) };
             //this.bodies = new [] { this.rigidBody, new Circle(this.rigidBody.COM, this.drawable.Texture.Size.Y/2) };
             //checkShield();
             this.animated = true;
@@ -55,7 +55,7 @@ namespace Platformer
 
         public enum state
         {
-            runLeft, runRight, jump, jumpStart, idle
+            runLeft, runRight, jump, jumpLeft, jumpRight, idle
         }
 
         public void Move(Keyboard.Key k)
@@ -67,7 +67,7 @@ namespace Platformer
                         break;
                     case Keyboard.Key.Right: status = state.runRight;
                         break;
-                    case Keyboard.Key.Up: status = state.jumpStart;
+                    case Keyboard.Key.Up: this.rigidBody.Velocity = new Vector2f(this.rigidBody.Velocity.X, -this.speed); status = state.jump;
                         break;
                 }
             } else if(this.status == state.runLeft) {
@@ -75,7 +75,7 @@ namespace Platformer
                 {
                     case Keyboard.Key.Right: status = state.runRight;
                         break;
-                    case Keyboard.Key.Up: status = state.jumpStart;
+                    case Keyboard.Key.Up: this.rigidBody.Velocity = new Vector2f(this.rigidBody.Velocity.X, -this.speed); status = state.jumpLeft;
                         break;
                 }
             } else if(this.status == state.runRight) {
@@ -83,21 +83,25 @@ namespace Platformer
                 {
                     case Keyboard.Key.Left: status = state.runLeft;
                         break;
-                    case Keyboard.Key.Up: status = state.jumpStart;
+                    case Keyboard.Key.Up: this.rigidBody.Velocity = new Vector2f(this.rigidBody.Velocity.X, -this.speed); status = state.jumpRight;
                         break;
                 }
             }
             if (k == Keyboard.Key.Left)
             {
+                if (this.status == state.jump || this.status == state.jumpLeft || this.status == state.jumpRight)
+                    status = state.jumpLeft;
                 this.rigidBody.Velocity = new Vector2f(-this.speed, this.rigidBody.Velocity.Y);
             } else if(k == Keyboard.Key.Right) {
+                if (this.status == state.jump || this.status == state.jumpLeft || this.status == state.jumpRight)
+                    status = state.jumpRight;
                 this.rigidBody.Velocity = new Vector2f(this.speed,this.rigidBody.Velocity.Y);
             }
         }
 
         public void Release(Keyboard.Key k)
         {
-            if (status != state.jump && status != state.jumpStart)
+            if (status != state.jump && status != state.jumpLeft && status != state.jumpRight)
             {
                 switch (k)
                 {
@@ -137,16 +141,12 @@ namespace Platformer
                     break;
                 case state.runLeft: this.rigidBody.Velocity = new Vector2f(-this.speed,this.rigidBody.Velocity.Y);
                     break;
-                case state.jumpStart: this.rigidBody.Velocity = new Vector2f(this.rigidBody.Velocity.X, -this.speed ); status = state.jump;
-                    break;
-                case state.jump:
-                    if (rigidBody.Collision.collision)
+            }
+            if(status == state.jump || status == state.jumpLeft || status == state.jumpRight) {
+                if (rigidBody.Collision.collision)
                     {
                         status = state.idle;
-                        break;
                     }
-                    this.animationFrame = 2; 
-                    break;
             }
             this.rigidBody = this.rigidBodies[this.animationFrame];
             this.drawable = this.drawables[this.animationFrame];
