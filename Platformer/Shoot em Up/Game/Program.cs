@@ -191,8 +191,6 @@ namespace Platformer
                     if (sEmUp.status == Game.GameStatus.Active) sEmUp.Pause();
                     break;
                 case Keyboard.Key.S:
-                    //sEmUp.player.ToggleShield();
-                    Console.WriteLine("s");
                     if (Game.breakable != null) Game.breakable.Shatter();
                     break;
                 default:
