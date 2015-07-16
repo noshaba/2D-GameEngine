@@ -42,6 +42,25 @@ namespace Platformer
              this.fire = true;
          }
 
+
+         public Enemy(Collision.Type type, int[] tileSize, int[] tileIndices, float density, int animationIndex, float restitution, float staticFriction, float kineticFriction, String texturePath, int[] spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction)
+             : base(faction, texturePath, tileSize, spriteSize, tileIndices, animationIndex, position, rotation, density)
+         {
+             RigidBodyParent = this;
+             this.initPos = position;
+             this.rigidBody.DragCoefficient = 1;
+             this.rigidBody.Restitution = restitution;
+             this.rigidBody.StaticFriction = staticFriction;
+             this.rigidBody.KineticFriction = kineticFriction;
+             this.hp = health;
+             this.damage = dmg;
+             this.points = points;
+             this.type = type;
+             this.speed = -20;
+             this.rigidBody.Velocity = new Vector2f(0, this.speed);
+             this.drop = this.DetermineDrop();
+             this.fire = false;
+         }
          private Game.GameItem DetermineDrop()
          {
              Game.GameItem i;
