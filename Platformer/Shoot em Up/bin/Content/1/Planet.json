@@ -1,6 +1,6 @@
 {
   "Name": "some name",
-  "BackgroundImagePath": "../Content/1/images/space.png",
+  "BackgroundImagePath": "../Content/1/images/BG.png",
   "BackgroundMusicPath": "audio_path",
   "Gravity": [0, 9.81],
   "Damping": 1,

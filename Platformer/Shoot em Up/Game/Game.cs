@@ -314,9 +314,6 @@ namespace Platformer
                 sceneBuffer.Display();
                 window.Draw(scene);
             }
-
-            //window.Draw(sprite1,s);
-            //window.Draw(sprite2,s);
         }
 
         public void MovePlayer(Keyboard.Key k)
