@@ -22,6 +22,7 @@ namespace Platformer
         private static List<GameObject> objects = new List<GameObject>();
         private static List<Body> rigidBodies = new List<Body>();
         private static List<Constraint> joints = new List<Constraint>();
+        public static List<Spawner> spawners = new List<Spawner>();
         public static int WIDTH;
         public static int HEIGHT;
         public static Faction[] factions;
@@ -32,6 +33,7 @@ namespace Platformer
         public bool levelEnded;
         public GameStatus status;
         public Stopwatch clock;
+        public static Vector2f playerPos;
 
         Shader light = new Shader(null, "../Content/shaders/light.frag");
         Shader sceneBufferShader = new Shader(null, "../Content/shaders/scene_buffer.frag");
@@ -43,8 +45,6 @@ namespace Platformer
         Sprite scene = new Sprite();
         Vector2f windowHalfSize;
         Vector3f lightPosition;
-
-        public Enemy enemy;
 
         public static Platform breakable;
 
@@ -103,10 +103,10 @@ namespace Platformer
             });
 
             this.status = GameStatus.Active;
-            this.enemy = new Enemy(Collision.Type.Polygon, new int[] { 70, 70 }, new int[] { 0 }, 1, 0, 0, 0.1f, 0.1f, "../Content/blobSprite.png", new int[] { 70, 210 }, new Vector2f(750, 450),
-                    0, 100, 10, 0, factions[2]);
+            //this.enemy = new Enemy(Collision.Type.Polygon, new int[] { 70, 70 }, new int[] { 0 }, 1, 0, 0, 0.1f, 0.1f, "../Content/blobSprite.png", new int[] { 70, 490 }, new Vector2f(750, 450),
+              //      0, 100, 10, 10, factions[0]);
             //Collision.Type type, int[] tileSize, int[] tileIndices,float density, int animationIndex, float restitution, float staticFriction, float kineticFriction, String texturePath, int[]spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction
-            Add(enemy);
+            //Add(enemy);
 
             //Platform test
            /* Texture tile = new Texture("../Content/platform.png", new IntRect(0, 0, 100, 100));
@@ -193,6 +193,7 @@ namespace Platformer
             physics = new Physic(rigidBodies, joints, new Vector2f(planet.Gravity[0], planet.Gravity[1]), planet.Damping,
                 new Vector2f(WIDTH, HEIGHT));
             Add(player);
+            playerPos = player.rigidBody.COM;
 
             Add(new Wall(new Vector2f(1, 0), new Vector2f(0, HEIGHT * .5f), new Vector2f(.1f, HEIGHT), Color.Transparent));
             using (StreamReader sr = new StreamReader("../Content/" + level + "/Platforms.json"))
@@ -234,15 +235,33 @@ namespace Platformer
             for (int i = 0; i < objects.Count; ++i)
                 if(objects[i].InsideWindow(viewCenter, windowHalfSize))
                     objects[i].EarlyUpdate();
+            for (int i = 0; i < spawners.Count; i++)
+            {
+                if (spawners[i].NearPlayer(player.rigidBody.COM.X, WIDTH / 2))
+                {
+                    spawners[i].Spawn();
+                    spawners.RemoveAt(i);
+                }
+            }
         }
 
         public void LateUpdate(Vector2f viewCenter) 
         {
+            playerPos = player.rigidBody.COM;
             if (this.clock.ElapsedMilliseconds > 100 && !this.physics.frozen)
             {
                 //this.player.animationIndex = (this.player.animationIndex + 1) % this.player.rigidBodies.Length;
-                player.AdvanceAnim((int)player.status);
-                enemy.AdvanceAnim((int)enemy.status);
+                foreach (GameObject obj in objects) {
+                    if (obj.animated && obj is Player)
+                    {
+                        obj.AdvanceAnim((int)(obj as Player).status);
+                    }
+                    else if (obj.animated && obj is Enemy)
+                    {
+                        Console.WriteLine("here");
+                        obj.AdvanceAnim((int)(obj as Enemy).status);
+                    }
+                }
                 this.clock.Restart();
             }
             //physics.frozen = true;

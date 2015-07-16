@@ -1,3 +1,27 @@
 
    [
+     {
+         "Density": 0.1,
+         "Restitution": 0.5,
+         "StaticFriction": 0.5,
+         "KineticFriction": 0.1,
+         "CollisionType": 1,
+         "Faction": 2,
+         "Health": 10,
+         "Points": 10,
+         "Damage": 1,
+         "SpawnPatternID": 3,
+         "NumberOfObjects": 1,
+         "SpawnStartPosition": [650, 600],
+         "SpritePath": "../Content/BlobSprite.png",
+         "SpriteSize": [70, 490],
+         "SpriteTileSize": [70, 70],
+         "MovementPattern": 0,
+         "Weapon": {
+            "BulletPattern": 1,
+            "BulletImage": "../Content/b.png",
+            "FireRate": 10,
+            "BulletCollisionType": 0
+         }
+      }
    ]

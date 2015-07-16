@@ -18,6 +18,7 @@ namespace Platformer
         public Shape[] drawable;
         protected int animationFrame;
         protected AnimState[] states;
+        public bool animated = false;
 
         public bool Moveable
         {
