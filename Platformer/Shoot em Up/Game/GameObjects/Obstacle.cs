@@ -30,9 +30,9 @@ namespace Platformer
              this.type = type;
         }
 
-         public override void Update()
+         public override void EarlyUpdate()
          {
-             base.Update();
+             base.EarlyUpdate();
              if (this.hover)
              {
                  this.rigidBody.COM = new Vector2f(this.rigidBody.COM.X, this.initPos.Y);

@@ -91,11 +91,11 @@ namespace Platformer
          }
 
 
-         public override void Update()
+         public override void EarlyUpdate()
          {
              this.Move();
              this.shoot();
-             base.Update();
+             base.EarlyUpdate();
          }
     }
 }

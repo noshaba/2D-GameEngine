@@ -162,7 +162,7 @@ namespace Platformer
         }
 
 
-        public override void Update()
+        public override void EarlyUpdate()
         {
             /*if (this.animationIndex < 5)
             {
@@ -174,7 +174,7 @@ namespace Platformer
                 this.animationIndex = 0;
             }*/
             
-            base.Update();
+            base.EarlyUpdate();
             this.UpdateBodies();
             switch (this.status)
             {

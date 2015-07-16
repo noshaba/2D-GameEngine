@@ -252,7 +252,7 @@ namespace Platformer
             this.drawable = this.drawables[animationIndex];
         }
 
-        public virtual void Update()
+        public virtual void EarlyUpdate()
         {
         }
 

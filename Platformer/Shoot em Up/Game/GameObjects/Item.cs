@@ -21,9 +21,9 @@ namespace Platformer
             this.rigidBody.DragCoefficient = 2;
         }
 
-        public override void Update()
+        public override void EarlyUpdate()
         {
-            base.Update();
+            base.EarlyUpdate();
             //this.rigidBody.COM = this.initPos;
             if (rigidBody.Collision.collision && rigidBody.Collision.obj is Player)
             {

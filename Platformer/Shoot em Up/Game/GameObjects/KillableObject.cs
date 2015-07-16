@@ -62,7 +62,7 @@ namespace Platformer
         }
        */
 
-        public override void Update()
+        public override void EarlyUpdate()
         {
             if (rigidBody.Collision.collision)
             {
@@ -77,7 +77,7 @@ namespace Platformer
                     this.shieldHp -= opponent.damage * (100 - opponent.faction.Reputation[(int)this.faction.ID]) / 100;
                 }
             }
-            base.Update();
+            base.EarlyUpdate();
         }
 
         public override void LateUpdate()

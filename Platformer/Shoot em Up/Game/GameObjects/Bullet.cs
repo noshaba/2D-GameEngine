@@ -36,9 +36,9 @@ namespace Platformer
 
         }
 
-        public override void Update()
+        public override void EarlyUpdate()
         {
-            base.Update();
+            base.EarlyUpdate();
             if (rigidBody.Collision.collision)
             {
                 //this.hp = 1;

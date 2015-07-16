@@ -17,7 +17,7 @@ namespace Platformer
 {
     class Game
     {
-        private Physic physics;
+        public Physic physics;
         public Planet planet;
         private static List<GameObject> objects = new List<GameObject>();
         private static List<Body> rigidBodies = new List<Body>();
@@ -206,52 +206,52 @@ namespace Platformer
             }
         }
 
-        public void Update(float dt) 
+        public void EarlyUpdate(float dt)
         {
-            //physics.Update(dt);
-            if (this.status == GameStatus.Active)
+            for (int i = 0; i < objects.Count; ++i)
+                objects[i].EarlyUpdate();
+        }
+
+        public void LateUpdate(float dt) 
+        {
+            if (this.clock.ElapsedMilliseconds > 100 && !this.physics.frozen)
             {
-                physics.Update(dt);
-                if (this.clock.ElapsedMilliseconds > 100 && !this.physics.frozen)
+                //this.player.animationIndex = (this.player.animationIndex + 1) % this.player.rigidBodies.Length;
+                player.AdvanceAnim();
+                this.clock.Restart();
+            }
+            //physics.frozen = true;
+
+            for (int i = 0; i < objects.Count; ++i)
+            {
+                //there exists a better way for this???
+                rigidBodies[i] = objects[i].rigidBody;
+
+                objects[i].LateUpdate();
+
+            /*    if(!objects[i].display) {
+                    if (objects[i] is Enemy)
+                    {
+                        AddItem((objects[i] as Enemy).drop, objects[i].rigidBody.COM);
+                    }
+                    objects.RemoveAt(i);
+                    rigidBodies.RemoveAt(i);
+                }*/
+            }
+            if (player.hp <= 0)
+            {
+                this.status = GameStatus.Credits;
+            }
+            if(this.levelEnded) {
+                if (player.rigidBody.COM.X > this.planet.Length && 
+                    this.level + 1 <= MAXLEVEL)
                 {
-                    //this.player.animationIndex = (this.player.animationIndex + 1) % this.player.rigidBodies.Length;
-                    player.AdvanceAnim();
-                    this.clock.Restart();
+                    this.status = GameStatus.Nextlevel;
                 }
-                //physics.frozen = true;
-
-                for (int i = 0; i < objects.Count; ++i)
-                {
-                    objects[i].Update();
-                    //there exists a better way for this???
-                    rigidBodies[i] = objects[i].rigidBody;
-
-                    objects[i].LateUpdate();
-
-                /*    if(!objects[i].display) {
-                        if (objects[i] is Enemy)
-                        {
-                            AddItem((objects[i] as Enemy).drop, objects[i].rigidBody.COM);
-                        }
-                        objects.RemoveAt(i);
-                        rigidBodies.RemoveAt(i);
-                    }*/
-                }
-                if (player.hp <= 0)
+                else if (player.rigidBody.COM.X > this.planet.Length && 
+                    this.level + 1 > MAXLEVEL)
                 {
                     this.status = GameStatus.Credits;
-                }
-                if(this.levelEnded) {
-                    if (player.rigidBody.COM.X > this.planet.Length && 
-                        this.level + 1 <= MAXLEVEL)
-                    {
-                        this.status = GameStatus.Nextlevel;
-                    }
-                    else if (player.rigidBody.COM.X > this.planet.Length && 
-                        this.level + 1 > MAXLEVEL)
-                    {
-                        this.status = GameStatus.Credits;
-                    }
                 }
             }
         }

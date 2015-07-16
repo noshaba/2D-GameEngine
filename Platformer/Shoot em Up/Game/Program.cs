@@ -79,27 +79,29 @@ namespace Platformer
             if (accumulator > MAX_DT) accumulator = MAX_DT;
             while (accumulator >= DT)
             {
-                //update the game as long as the "lag" is not compensated
-                if (sEmUp.status == Game.GameStatus.Active)
-                {
-                    ReadInput();
-                    /*if (sEmUp.player.rigidBody.COM.X >= view.Center.X && sEmUp.player.rigidBody.Velocity.X > 0 && sEmUp.player.rigidBody.COM.X < sEmUp.planet.backgroundSprite.TextureRect.Width-WIDTH/2)
-                    {*/
-                        view.Center = new Vector2f(sEmUp.player.rigidBody.COM.X, sEmUp.player.rigidBody.COM.Y);
-                    /*}
-                    else {
-                        view.Center = new Vector2f(view.Center.X, HEIGHT / 2);
-                        if (sEmUp.player.rigidBody.COM.X > sEmUp.planet.backgroundSprite.TextureRect.Width - WIDTH / 2)
-                        {
-                            sEmUp.player.rigidBody.Velocity = new Vector2f(100, 0);
-                            sEmUp.levelEnded = true;
-                        }
-                    }*/
-                }
                 window.SetView(view);
                // mouseSprite.Position = window.MapPixelToCoords(Mouse.GetPosition(window), GUIview);
-                sEmUp.Update(DT);
+                if (sEmUp.status == Game.GameStatus.Active)
+                    sEmUp.physics.Update(DT);
                 accumulator -= DT;
+            }
+            if (sEmUp.status == Game.GameStatus.Active)
+            {
+                ReadInput();
+                /*if (sEmUp.player.rigidBody.COM.X >= view.Center.X && sEmUp.player.rigidBody.Velocity.X > 0 && sEmUp.player.rigidBody.COM.X < sEmUp.planet.backgroundSprite.TextureRect.Width-WIDTH/2)
+                {*/
+                view.Center = new Vector2f(sEmUp.player.rigidBody.COM.X, sEmUp.player.rigidBody.COM.Y);
+                sEmUp.EarlyUpdate(DT);
+                sEmUp.LateUpdate(DT);
+                /*}
+                else {
+                    view.Center = new Vector2f(view.Center.X, HEIGHT / 2);
+                    if (sEmUp.player.rigidBody.COM.X > sEmUp.planet.backgroundSprite.TextureRect.Width - WIDTH / 2)
+                    {
+                        sEmUp.player.rigidBody.Velocity = new Vector2f(100, 0);
+                        sEmUp.levelEnded = true;
+                    }
+                }*/
             }
         }
 
