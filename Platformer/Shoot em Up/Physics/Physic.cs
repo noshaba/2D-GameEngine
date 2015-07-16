@@ -38,22 +38,32 @@ namespace Physics {
             //    quadtree.Clear();
             //    foreach (IRigidBody obj in objects)
             //       quadtree.Insert(obj);
-            /*    Parallel.For(0, objects.Count, i =>
-                {
-                    if(!frozen) objects[i].Update(dt);
-                    ApplyForces(dt, i);
-                });*/
             this.viewCenter = viewCenter;
-            for (int i = 0; i < objects.Count; ++i)
+            if (!frozen)
             {
-                if (objects[i].InsideWindow(viewCenter, windowHalfSize))
+                Parallel.For(0, objects.Count, i =>
                 {
-                    objects[i].Update(dt);
-                    ApplyForces(dt, i);
-                }
+                    if (objects[i].InsideWindow(viewCenter, windowHalfSize))
+                    {
+                        objects[i].Update(dt);
+                        ApplyForces(dt, i);
+                    }
+                });
+                Parallel.ForEach(joints, j => j.Solve());
             }
-            foreach (Constraint constraint in joints)
-                constraint.Solve();
+      /*      if (!frozen)
+            {
+                for (int i = 0; i < objects.Count; ++i)
+                {
+                    if (objects[i].InsideWindow(viewCenter, windowHalfSize))
+                    {
+                        objects[i].Update(dt);
+                        ApplyForces(dt, i);
+                    }
+                }
+                foreach (Constraint constraint in joints)
+                    constraint.Solve();
+            }*/
         }
 
         #region Physical Methods
