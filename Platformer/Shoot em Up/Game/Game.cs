@@ -176,8 +176,8 @@ namespace Platformer
                 String json = sr.ReadToEnd();
                 planet = JSONManager.deserializeJson<Planet>(json);
                 planet.Init();
-                player = new Player(factions[1], new Vector2f(250, 250), "../Content/ghostSpriteBlack",
-                    new int[] { 100, 100 }, new int[] { 100, 800 }, new int[] { 0 });
+                player = new Player(factions[1], new Vector2f(250, 250), "../Content/ghostSprite",
+                    new int[] { 100, 100 }, new int[] { 100, 1100 }, new int[] { 0 });
 
                 lightPosition = new Vector3f(planet.Length * 0.5f, HEIGHT * 0.5f, 0.04f);
                 light.SetParameter("lightPosition", 

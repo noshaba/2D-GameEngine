@@ -47,7 +47,7 @@ namespace Platformer
             this.shieldStatus = "sR";
             this.texturePath = texture;
             this.status = state.idle;
-            this.states = new AnimState[] { new AnimState(new int[] { 1, 1, 1, 1, 1, 1, 1, 1 }), new AnimState(new int[] { 0, 1, 2, 3, 4, 5, 6, 7 }), new AnimState(new int[] { 0, 1, 2, 3, 4, 5, 6, 7 }), new AnimState(new int[] { 0, 1, 2, 3, 4, 5, 6, 7 }), new AnimState(new int[] { 0, 1, 2, 3, 4, 5, 6, 7 }) };
+            this.states = new AnimState[] { new AnimState(new int[] { 8, 9, 10, 9, 8 }), new AnimState(new int[] { 5, 6, 7, 6 }), new AnimState(new int[] { 0 }), new AnimState(new int[] { 0 }), new AnimState(new int[] { 0, 1, 2, 3, 4, 3, 2, 1 }) };
             //this.bodies = new [] { this.rigidBody, new Circle(this.rigidBody.COM, this.drawable.Texture.Size.Y/2) };
             //checkShield();
             this.animated = true;
