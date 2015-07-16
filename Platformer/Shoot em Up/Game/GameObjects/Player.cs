@@ -21,9 +21,8 @@ namespace Platformer
         public String shieldStatus;
         private String texturePath;
         public Weapon weapon;
-        public int animationIndex;
-        private state status;
-        protected AnimState[] states;
+        public state status;
+
         //Faction faction, string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density
         public Player(Faction faction, Vector2f position, String texture, int[]tileSize, int[]spriteSize, int[]tileIndices)
             : base(faction, texture+".png", tileSize, spriteSize,tileIndices, 0, position, 0, 0.1f)
@@ -60,28 +59,6 @@ namespace Platformer
 
         public void Move(Keyboard.Key k)
         {
-            /*this.rigidBody.AngularVelocity = 0;
-            if (this.rigidBody.Orientation > 0)
-                this.rigidBody.Orientation -= 0.01f;
-            if (this.rigidBody.Orientation < 0)
-                this.rigidBody.Orientation += 0.01f;
-
-            if (k == Keyboard.Key.Right )
-            {
-                this.rigidBody.Velocity = new Vector2f(this.speed, this.rigidBody.Velocity.Y);
-            }
-            else if (k == Keyboard.Key.Left)
-            {
-                this.rigidBody.Velocity = new Vector2f(-this.speed, this.rigidBody.Velocity.Y);
-            }
-            if (k == Keyboard.Key.Down)
-            {
-                this.rigidBody.Velocity = new Vector2f(this.rigidBody.Velocity.X, this.speed/2);
-
-            }
-            this.rigidBody.Velocity = this.rigidBody.WorldTransform * this.rigidBody.Velocity;
-
-            */
             if(this.status == state.idle) {
                 switch (k)
                 {
@@ -143,37 +120,11 @@ namespace Platformer
 
         }
         //TO-DO move to gameObject later so enemies can use this too
-        public void AdvanceAnim()
-        {
-            if (this.animationIndex <= this.states[(int)status].max && this.animationIndex >= this.states[(int)status].min)
-            {
-                if (this.animationIndex < this.states[(int)status].max)
-                {
-                    this.animationIndex++;
-                }
-                else
-                {
-                    this.animationIndex = this.states[(int)status].min;
-                }
-            }
-            else 
-            {
-                this.animationIndex = this.states[(int)status].min; 
-            }
-        }
+
 
 
         public override void EarlyUpdate()
         {
-            /*if (this.animationIndex < 5)
-            {
-                this.animationIndex++;
-
-            }
-            else
-            {
-                this.animationIndex = 0;
-            }*/
             
             base.EarlyUpdate();
             this.UpdateBodies();

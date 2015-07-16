@@ -233,7 +233,7 @@ namespace Platformer
             if (this.clock.ElapsedMilliseconds > 100 && !this.physics.frozen)
             {
                 //this.player.animationIndex = (this.player.animationIndex + 1) % this.player.rigidBodies.Length;
-                player.AdvanceAnim();
+                player.AdvanceAnim((int)player.status);
                 this.clock.Restart();
             }
             //physics.frozen = true;

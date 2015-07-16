@@ -16,6 +16,8 @@ namespace Platformer
         public Shape[][] drawables;
         public Body rigidBody;
         public Shape[] drawable;
+        protected int animationIndex;
+        protected AnimState[] states;
 
         public bool Moveable
         {
@@ -151,6 +153,24 @@ namespace Platformer
                 t.Rotate(interpol.DegOrientation);
                 r = new RenderStates(t);
                 window.Draw(drawable[i], r);
+            }
+        }
+        public void AdvanceAnim(int status)
+        {
+            if (this.animationIndex <= this.states[status].max && this.animationIndex >= this.states[status].min)
+            {
+                if (this.animationIndex < this.states[status].max)
+                {
+                    this.animationIndex++;
+                }
+                else
+                {
+                    this.animationIndex = this.states[status].min;
+                }
+            }
+            else
+            {
+                this.animationIndex = this.states[status].min;
             }
         }
     }
