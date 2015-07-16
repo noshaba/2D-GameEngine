@@ -42,8 +42,6 @@ namespace Platformer
         RenderTexture sceneBuffer;
         Sprite scene = new Sprite();
 
-        private static Spawner[] spawners;
-
         public static Platform breakable;
 
         public enum GameStatus
@@ -116,26 +114,14 @@ namespace Platformer
 
         public static void Add(GameObject obj)
         {
-        //    objects.Add(obj);
-        //    rigidBodies.Add(obj.rigidBody);
-            Debug.Assert(spawners.Length > 0, "There must be at least one spawner.");
-            for (int i = 0; i < spawners.Length; ++i)
-            {
-                if (spawners[i].Inside(obj))
-                {
-                    spawners[i].Add(obj);
-                    break;
-                }
-            }
+            objects.Add(obj);
+            rigidBodies.Add(obj.rigidBody);
         }
 
         public static void Remove(GameObject obj)
         {
-         //   objects.Remove(obj);
-         //   rigidBodies.Remove(obj.rigidBody);
-            Debug.Assert(spawners.Length > 0, "There must be at least one spawner.");
-            for (int i = 0; i < spawners.Length; ++i)
-                spawners[i].Remove(obj);
+            objects.Remove(obj);
+            rigidBodies.Remove(obj.rigidBody);
         }
 
         public static void Clear()
@@ -177,11 +163,6 @@ namespace Platformer
                 planet.Init();
                 player = new Player(factions[1], new Vector2f(250, 250), "../Content/catNew",
                     new int[] { 130, 80 }, new int[] { 130, 960 }, new int[] { 0 });
-
-                int halfWidth = WIDTH / 2;
-                spawners = new Spawner[planet.Length % halfWidth + 1];
-                for (int i = 0; i < spawners.Length; ++i)
-                    spawners[i] = new Spawner(i * halfWidth, i * halfWidth + halfWidth, player, halfWidth);
 
                 sceneBuffer = new RenderTexture((uint)planet.Length, (uint)HEIGHT, true);
                 scene.Texture = sceneBuffer.Texture;
@@ -230,10 +211,6 @@ namespace Platformer
             //physics.Update(dt);
             if (this.status == GameStatus.Active)
             {
-                Game.Clear();
-                for (int i = 0; i < spawners.Length; ++i)
-                    spawners[i].AddToGame();
-
                 physics.Update(dt);
                 if (this.clock.ElapsedMilliseconds > 100 && !this.physics.frozen)
                 {
@@ -259,19 +236,6 @@ namespace Platformer
                         objects.RemoveAt(i);
                         rigidBodies.RemoveAt(i);
                     }*/
-
-                    if(objects[i].rigidBody.Velocity.Length2() != 0)
-                    {
-                        for (int j = 0; j < spawners.Length; ++j)
-                        {
-                            if (spawners[j].Contains(objects[i]) && !(spawners[j].Inside(objects[i])))
-                            {
-                                spawners[j].Remove(objects[i]);
-                                Game.Add(objects[i]);
-                                break;
-                            }
-                        }
-                    }
                 }
                 if (player.hp <= 0)
                 {
