@@ -44,6 +44,7 @@ namespace Platformer
         Sprite shadowScene = new Sprite();
         Sprite scene = new Sprite();
         Vector2f windowHalfSize;
+        Vector3f lightPosition;
 
         public static Platform breakable;
 
@@ -62,9 +63,9 @@ namespace Platformer
             HEIGHT = height;
             windowHalfSize = new Vector2f(WIDTH * .5f, HEIGHT * .5f);
 
-            light.SetParameter("normalMap", new Texture("../Content/textures/car_normal.tga"));
-            light.SetParameter("specularMap", new Texture("../Content/textures/car_specular.png"));
-            light.SetParameter("reflectMap", new Texture("../Content/textures/car_reflect.png"));
+            light.SetParameter("normalMap", new Texture("../Content/textures/NormalMap.png"));
+       //     light.SetParameter("specularMap", new Texture("../Content/textures/car_specular.png"));
+       //     light.SetParameter("reflectMap", new Texture("../Content/textures/car_reflect.png"));
 
             sprite1.Position = new Vector2f(400, HEIGHT * .5f);
             sprite2.Position = new Vector2f(350, HEIGHT * .5f);
@@ -181,6 +182,9 @@ namespace Platformer
                 player = new Player(factions[1], new Vector2f(250, 250), "../Content/ghostSprite",
                     new int[] { 100, 100 }, new int[] { 100, 800 }, new int[] { 0 });
 
+                lightPosition = new Vector3f(planet.Length * 0.5f, HEIGHT * 0.5f, 0.04f);
+                light.SetParameter("lightPosition", 
+                    lightPosition.X, HEIGHT - lightPosition.Y, lightPosition.Z);
                 shadowBuffer = new RenderTexture((uint)planet.Length, (uint)HEIGHT);
                 shadowScene.Texture = shadowBuffer.Texture;
 
@@ -299,11 +303,12 @@ namespace Platformer
             RenderStates s = new RenderStates(Transform.Identity);
             s.Shader = shader;
             window.Draw(sprite,s);*/
-            // shader.SetParameter("lightPosition", Mouse.GetPosition(window).X, HEIGHT - Mouse.GetPosition(window).Y, 0.04f);
             // shaderBG.SetParameter("lightPosition", Mouse.GetPosition(window).X, HEIGHT - Mouse.GetPosition(window).Y, 0.04f);
             RenderStates s = new RenderStates(Transform.Identity);
             if(status == GameStatus.Active) {
                 // s.Shader = shaderBG;
+                shadow.SetParameter("lightPosition", lightPosition.X / planet.Length, 
+                    1 - lightPosition.Y / HEIGHT);
                 shadowBuffer.Clear(Color.Transparent);
                 sceneBuffer.Clear(Color.Transparent);
                 // window.Draw(planet.backgroundSprite, s);
@@ -316,8 +321,11 @@ namespace Platformer
                         obj.rigidBody.Draw(sceneBuffer, alpha, viewCenter, windowHalfSize);
                         // obj.rigidBody.Draw(window, alpha);
                 }
-                shadowBuffer.Draw(sprite1, s);
-                shadowBuffer.Draw(sprite2, s);
+                shadowBuffer.Draw(sprite1);
+                shadowBuffer.Draw(sprite2);
+                light.SetParameter("normalMap", new Texture("../Content/textures/car_normal.png"));
+                light.SetParameter("reflectMap", new Texture("../Content/textures/car_reflect.png"));
+                s.Shader = light;
                 sceneBuffer.Draw(sprite1, s);
                 sceneBuffer.Draw(sprite2, s);
 
@@ -328,9 +336,14 @@ namespace Platformer
 
                 //godsRay.SetParameter("lightPosition", 0,0,1);
                 shadow.SetParameter("texture", shadowScene.Texture);
-                s.Shader = shadow;
 
-                window.Draw(planet.backgroundSprite);
+                light.SetParameter("resolution", 
+                    planet.Length*10, planet.backgroundSprite.Texture.Size.Y*10);
+                light.SetParameter("normalMap", new Texture("../Content/textures/NormalMap.png"));
+                light.SetParameter("normalMap", new Texture("../Content/textures/ReflectMap.png"));
+                s.Shader = light;
+                window.Draw(planet.backgroundSprite, s);
+                s.Shader = shadow;
                 window.Draw(shadowScene, s);
                 sceneBuffer.Display();
                 window.Draw(scene);

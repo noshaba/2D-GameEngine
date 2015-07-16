@@ -138,7 +138,7 @@ namespace Platformer
             }
         }
 
-        public void Draw(RenderWindow window, float alpha, Vector2f viewCenter, Vector2f windowHalfSize)
+        public void Draw(RenderTexture buffer, float alpha, Vector2f viewCenter, Vector2f windowHalfSize, Shader s)
         {
             if (!InsideWindow(viewCenter, windowHalfSize))
                 return;
@@ -152,9 +152,11 @@ namespace Platformer
                 t.Translate(rigidBody.bodies[i].Center);
                 t.Rotate(interpol.DegOrientation);
                 r = new RenderStates(t);
-                window.Draw(drawable[i], r);
+                r.Shader = s;
+                buffer.Draw(drawable[i], r);
             }
         }
+
         public void AdvanceAnim(int status)
         {
             this.animationFrame = this.states[status].sequence[this.states[status].index];
