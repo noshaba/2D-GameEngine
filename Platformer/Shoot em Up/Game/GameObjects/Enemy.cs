@@ -20,6 +20,7 @@ namespace Platformer
          private int speed;
          private bool fire;
          public state status;
+         private int attentionRange;
 
          //Faction faction, string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density
          public Enemy(Collision.Type type, int[] tileSize, int[] tileIndices,float density, int animationIndex, float restitution, float staticFriction, float kineticFriction, String texturePath, int[]spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction, int pattern, WeaponContract w)
@@ -63,6 +64,7 @@ namespace Platformer
              this.fire = false;
              this.status = state.sleep;
              this.states = new AnimState[] { new AnimState(new int[] { 4, 5, 6, 5 }), new AnimState(new int[] { 0 }), new AnimState(new int[] { 0, 1, 2, 3, 4 }), new AnimState(new int[] { 4, 5, 6, 5 }) };
+             this.attentionRange = 400; //move to json
          }
 
         public enum state {
@@ -102,9 +104,14 @@ namespace Platformer
          {
              //this.rigidBody.COM = this.initPos;
              switch (status) { 
-                 case state.observe : this.rigidBody.Velocity = new Vector2f(10,0);
+                 case state.observe : 
+                     this.rigidBody.Velocity = new Vector2f(10,0);
                      break;
-                 case state.sleep: this.status = state.awake;
+                 case state.sleep:
+                     if (IsPlayerNear())
+                     {
+                         this.status = state.awake;
+                     }
                      break;
                  case state.awake:
                      if (this.animationFrame == this.states[(int)status].sequence[this.states[(int)status].sequence.Length - 1]) {
@@ -128,6 +135,14 @@ namespace Platformer
              this.UpdateBodies();
              this.rigidBody = this.rigidBodies[this.animationFrame];
              this.drawable = this.drawables[this.animationFrame];
+         }
+
+         private bool IsPlayerNear() {
+             return Game.playerPos.X >= this.rigidBody.COM.X - this.attentionRange && Game.playerPos.X <= this.rigidBody.COM.X + attentionRange;
+         }
+
+         private bool IsPlayerClose() {
+             return Game.playerPos.X >= this.rigidBody.COM.X - this.attentionRange/2 && Game.playerPos.X <= this.rigidBody.COM.X + attentionRange/2;
          }
     }
 }

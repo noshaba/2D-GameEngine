@@ -32,6 +32,7 @@ namespace Platformer
         public bool levelEnded;
         public GameStatus status;
         public Stopwatch clock;
+        public static Vector2f playerPos;
 
         Shader light = new Shader(null, "../Content/shaders/light.frag");
         Shader sceneBufferShader = new Shader(null, "../Content/shaders/scene_buffer.frag");
@@ -193,6 +194,7 @@ namespace Platformer
             physics = new Physic(rigidBodies, joints, new Vector2f(planet.Gravity[0], planet.Gravity[1]), planet.Damping,
                 new Vector2f(WIDTH, HEIGHT));
             Add(player);
+            playerPos = player.rigidBody.COM;
 
             Add(new Wall(new Vector2f(1, 0), new Vector2f(0, HEIGHT * .5f), new Vector2f(.1f, HEIGHT), Color.Transparent));
             using (StreamReader sr = new StreamReader("../Content/" + level + "/Platforms.json"))
@@ -238,6 +240,7 @@ namespace Platformer
 
         public void LateUpdate(Vector2f viewCenter) 
         {
+            playerPos = player.rigidBody.COM;
             if (this.clock.ElapsedMilliseconds > 100 && !this.physics.frozen)
             {
                 //this.player.animationIndex = (this.player.animationIndex + 1) % this.player.rigidBodies.Length;
