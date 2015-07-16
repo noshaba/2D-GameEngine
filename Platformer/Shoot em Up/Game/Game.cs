@@ -110,7 +110,7 @@ namespace Platformer
             });
 
             this.status = GameStatus.Active;
-            this.enemy = new Enemy(Collision.Type.Polygon, new int[] { 70, 70 }, new int[] { 0 }, 1, 0, 0, 0.1f, 0.1f, "../Content/blobSprite.png", new int[] { 70, 210 }, new Vector2f(750, 450),
+            this.enemy = new Enemy(Collision.Type.Polygon, new int[] { 70, 70 }, new int[] { 0 }, 1, 0, 0, 0.1f, 0.1f, "../Content/blobSprite.png", new int[] { 70, 490 }, new Vector2f(750, 450),
                     0, 100, 10, 0, factions[2]);
             //Collision.Type type, int[] tileSize, int[] tileIndices,float density, int animationIndex, float restitution, float staticFriction, float kineticFriction, String texturePath, int[]spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction
             Add(enemy);

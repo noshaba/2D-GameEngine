@@ -61,12 +61,12 @@ namespace Platformer
              this.rigidBody.Velocity = new Vector2f(0, this.speed);
              this.drop = this.DetermineDrop();
              this.fire = false;
-             this.status = state.idle;
-             this.states = new AnimState[] { new AnimState(new int[] { 0, 1, 2, 1 }) };
+             this.status = state.sleep;
+             this.states = new AnimState[] { new AnimState(new int[] { 4, 5, 6, 5 }), new AnimState(new int[] { 0 }), new AnimState(new int[] { 0, 1, 2, 3, 4 }), new AnimState(new int[] { 4, 5, 6, 5 }) };
          }
 
         public enum state {
-            idle
+            observe, sleep, awake, attack
         }
          private Game.GameItem DetermineDrop()
          {
@@ -102,7 +102,14 @@ namespace Platformer
          {
              //this.rigidBody.COM = this.initPos;
              switch (status) { 
-                 case state.idle : this.rigidBody.Velocity = new Vector2f(10,0);
+                 case state.observe : this.rigidBody.Velocity = new Vector2f(10,0);
+                     break;
+                 case state.sleep: this.status = state.awake;
+                     break;
+                 case state.awake:
+                     if (this.animationFrame == this.states[(int)status].sequence[this.states[(int)status].sequence.Length - 1]) {
+                         this.status = state.observe;
+                     }
                      break;
              }
          }
