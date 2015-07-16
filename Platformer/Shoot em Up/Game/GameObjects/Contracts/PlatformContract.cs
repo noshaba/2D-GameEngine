@@ -63,10 +63,8 @@ namespace Platformer
             }*/
             //Game.Add(new Platform(SpritePath, new Vector2f(Position[0], Position[1]), Rotation, SpriteSize, SpriteTileSize, Tiles, 
              //   KineticFriction, StaticFriction, Restitution, Density));
-            Spawner s = new Spawner(new Vector2f(Position[0], Position[1]));
-            s.Add(new Platform(SpritePath, new Vector2f(Position[0], Position[1]), Rotation, SpriteSize, SpriteTileSize, Tiles,
+            Game.Add(new Platform(SpritePath, new Vector2f(Position[0], Position[1]), Rotation, SpriteSize, SpriteTileSize, Tiles,
                 KineticFriction, StaticFriction, Restitution, Density));
-            Game.spawners.Add(s);
 
         }
     }

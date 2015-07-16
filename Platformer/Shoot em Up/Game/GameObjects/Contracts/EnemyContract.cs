@@ -93,7 +93,6 @@ namespace Platformer
 
         private void Standard()
         {
-            Spawner s = new Spawner(new Vector2f(SpawnStartPosition[0], SpawnStartPosition[1]));
             int x, y;
             for (int i = 0; i < NumberOfObjects; i++)
             {
@@ -106,7 +105,6 @@ namespace Platformer
         }
         private void Block()
         {
-            Spawner s = new Spawner(new Vector2f(SpawnStartPosition[0], SpawnStartPosition[1]));
             int rows = (Game.HEIGHT - 100) / (SpriteTileSize[1] + 20);
             int x, y;
             for (int i = 0; i < NumberOfObjects; ++i)
@@ -119,7 +117,6 @@ namespace Platformer
         }
         private void Diagonal()
         {
-            Spawner s = new Spawner(new Vector2f(SpawnStartPosition[0], SpawnStartPosition[1]));
             int rows = (Game.HEIGHT - 100) / (SpriteTileSize[1] + 20);
             int x, y;
             for (int i = 0; i < NumberOfObjects; ++i)
@@ -133,7 +130,6 @@ namespace Platformer
 
         private void ZigZag()
         {
-            Spawner s = new Spawner(new Vector2f(SpawnStartPosition[0], SpawnStartPosition[1]));
             int rows = (Game.HEIGHT - 100) / (SpriteTileSize[1] + 50);
             int j = -1;
             int x = SpawnStartPosition[0];

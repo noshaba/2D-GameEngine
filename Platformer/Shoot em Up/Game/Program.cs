@@ -21,7 +21,7 @@ namespace Platformer
         static float accumulator = 0;
 
         //timers and window
-        static ContextSettings context = new ContextSettings(16,16);
+        static ContextSettings context = new ContextSettings();
         static Stopwatch timer = new Stopwatch();
         static Stopwatch FPSClock = new Stopwatch();
         static RenderWindow window;
