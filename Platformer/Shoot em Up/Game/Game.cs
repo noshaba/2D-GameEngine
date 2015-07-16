@@ -93,6 +93,16 @@ namespace Platformer
             DistanceConstraint joint2 = new DistanceConstraint(cir2.rigidBody, cir3.rigidBody, 100);
             joints.Add(joint1);
             joints.Add(joint2);
+
+            objects.Sort(delegate(GameObject o1, GameObject o2)
+            {
+                return o1.rigidBody.COM.X.CompareTo(o2.rigidBody.COM.X);
+            });
+            rigidBodies.Sort(delegate(Body b1, Body b2)
+            {
+                return b1.COM.X.CompareTo(b2.COM.X);
+            });
+
             this.status = GameStatus.Active;
 
             //Platform test

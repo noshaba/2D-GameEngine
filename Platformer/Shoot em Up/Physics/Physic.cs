@@ -17,6 +17,7 @@ namespace Physics {
         private Quadtree quadtree;
         private List<IRigidBody> possibleCollisionTargets;
         private Vector2f windowHalfSize;
+        private Vector2f viewCenter;
 
         public Physic(List<Body> shapes, List<Constraint> constraints, Vector2f gravity, float damping, Vector2f windowSize) {
             this.gravity = gravity;
@@ -42,16 +43,17 @@ namespace Physics {
                     if(!frozen) objects[i].Update(dt);
                     ApplyForces(dt, i);
                 });*/
-                for (int i = 0; i < objects.Count; ++i)
+            this.viewCenter = viewCenter;
+            for (int i = 0; i < objects.Count; ++i)
+            {
+                if (objects[i].InsideWindow(viewCenter, windowHalfSize))
                 {
-                    if (objects[i].InsideWindow(viewCenter, windowHalfSize))
-                    {
-                        objects[i].Update(dt);
-                        ApplyForces(dt, i);
-                    }
+                    objects[i].Update(dt);
+                    ApplyForces(dt, i);
                 }
-                foreach (Constraint constraint in joints)
-                    constraint.Solve();
+            }
+            foreach (Constraint constraint in joints)
+                constraint.Solve();
         }
 
         #region Physical Methods
@@ -89,6 +91,7 @@ namespace Physics {
             for (int j = 0; j < objects.Count; ++j)
             {
                 if (i == j) continue;
+                if (!objects[j].InsideWindow(viewCenter, windowHalfSize)) continue;
                 Collision colli = Collision.CheckForCollision(objects[i], objects[j]);
                 if (colli.collision) {
                 //    if (!objects[i].Collision.collision && !objects[j].Collision.collision)
