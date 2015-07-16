@@ -85,9 +85,10 @@ namespace Platformer
             this.Reset();
             this.levelEnded = false;
             Level = 1;
-            GameObject cir1 = new GameObject(new IRigidBody[] { new Circle(new Vector2f(), 0, 25, 0.01f) }, new Vector2f(1000, HEIGHT * .5f - 300), 0);
-            GameObject cir2 = new GameObject(new IRigidBody[] { new Circle(new Vector2f(), 0, 25, 0.01f) }, new Vector2f(1000, HEIGHT * .5f - 200), 0);
-            GameObject cir3 = new GameObject(new IRigidBody[] { new Circle(new Vector2f(), 0, 25, 0.01f) }, new Vector2f(1000, HEIGHT * .5f - 100), 0);
+            // string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density
+            GameObject cir1 = new GameObject("../Content/Pendulum.png", new[] { 50, 50 }, new[] { 50, 50 }, new[] { 0 }, 0, new Vector2f(1000, HEIGHT * .5f - 300), 0, 0.01f);
+            GameObject cir2 = new GameObject("../Content/Pendulum.png", new[] { 50, 50 }, new[] { 50, 50 }, new[] { 0 }, 0, new Vector2f(1000, HEIGHT * .5f - 200), 0, 0.01f);
+            GameObject cir3 = new GameObject("../Content/Pendulum.png", new[] { 50, 50 }, new[] { 50, 50 }, new[] { 0 }, 0, new Vector2f(1000, HEIGHT * .5f - 100), 0, 0.01f);
             cir1.Moveable = false;
             Add(cir1);
             Add(cir2);
