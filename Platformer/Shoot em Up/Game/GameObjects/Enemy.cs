@@ -65,6 +65,7 @@ namespace Platformer
             this.status = state.sleep;
             this.states = new AnimState[] { new AnimState(new int[] { 4, 5, 6, 5 }), new AnimState(new int[] { 0 }), new AnimState(new int[] { 0, 1, 2, 3, 4 }), new AnimState(new int[] { 4, 5, 6, 5 }) };
             this.attentionRange = 400; //move to json
+            this.animated = true;
         }
 
         public enum state {

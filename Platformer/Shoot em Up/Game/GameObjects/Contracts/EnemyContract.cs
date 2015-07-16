@@ -93,15 +93,16 @@ namespace Platformer
 
         private void Standard()
         {
+            Spawner s = new Spawner(new Vector2f(SpawnStartPosition[0], SpawnStartPosition[1]));
             int x, y;
             for (int i = 0; i < NumberOfObjects; i++)
             {
                 x = SpawnStartPosition[0] + i * SpriteTileSize[0];
                 y = SpawnStartPosition[1];
                 //Collision.Type type, int[] tileSize, int[] tileIndices,float density, int animationIndex, float restitution, float staticFriction, float kineticFriction, String texturePath, int[]spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction, int pattern, WeaponContract w
-                //s.Add(new Enemy(CollisionType, SpriteTileSize, Density, 0, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), 0, Health, Points, Damage, Game.factions[(int)Faction], MovementPattern, Weapon));
+                s.Add(new Enemy(CollisionType, SpriteTileSize, new int[] { 0 }, Density, 0, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), 0, Health, Points, Damage, Game.factions[(int)Faction]));
             }
-           // Game.spawners.Add(s);
+            Game.spawners.Add(s);
         }
         private void Block()
         {
@@ -130,6 +131,7 @@ namespace Platformer
 
         private void ZigZag()
         {
+            Spawner s = new Spawner(new Vector2f(SpawnStartPosition[0], SpawnStartPosition[1]));
             int rows = (Game.HEIGHT - 100) / (SpriteTileSize[1] + 50);
             int j = -1;
             int x = SpawnStartPosition[0];
