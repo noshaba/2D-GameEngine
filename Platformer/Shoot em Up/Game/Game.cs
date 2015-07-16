@@ -46,7 +46,6 @@ namespace Platformer
         Vector2f windowHalfSize;
         Vector3f lightPosition;
 
-        public static Platform breakable;
 
         public enum GameStatus
         {

@@ -47,7 +47,7 @@ namespace Platformer
             this.shieldStatus = "sR";
             this.texturePath = texture;
             this.status = state.idle;
-            this.states = new AnimState[] { new AnimState(new int[] { 8, 9, 10, 9, 8 }), new AnimState(new int[] { 5, 6, 7, 6 }), new AnimState(new int[] { 4 }), new AnimState(new int[] { 10 }), new AnimState(new int[] { 7 }), new AnimState(new int[] { 0, 1, 2, 3, 4, 3, 2, 1 }) };
+            this.states = new AnimState[] { new AnimState(new int[] { 8, 9, 10, 9, 8 }), new AnimState(new int[] { 5, 6, 7, 6 }), new AnimState(new int[] { 4 }), new AnimState(new int[] { 10 }), new AnimState(new int[] { 7 }), new AnimState(new int[] { 0, 1, 2, 3, 4, 3, 2, 1 }), new AnimState(new int[] { 4 }) };
             //this.bodies = new [] { this.rigidBody, new Circle(this.rigidBody.COM, this.drawable.Texture.Size.Y/2) };
             //checkShield();
             this.animated = true;
@@ -55,7 +55,7 @@ namespace Platformer
 
         public enum state
         {
-            runLeft, runRight, jump, jumpLeft, jumpRight, idle
+            runLeft, runRight, jump, jumpLeft, jumpRight, idle, shatter
         }
 
         public void Move(Keyboard.Key k)
@@ -96,6 +96,14 @@ namespace Platformer
                 if (this.status == state.jump || this.status == state.jumpLeft || this.status == state.jumpRight)
                     status = state.jumpRight;
                 this.rigidBody.Velocity = new Vector2f(this.speed,this.rigidBody.Velocity.Y);
+            }
+            if (k == Keyboard.Key.Down)
+            {
+                if (status == state.jump || status == state.jumpLeft || status == state.jumpRight)
+                {
+                    this.rigidBody.Velocity = new Vector2f(0, this.speed*2);
+                    status = state.shatter;
+                }
             }
         }
 
@@ -147,6 +155,11 @@ namespace Platformer
                     {
                         status = state.idle;
                     }
+            }
+            if(status == state.shatter ) {
+                if (rigidBody.Collision.obj is Platform)
+                    (rigidBody.Collision.obj as Platform).Shatter();
+                status = state.idle;
             }
             this.rigidBody = this.rigidBodies[this.animationFrame];
             this.drawable = this.drawables[this.animationFrame];

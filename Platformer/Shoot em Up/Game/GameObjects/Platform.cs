@@ -33,7 +33,6 @@ namespace Platformer
                 body.COM = position;
                 body.UpdateBoundingCircle();
             }
-            Game.breakable = this;
         }
 
        public void Shatter()
