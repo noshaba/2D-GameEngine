@@ -6,10 +6,10 @@ uniform sampler2D reflectMap;
 uniform sampler2D specularMap;
 //light properties
 uniform vec3 lightPosition = vec3(0.0);
-uniform vec3 lightColour = vec3(0.6, 0.6, 0.6);
-uniform float lightPower = 0.2;
+uniform vec3 lightColour = vec3(0.2, 0.4, 0);
+uniform float lightPower = 0.7;
 uniform vec4 lightSpecColour = vec4(0.6, 0.6, 0.6, 1.0);
-uniform float lightSpecPower = 0.08; //smaller is more glossy
+uniform float lightSpecPower = 0.02; //smaller is more glossy
 
 uniform vec2 reflectOffset; //offset the reflection map by sprite coords
 			    //so that the reflection appears static when the sprite moves

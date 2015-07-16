@@ -91,9 +91,9 @@ namespace Platformer
                 {
                     tileIndex = tileIndices[j];
                     tile = new Texture(texturePath,
-                        new IntRect(tileIndex * spriteTileSize[0], i * spriteTileSize[1],
+                        new IntRect(tileIndex * spriteTileSize[0], i * spriteTileSize[1], 
                             spriteTileSize[0], spriteTileSize[1]));
-                    bodies[j] = new Polygon(CV.AlphaEdgeDetection(tile.CopyToImage().Pixels, tile.Size.X, tile.Size.Y, 254),
+                    bodies[j] = new Polygon(CV.AlphaEdgeDetection(tile.CopyToImage().Pixels, tile.Size.X, tile.Size.Y, 0), 
                         origin, new Vector2f(), 0, density);
                     drawables[i][j] = new RectangleShape(new Vector2f(spriteTileSize[0], spriteTileSize[1]));
                     drawables[i][j].Origin = origin;
@@ -138,7 +138,7 @@ namespace Platformer
             }
         }
 
-        public void Draw(RenderWindow window, float alpha, Vector2f viewCenter, Vector2f windowHalfSize)
+        public void Draw(RenderTexture buffer, float alpha, Vector2f viewCenter, Vector2f windowHalfSize, Shader s)
         {
             if (!InsideWindow(viewCenter, windowHalfSize))
                 return;
@@ -152,9 +152,11 @@ namespace Platformer
                 t.Translate(rigidBody.bodies[i].Center);
                 t.Rotate(interpol.DegOrientation);
                 r = new RenderStates(t);
-                window.Draw(drawable[i], r);
+                r.Shader = s;
+                buffer.Draw(drawable[i], r);
             }
         }
+
         public void AdvanceAnim(int status)
         {
             this.animationFrame = this.states[status].sequence[this.states[status].index];

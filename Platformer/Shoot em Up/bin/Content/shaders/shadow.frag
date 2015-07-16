@@ -1,8 +1,8 @@
 uniform float exposure = 0.5;
 uniform float decay = 0.5;
 uniform float density = 0.5;
-uniform float weight = 1;
-uniform vec2 lightPosition = vec2(0.5,1);
+uniform float weight = 0.5;
+uniform vec2 lightPosition = vec2(0.5,0.5);
 uniform sampler2D texture;
 const int NUM_SAMPLES = 100 ;
 

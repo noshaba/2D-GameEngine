@@ -39,9 +39,12 @@ namespace Platformer
 
         Sprite sprite1 = new Sprite(new Texture("../Content/textures/car_colour.png"));
         Sprite sprite2 = new Sprite(new Texture("../Content/textures/car_colour.png"));
+        RenderTexture shadowBuffer;
         RenderTexture sceneBuffer;
+        Sprite shadowScene = new Sprite();
         Sprite scene = new Sprite();
         Vector2f windowHalfSize;
+        Vector3f lightPosition;
 
         public Enemy enemy;
 
@@ -62,9 +65,9 @@ namespace Platformer
             HEIGHT = height;
             windowHalfSize = new Vector2f(WIDTH * .5f, HEIGHT * .5f);
 
-            light.SetParameter("normalMap", new Texture("../Content/textures/car_normal.tga"));
-            light.SetParameter("specularMap", new Texture("../Content/textures/car_specular.png"));
-            light.SetParameter("reflectMap", new Texture("../Content/textures/car_reflect.png"));
+            light.SetParameter("normalMap", new Texture("../Content/textures/NormalMap.png"));
+       //     light.SetParameter("specularMap", new Texture("../Content/textures/car_specular.png"));
+       //     light.SetParameter("reflectMap", new Texture("../Content/textures/car_reflect.png"));
 
             sprite1.Position = new Vector2f(400, HEIGHT * .5f);
             sprite2.Position = new Vector2f(350, HEIGHT * .5f);
@@ -84,9 +87,10 @@ namespace Platformer
             this.Reset();
             this.levelEnded = false;
             Level = 1;
-            GameObject cir1 = new GameObject(new IRigidBody[] { new Circle(new Vector2f(), 0, 25, 0.01f) }, new Vector2f(1000, HEIGHT * .5f - 300), 0);
-            GameObject cir2 = new GameObject(new IRigidBody[] { new Circle(new Vector2f(), 0, 25, 0.01f) }, new Vector2f(1000, HEIGHT * .5f - 200), 0);
-            GameObject cir3 = new GameObject(new IRigidBody[] { new Circle(new Vector2f(), 0, 25, 0.01f) }, new Vector2f(1000, HEIGHT * .5f - 100), 0);
+            // string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density
+            GameObject cir1 = new GameObject("../Content/Pendulum.png", new[] { 50, 50 }, new[] { 50, 50 }, new[] { 0 }, 0, new Vector2f(1000, HEIGHT * .5f - 300), 0, 0.01f);
+            GameObject cir2 = new GameObject("../Content/Pendulum.png", new[] { 50, 50 }, new[] { 50, 50 }, new[] { 0 }, 0, new Vector2f(1000, HEIGHT * .5f - 200), 0, 0.01f);
+            GameObject cir3 = new GameObject("../Content/Pendulum.png", new[] { 50, 50 }, new[] { 50, 50 }, new[] { 0 }, 0, new Vector2f(1000, HEIGHT * .5f - 100), 0, 0.01f);
             cir1.Moveable = false;
             Add(cir1);
             Add(cir2);
@@ -179,10 +183,16 @@ namespace Platformer
                 String json = sr.ReadToEnd();
                 planet = JSONManager.deserializeJson<Planet>(json);
                 planet.Init();
-                player = new Player(factions[1], new Vector2f(250, 250), "../Content/ghostSprite",
+                player = new Player(factions[1], new Vector2f(250, 250), "../Content/ghostSpriteBlack",
                     new int[] { 100, 100 }, new int[] { 100, 800 }, new int[] { 0 });
 
-                sceneBuffer = new RenderTexture((uint)planet.Length, (uint)HEIGHT, true);
+                lightPosition = new Vector3f(planet.Length * 0.5f, HEIGHT * 0.5f, 0.04f);
+                light.SetParameter("lightPosition", 
+                    lightPosition.X, HEIGHT - lightPosition.Y, lightPosition.Z);
+                shadowBuffer = new RenderTexture((uint)planet.Length, (uint)HEIGHT);
+                shadowScene.Texture = shadowBuffer.Texture;
+
+                sceneBuffer = new RenderTexture((uint)planet.Length, (uint)HEIGHT);
                 scene.Texture = sceneBuffer.Texture;
             }
             physics = new Physic(rigidBodies, joints, new Vector2f(planet.Gravity[0], planet.Gravity[1]), planet.Damping,
@@ -281,35 +291,67 @@ namespace Platformer
 
         public void Draw(RenderWindow window, float alpha, Vector2f viewCenter)
         {
-            // shader.SetParameter("lightPosition", Mouse.GetPosition(window).X, HEIGHT - Mouse.GetPosition(window).Y, 0.04f);
+            /*
+             * //all the drawing
+            if(status == GameStatus.Active) {
+                window.Draw(planet.backgroundSprite);
+            //    if(debug) physics.DrawQuadtree(window);
+                foreach (GameObject obj in objects)
+                {
+                    obj.Draw(window, alpha);
+                    if (debug)
+                        obj.rigidBody.Draw(window, alpha);
+                }
+            }
+            shader.SetParameter("normalMap", normalMap);
+            shader.SetParameter("lightPosition", Mouse.GetPosition(window).X, HEIGHT - Mouse.GetPosition(window).Y, 0.04f);
+            RenderStates s = new RenderStates(Transform.Identity);
+            s.Shader = shader;
+            window.Draw(sprite,s);*/
             // shaderBG.SetParameter("lightPosition", Mouse.GetPosition(window).X, HEIGHT - Mouse.GetPosition(window).Y, 0.04f);
             RenderStates s = new RenderStates(Transform.Identity);
             if(status == GameStatus.Active) {
                 // s.Shader = shaderBG;
+                shadow.SetParameter("lightPosition", lightPosition.X / planet.Length, 
+                    1 - lightPosition.Y / HEIGHT);
+                shadowBuffer.Clear(Color.Transparent);
                 sceneBuffer.Clear(Color.Transparent);
                 // window.Draw(planet.backgroundSprite, s);
                 foreach (GameObject obj in objects)
                 {
                     // obj.Draw(window, alpha);
+                    obj.Draw(shadowBuffer, alpha, viewCenter, windowHalfSize);
                     obj.Draw(sceneBuffer, alpha, viewCenter, windowHalfSize);
                     if (debug)
                         obj.rigidBody.Draw(sceneBuffer, alpha, viewCenter, windowHalfSize);
                         // obj.rigidBody.Draw(window, alpha);
                 }
+                shadowBuffer.Draw(sprite1);
+                shadowBuffer.Draw(sprite2);
+                light.SetParameter("normalMap", new Texture("../Content/textures/car_normal.png"));
+                light.SetParameter("reflectMap", new Texture("../Content/textures/car_reflect.png"));
+                s.Shader = light;
                 sceneBuffer.Draw(sprite1, s);
                 sceneBuffer.Draw(sprite2, s);
 
-                sceneBufferShader.SetParameter("rt_scene", sceneBuffer.Texture);
+                sceneBufferShader.SetParameter("rt_scene", shadowBuffer.Texture);
                 s.Shader = sceneBufferShader;
-                sceneBuffer.Draw(scene, s);
-                sceneBuffer.Display();
+                shadowBuffer.Draw(shadowScene, s);
+                shadowBuffer.Display();
 
                 //godsRay.SetParameter("lightPosition", 0,0,1);
-                shadow.SetParameter("texture", scene.Texture);
-                s.Shader = shadow;
+                shadow.SetParameter("texture", shadowScene.Texture);
 
-                window.Draw(planet.backgroundSprite);
-                window.Draw(scene, s);
+                light.SetParameter("resolution", 
+                    planet.Length*10, planet.backgroundSprite.Texture.Size.Y*10);
+                light.SetParameter("normalMap", new Texture("../Content/textures/NormalMap.png"));
+                light.SetParameter("normalMap", new Texture("../Content/textures/ReflectMap.png"));
+                s.Shader = light;
+                window.Draw(planet.backgroundSprite, s);
+                s.Shader = shadow;
+                window.Draw(shadowScene, s);
+                sceneBuffer.Display();
+                window.Draw(scene);
             }
 
             //window.Draw(sprite1,s);
