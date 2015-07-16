@@ -43,6 +43,8 @@ namespace Platformer
         Sprite scene = new Sprite();
         Vector2f windowHalfSize;
 
+        public Enemy enemy;
+
         public static Platform breakable;
 
         public enum GameStatus
@@ -104,9 +106,10 @@ namespace Platformer
             });
 
             this.status = GameStatus.Active;
+            this.enemy = new Enemy(Collision.Type.Polygon, new int[] { 70, 70 }, new int[] { 0 }, 1, 0, 0, 0.1f, 0.1f, "../Content/blobSprite.png", new int[] { 70, 210 }, new Vector2f(750, 450),
+                    0, 100, 10, 0, factions[2]);
             //Collision.Type type, int[] tileSize, int[] tileIndices,float density, int animationIndex, float restitution, float staticFriction, float kineticFriction, String texturePath, int[]spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction
-            Add(new Enemy(Collision.Type.Polygon, new int[] {70,70},  new int[] { 0 }, 1, 0, 0, 0.1f, 0.1f, "../Content/blobSprite.png", new int[]{70,210}, new Vector2f(450, 250),
-                    0, 100,10,0, factions[2]));
+            Add(enemy);
 
             //Platform test
            /* Texture tile = new Texture("../Content/platform.png", new IntRect(0, 0, 100, 100));
@@ -234,6 +237,7 @@ namespace Platformer
             {
                 //this.player.animationIndex = (this.player.animationIndex + 1) % this.player.rigidBodies.Length;
                 player.AdvanceAnim((int)player.status);
+                enemy.AdvanceAnim((int)enemy.status);
                 this.clock.Restart();
             }
             //physics.frozen = true;

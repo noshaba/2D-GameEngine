@@ -19,6 +19,7 @@ namespace Platformer
          private Vector2f initPos;
          private int speed;
          private bool fire;
+         public state status;
 
          //Faction faction, string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density
          public Enemy(Collision.Type type, int[] tileSize, int[] tileIndices,float density, int animationIndex, float restitution, float staticFriction, float kineticFriction, String texturePath, int[]spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction, int pattern, WeaponContract w)
@@ -60,7 +61,13 @@ namespace Platformer
              this.rigidBody.Velocity = new Vector2f(0, this.speed);
              this.drop = this.DetermineDrop();
              this.fire = false;
+             this.status = state.idle;
+             this.states = new AnimState[] { new AnimState(new int[] { 0, 1, 2, 1 }) };
          }
+
+        public enum state {
+            idle
+        }
          private Game.GameItem DetermineDrop()
          {
              Game.GameItem i;
@@ -93,16 +100,11 @@ namespace Platformer
 
          public void Move()
          {
-             if (this.rigidBody.COM.Y >= this.initPos.Y + 30 && this.rigidBody.Velocity.Y > 0)
-             {
-                 this.rigidBody.Velocity = new Vector2f(0, this.speed);
+             //this.rigidBody.COM = this.initPos;
+             switch (status) { 
+                 case state.idle : this.rigidBody.Velocity = new Vector2f(10,0);
+                     break;
              }
-             else if (this.rigidBody.COM.Y <= this.initPos.Y - 30)
-             {
-                 this.rigidBody.Velocity = new Vector2f(0,-this.speed);
-             }
-             if (this.rigidBody.Velocity.Y < 0)
-                this.rigidBody.Velocity = new Vector2f(0, this.speed);
          }
 
          private void shoot()
@@ -116,6 +118,9 @@ namespace Platformer
              this.Move();
              this.shoot();
              base.EarlyUpdate();
+             this.UpdateBodies();
+             this.rigidBody = this.rigidBodies[this.animationFrame];
+             this.drawable = this.drawables[this.animationFrame];
          }
     }
 }
