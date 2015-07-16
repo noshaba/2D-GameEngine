@@ -163,8 +163,8 @@ namespace Platformer
                 String json = sr.ReadToEnd();
                 planet = JSONManager.deserializeJson<Planet>(json);
                 planet.Init();
-                player = new Player(factions[1], new Vector2f(250, 250), "../Content/catNew",
-                    new int[] { 130, 80 }, new int[] { 130, 960 }, new int[] { 0 });
+                player = new Player(factions[1], new Vector2f(250, 250), "../Content/ghostSprite",
+                    new int[] { 100, 100 }, new int[] { 100, 800 }, new int[] { 0 });
 
                 sceneBuffer = new RenderTexture((uint)planet.Length, (uint)HEIGHT, true);
                 scene.Texture = sceneBuffer.Texture;
