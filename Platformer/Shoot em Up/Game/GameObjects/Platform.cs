@@ -24,6 +24,7 @@ namespace Platformer
                 body.Restitution = restitution;
                 body.StaticFriction = staticFriction;
                 body.KineticFriction = kineticFriction;
+                body.Parent = this;
                 for (int i = 0; i < body.bodies.Length; ++i)
                 {
                     body.bodies[i].COM += new Vector2f(i * tileSize[0], 0);

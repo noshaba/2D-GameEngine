@@ -32,6 +32,7 @@ namespace Platformer
             {
                 body.Restitution = 0;
                 body.rotateable = false;
+                body.Parent = this;
             }
             this.speed = 80;
             this.fire = false;

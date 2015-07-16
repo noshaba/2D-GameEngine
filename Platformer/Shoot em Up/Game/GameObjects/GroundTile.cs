@@ -15,6 +15,7 @@ namespace Platformer
         public GroundTile(float restitution, float staticFriction, float kineticFriction, string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, int index, int height)
             : base(texturePath, spriteTileSize, spriteSize, tileIndices, animationIndex, new Vector2f(0,0), 0, 0)
         {
+            RigidBodyParent = this;
             this.rigidBody.Restitution = restitution;
             this.rigidBody.StaticFriction = staticFriction;
             this.rigidBody.KineticFriction = kineticFriction;

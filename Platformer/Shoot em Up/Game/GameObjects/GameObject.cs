@@ -37,6 +37,16 @@ namespace Platformer
             }
         }
 
+        public object RigidBodyParent
+        {
+            get { return rigidBody.Parent; }
+            set
+            {
+                foreach (Body body in rigidBodies)
+                    body.Parent = value;
+            }
+        }
+
         public GameObject(Vector2f normal, Vector2f position, Vector2f size, float rotation)
         {
             this.rigidBodies = new Body[] { new Body(this, new[] { new Plane(normal, new Vector2f(), size, 0) }, position, rotation) };
@@ -94,6 +104,11 @@ namespace Platformer
             this.drawable = this.drawables[animationIndex];
         }
 
+        public bool InsideWindow(Vector2f center, Vector2f windowHalfSize)
+        {
+            return rigidBody.InsideWindow(center, windowHalfSize);
+        }
+
         public virtual void EarlyUpdate()
         {
         }
@@ -103,8 +118,10 @@ namespace Platformer
             rigidBody.Collision.collision = false;
         }
 
-        public void Draw(RenderTexture buffer, float alpha)
+        public void Draw(RenderTexture buffer, float alpha, Vector2f viewCenter, Vector2f windowHalfSize)
         {
+            if (!InsideWindow(viewCenter, windowHalfSize))
+                return;
             State interpol;
             Transform t;
             RenderStates r;
@@ -119,8 +136,10 @@ namespace Platformer
             }
         }
 
-        public void Draw(RenderWindow window, float alpha)
+        public void Draw(RenderWindow window, float alpha, Vector2f viewCenter, Vector2f windowHalfSize)
         {
+            if (!InsideWindow(viewCenter, windowHalfSize))
+                return;
             State interpol;
             Transform t;
             RenderStates r;

@@ -16,12 +16,14 @@ namespace Physics {
         public bool frozen = false;
         private Quadtree quadtree;
         private List<IRigidBody> possibleCollisionTargets;
+        private Vector2f windowHalfSize;
 
-        public Physic(List<Body> shapes, List<Constraint> constraints, Vector2f gravity, float damping, FloatRect windowSize) {
+        public Physic(List<Body> shapes, List<Constraint> constraints, Vector2f gravity, float damping, Vector2f windowSize) {
             this.gravity = gravity;
             this.damping = damping;
             this.objects = shapes;
             this.joints = constraints;
+            this.windowHalfSize = windowSize * .5f;
         //    this.quadtree = new Quadtree(0, windowSize);
         //    this.possibleCollisionTargets = new List<IRigidBody>();
         }
@@ -30,9 +32,8 @@ namespace Physics {
         {
             this.quadtree.Draw(window);
         }
-
         //updates all objects in the list
-        public void Update(float dt) {
+        public void Update(float dt, Vector2f viewCenter) {
             //    quadtree.Clear();
             //    foreach (IRigidBody obj in objects)
             //       quadtree.Insert(obj);
@@ -43,11 +44,14 @@ namespace Physics {
                 });*/
                 for (int i = 0; i < objects.Count; ++i)
                 {
-                    objects[i].Update(dt);
-                    ApplyForces(dt, i);
+                    if (objects[i].InsideWindow(viewCenter, windowHalfSize))
+                    {
+                        objects[i].Update(dt);
+                        ApplyForces(dt, i);
+                    }
                 }
                 foreach (Constraint constraint in joints)
-                    constraint.Solve(dt);
+                    constraint.Solve();
         }
 
         #region Physical Methods

@@ -24,6 +24,7 @@ namespace Physics
         public bool rotateable;
 
         public IRigidBody[] bodies;
+        public bool isJoint = false;
 
         public Body(IRigidBody[] bodies, Vector2f position, float rotation)
         {
@@ -78,6 +79,14 @@ namespace Physics
             COMDrawable.FillColor = Color.Red;
             COM = position;
             this.Parent = parent;
+        }
+
+        public bool InsideWindow(Vector2f viewCenter, Vector2f halfSize)
+        {
+            return COM.X + Radius >= viewCenter.X - halfSize.X &&
+                   COM.X - Radius <= viewCenter.X + halfSize.X &&
+                   COM.Y + Radius >= viewCenter.Y - halfSize.Y &&
+                   COM.Y - Radius <= viewCenter.Y + halfSize.Y;
         }
 
         public void UpdateCentroid()
@@ -316,8 +325,10 @@ namespace Physics
             return current + alpha * (current - previous);
         }
 
-        public void Draw(RenderTexture buffer, float alpha)
+        public void Draw(RenderTexture buffer, float alpha, Vector2f viewCenter, Vector2f windowHalfSize)
         {
+            if (!InsideWindow(viewCenter, windowHalfSize))
+                return;
             State interpol = Interpolation(alpha);
             Transform t = Transform.Identity;
             t.Translate(interpol.position);
@@ -341,8 +352,10 @@ namespace Physics
             }
         }
 
-        public void Draw(RenderWindow window, float alpha) 
+        public void Draw(RenderWindow window, float alpha, Vector2f viewCenter, Vector2f windowHalfSize) 
         {
+            if (!InsideWindow(viewCenter, windowHalfSize))
+                return;
             State interpol = Interpolation(alpha);
             Transform t = Transform.Identity;
             t.Translate(interpol.position);

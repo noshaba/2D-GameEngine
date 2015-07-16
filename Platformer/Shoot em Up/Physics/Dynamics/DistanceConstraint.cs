@@ -18,7 +18,7 @@ namespace Physics
             this.distance = distance;
         }
 
-        public override void Solve(float dt)
+        public override void Solve()
         {
             Vector2f n = body2.COM - body1.COM;
             float currentDistance = n.Length();

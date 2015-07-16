@@ -19,6 +19,7 @@ namespace Platformer
         public Obstacle(bool hover, Collision.Type type, int[] spriteTileSize, int[] tileIndices, int animationIndex, float density, float restitution, float staticFriction, float kineticFriction, String texturePath, int[] spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction)
             : base(faction, texturePath, spriteTileSize, spriteSize, tileIndices, animationIndex, position, rotation, density)
          {
+             RigidBodyParent = this;
              this.hover = hover;
              this.initPos = position;
              this.rigidBody.Restitution = restitution;

@@ -41,6 +41,7 @@ namespace Platformer
         Sprite sprite2 = new Sprite(new Texture("../Content/textures/car_colour.png"));
         RenderTexture sceneBuffer;
         Sprite scene = new Sprite();
+        Vector2f windowHalfSize;
 
         public static Platform breakable;
 
@@ -57,6 +58,7 @@ namespace Platformer
         {
             WIDTH = width;
             HEIGHT = height;
+            windowHalfSize = new Vector2f(WIDTH * .5f, HEIGHT * .5f);
 
             light.SetParameter("normalMap", new Texture("../Content/textures/car_normal.tga"));
             light.SetParameter("specularMap", new Texture("../Content/textures/car_specular.png"));
@@ -168,7 +170,7 @@ namespace Platformer
                 scene.Texture = sceneBuffer.Texture;
             }
             physics = new Physic(rigidBodies, joints, new Vector2f(planet.Gravity[0], planet.Gravity[1]), planet.Damping,
-                (FloatRect)planet.backgroundSprite.TextureRect);
+                new Vector2f(WIDTH, HEIGHT));
             Add(player);
 
             Add(new Wall(new Vector2f(1, 0), new Vector2f(0, HEIGHT * .5f), new Vector2f(.1f, HEIGHT), Color.Transparent));
@@ -206,13 +208,14 @@ namespace Platformer
             }
         }
 
-        public void EarlyUpdate(float dt)
+        public void EarlyUpdate(Vector2f viewCenter)
         {
             for (int i = 0; i < objects.Count; ++i)
-                objects[i].EarlyUpdate();
+                if(objects[i].InsideWindow(viewCenter, windowHalfSize))
+                    objects[i].EarlyUpdate();
         }
 
-        public void LateUpdate(float dt) 
+        public void LateUpdate(Vector2f viewCenter) 
         {
             if (this.clock.ElapsedMilliseconds > 100 && !this.physics.frozen)
             {
@@ -226,6 +229,9 @@ namespace Platformer
             {
                 //there exists a better way for this???
                 rigidBodies[i] = objects[i].rigidBody;
+
+                if (!objects[i].InsideWindow(viewCenter, windowHalfSize))
+                    continue;
 
                 objects[i].LateUpdate();
 
@@ -256,7 +262,7 @@ namespace Platformer
             }
         }
 
-        public void Draw(RenderWindow window, float alpha)
+        public void Draw(RenderWindow window, float alpha, Vector2f viewCenter)
         {
             // shader.SetParameter("lightPosition", Mouse.GetPosition(window).X, HEIGHT - Mouse.GetPosition(window).Y, 0.04f);
             // shaderBG.SetParameter("lightPosition", Mouse.GetPosition(window).X, HEIGHT - Mouse.GetPosition(window).Y, 0.04f);
@@ -268,12 +274,11 @@ namespace Platformer
                 foreach (GameObject obj in objects)
                 {
                     // obj.Draw(window, alpha);
-                    obj.Draw(sceneBuffer, alpha);
+                    obj.Draw(sceneBuffer, alpha, viewCenter, windowHalfSize);
                     if (debug)
-                        obj.rigidBody.Draw(sceneBuffer, alpha);
+                        obj.rigidBody.Draw(sceneBuffer, alpha, viewCenter, windowHalfSize);
                         // obj.rigidBody.Draw(window, alpha);
                 }
-
                 sceneBuffer.Draw(sprite1, s);
                 sceneBuffer.Draw(sprite2, s);
 

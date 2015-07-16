@@ -23,6 +23,7 @@ namespace Platformer
         public Bullet(KillableObject shooter, Faction faction, Vector2f position, float radius, Color color, float density, float rotation, int dmg, Vector2f speed, Vector2f bend)
             : base(faction, new[] { new Circle(position + speed + bend, 0, radius, density) }, position + speed + bend, rotation)
         {
+            RigidBodyParent = this;
             initPosition = position + speed + bend;
             drawable[0].FillColor = color;
             rigidBody.Restitution = 1.0f;

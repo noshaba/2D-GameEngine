@@ -79,10 +79,9 @@ namespace Platformer
             if (accumulator > MAX_DT) accumulator = MAX_DT;
             while (accumulator >= DT)
             {
-                window.SetView(view);
                // mouseSprite.Position = window.MapPixelToCoords(Mouse.GetPosition(window), GUIview);
                 if (sEmUp.status == Game.GameStatus.Active)
-                    sEmUp.physics.Update(DT);
+                    sEmUp.physics.Update(DT, view.Center);
                 accumulator -= DT;
             }
             if (sEmUp.status == Game.GameStatus.Active)
@@ -90,9 +89,9 @@ namespace Platformer
                 ReadInput();
                 /*if (sEmUp.player.rigidBody.COM.X >= view.Center.X && sEmUp.player.rigidBody.Velocity.X > 0 && sEmUp.player.rigidBody.COM.X < sEmUp.planet.backgroundSprite.TextureRect.Width-WIDTH/2)
                 {*/
-                view.Center = new Vector2f(sEmUp.player.rigidBody.COM.X, sEmUp.player.rigidBody.COM.Y);
-                sEmUp.EarlyUpdate(DT);
-                sEmUp.LateUpdate(DT);
+                view.Center = sEmUp.player.rigidBody.COM;
+                sEmUp.EarlyUpdate(view.Center);
+                sEmUp.LateUpdate(view.Center);
                 /*}
                 else {
                     view.Center = new Vector2f(view.Center.X, HEIGHT / 2);
@@ -103,6 +102,7 @@ namespace Platformer
                     }
                 }*/
             }
+            window.SetView(view);
         }
 
         //draw method
@@ -113,7 +113,7 @@ namespace Platformer
                 view = new View(new Vector2f(WIDTH * .5f, HEIGHT * .5f), new Vector2f(WIDTH, HEIGHT));
             }
             window.SetView(view);
-            sEmUp.Draw(window, alpha);
+            sEmUp.Draw(window, alpha, view.Center);
             window.SetView(GUIview);
             gui.Draw(window);
             mouseSprite.Draw(window, RenderStates.Default);

@@ -16,6 +16,8 @@ namespace Physics
         {
             this.body1 = body1;
             this.body2 = body2;
+            this.body1.isJoint = true;
+            this.body2.isJoint = true;
         }
 
         public void ApplyImpulse(Vector2f J, Vector2f r1, Vector2f r2)
@@ -30,6 +32,6 @@ namespace Physics
             body2.ApplyLinearImpulse(-J);
         }
 
-        public abstract void Solve(float dt);
+        public abstract void Solve();
     }
 }

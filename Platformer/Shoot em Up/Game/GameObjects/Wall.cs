@@ -13,6 +13,7 @@ namespace Platformer {
         public Wall(Vector2f normal, Vector2f position, Vector2f size, Color color)
             : base(normal, position, size, 0) 
         {
+            RigidBodyParent = this;
             rigidBody.Restitution = 1.0f;
             drawable[0].FillColor = color;
             drawable[0].OutlineThickness = 0;

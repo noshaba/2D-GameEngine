@@ -24,6 +24,7 @@ namespace Platformer
          public Enemy(Collision.Type type, int[] tileSize, int[] tileIndices,float density, int animationIndex, float restitution, float staticFriction, float kineticFriction, String texturePath, int[]spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction, int pattern, WeaponContract w)
             : base(faction, texturePath, tileSize, spriteSize, tileIndices, animationIndex, position, rotation, density)
          {
+             RigidBodyParent = this;
              this.initPos = position;
              this.rigidBody.DragCoefficient = 1;
              this.rigidBody.Restitution = restitution;
