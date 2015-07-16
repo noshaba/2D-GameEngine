@@ -179,15 +179,15 @@ namespace Platformer
                 player = new Player(factions[1], new Vector2f(250, 250), "../Content/ghostSpriteBlack",
                     new int[] { 100, 100 }, new int[] { 100, 800 }, new int[] { 0 });
 
-                lightPosition = new Vector3f(planet.Length * 0.5f, HEIGHT * 0.5f, 0.04f);
+                lightPosition = new Vector3f(planet.Size[0] * 0.5f, HEIGHT * 0.5f, 0.04f);
                 light.SetParameter("lightPosition", 
                     lightPosition.X, HEIGHT - lightPosition.Y, lightPosition.Z);
                 light.SetParameter("resolution",
-                    planet.Length * 10, planet.backgroundSprite.Texture.Size.Y * 10);
-                shadowBuffer = new RenderTexture((uint)planet.Length, (uint)HEIGHT);
+                    planet.Size[0] * 10, HEIGHT * 10);
+                shadowBuffer = new RenderTexture((uint)planet.Size[0], (uint)planet.Size[1]);
                 shadowScene.Texture = shadowBuffer.Texture;
 
-                sceneBuffer = new RenderTexture((uint)planet.Length, (uint)HEIGHT);
+                sceneBuffer = new RenderTexture((uint)planet.Size[0], (uint)planet.Size[1]);
                 scene.Texture = sceneBuffer.Texture;
             }
             physics = new Physic(rigidBodies, joints, new Vector2f(planet.Gravity[0], planet.Gravity[1]), planet.Damping,
@@ -290,12 +290,12 @@ namespace Platformer
                 this.status = GameStatus.Credits;
             }
             if(this.levelEnded) {
-                if (player.rigidBody.COM.X > this.planet.Length && 
+                if (player.rigidBody.COM.X > this.planet.Size[0] && 
                     this.level + 1 <= MAXLEVEL)
                 {
                     this.status = GameStatus.Nextlevel;
                 }
-                else if (player.rigidBody.COM.X > this.planet.Length && 
+                else if (player.rigidBody.COM.X > this.planet.Size[0] && 
                     this.level + 1 > MAXLEVEL)
                 {
                     this.status = GameStatus.Credits;
@@ -306,7 +306,7 @@ namespace Platformer
         public void Draw(RenderWindow window, float alpha, Vector2f viewCenter)
         {   
             if(status == GameStatus.Active) {
-                shadow.SetParameter("lightPosition", lightPosition.X / planet.Length, 
+                shadow.SetParameter("lightPosition", lightPosition.X / planet.Size[0], 
                     1 - lightPosition.Y / HEIGHT);
                 shadowBuffer.Clear(Color.Transparent);
                 sceneBuffer.Clear(Color.Transparent);
@@ -319,7 +319,7 @@ namespace Platformer
                 }
                 RenderStates s = new RenderStates(Transform.Identity);
                 s.Shader = light;
-                window.Draw(planet.backgroundSprite, s);
+                window.Draw(planet.sky);
 
                 sceneBufferShader.SetParameter("rt_scene", shadowBuffer.Texture);
                 s.Shader = sceneBufferShader;

@@ -15,19 +15,15 @@ namespace Platformer
         [DataMember]
         public string Name { get; set; }
         [DataMember]
-        public string BackgroundImagePath { get; set; }
-        [DataMember]
         public string BackgroundMusicPath { get; set; }
         [DataMember]
         public float[] Gravity { get; set; }
         [DataMember]
         public float Damping { get; set; }
         [DataMember]
-        public int Length { get; set; }
+        public int[] Size { get; set; }
         [DataMember]
-        public Achievement Achievement { get; set; }
-        [DataMember]
-        public int AchievementMinRequirement { get; set; }
+        public byte[] SkyColor { get; set; }
         [DataMember]
         public GroundType[] GroundTypes { get; set; }
         [DataMember]
@@ -37,12 +33,17 @@ namespace Platformer
         [DataMember]
         public int[] GroundTileHeight { get; set; }
 
-        public Sprite backgroundSprite;
+        public Sprite sky;
 
         public void Init()
         {
-            backgroundSprite = new Sprite(new Texture(BackgroundImagePath), new IntRect(0, 0, Length, 700));
-            backgroundSprite.Texture.Repeated = true;
+            RenderTexture buffer = new RenderTexture((uint)Size[0], (uint)Size[1]);
+            RectangleShape colorRect = new RectangleShape(new Vector2f(Size[0], Size[1]));
+            colorRect.FillColor = Color.Red;
+            buffer.Clear();
+            buffer.Draw(colorRect);
+            buffer.Display();
+            sky = new Sprite(buffer.Texture);
         }
 
         public void AddGround()
