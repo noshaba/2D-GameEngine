@@ -39,7 +39,9 @@ namespace Platformer
 
         Sprite sprite1 = new Sprite(new Texture("../Content/textures/car_colour.png"));
         Sprite sprite2 = new Sprite(new Texture("../Content/textures/car_colour.png"));
+        RenderTexture shadowBuffer;
         RenderTexture sceneBuffer;
+        Sprite shadowScene = new Sprite();
         Sprite scene = new Sprite();
         Vector2f windowHalfSize;
 
@@ -179,7 +181,10 @@ namespace Platformer
                 player = new Player(factions[1], new Vector2f(250, 250), "../Content/ghostSprite",
                     new int[] { 100, 100 }, new int[] { 100, 800 }, new int[] { 0 });
 
-                sceneBuffer = new RenderTexture((uint)planet.Length, (uint)HEIGHT, true);
+                shadowBuffer = new RenderTexture((uint)planet.Length, (uint)HEIGHT);
+                shadowScene.Texture = shadowBuffer.Texture;
+
+                sceneBuffer = new RenderTexture((uint)planet.Length, (uint)HEIGHT);
                 scene.Texture = sceneBuffer.Texture;
             }
             physics = new Physic(rigidBodies, joints, new Vector2f(planet.Gravity[0], planet.Gravity[1]), planet.Damping,
@@ -277,35 +282,58 @@ namespace Platformer
 
         public void Draw(RenderWindow window, float alpha, Vector2f viewCenter)
         {
+            /*
+             * //all the drawing
+            if(status == GameStatus.Active) {
+                window.Draw(planet.backgroundSprite);
+            //    if(debug) physics.DrawQuadtree(window);
+                foreach (GameObject obj in objects)
+                {
+                    obj.Draw(window, alpha);
+                    if (debug)
+                        obj.rigidBody.Draw(window, alpha);
+                }
+            }
+            shader.SetParameter("normalMap", normalMap);
+            shader.SetParameter("lightPosition", Mouse.GetPosition(window).X, HEIGHT - Mouse.GetPosition(window).Y, 0.04f);
+            RenderStates s = new RenderStates(Transform.Identity);
+            s.Shader = shader;
+            window.Draw(sprite,s);*/
             // shader.SetParameter("lightPosition", Mouse.GetPosition(window).X, HEIGHT - Mouse.GetPosition(window).Y, 0.04f);
             // shaderBG.SetParameter("lightPosition", Mouse.GetPosition(window).X, HEIGHT - Mouse.GetPosition(window).Y, 0.04f);
             RenderStates s = new RenderStates(Transform.Identity);
             if(status == GameStatus.Active) {
                 // s.Shader = shaderBG;
+                shadowBuffer.Clear(Color.Transparent);
                 sceneBuffer.Clear(Color.Transparent);
                 // window.Draw(planet.backgroundSprite, s);
                 foreach (GameObject obj in objects)
                 {
                     // obj.Draw(window, alpha);
+                    obj.Draw(shadowBuffer, alpha, viewCenter, windowHalfSize);
                     obj.Draw(sceneBuffer, alpha, viewCenter, windowHalfSize);
                     if (debug)
                         obj.rigidBody.Draw(sceneBuffer, alpha, viewCenter, windowHalfSize);
                         // obj.rigidBody.Draw(window, alpha);
                 }
+                shadowBuffer.Draw(sprite1, s);
+                shadowBuffer.Draw(sprite2, s);
                 sceneBuffer.Draw(sprite1, s);
                 sceneBuffer.Draw(sprite2, s);
 
-                sceneBufferShader.SetParameter("rt_scene", sceneBuffer.Texture);
+                sceneBufferShader.SetParameter("rt_scene", shadowBuffer.Texture);
                 s.Shader = sceneBufferShader;
-                sceneBuffer.Draw(scene, s);
-                sceneBuffer.Display();
+                shadowBuffer.Draw(shadowScene, s);
+                shadowBuffer.Display();
 
                 //godsRay.SetParameter("lightPosition", 0,0,1);
-                shadow.SetParameter("texture", scene.Texture);
+                shadow.SetParameter("texture", shadowScene.Texture);
                 s.Shader = shadow;
 
                 window.Draw(planet.backgroundSprite);
-                window.Draw(scene, s);
+                window.Draw(shadowScene, s);
+                sceneBuffer.Display();
+                window.Draw(scene);
             }
 
             //window.Draw(sprite1,s);
