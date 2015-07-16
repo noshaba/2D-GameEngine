@@ -1,12 +1,10 @@
 {
   "Name": "some name",
-  "BackgroundImagePath": "../Content/1/images/BG.png",
   "BackgroundMusicPath": "audio_path",
   "Gravity": [0, 9.81],
   "Damping": 1,
-  "Length": 4000,
-  "Achievement": 14,
-  "AchievementMinRequirement": 1000,
+  "Size": [4000, 4000],
+  "SkyColor": [0, 54, 99],
   "GroundTypes": [
      {
         "Name": "ground",
