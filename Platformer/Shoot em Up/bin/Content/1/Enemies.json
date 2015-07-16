@@ -12,7 +12,7 @@
          "Damage": 1,
          "SpawnPatternID": 3,
          "NumberOfObjects": 1,
-         "SpawnStartPosition": [650, 600],
+         "SpawnStartPosition": [650, 400],
          "SpritePath": "../Content/BlobSprite.png",
          "SpriteSize": [70, 490],
          "SpriteTileSize": [70, 70],
