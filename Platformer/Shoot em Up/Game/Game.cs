@@ -325,7 +325,6 @@ namespace Platformer
 
                 sceneBufferShader.SetParameter("rt_scene", shadowBuffer.Texture);
                 s.Shader = sceneBufferShader;
-                shadowBuffer.Draw(shadowScene, s);
                 shadowBuffer.Display();
 
                 shadow.SetParameter("texture", shadowScene.Texture);
