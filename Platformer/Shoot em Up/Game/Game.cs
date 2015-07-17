@@ -80,6 +80,7 @@ namespace Platformer
             this.Reset();
             this.levelEnded = false;
             Level = 1;
+
             // string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density
             Pendulum pend1 = new Pendulum("../Content/Pendulum.png", new[] { 50, 50 }, new[] { 50, 50 }, new[] { 0 }, 0, new Vector2f(1000, 700), 0, 0.01f, 3, 100);
             Pendulum pend2 = new Pendulum("../Content/Pendulum.png", new[] { 50, 50 }, new[] { 50, 50 }, new[] { 0 }, 0, new Vector2f(1200, 350), 0, 0.01f, 5, 100);
