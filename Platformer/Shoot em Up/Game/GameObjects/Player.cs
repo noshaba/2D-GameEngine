@@ -67,7 +67,7 @@ namespace Platformer
                         break;
                     case Keyboard.Key.Right: status = state.runRight;
                         break;
-                    case Keyboard.Key.Up: this.rigidBody.Velocity = new Vector2f(this.rigidBody.Velocity.X, -this.speed); status = state.jump;
+                    case Keyboard.Key.Up: this.rigidBody.Velocity = new Vector2f(this.rigidBody.Velocity.X, -this.speed*2); status = state.jump;
                         break;
                 }
             } else if(this.status == state.runLeft) {
@@ -75,7 +75,7 @@ namespace Platformer
                 {
                     case Keyboard.Key.Right: status = state.runRight;
                         break;
-                    case Keyboard.Key.Up: this.rigidBody.Velocity = new Vector2f(this.rigidBody.Velocity.X, -this.speed); status = state.jumpLeft;
+                    case Keyboard.Key.Up: this.rigidBody.Velocity = new Vector2f(this.rigidBody.Velocity.X, -this.speed*2); status = state.jumpLeft;
                         break;
                 }
             } else if(this.status == state.runRight) {
@@ -83,7 +83,7 @@ namespace Platformer
                 {
                     case Keyboard.Key.Left: status = state.runLeft;
                         break;
-                    case Keyboard.Key.Up: this.rigidBody.Velocity = new Vector2f(this.rigidBody.Velocity.X, -this.speed); status = state.jumpRight;
+                    case Keyboard.Key.Up: this.rigidBody.Velocity = new Vector2f(this.rigidBody.Velocity.X, -this.speed*2); status = state.jumpRight;
                         break;
                 }
             }
@@ -109,7 +109,7 @@ namespace Platformer
 
         public void Release(Keyboard.Key k)
         {
-            if (status != state.jump || status != state.jumpLeft || status != state.jumpRight)
+            if (status != state.jump && status != state.jumpLeft && status != state.jumpRight && status != state.shatter)
             {
                 switch (k)
                 {
@@ -150,7 +150,8 @@ namespace Platformer
                 case state.runLeft: this.rigidBody.Velocity = new Vector2f(-this.speed,this.rigidBody.Velocity.Y);
                     break;
             }
-            if(status == state.jump || status == state.jumpLeft || status == state.jumpRight) {
+            if (status == state.jump || status == state.jumpLeft || status == state.jumpRight )
+            {
                 if (rigidBody.Collision.collision)
                     {
                         status = state.idle;
@@ -159,9 +160,9 @@ namespace Platformer
             if(status == state.shatter  && rigidBody.Collision.collision) {
                 if (rigidBody.Collision.obj is Platform)
                 {
-                    (rigidBody.Collision.obj as Platform).Shatter();
-                    status = state.idle;
+                    (rigidBody.Collision.obj as Platform).Shatter();    
                 }
+                status = state.idle;
             }
             this.rigidBody = this.rigidBodies[this.animationFrame];
             this.drawable = this.drawables[this.animationFrame];
