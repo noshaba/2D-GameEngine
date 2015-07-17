@@ -132,7 +132,7 @@ namespace Platformer
             {
                 interpol = rigidBody.bodies[i].Interpolation(alpha);
                 t = Transform.Identity;
-                t.Translate(buffer.MapPixelToCoords((Vector2i)rigidBody.bodies[i].Center, buffer.GetView()));
+                t.Translate(rigidBody.bodies[i].Center);
                 t.Rotate(interpol.DegOrientation);
                 r = new RenderStates(t);
                 buffer.Draw(drawable[i], r);
@@ -150,7 +150,7 @@ namespace Platformer
             {
                 interpol = rigidBody.bodies[i].Interpolation(alpha);
                 t = Transform.Identity;
-                t.Translate(buffer.MapPixelToCoords((Vector2i)rigidBody.bodies[i].Center, buffer.GetView()));
+                t.Translate(rigidBody.bodies[i].Center);
                 t.Rotate(interpol.DegOrientation);
                 r = new RenderStates(t);
                 r.Shader = s;

@@ -329,23 +329,23 @@ namespace Physics
                 return;
             State interpol = Interpolation(alpha);
             Transform t = Transform.Identity;
-            t.Translate(buffer.MapPixelToCoords((Vector2i)interpol.position, buffer.GetView()));
+            t.Translate(interpol.position);
             t.Rotate(interpol.DegOrientation);
             RenderStates r = new RenderStates(t);
             buffer.Draw(BoundingCircle, r);
-            COMDrawable.Position = buffer.MapPixelToCoords((Vector2i)COM, buffer.GetView());
+            COMDrawable.Position = COM;
             buffer.Draw(COMDrawable);
             foreach (IRigidBody body in bodies)
             {
                 interpol = body.Interpolation(alpha);
                 t = Transform.Identity;
-                t.Translate(buffer.MapPixelToCoords((Vector2i)interpol.position, buffer.GetView()));
+                t.Translate(interpol.position);
                 t.Rotate(interpol.DegOrientation);
                 r = new RenderStates(t);
                 buffer.Draw(body as Shape, r);
-                body.COMDrawable.Position = buffer.MapPixelToCoords((Vector2i)body.Center, buffer.GetView());
+                body.COMDrawable.Position = body.Center;
                 buffer.Draw(body.COMDrawable);
-                body.BoundingCircle.Position = buffer.MapPixelToCoords((Vector2i)body.Center, buffer.GetView());
+                body.BoundingCircle.Position = body.Center;
                 buffer.Draw(body.BoundingCircle);
             }
         }

@@ -183,10 +183,10 @@ namespace Platformer
                     lightPosition.X, HEIGHT - lightPosition.Y, lightPosition.Z);
                 light.SetParameter("resolution",
                     WIDTH, HEIGHT);
-                shadowBuffer = new RenderTexture((uint)WIDTH, (uint)HEIGHT);
+                shadowBuffer = new RenderTexture((uint)planet.Size[0], (uint)planet.Size[1]);
                 shadowScene.Texture = shadowBuffer.Texture;
 
-                sceneBuffer = new RenderTexture((uint)WIDTH, (uint)HEIGHT);
+                sceneBuffer = new RenderTexture((uint)planet.Size[0], (uint)planet.Size[1]);
                 scene.Texture = sceneBuffer.Texture;
             }
             physics = new Physic(rigidBodies, joints, new Vector2f(planet.Gravity[0], planet.Gravity[1]), planet.Damping,

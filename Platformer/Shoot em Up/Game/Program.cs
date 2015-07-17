@@ -101,8 +101,6 @@ namespace Platformer
                         sEmUp.levelEnded = true;
                     }
                 }*/
-                sEmUp.sceneBuffer.SetView(view);
-                sEmUp.shadowBuffer.SetView(view);
             }
             window.SetView(view);
         }
