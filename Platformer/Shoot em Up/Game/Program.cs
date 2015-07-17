@@ -101,6 +101,8 @@ namespace Platformer
                         sEmUp.levelEnded = true;
                     }
                 }*/
+                sEmUp.sceneBuffer.SetView(view);
+                sEmUp.shadowBuffer.SetView(view);
             }
             window.SetView(view);
         }
@@ -113,7 +115,7 @@ namespace Platformer
                 view = new View(new Vector2f(WIDTH * .5f, HEIGHT * .5f), new Vector2f(WIDTH, HEIGHT));
             }
             window.SetView(view);
-            sEmUp.Draw(window, alpha, view.Center);
+            sEmUp.Draw(window, alpha);
             window.SetView(GUIview);
             gui.Draw(window);
             mouseSprite.Draw(window, RenderStates.Default);

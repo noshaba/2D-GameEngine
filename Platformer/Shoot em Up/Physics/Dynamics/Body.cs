@@ -323,36 +323,36 @@ namespace Physics
             return current + alpha * (current - previous);
         }
 
-        public void Draw(RenderTexture buffer, float alpha, Vector2f viewCenter, Vector2f windowHalfSize)
+        public void Draw(RenderTexture buffer, float alpha, Vector2f windowHalfSize)
         {
-            if (!InsideWindow(viewCenter, windowHalfSize))
+            if (!InsideWindow(buffer.GetView().Center, windowHalfSize))
                 return;
             State interpol = Interpolation(alpha);
             Transform t = Transform.Identity;
-            t.Translate(interpol.position);
+            t.Translate(buffer.MapPixelToCoords((Vector2i)interpol.position, buffer.GetView()));
             t.Rotate(interpol.DegOrientation);
             RenderStates r = new RenderStates(t);
             buffer.Draw(BoundingCircle, r);
-            COMDrawable.Position = COM;
+            COMDrawable.Position = buffer.MapPixelToCoords((Vector2i)COM, buffer.GetView());
             buffer.Draw(COMDrawable);
             foreach (IRigidBody body in bodies)
             {
                 interpol = body.Interpolation(alpha);
                 t = Transform.Identity;
-                t.Translate(interpol.position);
+                t.Translate(buffer.MapPixelToCoords((Vector2i)interpol.position, buffer.GetView()));
                 t.Rotate(interpol.DegOrientation);
                 r = new RenderStates(t);
                 buffer.Draw(body as Shape, r);
-                body.COMDrawable.Position = body.Center;
+                body.COMDrawable.Position = buffer.MapPixelToCoords((Vector2i)body.Center, buffer.GetView());
                 buffer.Draw(body.COMDrawable);
-                body.BoundingCircle.Position = body.Center;
+                body.BoundingCircle.Position = buffer.MapPixelToCoords((Vector2i)body.Center, buffer.GetView());
                 buffer.Draw(body.BoundingCircle);
             }
         }
 
-        public void Draw(RenderWindow window, float alpha, Vector2f viewCenter, Vector2f windowHalfSize) 
+        public void Draw(RenderWindow window, float alpha, Vector2f windowHalfSize) 
         {
-            if (!InsideWindow(viewCenter, windowHalfSize))
+            if (!InsideWindow(window.GetView().Center, windowHalfSize))
                 return;
             State interpol = Interpolation(alpha);
             Transform t = Transform.Identity;

@@ -121,9 +121,9 @@ namespace Platformer
             rigidBody.Collision.collision = false;
         }
 
-        public void Draw(RenderTexture buffer, float alpha, Vector2f viewCenter, Vector2f windowHalfSize)
+        public void Draw(RenderTexture buffer, float alpha, Vector2f windowHalfSize)
         {
-            if (!InsideWindow(viewCenter, windowHalfSize))
+            if (!InsideWindow(buffer.GetView().Center, windowHalfSize))
                 return;
             State interpol;
             Transform t;
@@ -132,16 +132,16 @@ namespace Platformer
             {
                 interpol = rigidBody.bodies[i].Interpolation(alpha);
                 t = Transform.Identity;
-                t.Translate(rigidBody.bodies[i].Center);
+                t.Translate(buffer.MapPixelToCoords((Vector2i)rigidBody.bodies[i].Center, buffer.GetView()));
                 t.Rotate(interpol.DegOrientation);
                 r = new RenderStates(t);
                 buffer.Draw(drawable[i], r);
             }
         }
 
-        public void Draw(RenderTexture buffer, float alpha, Vector2f viewCenter, Vector2f windowHalfSize, Shader s)
+        public void Draw(RenderTexture buffer, float alpha, Vector2f windowHalfSize, Shader s)
         {
-            if (!InsideWindow(viewCenter, windowHalfSize))
+            if (!InsideWindow(buffer.GetView().Center, windowHalfSize))
                 return;
             State interpol;
             Transform t;
@@ -150,7 +150,7 @@ namespace Platformer
             {
                 interpol = rigidBody.bodies[i].Interpolation(alpha);
                 t = Transform.Identity;
-                t.Translate(rigidBody.bodies[i].Center);
+                t.Translate(buffer.MapPixelToCoords((Vector2i)rigidBody.bodies[i].Center, buffer.GetView()));
                 t.Rotate(interpol.DegOrientation);
                 r = new RenderStates(t);
                 r.Shader = s;

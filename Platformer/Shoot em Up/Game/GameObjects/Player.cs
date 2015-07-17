@@ -25,7 +25,7 @@ namespace Platformer
 
         //Faction faction, string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density
         public Player(Faction faction, Vector2f position, String texture, int[]tileSize, int[]spriteSize, int[]tileIndices)
-            : base(faction, texture+".png", tileSize, spriteSize,tileIndices, 0, position, 0, 0.1f)
+            : base(faction, texture+".png", tileSize, spriteSize,tileIndices, 0, position, 0, 0.01f)
         {
             foreach (Body body in rigidBodies)
             {

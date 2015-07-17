@@ -39,8 +39,8 @@ namespace Platformer
         Shader sceneBufferShader = new Shader(null, "../Content/shaders/scene_buffer.frag");
         Shader shadow = new Shader(null, "../Content/shaders/shadow.frag");
 
-        RenderTexture shadowBuffer;
-        RenderTexture sceneBuffer;
+        public RenderTexture shadowBuffer;
+        public RenderTexture sceneBuffer;
         Sprite shadowScene = new Sprite();
         Sprite scene = new Sprite();
         Vector2f windowHalfSize;
@@ -183,10 +183,10 @@ namespace Platformer
                     lightPosition.X, HEIGHT - lightPosition.Y, lightPosition.Z);
                 light.SetParameter("resolution",
                     WIDTH, HEIGHT);
-                shadowBuffer = new RenderTexture((uint)planet.Size[0], (uint)planet.Size[1]);
+                shadowBuffer = new RenderTexture((uint)WIDTH, (uint)HEIGHT);
                 shadowScene.Texture = shadowBuffer.Texture;
 
-                sceneBuffer = new RenderTexture((uint)planet.Size[0], (uint)planet.Size[1]);
+                sceneBuffer = new RenderTexture((uint)WIDTH, (uint)HEIGHT);
                 scene.Texture = sceneBuffer.Texture;
             }
             physics = new Physic(rigidBodies, joints, new Vector2f(planet.Gravity[0], planet.Gravity[1]), planet.Damping,
@@ -297,9 +297,10 @@ namespace Platformer
             }
         }
 
-        public void Draw(RenderWindow window, float alpha, Vector2f viewCenter)
+        public void Draw(RenderWindow window, float alpha)
         {   
             if(status == GameStatus.Active) {
+                Vector2f viewCenter = window.GetView().Center;
                 planet.sky.Position = viewCenter;
                 shadow.SetParameter("lightPosition", lightPosition.X / planet.Size[0], 
                     1 - lightPosition.Y / HEIGHT);
@@ -307,10 +308,10 @@ namespace Platformer
                 sceneBuffer.Clear(Color.Transparent);
                 foreach (GameObject obj in objects)
                 {
-                    obj.Draw(sceneBuffer, alpha, viewCenter, windowHalfSize);
-                    obj.Draw(shadowBuffer, alpha, viewCenter, windowHalfSize);
+                    obj.Draw(sceneBuffer, alpha, windowHalfSize);
+                    obj.Draw(shadowBuffer, alpha, windowHalfSize);
                     if (debug)
-                        obj.rigidBody.Draw(sceneBuffer, alpha, viewCenter, windowHalfSize);
+                        obj.rigidBody.Draw(sceneBuffer, alpha, windowHalfSize);
                 }
                 RenderStates s = new RenderStates(Transform.Identity);
                 s.Shader = light;
