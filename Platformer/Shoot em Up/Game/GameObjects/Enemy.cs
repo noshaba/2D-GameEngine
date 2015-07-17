@@ -164,12 +164,12 @@ namespace Platformer
         }
 
         private bool IsPlayerNear() {
-            return Game.playerPos.X >= this.rigidBody.COM.X - this.attentionRange && Game.playerPos.X <= this.rigidBody.COM.X + attentionRange;
+            return Game.playerPos.X >= this.rigidBody.COM.X - this.attentionRange && Game.playerPos.X <= this.rigidBody.COM.X + attentionRange && Game.playerPos.Y >= this.rigidBody.COM.Y - this.attentionRange && Game.playerPos.Y <= this.rigidBody.COM.Y + attentionRange;
         }
 
 
         private bool IsPlayerClose() {
-            return Game.playerPos.X >= this.rigidBody.COM.X - this.attentionRange/2 && Game.playerPos.X <= this.rigidBody.COM.X + attentionRange/2;
+            return Game.playerPos.X >= this.rigidBody.COM.X - this.attentionRange/2 && Game.playerPos.X <= this.rigidBody.COM.X + attentionRange/2 && Game.playerPos.Y >= this.rigidBody.COM.Y - this.attentionRange/2 && Game.playerPos.Y <= this.rigidBody.COM.Y + attentionRange/2;
         }
     }
 }
