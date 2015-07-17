@@ -156,7 +156,7 @@ namespace Platformer
                         status = state.idle;
                     }
             }
-            if(status == state.shatter ) {
+            if(status == state.shatter  && rigidBody.Collision.collision) {
                 if (rigidBody.Collision.obj is Platform)
                 {
                     (rigidBody.Collision.obj as Platform).Shatter();
