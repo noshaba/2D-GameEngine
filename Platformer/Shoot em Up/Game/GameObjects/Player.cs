@@ -157,7 +157,6 @@ namespace Platformer
                     }
             }
             if(status == state.shatter ) {
-                Console.WriteLine("shatter");
                 if (rigidBody.Collision.obj is Platform)
                 {
                     (rigidBody.Collision.obj as Platform).Shatter();
