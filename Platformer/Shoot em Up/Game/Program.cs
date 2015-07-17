@@ -90,6 +90,14 @@ namespace Platformer
                 /*if (sEmUp.player.rigidBody.COM.X >= view.Center.X && sEmUp.player.rigidBody.Velocity.X > 0 && sEmUp.player.rigidBody.COM.X < sEmUp.planet.backgroundSprite.TextureRect.Width-WIDTH/2)
                 {*/
                 view.Center = sEmUp.player.rigidBody.COM;
+                if (view.Center.X < 600) 
+                    view.Center = new Vector2f(600,view.Center.Y);
+                if (view.Center.X > Game.levelSize.X - 600)
+                    view.Center = new Vector2f(Game.levelSize.X - 600, view.Center.Y);
+                if (view.Center.Y < 700)
+                    view.Center = new Vector2f(view.Center.X, 700);
+                if (view.Center.Y > Game.levelSize.Y - 350)
+                    view.Center = new Vector2f(view.Center.X, Game.levelSize.Y - 350);
                 sEmUp.EarlyUpdate(view.Center);
                 sEmUp.LateUpdate(view.Center);
                 /*}

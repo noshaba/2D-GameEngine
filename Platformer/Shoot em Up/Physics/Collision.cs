@@ -98,6 +98,8 @@ namespace Physics {
                 }
             }
             if (colli.collision) {
+                if (obj1.Parent is Platformer.Player)
+                    Console.WriteLine("hello");
                 b1.Pull(colli.normal, colli.overlap);
                 colli.obj = obj2.Parent;
                 // check if the other vertex of the face is also touching the plane

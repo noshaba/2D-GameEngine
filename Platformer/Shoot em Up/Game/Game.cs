@@ -34,6 +34,7 @@ namespace Platformer
         public GameStatus status;
         public Stopwatch clock;
         public static Vector2f playerPos;
+        public static Vector2f levelSize;
 
         Shader light = new Shader(null, "../Content/shaders/light.frag");
         Shader sceneBufferShader = new Shader(null, "../Content/shaders/scene_buffer.frag");
@@ -80,17 +81,7 @@ namespace Platformer
             this.levelEnded = false;
             Level = 1;
             // string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density
-            GameObject cir1 = new GameObject("../Content/Pendulum.png", new[] { 50, 50 }, new[] { 50, 50 }, new[] { 0 }, 0, new Vector2f(1000, HEIGHT * .5f - 300), 0, 0.01f);
-            GameObject cir2 = new GameObject("../Content/Pendulum.png", new[] { 50, 50 }, new[] { 50, 50 }, new[] { 0 }, 0, new Vector2f(1000, HEIGHT * .5f - 200), 0, 0.01f);
-            GameObject cir3 = new GameObject("../Content/Pendulum.png", new[] { 50, 50 }, new[] { 50, 50 }, new[] { 0 }, 0, new Vector2f(1000, HEIGHT * .5f - 100), 0, 0.01f);
-            cir1.Moveable = false;
-            Add(cir1);
-            Add(cir2);
-            Add(cir3);
-            DistanceConstraint joint1 = new DistanceConstraint(cir1.rigidBody, cir2.rigidBody, 100);
-            DistanceConstraint joint2 = new DistanceConstraint(cir2.rigidBody, cir3.rigidBody, 100);
-            joints.Add(joint1);
-            joints.Add(joint2);
+            Pendulum pend1 = new Pendulum("../Content/Pendulum.png", new[] { 50, 50 }, new[] { 50, 50 }, new[] { 0 }, 0, new Vector2f(1000, 700), 0, 0.01f, 3, 100);
 
             objects.Sort(delegate(GameObject o1, GameObject o2)
             {
@@ -130,6 +121,11 @@ namespace Platformer
         {
             objects.Add(obj);
             rigidBodies.Add(obj.rigidBody);
+        }
+
+        public static void AddJoint(Constraint joint)
+        {
+            joints.Add(joint);
         }
 
         public static void Remove(GameObject obj)
@@ -175,9 +171,9 @@ namespace Platformer
                 String json = sr.ReadToEnd();
                 planet = JSONManager.deserializeJson<Planet>(json);
                 planet.Init();
-                player = new Player(factions[1], new Vector2f(250, 250), "../Content/ghostSprite",
+                levelSize = new Vector2f(planet.Size[0], planet.Size[1]);
+                player = new Player(factions[1], new Vector2f(250, 1250), "../Content/ghostSprite",
                     new int[] { 100, 100 }, new int[] { 100, 1200 }, new int[] { 0 });
-
                 lightPosition = new Vector3f(WIDTH*2, HEIGHT * 0.5f, 0.04f);
                 light.SetParameter("lightPosition", 
                     lightPosition.X, HEIGHT - lightPosition.Y, lightPosition.Z);
@@ -194,7 +190,8 @@ namespace Platformer
             Add(player);
             playerPos = player.rigidBody.COM;
 
-            Add(new Wall(new Vector2f(1, 0), new Vector2f(0, HEIGHT * .5f), new Vector2f(.1f, HEIGHT), Color.Transparent));
+            Add(new Wall(new Vector2f(1, 0), new Vector2f(0, levelSize.Y * .5f), new Vector2f(.1f, levelSize.Y), Color.Transparent));
+        //    Add(new Wall(new Vector2f(-1, 0), new Vector2f(levelSize.X, levelSize.Y * .5f), new Vector2f(.1f, levelSize.Y), Color.Transparent));
             using (StreamReader sr = new StreamReader("../Content/" + level + "/Platforms.json"))
             {
                 PlatformContract[] platforms;
