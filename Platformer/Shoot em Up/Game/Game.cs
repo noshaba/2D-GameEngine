@@ -275,14 +275,10 @@ namespace Platformer
 
                 objects[i].LateUpdate();
 
-            /*    if(!objects[i].display) {
-                    if (objects[i] is Enemy)
-                    {
-                        AddItem((objects[i] as Enemy).drop, objects[i].rigidBody.COM);
-                    }
+                if(!objects[i].display) {
                     objects.RemoveAt(i);
                     rigidBodies.RemoveAt(i);
-                }*/
+                }
             }
             if (player.hp <= 0)
             {

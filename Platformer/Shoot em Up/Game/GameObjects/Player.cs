@@ -109,7 +109,7 @@ namespace Platformer
 
         public void Release(Keyboard.Key k)
         {
-            if (status != state.jump && status != state.jumpLeft && status != state.jumpRight)
+            if (status != state.jump || status != state.jumpLeft || status != state.jumpRight)
             {
                 switch (k)
                 {

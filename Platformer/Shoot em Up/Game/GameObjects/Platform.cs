@@ -44,7 +44,7 @@ namespace Platformer
            {
                pos = rigidBody.bodies[i].Center;
                rigidBody.bodies[i].Centroid = -rigidBody.bodies[i].Centroid;
-               Game.Add(new GameObject(new[] { rigidBody.bodies[i] }, new[] { drawables[0][i] }, pos, 0));
+               Game.Add(new KillableObject(Game.factions[0], 500, 100, new[] { rigidBody.bodies[i] }, new[] { drawables[0][i] }, pos, 0));
            }
        }
     }
