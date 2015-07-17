@@ -12,11 +12,11 @@
         "Tiles": [0,1,1,1,1,1,1,1,1,1,2]
     },
     {
-        "Density": 0.01,
+        "Density": 0.5,
         "Restitution": 0,
         "StaticFriction": 2,
         "KineticFriction": 2,
-        "Position": [1000,1100],
+        "Position": [1000,1000],
         "Rotation": 10,
         "SpritePath": "../Content/platform.png",
         "SpriteSize": [300,100],
