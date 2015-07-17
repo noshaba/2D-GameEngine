@@ -178,7 +178,7 @@ namespace Platformer
                 player = new Player(factions[1], new Vector2f(250, 250), "../Content/ghostSprite",
                     new int[] { 100, 100 }, new int[] { 100, 1200 }, new int[] { 0 });
 
-                lightPosition = new Vector3f(planet.Size[0] * 0.5f, HEIGHT * 0.5f, 0.04f);
+                lightPosition = new Vector3f(WIDTH*2, HEIGHT * 0.5f, 0.04f);
                 light.SetParameter("lightPosition", 
                     lightPosition.X, HEIGHT - lightPosition.Y, lightPosition.Z);
                 light.SetParameter("resolution",
@@ -306,6 +306,7 @@ namespace Platformer
         public void Draw(RenderWindow window, float alpha, Vector2f viewCenter)
         {   
             if(status == GameStatus.Active) {
+                planet.sky.Position = viewCenter;
                 shadow.SetParameter("lightPosition", lightPosition.X / planet.Size[0], 
                     1 - lightPosition.Y / HEIGHT);
                 shadowBuffer.Clear(Color.Transparent);
@@ -319,11 +320,10 @@ namespace Platformer
                 }
                 RenderStates s = new RenderStates(Transform.Identity);
                 s.Shader = light;
-                window.Draw(planet.sky);
+                window.Draw(planet.sky, s);
 
                 sceneBufferShader.SetParameter("rt_scene", shadowBuffer.Texture);
                 s.Shader = sceneBufferShader;
-                shadowBuffer.Draw(shadowScene, s);
                 shadowBuffer.Display();
 
                 shadow.SetParameter("texture", shadowScene.Texture);

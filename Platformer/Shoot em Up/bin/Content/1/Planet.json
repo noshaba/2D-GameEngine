@@ -1,9 +1,11 @@
 {
   "Name": "some name",
+  "BackgroundTile":  "../Content/BGTile.png",
   "BackgroundMusicPath": "audio_path",
   "Gravity": [0, 9.81],
   "Damping": 1,
-  "Size": [4000, 4000],
+  "Size": [2000, 1500],
+  "WindowSize": [1200, 700],
   "SkyColor": [0, 54, 99],
   "GroundTypes": [
      {
