@@ -9,7 +9,7 @@
          "Faction": 2,
          "Health": 10,
          "Points": 10,
-         "Damage": 1,
+         "Damage": 100,
          "SpawnPatternID": 3,
          "NumberOfObjects": 1,
          "SpawnStartPosition": [650, 400],
