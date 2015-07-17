@@ -38,6 +38,8 @@ namespace Platformer
         public int[] SpriteTileSize { get; set; }
         [DataMember]
         public int[] Tiles { get; set; }
+        [DataMember]
+        public int[] Path { get; set; }
         /*
             "Density": 0.01,
             "Restitution": 0,
@@ -67,7 +69,7 @@ namespace Platformer
             }*/
             //Game.Add(new Platform(SpritePath, new Vector2f(Position[0], Position[1]), Rotation, SpriteSize, SpriteTileSize, Tiles, 
              //   KineticFriction, StaticFriction, Restitution, Density));
-            Game.Add(new Platform(Breakable, Rotateable, SpritePath, new Vector2f(Position[0], Position[1]), Rotation, SpriteSize, SpriteTileSize, Tiles,
+            Game.Add(new Platform(Breakable, Rotateable, Path, SpritePath, new Vector2f(Position[0], Position[1]), Rotation, SpriteSize, SpriteTileSize, Tiles,
                 KineticFriction, StaticFriction, Restitution, Density));
 
         }
