@@ -275,14 +275,20 @@ namespace Platformer
                 objects[i].LateUpdate();
 
                 if(!objects[i].display) {
+                    if (objects[i] is KillableObject)
+                    {
+                        player.score += (objects[i] as KillableObject).points;
+                    }
                     objects.RemoveAt(i);
                     rigidBodies.RemoveAt(i);
                 }
             }
+
             if (player.hp <= 0)
             {
                 this.status = GameStatus.Credits;
             }
+
             if(this.levelEnded) {
                 if (player.rigidBody.COM.X > this.planet.Size[0] && 
                     this.level + 1 <= MAXLEVEL)

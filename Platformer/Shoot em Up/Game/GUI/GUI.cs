@@ -31,8 +31,8 @@ namespace Platformer {
 
         public GUI(int width, int height, Game g) : base(new Vector2f(0, 0), new Vector2f(width, height)) {
             game = g;
-            this.color = new Color(255,180,255);
-            this.textColor = new Color(245,220,253);
+            this.color = Color.Black;
+            this.textColor = Color.White;
             start = new Button(new Vector2f(500, 400), new Vector2f(200,50), "Start Game!", this.color, this.textColor, 24, StartGame);
             title = new Picture(0,0,"../Content/title.png", this.color);
             this.welcome.Add(title);
