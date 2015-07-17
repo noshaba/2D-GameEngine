@@ -1,12 +1,15 @@
 To-Do
-- constraints solver
-- platforms
-- can rotate
-- platforms move(up/down left/right)
-- scenery is filled properly
-- enemies 
-- pendulums
-- enemy animation states coupled with "AI"
+- make multiple collision objects possible(for resolving them in gameObj)
+- platforms can move along specified paths (also in json)
+- pendulums can be read from json
+- enemies (3 more)
+- coins
+- coins can be read from json
+- portal
+- portal can be specified in planet
+- enemy animation states coupled with "AI"-> improve 
+- platform fragments can vanish(but why and when)
+- screenshake(can be triggert by game!?)
 
 Visuals -> nice spritesheets etc.
 Audio   -> music and sfx

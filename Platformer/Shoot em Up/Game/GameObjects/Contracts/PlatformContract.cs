@@ -25,7 +25,11 @@ namespace Platformer
         [DataMember]
         public int[] Position { get; set; }
         [DataMember]
+        public bool Rotateable { get; set; }
+        [DataMember]
         public int Rotation { get; set; }
+        [DataMember]
+        public bool Breakable { get; set; }
         [DataMember]
         public string SpritePath { get; set; }
         [DataMember]
@@ -63,7 +67,7 @@ namespace Platformer
             }*/
             //Game.Add(new Platform(SpritePath, new Vector2f(Position[0], Position[1]), Rotation, SpriteSize, SpriteTileSize, Tiles, 
              //   KineticFriction, StaticFriction, Restitution, Density));
-            Game.Add(new Platform(SpritePath, new Vector2f(Position[0], Position[1]), Rotation, SpriteSize, SpriteTileSize, Tiles,
+            Game.Add(new Platform(Breakable, Rotateable, SpritePath, new Vector2f(Position[0], Position[1]), Rotation, SpriteSize, SpriteTileSize, Tiles,
                 KineticFriction, StaticFriction, Restitution, Density));
 
         }

@@ -12,11 +12,14 @@ namespace Platformer
     class Platform : GameObject
     {
         Vector2f globalPosition;
+        private bool breakable;
         // SpritePath, Position, Rotation, SpriteSize, SpriteTileSize, Tiles, KineticFriction, StaticFriction, Restitution, Density
-       public Platform(String path, Vector2f position, float rotation, int[] spriteSize, int[] tileSize, int[] tiles,
+       public Platform(bool breakable, bool rotateable, String path, Vector2f position, float rotation, int[] spriteSize, int[] tileSize, int[] tiles,
            float kineticFriction, float staticFriction, float restitution, float density)
             : base(path, tileSize, spriteSize, tiles, 0, position, rotation,density)
         {
+            this.breakable = breakable;
+            this.Rotateable = rotateable;
             globalPosition = position;
             foreach (Body body in rigidBodies)
             {
@@ -37,14 +40,18 @@ namespace Platformer
 
        public void Shatter()
        {
-           Game.Remove(this);
 
-           Vector2f pos;
-           for (int i = 0; i < rigidBody.bodies.Length; ++i)
+           if (this.breakable)
            {
-               pos = rigidBody.bodies[i].Center;
-               rigidBody.bodies[i].Centroid = -rigidBody.bodies[i].Centroid;
-               Game.Add(new KillableObject(Game.factions[0], 500, 100, new[] { rigidBody.bodies[i] }, new[] { drawables[0][i] }, pos, 0));
+               Game.Remove(this);
+
+               Vector2f pos;
+               for (int i = 0; i < rigidBody.bodies.Length; ++i)
+               {
+                   pos = rigidBody.bodies[i].Center;
+                   rigidBody.bodies[i].Centroid = -rigidBody.bodies[i].Centroid;
+                   Game.Add(new KillableObject(Game.factions[0], 500, 100, new[] { rigidBody.bodies[i] }, new[] { drawables[0][i] }, pos, 0));
+               }
            }
        }
     }

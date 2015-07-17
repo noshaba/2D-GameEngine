@@ -158,9 +158,16 @@ namespace Platformer
                     }
             }
             if(status == state.shatter  && rigidBody.Collision.collision) {
-                if (rigidBody.Collision.obj is Platform)
+                if (rigidBody.Collision.obj is Platform || rigidBody.Collision.obj is Body)
                 {
-                    (rigidBody.Collision.obj as Platform).Shatter();    
+                    //workaround
+                    if (rigidBody.Collision.obj is Body) {
+                        if ((rigidBody.Collision.obj as Body).Parent is Platform) {
+                            ((rigidBody.Collision.obj as Body).Parent as Platform).Shatter(); 
+                        }
+                    } else if(rigidBody.Collision.obj is Platform) {
+                    (rigidBody.Collision.obj as Platform).Shatter();  
+                    }
                 }
                 status = state.idle;
             }
