@@ -15,6 +15,7 @@ namespace Platformer
        private bool breakable;
        private Vector2f[] positions;
        private int currentPosition;
+       private int nextPosition;
        private bool moveable;
        // SpritePath, Position, Rotation, SpriteSize, SpriteTileSize, Tiles, KineticFriction, StaticFriction, Restitution, Density
        public Platform(bool breakable, bool rotateable, int[] movement, String path, Vector2f position, float rotation, int[] spriteSize, int[] tileSize, int[] tiles,
@@ -61,7 +62,7 @@ namespace Platformer
 
         private void DetermineMoves(int[] movement)
         {
-            if(movement.Length < 1) {
+            if(movement.Length < 2) {
                 this.moveable = false;
                 return;
             }
@@ -73,18 +74,50 @@ namespace Platformer
                 i++;
             }
             this.currentPosition = 0;
+            this.nextPosition = 1;
         }
 
+        //needs some adjustments, speed has to be defined in json and then has to be calculated correctly taking the distnace bewteen the two points into account
         private void Move() {
-            this.rigidBody.Velocity = new Vector2f(10,0);
+            Vector2f direction = new Vector2f(positions[nextPosition].X - positions[currentPosition].X, positions[nextPosition].Y - positions[currentPosition].Y);
+            if (this.rigidBody.COM.X >= positions[nextPosition].X * 0.99f && this.rigidBody.COM.X <= positions[nextPosition].X * 1.01f
+                && this.rigidBody.COM.Y >= positions[nextPosition].Y * 0.99f && this.rigidBody.COM.Y <= positions[nextPosition].Y * 1.01f)
+            {
+                if (nextPosition+1 < positions.Length)
+                {
+                    currentPosition = nextPosition;
+                    nextPosition = currentPosition + 1;
+                }
+                else 
+                {
+                    currentPosition = nextPosition;
+                    nextPosition = 0;
+                }
+                Console.WriteLine(currentPosition);
+                Console.WriteLine(nextPosition);
+            }
+            else {
+                this.rigidBody.Velocity = new Vector2f(direction.X / 20, direction.Y / 20);
+            }
            /* if (this.currentPosition < positions.Length)
             {
                 //get currentPosition
                 //get nextPosition
+                direction = new Vector2f( positions[currentPosition+1].X - positions[currentPosition].X, positions[currentPosition+1].Y- positions[currentPosition].Y );
+                if (this.rigidBody.COM.X <= positions[currentPosition + 1].X * 1.05f && this.rigidBody.COM.X >= positions[currentPosition + 1].X * 0.95f)
+                {
+                    this.currentPosition++;
+                }
             }
-            else { 
+            else if(currentPosition > 0){
+                direction = new Vector2f(positions[0].X - positions[currentPosition].X, positions[0].Y - positions[currentPosition].Y);
                 //nextPosition is at 0
-            }*/
+                if (this.rigidBody.COM.X <= positions[0].X * 1.05f && this.rigidBody.COM.X >= positions[0].X * 0.95f)
+                {
+                    this.currentPosition = 0;
+                }
+            }
+            this.rigidBody.Velocity = new Vector2f(direction.X/20, direction.Y/20);*/
             //calculate direction
             //set velocity in that direction
         }

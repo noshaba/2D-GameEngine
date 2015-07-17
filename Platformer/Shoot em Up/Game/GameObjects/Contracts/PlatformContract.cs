@@ -56,22 +56,8 @@ namespace Platformer
          */
         public void Init()
         {
-           /* String path = "../Content/platform.png";
-            Vector2f pos = new Vector2f(800,500);
-            int tileSize = 100;
-            int[] tiles = new int[] { 0,1,1,1,1,2};*/
-
-            /*
-            //number of platforms in json
-            for (int i = 0; i < 1; i++)
-            {
-               //add platform
-            }*/
-            //Game.Add(new Platform(SpritePath, new Vector2f(Position[0], Position[1]), Rotation, SpriteSize, SpriteTileSize, Tiles, 
-             //   KineticFriction, StaticFriction, Restitution, Density));
             Game.Add(new Platform(Breakable, Rotateable, Path, SpritePath, new Vector2f(Position[0], Position[1]), Rotation, SpriteSize, SpriteTileSize, Tiles,
                 KineticFriction, StaticFriction, Restitution, Density));
-
         }
     }
 }
