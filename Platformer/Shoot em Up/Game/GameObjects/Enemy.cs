@@ -143,9 +143,9 @@ namespace Platformer
 
         private void Chase() {
             if (Game.playerPos.X >= this.rigidBody.COM.X)
-                this.rigidBody.Velocity = new Vector2f(-this.speed, 0);
+                this.rigidBody.Velocity = new Vector2f(-this.speed, this.rigidBody.Velocity.Y);
             else if (Game.playerPos.X <= this.rigidBody.COM.X)
-                this.rigidBody.Velocity = new Vector2f(this.speed,0);
+                this.rigidBody.Velocity = new Vector2f(this.speed, this.rigidBody.Velocity.Y);
         }
 
         private void Shoot()
