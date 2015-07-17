@@ -40,10 +40,10 @@ namespace Platformer {
             this.nextLevel.Add(title);
             this.nextLevel.Add(new Button(new Vector2f(500, 400), new Vector2f(200, 50), "Start next Level!", this.color,this.textColor, 24, NextLevel));
 
-            this.credits.Add(new Picture(0,0, "../Content/end.png", this.color));
-            restart = new Button(new Vector2f(500, 500), new Vector2f(200, 50), "Play Again!", this.color, this.textColor, 24, ShowWelcome);
+            this.credits.Add(new Picture(0,0, "../Content/title.png", this.color));
+            restart = new Button(new Vector2f(500, 400), new Vector2f(200, 50), "Play Again!", this.color, this.textColor, 24, ShowWelcome);
             this.credits.Add(restart);
-            this.resultScore = new Label(new Vector2f(450, 350), "Your Score: ", this.textColor, 30);
+            this.resultScore = new Label(new Vector2f(500, 300), "Your Score: ", Color.Black, 30);
             this.credits.Add(resultScore);
 
             this.children = this.credits;
