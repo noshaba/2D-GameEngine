@@ -10,7 +10,7 @@ namespace Platformer {
         public static bool on = true;
         public static Sound scoreSound = new Sound(new SoundBuffer("../Content/score.ogg"));
         public static Sound hitSound = new Sound(new SoundBuffer("../Content/Hit.wav"));
-        public static Sound ambient = new Sound(new SoundBuffer("../Content/Mellowtron.wav"));
+        public static Sound ambient = new Sound(new SoundBuffer("../Content/Guiton_Sketch.wav"));
 
         public static void Play(Sound s)
         {
