@@ -27,6 +27,7 @@ namespace Platformer
             : base(faction, texturePath, tileSize, spriteSize, tileIndices, animationIndex, position, rotation, density)
         {
             RigidBodyParent = this;
+            Rotateable = false;
             this.initPos = position;
             this.rigidBody.DragCoefficient = 1;
             this.rigidBody.Restitution = restitution;
@@ -49,6 +50,7 @@ namespace Platformer
             : base(faction, texturePath, tileSize, spriteSize, tileIndices, animationIndex, position, rotation, density)
         {
             RigidBodyParent = this;
+            Rotateable = false;
             this.initPos = position;
             this.rigidBody.DragCoefficient = 1;
             this.rigidBody.Restitution = restitution;
