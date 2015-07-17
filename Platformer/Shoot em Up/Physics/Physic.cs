@@ -41,18 +41,6 @@ namespace Physics {
             this.viewCenter = viewCenter;
             if (!frozen)
             {
-                Parallel.For(0, objects.Count, i =>
-                {
-                    if (objects[i].InsideWindow(viewCenter, windowHalfSize))
-                    {
-                        objects[i].Update(dt);
-                        ApplyForces(dt, i);
-                    }
-                });
-                Parallel.ForEach(joints, j => j.Solve());
-            }
-      /*      if (!frozen)
-            {
                 for (int i = 0; i < objects.Count; ++i)
                 {
                     if (objects[i].InsideWindow(viewCenter, windowHalfSize))
@@ -63,7 +51,7 @@ namespace Physics {
                 }
                 foreach (Constraint constraint in joints)
                     constraint.Solve();
-            }*/
+            }
         }
 
         #region Physical Methods
