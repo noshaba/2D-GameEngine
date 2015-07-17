@@ -23,6 +23,13 @@ namespace Platformer
         public int maxShieldHp;
         public Faction faction;
 
+        public KillableObject(Faction faction, int dmg, int hp, IRigidBody[]bodies, Shape[] drawables, Vector2f position, float rotation) : base(bodies,drawables,position,rotation)
+        {
+            this.faction = faction;
+            this.damage = dmg;
+            this.hp = hp;
+        }
+
         public KillableObject(Faction faction, string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density)
             : base(texturePath, spriteTileSize, spriteSize, tileIndices, animationIndex, position, rotation, density)
         {

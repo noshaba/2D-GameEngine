@@ -2,7 +2,7 @@
 	{
 		"ID" : 0,
 		"GainableRep" : false,
-		"Reputation" : [100, 50, 100]
+		"Reputation" : [100, 100, 0]
 	},
 	{
 		"ID" : 1,

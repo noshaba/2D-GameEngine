@@ -190,9 +190,6 @@ namespace Platformer
                 case Keyboard.Key.P:
                     if (sEmUp.status == Game.GameStatus.Active) sEmUp.Pause();
                     break;
-                case Keyboard.Key.S:
-                    if (Game.breakable != null) Game.breakable.Shatter();
-                    break;
                 default:
                     sEmUp.player.Release(e.Code);
                     break;

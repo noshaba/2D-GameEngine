@@ -46,7 +46,6 @@ namespace Platformer
         Vector2f windowHalfSize;
         Vector3f lightPosition;
 
-        public static Platform breakable;
 
         public enum GameStatus
         {
@@ -177,7 +176,7 @@ namespace Platformer
                 planet = JSONManager.deserializeJson<Planet>(json);
                 planet.Init();
                 player = new Player(factions[1], new Vector2f(250, 250), "../Content/ghostSprite",
-                    new int[] { 100, 100 }, new int[] { 100, 1100 }, new int[] { 0 });
+                    new int[] { 100, 100 }, new int[] { 100, 1200 }, new int[] { 0 });
 
                 lightPosition = new Vector3f(planet.Size[0] * 0.5f, planet.Size[1] * 0.5f, 0.04f);
                 light.SetParameter("lightPosition", 
@@ -275,14 +274,10 @@ namespace Platformer
 
                 objects[i].LateUpdate();
 
-            /*    if(!objects[i].display) {
-                    if (objects[i] is Enemy)
-                    {
-                        AddItem((objects[i] as Enemy).drop, objects[i].rigidBody.COM);
-                    }
+                if(!objects[i].display) {
                     objects.RemoveAt(i);
                     rigidBodies.RemoveAt(i);
-                }*/
+                }
             }
             if (player.hp <= 0)
             {
