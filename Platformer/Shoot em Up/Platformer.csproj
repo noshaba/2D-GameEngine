@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="Game\FileManager\SoundManager.cs" />
     <Compile Include="Game\GameObjects\Bullet.cs" />
+    <Compile Include="Game\GameObjects\Coin.cs" />
     <Compile Include="Game\GameObjects\Contracts\PlatformContract.cs" />
     <Compile Include="Game\GameObjects\Enemy.cs" />
     <Compile Include="Game\GameObjects\Contracts\EnemyContract.cs" />

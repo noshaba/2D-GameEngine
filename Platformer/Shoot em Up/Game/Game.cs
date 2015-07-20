@@ -106,6 +106,7 @@ namespace Platformer
             tile = new Texture("../Content/platform.png", new IntRect(100, 0, 100, 100));
             Polygon p2 = new Polygon(CV.AlphaEdgeDetection(tile.CopyToImage().Pixels, tile.Size.X, tile.Size.Y, 254), new Vector2f(50,50), new Vector2f(800,500), 0, 0);
             Add(new Platform(new IRigidBody[]{p,p2}, new Vector2f(800, 500), 0,100));*/
+            Add(new Coin(Collision.Type.Polygon, new int[]{50,50}, new int[]{0}, 0,0,0,0,0,"../Content/CoinSprite.png",new int[]{50,300}, new Vector2f(300,1400),0,5,10,0, factions[1]));
 
         }
 
@@ -257,6 +258,8 @@ namespace Platformer
                     else if (obj.animated && obj is Enemy)
                     {
                         obj.AdvanceAnim((int)(obj as Enemy).status);
+                    } else if(obj.animated && obj is Coin) {
+                        obj.AdvanceAnim((int)(obj as Coin).status);
                     }
                 }
                 this.clock.Restart();
