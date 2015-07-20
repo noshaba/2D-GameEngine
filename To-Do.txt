@@ -4,7 +4,6 @@ To-Do
 - pendulums can be read from json
 - enemies (3 more at least)
 - coins can be read from json
-- portal
 - portal can be specified in planet
 - enemy animation states coupled with "AI"-> improve 
 - platform fragments can vanish(but why and when)

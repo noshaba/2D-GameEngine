@@ -1,5 +1,8 @@
 {
   "Name": "some name",
+  "PortalPosition": [700,1400],
+  "RequiredPoints":5,
+  "KillPercentage":0,
   "BackgroundTile":  "../Content/BGTile.png",
   "BackgroundMusicPath": "audio_path",
   "Gravity": [0, 9.81],

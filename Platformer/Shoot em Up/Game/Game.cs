@@ -35,6 +35,10 @@ namespace Platformer
         public Stopwatch clock;
         public static Vector2f playerPos;
         public static Vector2f levelSize;
+        private Portal portal;
+        private int requiredScore = 5;
+        private int numberOfEnemies;
+        private int killPercentage;
 
         Shader light = new Shader(null, "../Content/shaders/light.frag");
         Shader sceneBufferShader = new Shader(null, "../Content/shaders/scene_buffer.frag");
@@ -107,7 +111,8 @@ namespace Platformer
             Polygon p2 = new Polygon(CV.AlphaEdgeDetection(tile.CopyToImage().Pixels, tile.Size.X, tile.Size.Y, 254), new Vector2f(50,50), new Vector2f(800,500), 0, 0);
             Add(new Platform(new IRigidBody[]{p,p2}, new Vector2f(800, 500), 0,100));*/
             Add(new Coin(Collision.Type.Polygon, new int[]{50,50}, new int[]{0}, 0,0,0,0,0,"../Content/CoinSprite.png",new int[]{50,300}, new Vector2f(300,1400),0,5,10,0, factions[1]));
-
+            this.portal = new Portal(Collision.Type.Polygon, new int[]{100,100}, new int[]{0},0,0,0,0,0,"../Content/Portal.png", new int[]{100,300}, new Vector2f(600,1400), 0);
+            Add(portal);
         }
 
         public void NextLevel()
@@ -231,6 +236,9 @@ namespace Platformer
 
         public void EarlyUpdate(Vector2f viewCenter)
         {
+            if (player.score >= this.requiredScore ) {
+                this.portal.Open();
+            }
             for (int i = 0; i < objects.Count; ++i)
                 if(objects[i].InsideWindow(viewCenter, windowHalfSize))
                     objects[i].EarlyUpdate();
@@ -260,6 +268,10 @@ namespace Platformer
                         obj.AdvanceAnim((int)(obj as Enemy).status);
                     } else if(obj.animated && obj is Coin) {
                         obj.AdvanceAnim((int)(obj as Coin).status);
+                    }
+                    else if (obj.animated && obj is Portal)
+                    {
+                        obj.AdvanceAnim((int)(obj as Portal).status);
                     }
                 }
                 this.clock.Restart();
@@ -291,14 +303,12 @@ namespace Platformer
                 this.status = GameStatus.Credits;
             }
 
-            if(this.levelEnded) {
-                if (player.rigidBody.COM.X > this.planet.Size[0] && 
-                    this.level + 1 <= MAXLEVEL)
+            if(this.portal.entered) {
+                if (this.level + 1 <= MAXLEVEL)
                 {
                     this.status = GameStatus.Nextlevel;
                 }
-                else if (player.rigidBody.COM.X > this.planet.Size[0] && 
-                    this.level + 1 > MAXLEVEL)
+                else if (this.level + 1 > MAXLEVEL)
                 {
                     this.status = GameStatus.Credits;
                 }

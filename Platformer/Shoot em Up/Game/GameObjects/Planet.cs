@@ -15,6 +15,12 @@ namespace Platformer
         [DataMember]
         public string Name { get; set; }
         [DataMember]
+        public int[] PortalPosition { get; set; }
+        [DataMember]
+        public int RequiredPoints { get; set; }
+        [DataMember]
+        public int KillPercentage { get; set; }
+        [DataMember]
         public string BackgroundTile { get; set; }
         [DataMember]
         public string BackgroundMusicPath { get; set; }
