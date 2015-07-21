@@ -1,8 +1,11 @@
 {
   "Name": "some name",
   "PortalPosition": [700,1400],
+  "PortalSprite": "../Content/Portal.png",
+  "PortalSpriteSize": [100,300],
+  "PortalTileSize": [100,100],
   "RequiredPoints":5,
-  "KillPercentage":0,
+  "KillPercentage":50,
   "BackgroundTile":  "../Content/BGTile.png",
   "BackgroundMusicPath": "audio_path",
   "Gravity": [0, 9.81],

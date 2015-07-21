@@ -36,9 +36,10 @@ namespace Platformer
         public static Vector2f playerPos;
         public static Vector2f levelSize;
         private Portal portal;
-        private int requiredScore = 5;
+        private int requiredScore;
         private int numberOfEnemies;
-        private int killPercentage;
+        private float killPercentage;
+        private int killedEnemies;
 
         Shader light = new Shader(null, "../Content/shaders/light.frag");
         Shader sceneBufferShader = new Shader(null, "../Content/shaders/scene_buffer.frag");
@@ -111,8 +112,7 @@ namespace Platformer
             Polygon p2 = new Polygon(CV.AlphaEdgeDetection(tile.CopyToImage().Pixels, tile.Size.X, tile.Size.Y, 254), new Vector2f(50,50), new Vector2f(800,500), 0, 0);
             Add(new Platform(new IRigidBody[]{p,p2}, new Vector2f(800, 500), 0,100));*/
             Add(new Coin(Collision.Type.Polygon, new int[]{50,50}, new int[]{0}, 0,0,0,0,0,"../Content/CoinSprite.png",new int[]{50,300}, new Vector2f(300,1400),0,5,10,0, factions[1]));
-            this.portal = new Portal(Collision.Type.Polygon, new int[]{100,100}, new int[]{0},0,0,0,0,0,"../Content/Portal.png", new int[]{100,300}, new Vector2f(600,1400), 0);
-            Add(portal);
+
         }
 
         public void NextLevel()
@@ -179,6 +179,10 @@ namespace Platformer
                 String json = sr.ReadToEnd();
                 planet = JSONManager.deserializeJson<Planet>(json);
                 planet.Init();
+                this.killPercentage = planet.KillPercentage;
+                this.requiredScore = planet.RequiredPoints;
+                this.portal = new Portal(Collision.Type.Polygon, planet.PortalTileSize, new int[] { 0 }, 0, 0, 0, 0, 0, planet.PortalSprite, planet.PortalSpriteSize, new Vector2f(planet.PortalPosition[0], planet.PortalPosition[1]), 0);
+                Add(portal);
                 levelSize = new Vector2f(planet.Size[0], planet.Size[1]);
                 player = new Player(factions[1], new Vector2f(250, 1250), "../Content/ghostSprite",
                     new int[] { 100, 100 }, new int[] { 100, 1200 }, new int[] { 0 });
@@ -227,6 +231,7 @@ namespace Platformer
                 EnemyContract[] enemies;
                 String json = sr.ReadToEnd();
                 enemies = JSONManager.deserializeJson<EnemyContract[]>(json);
+                this.numberOfEnemies = enemies.Length;
                 for (int i = 0; i < enemies.Length; i++)
                 {
                     enemies[i].Init();
@@ -236,7 +241,7 @@ namespace Platformer
 
         public void EarlyUpdate(Vector2f viewCenter)
         {
-            if (player.score >= this.requiredScore ) {
+            if (this.player.score >= this.requiredScore && this.killedEnemies >= this.numberOfEnemies*(this.killPercentage/100)) {
                 this.portal.Open();
             }
             for (int i = 0; i < objects.Count; ++i)
@@ -292,6 +297,10 @@ namespace Platformer
                     if (objects[i] is KillableObject)
                     {
                         player.score += (objects[i] as KillableObject).points;
+                        if (objects[i] is Enemy)
+                        {
+                            this.killedEnemies++;
+                        }
                     }
                     objects.RemoveAt(i);
                     rigidBodies.RemoveAt(i);

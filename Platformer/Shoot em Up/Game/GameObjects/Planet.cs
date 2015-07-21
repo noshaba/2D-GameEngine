@@ -17,6 +17,12 @@ namespace Platformer
         [DataMember]
         public int[] PortalPosition { get; set; }
         [DataMember]
+        public string PortalSprite {get;set;}
+        [DataMember]
+        public int[] PortalSpriteSize { get; set; }
+        [DataMember]
+        public int[] PortalTileSize { get; set; }
+        [DataMember]
         public int RequiredPoints { get; set; }
         [DataMember]
         public int KillPercentage { get; set; }
