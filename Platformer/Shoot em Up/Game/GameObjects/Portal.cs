@@ -10,8 +10,7 @@ namespace Platformer
 {
     class Portal : GameObject
     {
-        public state status;
-        private bool open;
+        public bool open;
         public bool entered;
         public Portal(Collision.Type type, int[] tileSize, int[] tileIndices, float density, int animationIndex, float restitution, float staticFriction, float kineticFriction, String texturePath, int[] spriteSize, Vector2f position, float rotation)
             : base(texturePath, tileSize, spriteSize, tileIndices, animationIndex, position, rotation, density)
@@ -23,23 +22,16 @@ namespace Platformer
             this.rigidBody.StaticFriction = staticFriction;
             this.rigidBody.KineticFriction = kineticFriction;
             
-            this.status = state.closed;
-            this.states = new AnimState[] { new AnimState(new int[] { 0}), new AnimState(new int[]{1,2})};
+            this.currentState = new PortalClosed(this);
             this.animated = true;
 
             this.open = false;
             this.entered = false;
         }
 
-        public enum state
-        {
-            closed, open
-        }
-
         public void Open()
         {
             this.open = true;
-            this.status = state.open;
         }
 
         public override void EarlyUpdate()
@@ -47,11 +39,6 @@ namespace Platformer
             base.EarlyUpdate();
             this.rigidBody = this.rigidBodies[this.animationFrame];
             this.drawable = this.drawables[this.animationFrame];
-
-            if (this.open && rigidBody.Collision.collision && rigidBody.Collision.obj is Player)
-            {
-                this.entered = true;
-            }
         }
     }
 }

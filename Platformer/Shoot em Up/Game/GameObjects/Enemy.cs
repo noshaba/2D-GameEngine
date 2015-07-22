@@ -65,9 +65,9 @@ namespace Platformer
             this.drop = this.DetermineDrop();
             this.fire = false;
             this.status = state.sleep;
-            this.states = new AnimState[] { new AnimState(new int[] { 4, 5, 6, 5 }), new AnimState(new int[] { 0 }), new AnimState(new int[] { 0, 1, 2, 3, 4 }), new AnimState(new int[] { 4, 5, 6, 5 }) };
+            //this.states = new AnimState[] { new AnimState(new int[] { 4, 5, 6, 5 }), new AnimState(new int[] { 0 }), new AnimState(new int[] { 0, 1, 2, 3, 4 }), new AnimState(new int[] { 4, 5, 6, 5 }) };
             this.attentionRange = 300; //move to json
-            this.animated = true;
+            this.animated = false;
         }
 
         public enum state {
@@ -105,7 +105,7 @@ namespace Platformer
 
         public void Move()
         {
-            switch (status) { 
+           /* switch (status) { 
                 case state.observe : 
                     if (IsPlayerClose())
                     {
@@ -135,7 +135,7 @@ namespace Platformer
                         this.Chase();
                     }
                     break;
-            }
+            }*/
         }
 
         private void Observe() { 

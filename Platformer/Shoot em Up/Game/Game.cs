@@ -72,6 +72,7 @@ namespace Platformer
          
             this.status = GameStatus.Start;
 
+            SoundManager.on = false;
             SoundManager.Play(SoundManager.ambient);
             SoundManager.ambient.Loop = true;
 
@@ -86,31 +87,7 @@ namespace Platformer
             this.levelEnded = false;
             Level = 1;
 
-            // string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density
-            Pendulum pend1 = new Pendulum("../Content/Pendulum.png", new[] { 50, 50 }, new[] { 50, 50 }, new[] { 0 }, 0, new Vector2f(1000, 700), 0, 0.01f, 3, 100);
-            Pendulum pend2 = new Pendulum("../Content/Pendulum.png", new[] { 50, 50 }, new[] { 50, 50 }, new[] { 0 }, 0, new Vector2f(1200, 350), 0, 0.01f, 5, 100);
-
-            objects.Sort(delegate(GameObject o1, GameObject o2)
-            {
-                return o1.rigidBody.COM.X.CompareTo(o2.rigidBody.COM.X);
-            });
-            rigidBodies.Sort(delegate(Body b1, Body b2)
-            {
-                return b1.COM.X.CompareTo(b2.COM.X);
-            });
-
             this.status = GameStatus.Active;
-            //this.enemy = new Enemy(Collision.Type.Polygon, new int[] { 70, 70 }, new int[] { 0 }, 1, 0, 0, 0.1f, 0.1f, "../Content/blobSprite.png", new int[] { 70, 490 }, new Vector2f(750, 450),
-              //      0, 100, 10, 10, factions[0]);
-            //Collision.Type type, int[] tileSize, int[] tileIndices,float density, int animationIndex, float restitution, float staticFriction, float kineticFriction, String texturePath, int[]spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction
-            //Add(enemy);
-
-            //Platform test
-           /* Texture tile = new Texture("../Content/platform.png", new IntRect(0, 0, 100, 100));
-            Polygon p =  new Polygon(CV.AlphaEdgeDetection(tile.CopyToImage().Pixels, tile.Size.X, tile.Size.Y, 254), new Vector2f(50,50), new Vector2f(800,500), 0, 0);
-            tile = new Texture("../Content/platform.png", new IntRect(100, 0, 100, 100));
-            Polygon p2 = new Polygon(CV.AlphaEdgeDetection(tile.CopyToImage().Pixels, tile.Size.X, tile.Size.Y, 254), new Vector2f(50,50), new Vector2f(800,500), 0, 0);
-            Add(new Platform(new IRigidBody[]{p,p2}, new Vector2f(800, 500), 0,100));*/
         }
 
         public void NextLevel()
@@ -201,7 +178,7 @@ namespace Platformer
             playerPos = player.rigidBody.COM;
 
             Add(new Wall(new Vector2f(1, 0), new Vector2f(0, levelSize.Y * .5f), new Vector2f(.1f, levelSize.Y), Color.Transparent));
-        //    Add(new Wall(new Vector2f(-1, 0), new Vector2f(levelSize.X, levelSize.Y * .5f), new Vector2f(.1f, levelSize.Y), Color.Transparent));
+      
             using (StreamReader sr = new StreamReader("../Content/" + level + "/Platforms.json"))
             {
                 PlatformContract[] platforms;
@@ -211,7 +188,6 @@ namespace Platformer
                 {
                     platforms[i].Init();
                 }
-                //breakable = objects.Last() as Platform;
             }
             planet.AddGround();
             using (StreamReader sr = new StreamReader("../Content/" + level + "/Obstacles.json"))
@@ -271,21 +247,9 @@ namespace Platformer
             playerPos = player.rigidBody.COM;
             if (this.clock.ElapsedMilliseconds > 100 && !this.physics.frozen)
             {
-                //this.player.animationIndex = (this.player.animationIndex + 1) % this.player.rigidBodies.Length;
                 foreach (GameObject obj in objects) {
-                    if (obj.animated && obj is Player)
-                    {
-                        obj.AdvanceAnim((int)(obj as Player).status);
-                    }
-                    else if (obj.animated && obj is Enemy)
-                    {
-                        obj.AdvanceAnim((int)(obj as Enemy).status);
-                    } else if(obj.animated && obj is Coin) {
-                        obj.AdvanceAnim((int)(obj as Coin).status);
-                    }
-                    else if (obj.animated && obj is Portal)
-                    {
-                        obj.AdvanceAnim((int)(obj as Portal).status);
+                    if (obj.animated) {
+                        obj.AdvanceAnim();
                     }
                 }
                 this.clock.Restart();

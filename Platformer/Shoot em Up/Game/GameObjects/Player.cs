@@ -14,14 +14,13 @@ namespace Platformer
 {
     class Player : KillableObject
     {
-        private float speed;
        // private Weapon weapon;
         public bool fire;
         Stopwatch clock;
         public String shieldStatus;
         private String texturePath;
         public Weapon weapon;
-        public state status;
+        
 
         //Faction faction, string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density
         public Player(Faction faction, Vector2f position, String texture, int[]tileSize, int[]spriteSize, int[]tileIndices)
@@ -46,79 +45,26 @@ namespace Platformer
             this.clock = new Stopwatch();
             this.shieldStatus = "sR";
             this.texturePath = texture;
-            this.status = state.idle;
-            this.states = new AnimState[] { new AnimState(new int[] { 8, 9, 10, 9, 8 }), new AnimState(new int[] { 5, 6, 7, 6 }), new AnimState(new int[] { 4 }), new AnimState(new int[] { 10 }), new AnimState(new int[] { 7 }), new AnimState(new int[] { 0, 1, 2, 3, 4, 3, 2, 1 }), new AnimState(new int[] { 11 }) };
+            //this.states = new AnimState[] { new PlayerIdle(new int[] { 0, 1, 2, 3, 4, 3, 2, 1 }, this), new AnimState(new int[] { 5, 6, 7, 6 }, this), new AnimState(new int[] { 4 }, this), new AnimState(new int[] { 10 }, this), new AnimState(new int[] { 7 }, this), new AnimState(new int[] { 8, 9, 10, 9, 8 }, this), new AnimState(new int[] { 11 }, this) };
+            this.currentState = new PlayerIdle( this);
             //this.bodies = new [] { this.rigidBody, new Circle(this.rigidBody.COM, this.drawable.Texture.Size.Y/2) };
             //checkShield();
             this.animated = true;
         }
 
-        public enum state
+       /* public enum state
         {
             runLeft, runRight, jump, jumpLeft, jumpRight, idle, shatter
-        }
+        }*/
 
         public void Move(Keyboard.Key k)
         {
-            if(this.status == state.idle) {
-                switch (k)
-                {
-                    case Keyboard.Key.Left: status = state.runLeft;
-                        break;
-                    case Keyboard.Key.Right: status = state.runRight;
-                        break;
-                    case Keyboard.Key.Up: this.rigidBody.Velocity = new Vector2f(this.rigidBody.Velocity.X, -this.speed*2); status = state.jump;
-                        break;
-                }
-            } else if(this.status == state.runLeft) {
-                switch (k)
-                {
-                    case Keyboard.Key.Right: status = state.runRight;
-                        break;
-                    case Keyboard.Key.Up: this.rigidBody.Velocity = new Vector2f(this.rigidBody.Velocity.X, -this.speed*2); status = state.jumpLeft;
-                        break;
-                }
-            } else if(this.status == state.runRight) {
-                switch (k)
-                {
-                    case Keyboard.Key.Left: status = state.runLeft;
-                        break;
-                    case Keyboard.Key.Up: this.rigidBody.Velocity = new Vector2f(this.rigidBody.Velocity.X, -this.speed*2); status = state.jumpRight;
-                        break;
-                }
-            }
-            if (k == Keyboard.Key.Left)
-            {
-                if (this.status == state.jump || this.status == state.jumpLeft || this.status == state.jumpRight)
-                    status = state.jumpLeft;
-                this.rigidBody.Velocity = new Vector2f(-this.speed, this.rigidBody.Velocity.Y);
-            } else if(k == Keyboard.Key.Right) {
-                if (this.status == state.jump || this.status == state.jumpLeft || this.status == state.jumpRight)
-                    status = state.jumpRight;
-                this.rigidBody.Velocity = new Vector2f(this.speed,this.rigidBody.Velocity.Y);
-            }
-            if (k == Keyboard.Key.Down)
-            {
-                if (status == state.jump || status == state.jumpLeft || status == state.jumpRight)
-                {
-                    this.rigidBody.Velocity = new Vector2f(0, this.speed*2);
-                    status = state.shatter;
-                }
-            }
+            this.currentState.HandleInput(k, true);
         }
 
         public void Release(Keyboard.Key k)
         {
-            if (status != state.jump && status != state.jumpLeft && status != state.jumpRight && status != state.shatter)
-            {
-                switch (k)
-                {
-                    case Keyboard.Key.Left: status = state.idle;
-                        break;
-                    case Keyboard.Key.Right: status = state.idle;
-                        break;
-                }
-            }
+            this.currentState.HandleInput(k, false);
         }
 
         public void Stop()
@@ -141,36 +87,7 @@ namespace Platformer
             
             base.EarlyUpdate();
             this.UpdateBodies();
-            switch (this.status)
-            {
-                case state.idle: this.rigidBody.Velocity = new Vector2f(0,this.rigidBody.Velocity.Y);
-                    break;
-                case state.runRight: this.rigidBody.Velocity = new Vector2f(this.speed,this.rigidBody.Velocity.Y);
-                    break;
-                case state.runLeft: this.rigidBody.Velocity = new Vector2f(-this.speed,this.rigidBody.Velocity.Y);
-                    break;
-            }
-            if (status == state.jump || status == state.jumpLeft || status == state.jumpRight )
-            {
-                if (rigidBody.Collision.collision)
-                    {
-                        status = state.idle;
-                    }
-            }
-            if(status == state.shatter  && rigidBody.Collision.collision) {
-                if (rigidBody.Collision.obj is Platform || rigidBody.Collision.obj is Body)
-                {
-                    //workaround
-                    if (rigidBody.Collision.obj is Body) {
-                        if ((rigidBody.Collision.obj as Body).Parent is Platform) {
-                            ((rigidBody.Collision.obj as Body).Parent as Platform).Shatter(); 
-                        }
-                    } else if(rigidBody.Collision.obj is Platform) {
-                    (rigidBody.Collision.obj as Platform).Shatter();  
-                    }
-                }
-                status = state.idle;
-            }
+
             this.rigidBody = this.rigidBodies[this.animationFrame];
             this.drawable = this.drawables[this.animationFrame];
         }

@@ -93,8 +93,6 @@ namespace Platformer
                     currentPosition = nextPosition;
                     nextPosition = 0;
                 }
-                Console.WriteLine(currentPosition);
-                Console.WriteLine(nextPosition);
             }
             else {
                 this.rigidBody.Velocity = new Vector2f(direction.X / 20, direction.Y / 20);

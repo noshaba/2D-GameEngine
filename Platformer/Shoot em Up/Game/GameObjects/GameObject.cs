@@ -17,8 +17,9 @@ namespace Platformer
         public Body rigidBody;
         public Shape[] drawable;
         protected int animationFrame;
-        protected AnimState[] states;
         public bool animated = false;
+        public AnimState currentState;
+        public float speed;
 
         public bool Moveable
         {
@@ -114,6 +115,8 @@ namespace Platformer
 
         public virtual void EarlyUpdate()
         {
+            if(this.animated)
+                this.currentState.HandleEvents();
         }
 
         public virtual void LateUpdate()
@@ -158,17 +161,16 @@ namespace Platformer
             }
         }
 
-        public void AdvanceAnim(int status)
+        public void AdvanceAnim()
         {
-            this.animationFrame = this.states[status].sequence[this.states[status].index];
-
-            if (this.states[status].index < this.states[status].sequence.Length - 1)
+            if (this.currentState.index  < this.currentState.sequence.Length)
             {
-                this.states[status].index++;
+                this.animationFrame = this.currentState.sequence[this.currentState.index++];
             }
             else
             {
-                this.states[status].index = 0;
+                this.currentState.index = 0;
+                this.animationFrame = this.currentState.sequence[this.currentState.index];
             }
         }
     }
