@@ -3,7 +3,6 @@ To-Do
 - player and enemies need to stay on moving platforms
 - pendulums can be read from json
 - enemies (3 more at least)
-- coins can be read from json
 - enemy animation states coupled with "AI"-> improve 
 - platform fragments can vanish(but why and when)
 - screenshake(can be triggert by game!?)

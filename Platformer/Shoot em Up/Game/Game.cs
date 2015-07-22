@@ -111,8 +111,6 @@ namespace Platformer
             tile = new Texture("../Content/platform.png", new IntRect(100, 0, 100, 100));
             Polygon p2 = new Polygon(CV.AlphaEdgeDetection(tile.CopyToImage().Pixels, tile.Size.X, tile.Size.Y, 254), new Vector2f(50,50), new Vector2f(800,500), 0, 0);
             Add(new Platform(new IRigidBody[]{p,p2}, new Vector2f(800, 500), 0,100));*/
-            Add(new Coin(Collision.Type.Polygon, new int[]{50,50}, new int[]{0}, 0,0,0,0,0,"../Content/CoinSprite.png",new int[]{50,300}, new Vector2f(300,1400),0,5,10,0, factions[1]));
-
         }
 
         public void NextLevel()
@@ -235,6 +233,17 @@ namespace Platformer
                 for (int i = 0; i < enemies.Length; i++)
                 {
                     enemies[i].Init();
+                }
+            }
+            using (StreamReader sr = new StreamReader("../Content/" + level + "/Coins.json"))
+            {
+                CoinContract[] coins;
+                String json = sr.ReadToEnd();
+                coins = JSONManager.deserializeJson<CoinContract[]>(json);
+                this.numberOfEnemies = coins.Length;
+                for (int i = 0; i < coins.Length; i++)
+                {
+                    coins[i].Init();
                 }
             }
         }
