@@ -10,17 +10,10 @@ using Maths;
 namespace Physics {
     class Plane : RectangleShape, IRigidBody {
         private Collision.Type type = Collision.Type.Plane;
-        private float restitution = (float) EMath.random.NextDouble();
-        private float staticFriction = (float) EMath.random.NextDouble();
-        private float kineticFriction;
-        private float dragCoefficient = 0;
         private Vector2f center;
-        private Collision collision;
 
         protected State previous;
         protected State current;
-
-        private Object parent;
 
         public Vector2f normal;
         public float constant;
@@ -36,9 +29,6 @@ namespace Physics {
             previous = current;
             thickness = Math.Abs(normal.Dot(size) * .5f);
             this.normal = current.worldTransform * normal;
-            kineticFriction = EMath.Random(0, staticFriction);
-            collision = new Collision();
-            collision.collision = false;
             Radius = (float)Math.Sqrt(size.X * size.X * .25f + size.Y * size.Y * .25f);
             BoundingCircle = new CircleShape(Radius);
             BoundingCircle.Origin = new Vector2f(Radius, Radius);
@@ -50,19 +40,6 @@ namespace Physics {
             COMDrawable.Origin = new Vector2f(2.5f, 2.5f);
             this.center = new Vector2f(Size.X * .5f, Size.Y * .5f);
             constant = Center.Dot(this.normal);
-        }
-
-
-        public Collision Collision
-        {
-            get { return collision; }
-            set { collision = value; }
-        }
-
-        public Object Parent
-        {
-            get { return parent; }
-            set { parent = value; }
         }
 
         public Collision.Type Type {
@@ -151,27 +128,6 @@ namespace Physics {
         public float Inertia
         {
             get { return current.inertiaTensor; }
-        }
-
-        public float Restitution {
-            get { return restitution; }
-            set { restitution = value; }
-        }
-
-        public float StaticFriction {
-            get { return staticFriction; }
-            set { staticFriction = value; }
-        }
-
-        public float KineticFriction {
-            get { return kineticFriction; }
-            set { kineticFriction = value; }
-        }
-
-        public float DragCoefficient
-        {
-            get { return dragCoefficient; }
-            set { dragCoefficient = value; }
         }
 
         public Vector2f Velocity {

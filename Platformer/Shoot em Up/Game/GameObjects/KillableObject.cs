@@ -16,7 +16,7 @@ namespace Platformer
         public int maxHP = 1;
         public int damage;
         public int points;
-        protected KillableObject opponent;
+        protected List<KillableObject> opponents = new List<KillableObject>();
         public bool alive = true;
         public bool shield;
         public int shieldHp;
@@ -71,17 +71,23 @@ namespace Platformer
 
         public override void EarlyUpdate()
         {
-            if (rigidBody.Collision.collision)
+            opponents.Clear();
+            foreach (Collision collision in rigidBody.Collision)
             {
-                opponent = this.rigidBody.Collision.obj as KillableObject;
-                if (opponent != null && !shield)
+                if (collision.collision)
                 {
-                    // decrease HP
-                    this.hp -= opponent.damage * (100 - opponent.faction.Reputation[(int)this.faction.ID]) / 100;
-                }
-                if (opponent != null && shield)
-                {
-                    this.shieldHp -= opponent.damage * (100 - opponent.faction.Reputation[(int)this.faction.ID]) / 100;
+                    KillableObject opponent = collision.obj as KillableObject;
+                    if (opponent != null && !shield)
+                    {
+                        opponents.Add(opponent);
+                        // decrease HP
+                        this.hp -= opponent.damage * (100 - opponent.faction.Reputation[(int)this.faction.ID]) / 100;
+                    }
+                    if (opponent != null && shield)
+                    {
+                        opponents.Add(opponent);
+                        this.shieldHp -= opponent.damage * (100 - opponent.faction.Reputation[(int)this.faction.ID]) / 100;
+                    }
                 }
             }
             base.EarlyUpdate();
@@ -89,8 +95,6 @@ namespace Platformer
 
         public override void LateUpdate()
         {
-
-            opponent = null;
             // change color with hp / MAXHP
             foreach (Shape shape in drawable)
                 shape.FillColor = this.hp <= this.maxHP * 0.25 ? Color.Red : shape.FillColor;

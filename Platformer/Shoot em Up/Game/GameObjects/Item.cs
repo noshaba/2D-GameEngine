@@ -27,11 +27,12 @@ namespace Platformer
         {
             base.EarlyUpdate();
             //this.rigidBody.COM = this.initPos;
-            if (rigidBody.Collision.collision && rigidBody.Collision.obj is Player)
-            {
-                this.display = false;
-                this.listener();
-            }
+            foreach(Collision collision in rigidBody.Collision)
+                if (collision.obj is Player)
+                {
+                    this.display = false;
+                    this.listener();
+                }
         }
     }
 }
