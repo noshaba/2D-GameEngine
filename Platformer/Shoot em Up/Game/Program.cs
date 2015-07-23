@@ -145,10 +145,6 @@ namespace Platformer
             {
                 sEmUp.MovePlayer(Keyboard.Key.Down);
             }
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
-            {
-                sEmUp.Fire();
-            }
         }
 
         #region Listener
@@ -191,9 +187,6 @@ namespace Platformer
                     break;
                 case Keyboard.Key.Return:
                     //sEmUp.StartGame();
-                    break;
-                case Keyboard.Key.Space:
-                    if (sEmUp.status == Game.GameStatus.Active)sEmUp.StopFire();
                     break;
                 case Keyboard.Key.P:
                     if (sEmUp.status == Game.GameStatus.Active) sEmUp.Pause();
