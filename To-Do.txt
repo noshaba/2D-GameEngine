@@ -1,5 +1,5 @@
 To-Do
-- make multiple collision objects possible(for resolving them in gameObj)
+- enemy Collision Fix
 - enemies (3 more at least)
 - enemy animation states coupled with "AI"-> improve 
 - platform fragments can vanish(but why and when)
