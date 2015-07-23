@@ -1,7 +1,6 @@
 To-Do
 
 - enemies (3 more at least)
-- obstacles
 - platform fragments can vanish(but why and when)
 
 - screenshake(can be triggert by game!?)
