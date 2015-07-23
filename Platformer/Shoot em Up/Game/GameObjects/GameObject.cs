@@ -136,8 +136,26 @@ namespace Platformer
 
         public void Draw(RenderTexture buffer, float alpha, Vector2f viewCenter, Vector2f windowHalfSize)
         {
-            if (!InsideWindow(viewCenter, windowHalfSize))
-                return;
+         //   if (!InsideWindow(viewCenter, windowHalfSize))
+         //       return;
+            State interpol;
+            Transform t;
+            RenderStates r;
+            for (int i = 0; i < rigidBody.bodies.Length; ++i)
+            {
+                interpol = rigidBody.bodies[i].Interpolation(alpha);
+                t = Transform.Identity;
+                t.Translate(rigidBody.bodies[i].Center);
+                t.Rotate(interpol.DegOrientation);
+                r = new RenderStates(t);
+                buffer.Draw(drawable[i], r);
+            }
+        }
+
+        public void Draw(RenderWindow buffer, float alpha, Vector2f viewCenter, Vector2f windowHalfSize)
+        {
+            //   if (!InsideWindow(viewCenter, windowHalfSize))
+            //       return;
             State interpol;
             Transform t;
             RenderStates r;

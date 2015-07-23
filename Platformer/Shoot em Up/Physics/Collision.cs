@@ -22,13 +22,13 @@ namespace Physics {
 
         public static Collision CheckForCollision(Body b1, Body b2) {
             Collision colli = new Collision();
-           // if ((b1.COM - b2.COM).Length2() < (b1.Radius + b2.Radius) * (b1.Radius + b2.Radius))
+            if ((b1.COM - b2.COM).Length2() < (b1.Radius + b2.Radius) * (b1.Radius + b2.Radius))
             {
                 foreach (IRigidBody obj1 in b1.bodies)
                 {
                     foreach (IRigidBody obj2 in b2.bodies)
                     {
-                     //   if ((obj1.Center - obj2.Center).Length2() < (obj1.Radius + obj2.Radius) * (obj1.Radius + obj2.Radius))
+                        if ((obj1.Center - obj2.Center).Length2() < (obj1.Radius + obj2.Radius) * (obj1.Radius + obj2.Radius))
                         {
                             Dispatch[(int)obj1.Type, (int)obj2.Type](obj1, obj2, b1, b2, ref colli);
                             if (colli.collision)
@@ -101,13 +101,13 @@ namespace Physics {
                 b1.Pull(colli.normal, colli.overlap);
                 colli.obj = b2.Parent;
                 // check if the other vertex of the face is also touching the plane
-                if ((poly.Vertex((v + 1) % poly.vertices.Length).Dot(colli.normal) - plane.constant) <= plane.thickness) {
+                if ((poly.Vertex((v + 1) % poly.vertices.Length).Dot(colli.normal) - plane.constant) < plane.thickness) {
                     colli.contacts = new Vector2f[2];
                     colli.contacts[0] = poly.Vertex(v);
                     colli.contacts[1] = poly.Vertex((v + 1) % poly.vertices.Length);
                 }
                 // check if the other vertex of the other face is also touching the plane
-                else if ((poly.Vertex((v - 1 + poly.vertices.Length) % poly.vertices.Length).Dot(colli.normal) - plane.constant) <= plane.thickness) {
+                else if ((poly.Vertex((v - 1 + poly.vertices.Length) % poly.vertices.Length).Dot(colli.normal) - plane.constant) < plane.thickness) {
                     colli.contacts = new Vector2f[2];
                     colli.contacts[0] = poly.Vertex(v);
                     colli.contacts[1] = poly.Vertex((v - 1 + poly.vertices.Length) % poly.vertices.Length);

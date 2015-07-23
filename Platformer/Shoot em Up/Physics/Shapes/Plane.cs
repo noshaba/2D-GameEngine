@@ -54,7 +54,11 @@ namespace Physics {
 
         public Vector2f COM {
             get { return current.position; }
-            set { current.position = value; previous.position = value; }
+            set { 
+                current.position = value; 
+                previous.position = value;
+                constant = Center.Dot(this.normal);
+            }
         }
 
         public Vector2f Centroid
