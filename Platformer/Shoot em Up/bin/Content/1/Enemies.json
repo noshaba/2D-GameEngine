@@ -20,8 +20,6 @@
 	 "Sleep" : [0],
   	 "Awake" : [0,1,2,3,4],
 	 "Observe": [4,5,6,5],
-	 "Attack": [4],
-         "Weapon": {
-         }
+	 "Attack": [4]
       }
    ]
