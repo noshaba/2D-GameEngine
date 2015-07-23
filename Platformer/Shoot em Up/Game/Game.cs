@@ -341,16 +341,6 @@ namespace Platformer
             player.Move(k);
         }
 
-        public void Fire()
-        {
-            player.fire = !this.physics.frozen;
-        }
-
-        public void StopFire()
-        {
-            player.fire = false;
-        }
-
         public void Pause()
         {
             this.physics.frozen = !this.physics.frozen;
@@ -407,11 +397,6 @@ namespace Platformer
         private void NoPoints()
         {
             player.score -= 100;
-        }
-
-        private void Weapon()
-        {
-            player.weapon.damage += 20;
         }
 
     }
