@@ -45,7 +45,7 @@ namespace Platformer
         }*/
 
 
-        public Enemy(Collision.Type type, int attentionRange, int[][] animation, int[] tileSize, int[] tileIndices, float density, int animationIndex, float restitution, float staticFriction, float kineticFriction, String texturePath, int[] spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction)
+        public Enemy(Collision.Type type, int attentionRange, int[][] animation, int[] tileSize, int[] tileIndices, float density, int animationIndex, float restitution, float staticFriction, float kineticFriction, String texturePath, int[] spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction, WeaponContract weapon)
             : base(faction, texturePath, tileSize, spriteSize, tileIndices, animationIndex, position, rotation, density)
         {
             RigidBodyParent = this;
@@ -61,6 +61,10 @@ namespace Platformer
             this.points = points;
             this.type = type;
             this.speed = -20;
+            if (weapon != null)
+                this.weapon = new Weapon(weapon.BulletCollisionType, weapon.BulletImage, weapon.BulletPattern, weapon.FireRate, this.damage);
+            else
+                this.weapon = null;
 
             this.drop = this.DetermineDrop();
             this.fire = false;
@@ -107,10 +111,13 @@ namespace Platformer
         }
 
         public void Attack() {
-            if (Game.playerPos.X >= this.rigidBody.COM.X)
-                this.rigidBody.Velocity = new Vector2f(-this.speed, this.rigidBody.Velocity.Y);
-            else if (Game.playerPos.X <= this.rigidBody.COM.X)
-                this.rigidBody.Velocity = new Vector2f(this.speed, this.rigidBody.Velocity.Y);
+            if (this.weapon == null)
+            {
+                if (Game.playerPos.X >= this.rigidBody.COM.X)
+                    this.rigidBody.Velocity = new Vector2f(-this.speed, this.rigidBody.Velocity.Y);
+                else if (Game.playerPos.X <= this.rigidBody.COM.X)
+                    this.rigidBody.Velocity = new Vector2f(this.speed, this.rigidBody.Velocity.Y);
+            }
         }
 
         private void Shoot()
