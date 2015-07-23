@@ -10,12 +10,14 @@ namespace Platformer
     {
         public EnemyObserve(Enemy owner) : base (owner)
         {
-            this.sequence = new int[] { 4,5,6,5 };
+            this.sequence = this.owner.animations[(int)Enemy.animType.observe];
         }
 
         public override void HandleEvents()
         {
             base.HandleEvents();
+            if (this.owner.IsPlayerClose())
+                this.owner.currentState = new EnemyAttack(this.owner);
         }
     }
 }

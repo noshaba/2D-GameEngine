@@ -17,17 +17,18 @@ namespace Platformer
         public Weapon weapon;
         public Game.GameItem drop;
         private Vector2f initPos;
-        private int speed;
         private bool fire;
         private int attentionRange;
+        public int[][] animations;
 
         //Faction faction, string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density
-        public Enemy(Collision.Type type, int[] tileSize, int[] tileIndices,float density, int animationIndex, float restitution, float staticFriction, float kineticFriction, String texturePath, int[]spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction, int pattern, WeaponContract w)
+       /* public Enemy(Collision.Type type,  int[] tileSize, int[] tileIndices,float density, int animationIndex, float restitution, float staticFriction, float kineticFriction, String texturePath, int[]spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction, int pattern, WeaponContract w)
             : base(faction, texturePath, tileSize, spriteSize, tileIndices, animationIndex, position, rotation, density)
         {
             RigidBodyParent = this;
             Rotateable = false;
             this.initPos = position;
+
             this.rigidBody.DragCoefficient = 1;
             this.rigidBody.Restitution = restitution;
             this.rigidBody.StaticFriction = staticFriction;
@@ -42,15 +43,17 @@ namespace Platformer
             this.drop = this.DetermineDrop();
             this.weapon = new Weapon("singleShot", this, dmg, 2000, 60, new Vector2f(-1, 0), new Vector2f(-new Texture(texturePath).Size.X/2, 0), Color.Magenta);
             this.fire = true;
-        }
+        }*/
 
 
-        public Enemy(Collision.Type type, int[] tileSize, int[] tileIndices, float density, int animationIndex, float restitution, float staticFriction, float kineticFriction, String texturePath, int[] spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction)
+        public Enemy(Collision.Type type, int[][] animation, int[] tileSize, int[] tileIndices, float density, int animationIndex, float restitution, float staticFriction, float kineticFriction, String texturePath, int[] spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction)
             : base(faction, texturePath, tileSize, spriteSize, tileIndices, animationIndex, position, rotation, density)
         {
             RigidBodyParent = this;
             Rotateable = false;
             this.initPos = position;
+            this.animations = animation;
+            Console.WriteLine(animations[0][0]);
             this.rigidBody.DragCoefficient = 1;
             this.rigidBody.Restitution = restitution;
             this.rigidBody.StaticFriction = staticFriction;
@@ -68,6 +71,11 @@ namespace Platformer
             this.animated = true;
             this.animationFrame = 0;
             this.currentState = new EnemySleep(this);
+        }
+
+        public enum animType
+        {
+            sleep, awake, observe, attack
         }
 
         private Game.GameItem DetermineDrop()
@@ -137,7 +145,7 @@ namespace Platformer
         private void Observe() { 
         }
 
-        private void Chase() {
+        public void Chase() {
             if (Game.playerPos.X >= this.rigidBody.COM.X)
                 this.rigidBody.Velocity = new Vector2f(-this.speed, this.rigidBody.Velocity.Y);
             else if (Game.playerPos.X <= this.rigidBody.COM.X)
