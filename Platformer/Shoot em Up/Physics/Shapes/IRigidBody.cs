@@ -9,9 +9,7 @@ using Maths;
 
 namespace Physics {
     interface IRigidBody {
-        object Parent { get; set; }
         Collision.Type Type{ get; }
-        Collision Collision { get; set; }
         float Radius { get; set; }
         CircleShape BoundingCircle { get; set; }
         RectangleShape COMDrawable { get; set; }
@@ -28,10 +26,6 @@ namespace Physics {
         float InverseMass { get; }
         float Inertia { get; }
         float InverseInertia { get; }
-        float Restitution { get; set; }
-        float StaticFriction { get; set; }
-        float KineticFriction { get; set; }
-        float DragCoefficient { get; set; }
         void ApplyImpulse(Vector2f J, Vector2f r);
         Vector2f Velocity { get; set; }
         float AngularVelocity { get; set; }

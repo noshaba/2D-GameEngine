@@ -121,7 +121,7 @@ namespace Platformer
 
         public virtual void LateUpdate()
         {
-            rigidBody.Collision.collision = false;
+       //     rigidBody.Collision.collision = false;
         }
 
         public void Draw(RenderTexture buffer, float alpha, Vector2f viewCenter, Vector2f windowHalfSize)

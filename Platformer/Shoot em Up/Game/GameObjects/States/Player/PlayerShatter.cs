@@ -18,25 +18,18 @@ namespace Platformer
 
         public override void HandleEvents()
         {
-            if (this.owner.rigidBody.Collision.collision)
+            if(owner.rigidBody.Collision.Count > 0)
+                this.owner.currentState = new PlayerIdle(this.owner);
+
+            foreach (Collision collision in owner.rigidBody.Collision)
             {
-                if (this.owner.rigidBody.Collision.obj is Platform || this.owner.rigidBody.Collision.obj is Body)
+                Platform platform = collision.obj as Platform;
+                if (platform != null)
                 {
-                    //workaround
-                    if (this.owner.rigidBody.Collision.obj is Body)
-                    {
-                        if ((this.owner.rigidBody.Collision.obj as Body).Parent is Platform)
-                        {
-                            //((this.owner.rigidBody.Collision.obj as Body).Parent as Platform).Shatter();
-                        }
-                    }
-                    else if (this.owner.rigidBody.Collision.obj is Platform)
-                    {
-                        (this.owner.rigidBody.Collision.obj as Platform).Shatter();
-                    }
-                    this.owner.currentState = new PlayerIdle(this.owner);
+                    platform.Shatter();
+                    break;
                 }
-            }    
+            }
         }
     }
 }

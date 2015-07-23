@@ -39,9 +39,12 @@ namespace Platformer
             this.rigidBody = this.rigidBodies[this.animationFrame];
             this.drawable = this.drawables[this.animationFrame];
 
-            if (rigidBody.Collision.collision && rigidBody.Collision.obj is Player) {
-                this.hp = 0;
-            }
+            foreach(KillableObject opponent in opponents)
+                if (opponent is Player)
+                {
+                    this.hp = 0;
+                    break;
+                }
         }
     }
 }

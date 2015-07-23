@@ -11,17 +11,10 @@ namespace Physics {
     class Polygon : ConvexShape, IRigidBody {
         private int MAXPOLYVERTEXCOUNT = 8;
         private Collision.Type type = Collision.Type.Polygon;
-        private float restitution = (float) EMath.random.NextDouble(); 
-        private float staticFriction = (float) EMath.random.NextDouble();
-        private float dragCoefficient = 0;
-        private float kineticFriction;
-        private Collision collision;
         private Vector2f center;
 
         protected State previous;
         protected State current;
-
-        private Object parent;
 
         public Vector2f[] vertices;
         public Vector2f[] normals;
@@ -36,8 +29,6 @@ namespace Physics {
             SetNormals();
             SetRadius();
             InitState(position, rotation, density);
-            kineticFriction = EMath.Random(0, staticFriction);
-            collision = new Collision();
             InitBoundingCircle();
             InitCOMDrawable();
             this.center = new Vector2f(0,0);
@@ -53,8 +44,6 @@ namespace Physics {
             SetNormals();
             SetRadius();
             InitState(position, rotation, density);
-            kineticFriction = EMath.Random(0, staticFriction);
-            collision = new Collision();
             InitBoundingCircle();
             InitCOMDrawable();
             this.center = new Vector2f(0,0);
@@ -62,8 +51,6 @@ namespace Physics {
 
         public Polygon() 
         {
-            collision = new Collision();
-            kineticFriction = EMath.Random(0, staticFriction);
             FillColor = Color.Transparent;
             OutlineThickness = 2;
             OutlineColor = Color.White;
@@ -276,19 +263,6 @@ namespace Physics {
             GenerateConvexHull(buffer);
         }
 
-
-        public Collision Collision
-        {
-            get { return collision; }
-            set { collision = value; }
-        }
-
-        public Object Parent
-        {
-            get { return parent; }
-            set { parent = value; }
-        }
-
         public Collision.Type Type {
             get { return type; }
         }
@@ -373,27 +347,6 @@ namespace Physics {
 
         public float InverseInertia {
             get { return current.inverseInertiaTensor; }
-        }
-
-        public float Restitution {
-            get { return restitution; }
-            set { restitution = value; }
-        }
-
-        public float StaticFriction {
-            get { return staticFriction; }
-            set { staticFriction = value; }
-        }
-
-        public float KineticFriction {
-            get { return kineticFriction; }
-            set { kineticFriction = value; }
-        }
-
-        public float DragCoefficient
-        {
-            get { return dragCoefficient; }
-            set { dragCoefficient = value; }
         }
 
         public Vector2f Velocity {

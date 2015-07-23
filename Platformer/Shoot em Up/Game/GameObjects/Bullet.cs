@@ -40,18 +40,17 @@ namespace Platformer
         public override void EarlyUpdate()
         {
             base.EarlyUpdate();
-            if (rigidBody.Collision.collision)
+            if (opponents.Count > 0)
             {
-                //this.hp = 1;
                 this.hp = 0;
                 this.alive = false;
-                if (opponent != null)
+            }
+            foreach (KillableObject opponent in opponents)
+            {
+                if (opponent.hp <= 0 && opponent.alive)
                 {
-                    if (opponent.hp <= 0 && opponent.alive)
-                    {
-                        shooter.score += (100 - opponent.faction.Reputation[(int)this.faction.ID]) * opponent.points / 100;
-                        opponent.alive = false;
-                    }
+                    shooter.score += (100 - opponent.faction.Reputation[(int)this.faction.ID]) * opponent.points / 100;
+                    opponent.alive = false;
                 }
             }
         }

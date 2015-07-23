@@ -12,7 +12,7 @@ namespace Physics
     class Body
     {
         private object parent;
-        private Collision collision;
+        private List<Collision> collision = new List<Collision>();
         private State current;
         private State previous;
         private float restitution;
@@ -43,7 +43,6 @@ namespace Physics
             StaticFriction = (float)EMath.random.NextDouble();
             KineticFriction = EMath.Random(0, staticFriction);
             DragCoefficient = 0;
-            collision = new Collision();
             Orientation = (float)(rotation * Math.PI / 180.0);
             UpdateCentroid();
             UpdateBoundingCircle();
@@ -70,7 +69,6 @@ namespace Physics
             StaticFriction = (float)EMath.random.NextDouble();
             KineticFriction = EMath.Random(0, staticFriction);
             DragCoefficient = 0;
-            collision = new Collision();
             Orientation = (float)(rotation * Math.PI / 180.0);
             UpdateCentroid();
             UpdateBoundingCircle();
@@ -146,11 +144,7 @@ namespace Physics
 
         public object Parent
         {
-            set { 
-                this.parent = value;
-                foreach (IRigidBody body in bodies)
-                    body.Parent = value;
-            }
+            set { this.parent = value; }
             get { return this.parent; }
         }
 
@@ -232,59 +226,34 @@ namespace Physics
 
         
 
-        public Collision Collision
+        public List<Collision> Collision
         {
-            set 
-            { 
-                this.collision = value;
-                foreach (IRigidBody body in bodies)
-                    body.Collision = value;
-            }
+            set {  this.collision = value; }
             get { return this.collision; }
         }
 
         public float Restitution
         {
             get { return this.restitution; }
-            set
-            {
-                this.restitution = value;
-                foreach (IRigidBody body in bodies)
-                    body.Restitution = value;
-            }
+            set { this.restitution = value; }
         }
 
         public float StaticFriction
         {
             get { return this.staticFriction; }
-            set
-            {
-                this.staticFriction = value;
-                foreach (IRigidBody body in bodies)
-                    body.StaticFriction = value;
-            }
+            set { this.staticFriction = value; }
         }
 
         public float KineticFriction
         {
             get { return this.kineticFriction; }
-            set
-            {
-                this.kineticFriction = value;
-                foreach (IRigidBody body in bodies)
-                    body.KineticFriction = value;
-            }
+            set { this.kineticFriction = value; }
         }
 
         public float DragCoefficient
         {
             get { return this.dragCoefficient; }
-            set
-            {
-                this.dragCoefficient = value;
-                foreach (IRigidBody body in bodies)
-                    body.DragCoefficient = value;
-            }
+            set {  this.dragCoefficient = value; }
         }
 
         public Vector2f Centroid

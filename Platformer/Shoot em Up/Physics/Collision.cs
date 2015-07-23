@@ -75,7 +75,7 @@ namespace Physics {
                 b1.Pull(colli.normal, colli.overlap);
                 colli.contacts = new Vector2f[1];
                 colli.contacts[0] = cir.Center - colli.normal * cir.Radius;
-                colli.obj = obj2.Parent;
+                colli.obj = b2.Parent;
             }
         }
 
@@ -99,7 +99,7 @@ namespace Physics {
             }
             if (colli.collision) {
                 b1.Pull(colli.normal, colli.overlap);
-                colli.obj = obj2.Parent;
+                colli.obj = b2.Parent;
                 // check if the other vertex of the face is also touching the plane
                 if ((poly.Vertex((v + 1) % poly.vertices.Length).Dot(colli.normal) - plane.constant) <= plane.thickness) {
                     colli.contacts = new Vector2f[2];
@@ -122,12 +122,12 @@ namespace Physics {
 
         private static void PlaneToCircle(IRigidBody obj1, IRigidBody obj2, Body b1, Body b2, ref Collision colli) {
             CircleToPlane(obj2, obj1, b2, b1, ref colli);
-            colli.obj = obj2.Parent;
+            colli.obj = b2.Parent;
         }
 
         private static void PlaneToPolygon(IRigidBody obj1, IRigidBody obj2, Body b1, Body b2, ref Collision colli) {
             PolygonToPlane(obj2, obj1, b2, b1, ref colli);
-            colli.obj = obj2.Parent;
+            colli.obj = b2.Parent;
         }
 
         private static void PlaneToPlane(IRigidBody obj1, IRigidBody obj2, Body b1, Body b2, ref Collision colli) {
@@ -149,7 +149,7 @@ namespace Physics {
                 PullApart(b1, b2, colli.normal, colli.overlap);
                 colli.contacts = new Vector2f[1];
                 colli.contacts[0] = cir2.Center + colli.normal * cir2.Radius;
-                colli.obj = obj2.Parent;
+                colli.obj = b2.Parent;
             }
         }
 
@@ -180,7 +180,7 @@ namespace Physics {
                 PullApart(b1, b2, colli.normal, colli.overlap);
                 colli.contacts = new Vector2f[1];
                 colli.contacts[0] = cir.Center - colli.normal * cir.Radius;
-                colli.obj = obj2.Parent;
+                colli.obj = b2.Parent;
                 return;
             }
             // Determine which voronoi region of the edge center of circle lies within
@@ -225,13 +225,13 @@ namespace Physics {
                 PullApart(b1, b2, colli.normal, colli.overlap);
                 colli.contacts = new Vector2f[1];
                 colli.contacts[0] = cir.Center - colli.normal * cir.Radius;
-                colli.obj = obj2.Parent;
+                colli.obj = b2.Parent;
             }
         }
 
         private static void PolygonToCircle(IRigidBody obj1, IRigidBody obj2, Body b1, Body b2, ref Collision colli) {
             CircleToPolygon(obj2, obj1, b2, b1, ref colli);
-            colli.obj = obj2.Parent;
+            colli.obj = b2.Parent;
         }
 
         private static void PolygonToPolygon(IRigidBody obj1, IRigidBody obj2, Body b1, Body b2, ref Collision colli) {
@@ -261,7 +261,7 @@ namespace Physics {
             if (colli.collision) {
                 PullApart(b1, b2, colli.normal, colli.overlap);
                 ContactPoints(poly1, poly2, colli.normal, ref colli);
-                colli.obj = obj2.Parent;
+                colli.obj = b2.Parent;
             }
         }
 

@@ -63,6 +63,7 @@ namespace Physics {
                 Drag(dt, i);
                 Damping(dt, i);
             }
+            objects[i].Collision.Clear();
             AddCollisionImpulse(i);
         }
 
@@ -92,11 +93,8 @@ namespace Physics {
                 if (!objects[j].InsideWindow(viewCenter, windowHalfSize)) continue;
                 Collision colli = Collision.CheckForCollision(objects[i], objects[j]);
                 if (colli.collision) {
-                //    if (!objects[i].Collision.collision && !objects[j].Collision.collision)
-                //    {
-                        objects[i].Collision = colli;
-                        objects[j].Collision = colli.other(objects[i]);
-                //    }
+                    objects[i].Collision.Add(colli);
+                //    objects[j].Collision.Add(colli.other(objects[i]));
                     if (objects[i].InverseMass > 0) {
                         for (uint k = 0; k < colli.contacts.Length; ++k) {
                             Vector2f rad1 = colli.contacts[k] - objects[i].COM;

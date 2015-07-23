@@ -10,17 +10,10 @@ using Maths;
 namespace Physics {
     class Circle : CircleShape, IRigidBody {
         private Collision.Type type = Collision.Type.Circle;
-        private Collision collision;
-        private float restitution = (float) EMath.random.NextDouble();
-        private float staticFriction = (float) EMath.random.NextDouble();
-        private float kineticFriction;
-        private float dragCoefficient = 0;
         private Vector2f center;
 
         protected State current;
         protected State previous;
-
-        private Object parent;
         
         public Circle(Vector2f position, float rotation, float radius, float density) : base(radius) {
             FillColor = Color.Transparent;
@@ -30,9 +23,6 @@ namespace Physics {
             float mass = (float) Math.PI * radius * radius * density;
             current = new State(position, rotation, mass, mass * radius * radius);
             previous = current;
-            kineticFriction = EMath.Random(0, staticFriction);
-            collision = new Collision();
-            collision.collision = false;
             InitBoundingCircle(radius);
             InitCOMDrawable();
             this.center = new Vector2f(radius, radius);
@@ -56,18 +46,6 @@ namespace Physics {
 
         public Collision.Type Type {
             get { return type; }
-        }
-
-        public Object Parent
-        {
-            get { return parent; }
-            set { parent = value; }
-        }
-
-        public Collision Collision
-        {
-            get { return collision; }
-            set { collision = value; }
         }
 
         new public float Radius
@@ -154,27 +132,6 @@ namespace Physics {
 
         public float InverseInertia {
             get { return current.inverseInertiaTensor; }
-        }
-
-        public float Restitution {
-            get { return restitution; }
-            set { restitution = value; }
-        }
-
-        public float StaticFriction {
-            get { return staticFriction; }
-            set { staticFriction = value; }
-        }
-
-        public float KineticFriction {
-            get { return kineticFriction; }
-            set { kineticFriction = value; }
-        }
-
-        public float DragCoefficient
-        {
-            get { return dragCoefficient; }
-            set { dragCoefficient = value; }
         }
 
         public Vector2f Velocity {
