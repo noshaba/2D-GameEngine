@@ -55,7 +55,7 @@ namespace Platformer
             
             base.EarlyUpdate();
             this.UpdateBodies();
-
+            Console.WriteLine(this.currentState);
             this.rigidBody = this.rigidBodies[this.animationFrame];
             this.drawable = this.drawables[this.animationFrame];
         }
