@@ -13,7 +13,6 @@ namespace Platformer
     {
 
         public Collision.Type type;
-        public int mPattern;
         public Weapon weapon;
         public Game.GameItem drop;
         private Vector2f initPos;
