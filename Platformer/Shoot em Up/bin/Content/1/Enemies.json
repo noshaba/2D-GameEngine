@@ -16,36 +16,10 @@
          "SpritePath": "../Content/BlobSprite.png",
          "SpriteSize": [70, 490],
          "SpriteTileSize": [70, 70],
-         "MovementPattern": 0,
-         "Weapon": {
-            "BulletPattern": 1,
-            "BulletImage": "../Content/b.png",
-            "FireRate": 10,
-            "BulletCollisionType": 0
-         }
-      },
-      {
-         "Density": 0.1,
-         "Restitution": 0.5,
-         "StaticFriction": 0.5,
-         "KineticFriction": 0.1,
-         "CollisionType": 1,
-         "Faction": 2,
-         "Health": 10,
-         "Points": 10,
-         "Damage": 10,
-         "SpawnPatternID": 3,
-         "NumberOfObjects": 1,
-         "SpawnStartPosition": [500, 600],
-         "SpritePath": "../Content/BlobSprite.png",
-         "SpriteSize": [70, 490],
-         "SpriteTileSize": [70, 70],
-         "MovementPattern": 0,
-         "Weapon": {
-            "BulletPattern": 1,
-            "BulletImage": "../Content/b.png",
-            "FireRate": 10,
-            "BulletCollisionType": 0
-         }
+         "AttentionRange": 350,
+	 "Sleep" : [0],
+  	 "Awake" : [0,1,2,3,4],
+	 "Observe": [4,5,6,5],
+	 "Attack": [4]
       }
    ]

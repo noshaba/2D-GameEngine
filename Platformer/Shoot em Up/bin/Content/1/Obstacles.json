@@ -1,2 +1,20 @@
 [
+     {
+        "Density": 10,
+        "Restitution": 0.5,
+        "StaticFriction": 0.5,
+        "KineticFriction": 0.1,
+        "CollisionType": 1,
+        "Faction": 0,
+        "Hover": false,
+        "Health": 25,
+        "Points": 10,
+        "Damage": 5,
+        "SpawnPatternID": 0,
+        "NumberOfObjects": 2,
+        "SpawnStartPosition": [200,1200],
+        "SpritePath": "../Content/astroids/1.png",
+        "SpriteSize": [100,100],
+        "SpriteTileSize": [100, 100]
+     }
   ]

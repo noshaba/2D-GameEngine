@@ -11,7 +11,6 @@ namespace Platformer
         protected new Enemy owner;
         public EnemyState(Enemy owner) : base (owner)
         {
-            this.sequence = new int[] { 0 };
             this.owner = owner;
         }
     }

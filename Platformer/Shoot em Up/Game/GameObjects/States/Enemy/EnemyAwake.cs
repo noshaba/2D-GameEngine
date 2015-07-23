@@ -10,7 +10,7 @@ namespace Platformer
     {
         public EnemyAwake(Enemy owner) : base (owner)
         {
-            this.sequence = new int[] { 0,1,2,3,4 };
+            this.sequence = this.owner.animations[(int)Enemy.animType.awake];
         }
 
         public override void HandleEvents()

@@ -1,4 +1,5 @@
-﻿using SFML.Graphics;
+﻿using Physics;
+using SFML.Graphics;
 using SFML.System;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,11 @@ namespace Platformer
         private delegate void Shot(Vector2f position, Vector2f direction);
         private KillableObject owner;
         private Color color;
+
+        public Weapon(Collision.Type type, string imagePath, int bulletPattern, int fireRate, int damage)
+        {
+
+        }
 
         public Weapon(KillableObject owner, int damage, int fireRate, int bulletSpeed, Vector2f direction, Vector2f pos)
         {
