@@ -1,6 +1,7 @@
 To-Do
 - enemies (3 more at least)
 - enemy animation states coupled with "AI"-> improve 
+- obstacles
 - platform fragments can vanish(but why and when)
 - screenshake(can be triggert by game!?)
 - leveldesign(3-5 lvls?)
