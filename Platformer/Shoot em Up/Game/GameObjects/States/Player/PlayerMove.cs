@@ -22,6 +22,7 @@ namespace Platformer
                 {
                     //jump
                     case Keyboard.Key.Up:
+                        this.owner.rigidBody.Velocity = new Vector2f(this.owner.rigidBody.Velocity.X, -this.owner.speed * 2);
                         this.owner.currentState = new PlayerJump(this.owner);
                         break;
                 }

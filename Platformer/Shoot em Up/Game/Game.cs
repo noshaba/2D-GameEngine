@@ -326,7 +326,7 @@ namespace Platformer
             //    shadowBuffer.Display();
 
             //    shadow.SetParameter("texture", shadowScene.Texture);
-                s.Shader = light;
+           //     s.Shader = light;
                 window.Draw(planet.sky, s);
             //    s.Shader = shadow;
             //    window.Draw(shadowScene, s);
