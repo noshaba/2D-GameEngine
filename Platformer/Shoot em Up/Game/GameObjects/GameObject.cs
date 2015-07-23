@@ -20,6 +20,7 @@ namespace Platformer
         public bool animated = false;
         public AnimState currentState;
         public float speed;
+        private Stopwatch clock = new Stopwatch();
 
         public bool Moveable
         {
@@ -57,6 +58,7 @@ namespace Platformer
             this.drawables = new Shape[][] { Array.ConvertAll(rigidBodies[0].bodies, body => (Shape)body) };
             this.rigidBody = rigidBodies[0];
             this.drawable = this.drawables[0];
+            this.clock.Start();
         }
 
         public GameObject(IRigidBody[] bodies, Vector2f position, float rotation)
@@ -65,6 +67,7 @@ namespace Platformer
             this.drawables = new Shape[][] { Array.ConvertAll(rigidBodies[0].bodies, body => (Shape)body) };
             this.rigidBody = rigidBodies[0];
             this.drawable = this.drawables[0];
+            this.clock.Start();
         }
 
         public GameObject(IRigidBody[] bodies, Shape[] shapes, Vector2f position, float rotation)
@@ -73,6 +76,7 @@ namespace Platformer
             this.drawables = new Shape[][] { shapes };
             this.rigidBody = rigidBodies[0];
             this.drawable = this.drawables[0];
+            this.clock.Start();
         }
 
         public GameObject(string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density)
@@ -106,6 +110,7 @@ namespace Platformer
             }
             this.rigidBody = this.rigidBodies[animationIndex];
             this.drawable = this.drawables[animationIndex];
+            this.clock.Start();
         }
 
         public bool InsideWindow(Vector2f center, Vector2f windowHalfSize)
@@ -121,7 +126,12 @@ namespace Platformer
 
         public virtual void LateUpdate()
         {
-       //     rigidBody.Collision.collision = false;
+            if (this.clock.ElapsedMilliseconds > 100)
+            {
+                if (animated)
+                    AdvanceAnim();
+                this.clock.Restart();
+            }
         }
 
         public void Draw(RenderTexture buffer, float alpha, Vector2f viewCenter, Vector2f windowHalfSize)

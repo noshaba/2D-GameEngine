@@ -252,7 +252,7 @@ namespace Platformer
         public void LateUpdate(Vector2f viewCenter) 
         {
             playerPos = player.rigidBody.COM;
-            if (this.clock.ElapsedMilliseconds > 100 && !this.physics.frozen)
+       /*     if (this.clock.ElapsedMilliseconds > 100 && !this.physics.frozen)
             {
                 foreach (GameObject obj in objects) {
                     if (obj.animated) {
@@ -260,8 +260,8 @@ namespace Platformer
                     }
                 }
                 this.clock.Restart();
-            }
-            //physics.frozen = true;
+            }*/
+            if (physics.frozen) return;
 
             for (int i = 0; i < objects.Count; ++i)
             {
@@ -274,13 +274,12 @@ namespace Platformer
                 objects[i].LateUpdate();
 
                 if(!objects[i].display) {
-                    if (objects[i] is KillableObject)
+                    KillableObject killable = objects[i] as KillableObject;
+                    if (killable != null)
                     {
-                        player.score += (objects[i] as KillableObject).points;
+                        player.score += killable.points;
                         if (objects[i] is Enemy)
-                        {
                             this.killedEnemies++;
-                        }
                     }
                     objects.RemoveAt(i);
                     rigidBodies.RemoveAt(i);
