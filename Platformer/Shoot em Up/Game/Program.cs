@@ -23,7 +23,6 @@ namespace Platformer
         //timers and window
         static ContextSettings context = new ContextSettings();
         static Stopwatch timer = new Stopwatch();
-        static Stopwatch FPSClock = new Stopwatch();
         static RenderWindow window;
         static View view = new View(new Vector2f(WIDTH * .5f, HEIGHT * .5f), new Vector2f(WIDTH, HEIGHT));
         static View GUIview = new View(new Vector2f(WIDTH * .5f, HEIGHT * .5f), new Vector2f(WIDTH, HEIGHT));
