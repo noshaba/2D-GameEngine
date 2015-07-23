@@ -67,7 +67,7 @@ namespace Platformer
                 this.weapon = null;
 
             this.drop = this.DetermineDrop();
-            this.fire = false;
+            this.fire = true;
 
             this.attentionRange = attentionRange;
             this.animations = animation;
@@ -111,13 +111,14 @@ namespace Platformer
         }
 
         public void Attack() {
-            if (this.weapon == null)
+            if (this.weapon != null)
             {
-                if (Game.playerPos.X >= this.rigidBody.COM.X)
-                    this.rigidBody.Velocity = new Vector2f(-this.speed, this.rigidBody.Velocity.Y);
-                else if (Game.playerPos.X <= this.rigidBody.COM.X)
-                    this.rigidBody.Velocity = new Vector2f(this.speed, this.rigidBody.Velocity.Y);
+                this.Shoot();
             }
+            if (Game.playerPos.X >= this.rigidBody.COM.X)
+                this.rigidBody.Velocity = new Vector2f(-this.speed, this.rigidBody.Velocity.Y);
+            else if (Game.playerPos.X <= this.rigidBody.COM.X)
+                this.rigidBody.Velocity = new Vector2f(this.speed, this.rigidBody.Velocity.Y);
         }
 
         private void Shoot()
