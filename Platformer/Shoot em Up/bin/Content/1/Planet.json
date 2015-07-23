@@ -1,6 +1,6 @@
 {
   "Name": "some name",
-  "PortalPosition": [700,1400],
+  "PortalPosition": [700,900],
   "PortalSprite": "../Content/Portal.png",
   "PortalSpriteSize": [100,300],
   "PortalTileSize": [100,100],

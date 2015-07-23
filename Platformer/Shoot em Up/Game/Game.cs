@@ -176,8 +176,9 @@ namespace Platformer
             Add(player);
             playerPos = player.rigidBody.COM;
 
-            Add(new Wall(new Vector2f(1, 0), new Vector2f(0, levelSize.Y * .5f), new Vector2f(.1f, levelSize.Y), Color.Transparent));
-
+            Add(new Wall(new Vector2f( 1, 0), new Vector2f(0, levelSize.Y * .5f), new Vector2f(.1f, levelSize.Y), Color.Transparent));
+            Add(new Wall(new Vector2f(-1, 0), new Vector2f(1990, levelSize.Y * .5f), 
+                new Vector2f(.1f, levelSize.Y), Color.Transparent));
             planet.AddGround();
             using (StreamReader sr = new StreamReader("../Content/" + level + "/Platforms.json"))
             {
