@@ -13,7 +13,6 @@ namespace Platformer
         public PlayerJump(GameObject owner) : base (owner)
         {
             this.sequence = new int[] {4};
-            this.owner.rigidBody.Velocity = new Vector2f(this.owner.rigidBody.Velocity.X,-this.owner.speed*2);
         }
 
         public override void HandleEvents()

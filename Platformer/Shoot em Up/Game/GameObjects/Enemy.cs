@@ -68,6 +68,7 @@ namespace Platformer
             //this.states = new AnimState[] { new AnimState(new int[] { 4, 5, 6, 5 }), new AnimState(new int[] { 0 }), new AnimState(new int[] { 0, 1, 2, 3, 4 }), new AnimState(new int[] { 4, 5, 6, 5 }) };
             this.attentionRange = 300; //move to json
             this.animated = false;
+            this.animationFrame = 4;
         }
 
         public enum state {
@@ -155,7 +156,7 @@ namespace Platformer
 
         public override void EarlyUpdate()
         {
-            this.Move();
+            this.Chase();
             this.Shoot();
             base.EarlyUpdate();
             this.UpdateBodies();
