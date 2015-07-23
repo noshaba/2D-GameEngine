@@ -1,17 +1,17 @@
-uniform float exposure = 0.5;
-uniform float decay = 0.5;
-uniform float density = 0.5;
-uniform float weight = 0.5;
-uniform vec2 lightPosition = vec2(0.5,0.5);
+uniform float exposure = 0.5f;
+uniform float decay = 0.5f;
+uniform float density = 0.5f;
+uniform float weight = 0.5f;
+uniform vec2 lightPosition = vec2(0.7f, 0.7f);
 uniform sampler2D texture;
-const int NUM_SAMPLES = 100 ;
+const int NUM_SAMPLES = 20 ;
 
 void main()
 {	
 	vec2 deltaTextCoord = vec2( gl_TexCoord[0].st - lightPosition.xy );
 	vec2 textCoo = gl_TexCoord[0].st;
-	deltaTextCoord *= 1.0 /  float(NUM_SAMPLES) * density;
-	float illuminationDecay = 1.0;
+	deltaTextCoord *= 1.0f /  float(NUM_SAMPLES) * density;
+	float illuminationDecay = 1.0f;
 
 
 	for(int i=0; i < NUM_SAMPLES ; i++)

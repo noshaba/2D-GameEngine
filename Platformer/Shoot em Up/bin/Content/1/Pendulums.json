@@ -1,0 +1,14 @@
+[
+    {
+        "BallSpritePath" : "../Content/Pendulum.png",
+        "BallSpriteSize": [50, 50],
+        "BallTileSize": [50, 50],
+        "TileIndices": [0],
+        "AnimationIndex":  0,
+        "Position": [800, 700],
+        "Rotation": 0,
+        "Density": 0.01,
+        "NumberOfBalls": 3,
+        "DistanceBetweenBalls": 100
+    }
+]

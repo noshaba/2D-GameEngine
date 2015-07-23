@@ -45,7 +45,7 @@ namespace Platformer
             while (window.IsOpen)
             {
                 window.DispatchEvents();
-                window.Clear(Color.White);
+                window.Clear();
                 Update(ref frameStart);
                 Draw(accumulator / DT);
                 window.Display();

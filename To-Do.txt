@@ -1,7 +1,5 @@
 To-Do
 - make multiple collision objects possible(for resolving them in gameObj)
-- player and enemies need to stay on moving platforms
-- pendulums can be read from json
 - enemies (3 more at least)
 - enemy animation states coupled with "AI"-> improve 
 - platform fragments can vanish(but why and when)

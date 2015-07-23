@@ -5,14 +5,14 @@
         "StaticFriction": 1,
         "KineticFriction": 1,
         "Position": [800,1200],
-	"Rotateable": false,
+	    "Rotateable": false,
         "Rotation": 0,
-	"Breakable": false,
+	    "Breakable": false,
         "SpritePath": "../Content/platform.png",
         "SpriteSize": [300,100],
         "SpriteTileSize": [100, 100],
         "Tiles": [0,1,1,1,1,1,1,1,1,1,2],
-	"Path": []
+	    "Path": []
     },
     {
         "Density": 0.5,
@@ -20,14 +20,14 @@
         "StaticFriction": 2,
         "KineticFriction": 2,
         "Position": [1000,1000],
-	"Rotateable": true,
-        "Rotation": 10,
-	"Breakable": true,
+	    "Rotateable": false,
+        "Rotation": 0,
+	    "Breakable": true,
         "SpritePath": "../Content/platform.png",
         "SpriteSize": [300,100],
         "SpriteTileSize": [100, 100],
         "Tiles": [0,1,2],
-	"Path": [1000,1000,1400,1000, 1200, 900]
+	    "Path": [1000,1000,1400,1000, 1200, 900]
     },
     {
         "Density": 0.01,
@@ -35,13 +35,13 @@
         "StaticFriction": 2,
         "KineticFriction": 2,
         "Position": [500,700],
-	"Rotateable": true,
+	    "Rotateable": true,
         "Rotation": 10,
-	"Breakable": true,
+	    "Breakable": true,
         "SpritePath": "../Content/platform.png",
         "SpriteSize": [300,100],
         "SpriteTileSize": [100, 100],
         "Tiles": [0,1,1,1,1,2],
-	"Path":[]
+	    "Path":[]
     }
 ]

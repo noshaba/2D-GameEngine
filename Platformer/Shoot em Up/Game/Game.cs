@@ -86,7 +86,6 @@ namespace Platformer
             this.Reset();
             this.levelEnded = false;
             Level = 1;
-
             this.status = GameStatus.Active;
         }
 
@@ -178,7 +177,8 @@ namespace Platformer
             playerPos = player.rigidBody.COM;
 
             Add(new Wall(new Vector2f(1, 0), new Vector2f(0, levelSize.Y * .5f), new Vector2f(.1f, levelSize.Y), Color.Transparent));
-      
+
+            planet.AddGround();
             using (StreamReader sr = new StreamReader("../Content/" + level + "/Platforms.json"))
             {
                 PlatformContract[] platforms;
@@ -189,7 +189,14 @@ namespace Platformer
                     platforms[i].Init();
                 }
             }
-            planet.AddGround();
+            using (StreamReader sr = new StreamReader("../Content/" + level + "/Pendulums.json"))
+            {
+                PendulumContract[] pendulums;
+                String json = sr.ReadToEnd();
+                pendulums = JSONManager.deserializeJson<PendulumContract[]>(json);
+                for (int i = 0; i < pendulums.Length; ++i)
+                    pendulums[i].Init();
+            }
             using (StreamReader sr = new StreamReader("../Content/" + level + "/Obstacles.json"))
             {
                 ObstacleContract[] obstacles;
@@ -313,16 +320,16 @@ namespace Platformer
                         obj.rigidBody.Draw(sceneBuffer, alpha, viewCenter, windowHalfSize);
                 }
                 RenderStates s = new RenderStates(Transform.Identity);
+
+            //    sceneBufferShader.SetParameter("sceneTex", shadowBuffer.Texture);
+            //    s.Shader = sceneBufferShader;
+            //    shadowBuffer.Display();
+
+            //    shadow.SetParameter("texture", shadowScene.Texture);
                 s.Shader = light;
                 window.Draw(planet.sky, s);
-
-                sceneBufferShader.SetParameter("rt_scene", shadowBuffer.Texture);
-                s.Shader = sceneBufferShader;
-                shadowBuffer.Display();
-
-                shadow.SetParameter("texture", shadowScene.Texture);
-                s.Shader = shadow;
-                window.Draw(shadowScene, s);
+            //    s.Shader = shadow;
+            //    window.Draw(shadowScene, s);
 
                 sceneBuffer.Display();
                 window.Draw(scene);
