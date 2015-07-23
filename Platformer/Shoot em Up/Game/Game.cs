@@ -158,7 +158,7 @@ namespace Platformer
                 this.portal = new Portal(Collision.Type.Polygon, planet.PortalTileSize, new int[] { 0 }, 0, 0, 0, 0, 0, planet.PortalSprite, planet.PortalSpriteSize, new Vector2f(planet.PortalPosition[0], planet.PortalPosition[1]), 0);
                 Add(portal);
                 levelSize = new Vector2f(planet.Size[0], planet.Size[1]);
-                player = new Player(factions[1], new Vector2f(250, 1250), "../Content/ghostSprite",
+                player = new Player(factions[1], new Vector2f(250, 1250), "../Content/ghostSprite.png",
                     new int[] { 100, 100 }, new int[] { 100, 1200 }, new int[] { 0 });
                 lightPosition = new Vector3f(WIDTH*2, HEIGHT * 0.5f, 0.04f);
                 light.SetParameter("lightPosition", 
