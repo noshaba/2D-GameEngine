@@ -16,7 +16,7 @@
          "SpritePath": "../Content/BlobSprite.png",
          "SpriteSize": [70, 490],
          "SpriteTileSize": [70, 70],
-         "MovementPattern": 0,
+         "AttentionRange": 350,
 	 "Sleep" : [0],
   	 "Awake" : [0,1,2,3,4],
 	 "Observe": [4,5,6,5],

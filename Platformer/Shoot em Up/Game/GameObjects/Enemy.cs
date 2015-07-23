@@ -46,28 +46,28 @@ namespace Platformer
         }*/
 
 
-        public Enemy(Collision.Type type, int[][] animation, int[] tileSize, int[] tileIndices, float density, int animationIndex, float restitution, float staticFriction, float kineticFriction, String texturePath, int[] spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction)
+        public Enemy(Collision.Type type, int attentionRange, int[][] animation, int[] tileSize, int[] tileIndices, float density, int animationIndex, float restitution, float staticFriction, float kineticFriction, String texturePath, int[] spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction)
             : base(faction, texturePath, tileSize, spriteSize, tileIndices, animationIndex, position, rotation, density)
         {
             RigidBodyParent = this;
             Rotateable = false;
             this.initPos = position;
-            this.animations = animation;
-            Console.WriteLine(animations[0][0]);
             this.rigidBody.DragCoefficient = 1;
             this.rigidBody.Restitution = restitution;
             this.rigidBody.StaticFriction = staticFriction;
             this.rigidBody.KineticFriction = kineticFriction;
+
             this.hp = health;
             this.damage = dmg;
             this.points = points;
             this.type = type;
             this.speed = -20;
-            this.rigidBody.Velocity = new Vector2f(0, this.speed);
+
             this.drop = this.DetermineDrop();
             this.fire = false;
-            //this.states = new AnimState[] { new AnimState(new int[] { 4, 5, 6, 5 }), new AnimState(new int[] { 0 }), new AnimState(new int[] { 0, 1, 2, 3, 4 }), new AnimState(new int[] { 4, 5, 6, 5 }) };
-            this.attentionRange = 300; //move to json
+
+            this.attentionRange = attentionRange;
+            this.animations = animation;
             this.animated = true;
             this.animationFrame = 0;
             this.currentState = new EnemySleep(this);
@@ -107,45 +107,7 @@ namespace Platformer
             return i;
         }
 
-        public void Move()
-        {
-           /* switch (status) { 
-                case state.observe : 
-                    if (IsPlayerClose())
-                    {
-                        this.status = state.attack;
-                    }
-                    else {
-                        this.Observe();
-                    }
-                    break;
-                case state.sleep:
-                    if (IsPlayerNear())
-                    {
-                        this.status = state.awake;
-                    }
-                    break;
-                case state.awake:
-                    if (this.animationFrame == this.states[(int)status].sequence[this.states[(int)status].sequence.Length - 1]) {
-                        this.status = state.observe;
-                    }
-                    break;
-                case state.attack:
-                    if (!IsPlayerNear())
-                    {
-                        this.status = state.observe;
-                    }
-                    else {
-                        this.Chase();
-                    }
-                    break;
-            }*/
-        }
-
-        private void Observe() { 
-        }
-
-        public void Chase() {
+        public void Attack() {
             if (Game.playerPos.X >= this.rigidBody.COM.X)
                 this.rigidBody.Velocity = new Vector2f(-this.speed, this.rigidBody.Velocity.Y);
             else if (Game.playerPos.X <= this.rigidBody.COM.X)

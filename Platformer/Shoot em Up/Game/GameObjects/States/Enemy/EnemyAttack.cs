@@ -16,7 +16,7 @@ namespace Platformer
         public override void HandleEvents()
         {
             base.HandleEvents();
-            this.owner.Chase();
+            this.owner.Attack();
             if (!this.owner.IsPlayerNear())
                 this.owner.currentState = new EnemyObserve(this.owner);
         }
