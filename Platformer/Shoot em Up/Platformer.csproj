@@ -98,6 +98,11 @@
     <Compile Include="Game\GameObjects\States\AnimState.cs" />
     <Compile Include="Game\GameObjects\Portal.cs" />
     <Compile Include="Game\GameObjects\Spawner.cs" />
+    <Compile Include="Game\GameObjects\States\Enemy\EnemyAttack.cs" />
+    <Compile Include="Game\GameObjects\States\Enemy\EnemyAwake.cs" />
+    <Compile Include="Game\GameObjects\States\Enemy\EnemyObserve.cs" />
+    <Compile Include="Game\GameObjects\States\Enemy\EnemySleep.cs" />
+    <Compile Include="Game\GameObjects\States\Enemy\EnemyState.cs" />
     <Compile Include="Game\GameObjects\States\Player\PlayerIdle.cs" />
     <Compile Include="Game\GameObjects\States\Player\PlayerJump.cs" />
     <Compile Include="Game\GameObjects\States\Player\PlayerJumpLeft.cs" />

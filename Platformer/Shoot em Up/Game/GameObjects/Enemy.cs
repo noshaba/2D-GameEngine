@@ -19,7 +19,6 @@ namespace Platformer
         private Vector2f initPos;
         private int speed;
         private bool fire;
-        public state status;
         private int attentionRange;
 
         //Faction faction, string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density
@@ -64,15 +63,11 @@ namespace Platformer
             this.rigidBody.Velocity = new Vector2f(0, this.speed);
             this.drop = this.DetermineDrop();
             this.fire = false;
-            this.status = state.sleep;
             //this.states = new AnimState[] { new AnimState(new int[] { 4, 5, 6, 5 }), new AnimState(new int[] { 0 }), new AnimState(new int[] { 0, 1, 2, 3, 4 }), new AnimState(new int[] { 4, 5, 6, 5 }) };
             this.attentionRange = 300; //move to json
-            this.animated = false;
-            this.animationFrame = 4;
-        }
-
-        public enum state {
-            observe, sleep, awake, attack
+            this.animated = true;
+            this.animationFrame = 0;
+            this.currentState = new EnemySleep(this);
         }
 
         private Game.GameItem DetermineDrop()
@@ -156,20 +151,18 @@ namespace Platformer
 
         public override void EarlyUpdate()
         {
-            this.Chase();
-            this.Shoot();
             base.EarlyUpdate();
             this.UpdateBodies();
             this.rigidBody = this.rigidBodies[this.animationFrame];
             this.drawable = this.drawables[this.animationFrame];
         }
 
-        private bool IsPlayerNear() {
+        public bool IsPlayerNear() {
             return Game.playerPos.X >= this.rigidBody.COM.X - this.attentionRange && Game.playerPos.X <= this.rigidBody.COM.X + attentionRange && Game.playerPos.Y >= this.rigidBody.COM.Y - this.attentionRange && Game.playerPos.Y <= this.rigidBody.COM.Y + attentionRange;
         }
 
 
-        private bool IsPlayerClose() {
+        public bool IsPlayerClose() {
             return Game.playerPos.X >= this.rigidBody.COM.X - this.attentionRange/2 && Game.playerPos.X <= this.rigidBody.COM.X + attentionRange/2 && Game.playerPos.Y >= this.rigidBody.COM.Y - this.attentionRange/2 && Game.playerPos.Y <= this.rigidBody.COM.Y + attentionRange/2;
         }
     }
