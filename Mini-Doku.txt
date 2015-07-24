@@ -34,7 +34,7 @@ All die Sachen, die noch nicht 100% so sind, wie wir sie eigentlich gerne hätten
 	- manchmal ist es möglich das besonders schnelle objekte(bullets insbesondere) durch zusammengesetzte platforms glitchen
 	- es sollte möglich sein, objekte unCollidable zu setzen 
 	(so das ma sich z.B. vor dem portal bewegen kann, solange es noch nicht aktiv ist)
-        - Punkte aus vorherigen Level werden immer mitgezählt, so das punktabhängig protale ich in späteren leveln zu früh öffnen
+        - Punkte aus vorherigen Level werden immer mitgezählt, so das punktabhängig portale sich in späteren leveln zu früh öffnen
 
 Wenn irgendwas hier total kryptisch klingt, oder keinen Sinn ergibt, lassen wir uns gerne über alle Schwächen, 
 Ecken und Kanten des Programms ausführlicher per E-mail aus, abgesehen davon gibts eh bestimmt was, 
