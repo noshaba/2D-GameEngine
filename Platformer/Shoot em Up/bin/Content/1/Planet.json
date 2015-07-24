@@ -4,6 +4,8 @@
   "PortalSprite": "../Content/Portal.png",
   "PortalSpriteSize": [150,900],
   "PortalTileSize": [150,150],
+  "PortalOpen": [3,3,4,4,5,5,4,4],
+  "PortalClosed": [0,0,1,1,2,2,1,1],
   "RequiredPoints":25,
   "KillPercentage":0,
   "BackgroundTile":  "../Content/BGTile.png",
