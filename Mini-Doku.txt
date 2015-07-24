@@ -1,0 +1,13 @@
+Platformer
+
+Rechte Pfeiltaste - nach rechts bewegen
+Linke Pfeiltaste  - nach links bewegen
+Pfeiltaste oben   - springen
+Pfeiltaste unten  - wenn im sprung löst dies den shatter move aus, mit dem einige Platforms zerstört werden können,
+		    aber nicht alle Platforms sind zerstörbar
+
+Spiel Ziele:
+	- Erreiche genug Punkte und töte genügend Gegner um das Portal zum nächsten Level zu öffnen
+	- Punkte können sowohl durch das einsammeln von Orbs als auch durch das töten von gegnern gesammelt werden
+	- Gegner können durch strategischen shattern von Platformen oder manipulation von obstacles getötet werden
+
