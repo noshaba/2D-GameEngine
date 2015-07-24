@@ -18,6 +18,7 @@ All die Sachen, die noch nicht 100% so sind, wie wir sie eigentlich gerne hätten
 	- diverse verstreute magic numbers
 	- übermäßig lange Konstruktoren im allgemeinen
 	- shattern von Platformen führt zu einem delay, da texturen neu eingelesen statt übergeben werden
+	(darum sind elemente nach shatter derzeit nicht mehr animiert)
 	- jsons müssen manuell eingetragen werden, Editor wäre besser(müsste man aber auch selber programmieren :p)
 	- AI FSM schwächelt, wie effizient mit potenziell vielen verschiedenen gegnern kombinieren,
 	 die auch im Code unterschiedliche Sachen können sollten e.g. ein Boss mit drei Attacken und kleine Minions mit nur einer,
