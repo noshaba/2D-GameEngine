@@ -52,11 +52,13 @@
                 "BulletDensity" : 0.5,
                 "FireRate" : 100,
                 "Shoot" : 
-                {
-                    "BulletSpeed" : [5, 0],
-                    "Bend" : [0, 0],
-                    "Offset" : [0, 0]
-                }
+                [
+                    {
+                        "BulletSpeed" : [5, 0],
+                        "Bend" : [0, 0],
+                        "Offset" : [0, 0]
+                    }
+                ]
             }
       }
    ]
