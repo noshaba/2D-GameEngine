@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Maths;
 
 namespace Platformer
 {
@@ -97,6 +98,10 @@ namespace Platformer
                     view.Center = new Vector2f(view.Center.X, 700);
                 if (view.Center.Y > Game.levelSize.Y - 350)
                     view.Center = new Vector2f(view.Center.X, Game.levelSize.Y - 350);
+
+                if(Game.screenShake)
+                    view.Center += new Vector2f(EMath.random.Next(Game.shakeRate), EMath.random.Next(Game.shakeRate));
+
                 sEmUp.EarlyUpdate(view.Center);
                 sEmUp.LateUpdate(view.Center);
                 /*}

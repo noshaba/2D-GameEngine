@@ -1,8 +1,9 @@
 To-Do
 
+- weapons and bullets from json
 - enemies (3 more at least)
+- improve obstacles
 - platform fragments can vanish(but why and when)
-- screenshake(can be triggert by game!?)
 - leveldesign(3-5 lvls?)
 
 Visuals -> nice spritesheets etc.

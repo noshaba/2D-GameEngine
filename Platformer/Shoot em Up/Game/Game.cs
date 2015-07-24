@@ -27,12 +27,14 @@ namespace Platformer
         public static int HEIGHT;
         public static Faction[] factions;
         public static bool debug = false;
+        public static bool screenShake = false;
+        public const int MAXSHAKERATE = 50;
+        public static int shakeRate = MAXSHAKERATE;
         private int level;
         private const int MAXLEVEL = 1;
         public Player player;
         public bool levelEnded;
         public GameStatus status;
-        public Stopwatch clock;
         public static Vector2f playerPos;
         public static Vector2f levelSize;
         private Portal portal;
@@ -75,9 +77,6 @@ namespace Platformer
             SoundManager.on = false;
             SoundManager.Play(SoundManager.ambient);
             SoundManager.ambient.Loop = true;
-
-            this.clock = new Stopwatch();
-            this.clock.Start();
         }
 
 
@@ -252,17 +251,19 @@ namespace Platformer
 
         public void LateUpdate(Vector2f viewCenter) 
         {
+            if (physics.frozen) 
+                return;
+
             playerPos = player.rigidBody.COM;
-       /*     if (this.clock.ElapsedMilliseconds > 100 && !this.physics.frozen)
+
+            if (screenShake)
+                shakeRate--;
+
+            if (shakeRate < 0)
             {
-                foreach (GameObject obj in objects) {
-                    if (obj.animated) {
-                        obj.AdvanceAnim();
-                    }
-                }
-                this.clock.Restart();
-            }*/
-            if (physics.frozen) return;
+                screenShake = false;
+                shakeRate = MAXSHAKERATE;
+            }
 
             for (int i = 0; i < objects.Count; ++i)
             {

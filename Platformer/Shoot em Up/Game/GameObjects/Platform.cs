@@ -48,6 +48,7 @@ namespace Platformer
 
             if (this.breakable)
             {
+                Game.screenShake = true;
                 Game.Remove(this);
 
                 Vector2f pos;
