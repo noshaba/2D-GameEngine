@@ -69,12 +69,12 @@ namespace Platformer {
         public void Init()
         {
             Spawner s = new Spawner(new Vector2f(SpawnStartPosition[0], SpawnStartPosition[1]));
+            int x, y;
             for (int i = 0; i < NumberOfObjects; i++)
             {
+                x = SpawnStartPosition[0] + i * SpriteTileSize[0];
+                y = SpawnStartPosition[1];
                 s.Add(new Obstacle(Hover, CollisionType, SpriteTileSize, new int[] {0}, 0, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(SpawnStartPosition[0], SpawnStartPosition[1]), 0, Health, Points, Damage, Game.factions[(int)Faction]));
-                //random distribution 
-                SpawnStartPosition[0] += EMath.random.Next(500, 1000);
-                SpawnStartPosition[1] += EMath.random.Next(0, 100);
                 Game.spawners.Add(s);
             }
            // Game.spawners.Add(s);
