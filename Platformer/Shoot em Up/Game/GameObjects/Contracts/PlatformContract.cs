@@ -39,6 +39,8 @@ namespace Platformer
         [DataMember]
         public int[] Tiles { get; set; }
         [DataMember]
+        public int[] Animation { get; set; }
+        [DataMember]
         public int[] Path { get; set; }
         /*
             "Density": 0.01,
@@ -56,7 +58,7 @@ namespace Platformer
          */
         public void Init()
         {
-            Game.Add(new Platform(Breakable, Rotateable, Path, SpritePath, new Vector2f(Position[0], Position[1]), Rotation, SpriteSize, SpriteTileSize, Tiles,
+            Game.Add(new Platform(Animation, Breakable, Rotateable, Path, SpritePath, new Vector2f(Position[0], Position[1]), Rotation, SpriteSize, SpriteTileSize, Tiles,
                 KineticFriction, StaticFriction, Restitution, Density));
         }
     }

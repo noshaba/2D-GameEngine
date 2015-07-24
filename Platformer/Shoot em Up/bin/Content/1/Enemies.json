@@ -20,5 +20,43 @@
          "Awake" : [0,1,2,3,4],
          "Observe": [4,5,6,5],
          "Attack": [4]
+      },
+     {
+         "Density": 0.1,
+         "Restitution": 0.5,
+         "StaticFriction": 0.5,
+         "KineticFriction": 0.1,
+         "Faction": 2,
+         "Health": 5,
+         "Points": 10,
+         "Damage": 10,
+         "SpawnPatternID": 3,
+         "NumberOfObjects": 1,
+         "SpawnStartPosition": [500, 1200],
+         "SpritePath": "../Content/BlobSprite.png",
+         "SpriteSize": [70, 490],
+         "SpriteTileSize": [70, 70],
+         "AttentionRange": 350,
+         "Sleep" : [0],
+         "Awake" : [0,1,2,3,4],
+         "Observe": [4,5,6,5],
+         "Attack": [4],
+         "Weapon" : 
+            {
+                "BulletDamage" : 10,
+                "BulletPath" :  "../Content/ButtonActive.png",
+                "SpriteTileSize" : [10,10],
+                "SpriteSize" : [10,10],
+                "TileIndices" :  [0],
+                "AnimationIndex" : 0,
+                "BulletDensity" : 0.5,
+                "FireRate" : 100,
+                "Shoot" : 
+                {
+                    "BulletSpeed" : [5, 0],
+                    "Bend" : [0, 0],
+                    "Offset" : [0, 0]
+                }
+            }
       }
    ]

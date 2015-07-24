@@ -371,12 +371,12 @@ namespace Platformer
              //   shadowBuffer.Display();
                 sceneBuffer.Display();
                 window.Draw(scene);
-                shadowScene.Scale = new Vector2f(0.5f, 0.5f);
+         /*       shadowScene.Scale = new Vector2f(0.5f, 0.5f);
                 shadowBufferQuaterSize.Clear();
                 shadowBufferQuaterSize.Draw(shadowScene, s);
                 shadowBufferQuaterSize.Display();
                 window.Draw(new Sprite(shadowBufferQuaterSize.Texture));
-                scene.Scale = new Vector2f(1,1);
+                scene.Scale = new Vector2f(1,1);*/
             }
         }
 

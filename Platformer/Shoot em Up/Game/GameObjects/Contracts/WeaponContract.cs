@@ -57,7 +57,7 @@ namespace Platformer
         public float BulletDensity { get; set; }
         [DataMember]
         public int FireRate { get; set; }
-      //  [DataMember]
-     //   public BulletShot[] {get; set;}
+        [DataMember]
+        public BulletShot[] Shoot { get; set; }
     }
 }

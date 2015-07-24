@@ -27,7 +27,7 @@ namespace Platformer
         private BulletShot[] shots;
 
         public Weapon(KillableObject owner, int dmg, string bulletPath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices,
-            int animationIndex, int bulletDensity, int fireRate, Vector2f direction, Vector2f relativePos, BulletShot[] shots)
+            int animationIndex, float bulletDensity, int fireRate, Vector2f direction, Vector2f relativePos, BulletShot[] shots)
         {
             this.owner = owner;
             this.fireRate = fireRate;
@@ -39,15 +39,23 @@ namespace Platformer
             this.bulletPrototype = new Bullet(owner, dmg, bulletPath, spriteTileSize, spriteSize, tileIndices,
                 animationIndex, bulletDensity);
             this.shots = shots;
+            this.charge.Start();
         }
 
-        public void shoot()
+        public void Shoot()
         {
-            Vector2f position = this.owner.rigidBody.WorldTransform * this.relativePos + this.owner.rigidBody.COM;
-            Vector2f speed = this.owner.rigidBody.WorldTransform * this.direction;
-            foreach (BulletShot shot in shots)
-                Game.Add(new Bullet(bulletPrototype, position, speed.ElemMul(shot.BulletSpeed).Add(shot.Offset), 
-                    new Vector2f(shot.Bend[0], shot.Bend[1])));
+            if (this.charge.ElapsedMilliseconds > this.fireRate)
+            {
+                Vector2f position = this.owner.rigidBody.WorldTransform * this.relativePos + this.owner.rigidBody.COM;
+                Vector2f speed = this.owner.rigidBody.WorldTransform * this.direction;
+                Console.WriteLine(shots.Length);
+                foreach (BulletShot shot in shots)
+                {
+                    Game.Add(new Bullet(bulletPrototype, position, speed.ElemMul(shot.BulletSpeed).Add(shot.Offset),
+                        new Vector2f(shot.Bend[0], shot.Bend[1])));
+                }
+                this.charge.Restart();
+            }
         }
 
 
