@@ -82,16 +82,6 @@ namespace Platformer
             }
         }
 
-        public bool EarlyOut
-        {
-            get { return rigidBody.earlyOut; }
-            set
-            {
-                foreach (Body body in rigidBodies)
-                    body.earlyOut = value;
-            }
-        }
-
         public object RigidBodyParent
         {
             get { return rigidBody.Parent; }

@@ -24,10 +24,10 @@ namespace Platformer
         {
             this.DetermineMoves(movement);
             this.breakable = breakable;
-            this.Rotateable = rotateable;
             globalPosition = position;
             foreach (Body body in rigidBodies)
             {
+                body.rotateable = rotateable;
                 body.moveable = false;
                 body.Restitution = restitution;
                 body.StaticFriction = staticFriction;

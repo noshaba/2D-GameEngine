@@ -22,7 +22,6 @@ namespace Physics
         private Vector2f centroid;
         public bool moveable;
         public bool rotateable;
-        public bool earlyOut = false;
 
         public IRigidBody[] bodies;
         public bool isJoint = false;

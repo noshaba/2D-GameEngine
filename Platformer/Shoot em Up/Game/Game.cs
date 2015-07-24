@@ -49,6 +49,7 @@ namespace Platformer
         Shader shadow = new Shader(null, "../Content/shaders/shadow.frag");
 
         RenderTexture shadowBuffer;
+        RenderTexture shadowBufferQuaterSize;
         RenderTexture sceneBuffer;
         Sprite shadowScene = new Sprite();
         Sprite scene = new Sprite();
@@ -161,15 +162,18 @@ namespace Platformer
                 levelSize = new Vector2f(planet.Size[0], planet.Size[1]);
                 player = new Player(factions[1], new Vector2f(250, 1250), "../Content/ghostSprite.png",
                     new int[] { 100, 100 }, new int[] { 100, 1200 }, new int[] { 0 });
+
                 lightPosition = new Vector3f(WIDTH*2, HEIGHT * 0.5f, 0.04f);
+
                 light.SetParameter("lightPosition", 
                     lightPosition.X, HEIGHT - lightPosition.Y, lightPosition.Z);
                 light.SetParameter("resolution",
                     planet.Size[0] * 10, HEIGHT * 10);
-                shadowBuffer = new RenderTexture((uint)WIDTH, (uint)HEIGHT);
-                shadowScene.Texture = shadowBuffer.Texture;
 
+                shadowBuffer = new RenderTexture((uint)WIDTH, (uint)HEIGHT);
                 sceneBuffer = new RenderTexture((uint)WIDTH, (uint)HEIGHT);
+                shadowBufferQuaterSize = new RenderTexture((uint) WIDTH / 2, (uint) HEIGHT / 2);
+                shadowScene.Texture = shadowBuffer.Texture;
                 scene.Texture = sceneBuffer.Texture;
             }
             physics = new Physic(rigidBodies, joints, new Vector2f(planet.Gravity[0], planet.Gravity[1]), planet.Damping,
@@ -245,11 +249,11 @@ namespace Platformer
                 this.portal.Open();
             }
             for (int i = 0; i < objects.Count; ++i)
-                if(objects[i].InsideWindow(playerPos, windowHalfSize))
+                if(objects[i].InsideWindow(view.Center, windowHalfSize))
                     objects[i].EarlyUpdate();
             for (int i = 0; i < spawners.Count; i++)
             {
-                if (spawners[i].NearPlayer(playerPos.X, WIDTH / 2))
+                if (spawners[i].NearPlayer(playerPos.X, WIDTH * .5f))
                 {
                     spawners[i].Spawn();
                     spawners.RemoveAt(i);
@@ -291,7 +295,7 @@ namespace Platformer
                 //there exists a better way for this???
                 rigidBodies[i] = objects[i].rigidBody;
 
-                if (!objects[i].InsideWindow(playerPos, windowHalfSize))
+                if (!objects[i].InsideWindow(view.Center, windowHalfSize))
                     continue;
 
                 objects[i].LateUpdate();
@@ -344,22 +348,30 @@ namespace Platformer
                         obj.rigidBody.Draw(sceneBuffer, alpha, view.Center, windowHalfSize);
                 }
 
-                shadow.SetParameter("lightPosition", lightPosition.X / planet.Size[0],
-                    1 - lightPosition.Y / HEIGHT);
+           //     shadow.SetParameter("lightPosition", lightPosition.X / planet.Size[0],
+           //         1 - lightPosition.Y / HEIGHT);
 
                 RenderStates s = new RenderStates(Transform.Identity);
 
-            //    sceneBufferShader.SetParameter("sceneTex", shadowBuffer.Texture);
-            //    s.Shader = sceneBufferShader;
-            //    shadowBuffer.Display();
+                sceneBufferShader.SetParameter("sceneTex", shadowBuffer.Texture);
+                s.Shader = sceneBufferShader;
+                shadowBuffer.Display();
 
-            //    shadow.SetParameter("texture", shadowScene.Texture);
+           //     shadow.SetParameter("texture", shadowScene.Texture);
            //     s.Shader = light;
             //    s.Shader = shadow;
             //    window.Draw(shadowScene, s);
 
+
+             //   shadowBuffer.Display();
                 sceneBuffer.Display();
                 window.Draw(scene);
+                shadowScene.Scale = new Vector2f(0.5f, 0.5f);
+                shadowBufferQuaterSize.Clear();
+                shadowBufferQuaterSize.Draw(shadowScene, s);
+                shadowBufferQuaterSize.Display();
+                window.Draw(new Sprite(shadowBufferQuaterSize.Texture));
+                scene.Scale = new Vector2f(1,1);
             }
         }
 

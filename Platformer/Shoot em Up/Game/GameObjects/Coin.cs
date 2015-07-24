@@ -17,8 +17,6 @@ namespace Platformer
             : base(faction, texturePath, tileSize, spriteSize, tileIndices, animationIndex, position, rotation, density)
         {
             RigidBodyParent = this;
-            Rotateable = false;
-      //      EarlyOut = true;
             Restitution = restitution;
             StaticFriction = staticFriction;
             KineticFriction = kineticFriction;
