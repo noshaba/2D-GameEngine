@@ -70,7 +70,7 @@ namespace Platformer
                 {
                     pos = rigidBody.bodies[i].Center;
                     rigidBody.bodies[i].Centroid = -rigidBody.bodies[i].Centroid;
-                    Game.Add(new Obstacle(false, animation, this.tileSize, new int[] { this.tiles[i] }, 0, density, rigidBody.Restitution, rigidBody.StaticFriction, rigidBody.KineticFriction, imagePath, spriteSize, pos, rigidBody.bodies[i].DegOrientation, 100, 0, 100, Game.factions[0]));
+                    Game.Add(new Obstacle(false, true, animation, this.tileSize, new int[] { this.tiles[i] }, 0, density, rigidBody.Restitution, rigidBody.StaticFriction, rigidBody.KineticFriction, imagePath, spriteSize, pos, rigidBody.bodies[i].DegOrientation, 100, 0, 100, Game.factions[0]));
                     //Game.Add(new KillableObject(Game.factions[0], 100, 100, new[] { rigidBody.bodies[i] }, new[] { drawables[0][i] }, pos, 0));
                 }
             }
