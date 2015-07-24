@@ -96,8 +96,6 @@ namespace Platformer
             this.levelEnded = false;
             this.status = GameStatus.Active;
             Level++;
-            player.rigidBody.COM = new Vector2f(250, 250);
-            Add(player);
         }
 
         public static void Add(GameObject obj)
@@ -391,8 +389,8 @@ namespace Platformer
 
         public void Reset()
         {
-            objects.RemoveRange(0, objects.Count);
-            rigidBodies.RemoveRange(0,rigidBodies.Count);
+            objects.Clear();
+            rigidBodies.Clear();
         }
 
         public void AddItem(Game.GameItem item, Vector2f pos)
