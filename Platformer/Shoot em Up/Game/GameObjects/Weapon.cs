@@ -24,28 +24,6 @@ namespace Platformer
         private KillableObject owner;
         private Bullet bulletPrototype;
 
-        /*
-         * "Weapon": 
-         * {
-         *      "BulletDamage" : 5,
-         *      "BulletPath" : "...",
-         *      "SpriteTileSize" : [10, 10],
-         *      "SpriteSize" : [10, 10],
-         *      "TileIndices" : [0],
-         *      "AnimationIndex" : [0],
-         *      "BulletDensity" : 0.5,
-         *      "FireRate" : 100,
-         *      "Shoot" : 
-         *      [
-         *          {
-         *              "BulletSpeed" : [5, 0],
-         *              "Bend" : [0, 0],
-         *              "Offset" : [0, 0]
-         *          }
-         *      ]
-         * }
-         */
-
         private BulletShot[] shots;
 
         public Weapon(KillableObject owner, int dmg, string bulletPath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices,
@@ -68,7 +46,8 @@ namespace Platformer
             Vector2f position = this.owner.rigidBody.WorldTransform * this.relativePos + this.owner.rigidBody.COM;
             Vector2f speed = this.owner.rigidBody.WorldTransform * this.direction;
             foreach (BulletShot shot in shots)
-                Game.Add(new Bullet(bulletPrototype, position, speed.ElemMul(shot.bulletSpeed) + shot.offset, shot.bend));
+                Game.Add(new Bullet(bulletPrototype, position, speed.ElemMul(shot.BulletSpeed).Add(shot.Offset), 
+                    new Vector2f(shot.Bend[0], shot.Bend[1])));
         }
 
 

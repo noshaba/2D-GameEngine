@@ -15,6 +15,14 @@ namespace Maths {
         {
             return new Vector2f(vec1.X * vec1.X, vec2.Y * vec2.Y);
         }
+        public static Vector2f ElemMul(this Vector2f vec1, float[] vec2)
+        {
+            return new Vector2f(vec1.X * vec2[0], vec1.Y * vec2[1]);
+        }
+        public static Vector2f Add(this Vector2f vec1, float[] vec2)
+        {
+            return new Vector2f(vec1.X + vec2[0], vec1.Y + vec2[1]);
+        }
         public static float Length2(this Vector2f vec) {
             return vec.X * vec.X + vec.Y * vec.Y;
         }

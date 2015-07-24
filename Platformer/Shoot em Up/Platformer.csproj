@@ -74,7 +74,7 @@
   <ItemGroup>
     <Compile Include="Game\FileManager\SoundManager.cs" />
     <Compile Include="Game\GameObjects\Bullet.cs" />
-    <Compile Include="Game\GameObjects\BulletShot.cs" />
+    <Compile Include="Game\GameObjects\Contracts\BulletShot.cs" />
     <Compile Include="Game\GameObjects\Coin.cs" />
     <Compile Include="Game\GameObjects\Contracts\CoinContract.cs" />
     <Compile Include="Game\GameObjects\Contracts\PendulumContract.cs" />
@@ -93,7 +93,7 @@
     <Compile Include="Game\GameObjects\Obstacle.cs" />
     <Compile Include="Game\GameObjects\Contracts\ObstacleContract.cs" />
     <Compile Include="Game\GameObjects\Pendulum.cs" />
-    <Compile Include="Game\GameObjects\Planet.cs" />
+    <Compile Include="Game\GameObjects\Contracts\Planet.cs" />
     <Compile Include="Game\GameObjects\Platform.cs" />
     <Compile Include="Game\GameObjects\Player.cs" />
     <Compile Include="Game\GameObjects\States\AnimState.cs" />

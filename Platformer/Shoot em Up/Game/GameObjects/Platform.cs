@@ -66,7 +66,8 @@ namespace Platformer
                 {
                     pos = rigidBody.bodies[i].Center;
                     rigidBody.bodies[i].Centroid = -rigidBody.bodies[i].Centroid;
-                    Game.Add(new Obstacle(false, animation, Collision.Type.Polygon, this.tileSize, new int[]{i}, 0, 1,0,0,0, imagePath, spriteSize, pos,0,100,0,100,Game.factions[0]));
+                    Game.Add(new Obstacle(false, animation, this.tileSize, new int[]{i}, 0, 1,0,0,0, imagePath, spriteSize, pos, 
+                        rigidBody.bodies[i].DegOrientation, 100,0,100,Game.factions[0]));
                     //Game.Add(new KillableObject(Game.factions[0], 100, 100, new[] { rigidBody.bodies[i] }, new[] { drawables[0][i] }, pos, 0));
                 }
             }
