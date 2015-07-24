@@ -18,14 +18,18 @@ namespace Platformer
         public KillableObject shooter;
         private Stopwatch clock;
         private int lifeTime;
+        private const int SPEEDSCALE = 5;
+        private const int HP = 1;
+        private const int ROTATION = 0;
+        private const float RESTITUTION = 1;
 
         public Bullet(KillableObject shooter, int dmg, float radius, float density, Vector2f position, Vector2f speed, Vector2f bend,
             Color color, int outlineThickness, Color outlineColor, int lifeTime)
-            : base(shooter.faction, dmg, 1, new []{ new Circle(new Vector2f(), 0, radius, density)}, position + speed + bend, 0)
+            : base(shooter.faction, dmg, HP, new []{ new Circle(new Vector2f(), ROTATION, radius, density)}, position, ROTATION)
         {
             this.RigidBodyParent = this;
-            this.Restitution = 1.0f;
-            this.rigidBody.Velocity = speed * 5;
+            this.Restitution = RESTITUTION;
+            this.rigidBody.Velocity = speed * SPEEDSCALE;
             this.shooter = shooter;
             this.bend = bend;
             this.drawable[0].FillColor = color;

@@ -33,8 +33,7 @@ namespace Platformer
             this.speed = -speed;
             if (weapon != null)
                 this.weapon =
-                    new Weapon(this, weapon.FireRate, new Vector2f(-1, 0), new Vector2f(-tileSize[0] * .5f, 0), weapon.Shoot, 
-                        weapon.MaxBulletLifetime);
+                    new Weapon(this, weapon.FireRate, weapon.Shoot, weapon.MaxBulletLifetime);
             else
                 this.weapon = null;
 
@@ -102,7 +101,7 @@ namespace Platformer
 
         private void Shoot()
         {
-           if (fire) this.weapon.Shoot(); 
+           if (fire) this.weapon.Shoot((Game.playerPos - this.rigidBody.COM).Norm()); 
         }
 
         public bool IsPlayerNear() {
