@@ -11,7 +11,7 @@ namespace Platformer
         private new Portal owner;
         public PortalClosed(Portal owner) : base(owner)
         {
-            this.sequence = new int[] { 0};
+            this.sequence = new int[] { 0,0,1,1,2,2,1,1};
             this.owner = owner;
         }
 

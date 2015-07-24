@@ -12,7 +12,7 @@ namespace Platformer
         private new Portal owner;
         public PortalOpen(Portal owner) : base(owner)
         {
-            this.sequence = new int[] { 1,2};
+            this.sequence = new int[] { 3,3,4,4,5,5,4,4};
             this.owner = owner;
         }
 
