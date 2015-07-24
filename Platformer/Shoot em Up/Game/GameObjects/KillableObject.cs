@@ -55,33 +55,6 @@ namespace Platformer
             this.maxHP = hp;
         }
 
-        /*
-
-        public KillableObject(Faction faction, Vector2f position, float rotation, float radius, float density)
-            : base(position, rotation, radius, density)
-        {
-            this.faction = faction;
-        }
-
-        public KillableObject(Faction faction, Vector2f normal, Vector2f position, Vector2f size, float rotation)
-            : base(normal, position, size, rotation)
-        {
-            this.faction = faction;
-        }
-
-        public KillableObject(Faction faction, String texture, int[]spriteTileSize, int[]spriteSize, int animationIndex, Vector2f position, float rotation, float density)
-            : base(texture, spriteTileSize, spriteSize, animationIndex, position, rotation, density)
-        {
-            this.faction = faction;
-        }
-
-        public KillableObject(Faction faction, String texture, int[] spriteTileSize, int[] spriteSize, int animationIndex, Vector2f centroid, Vector2f position, float rotation, float density)
-            : base(texture, spriteTileSize, spriteSize, animationIndex, centroid, position, rotation, density)
-        {
-            this.faction = faction;
-        }
-       */
-
         public override void EarlyUpdate()
         {
             opponents.Clear();
@@ -112,7 +85,7 @@ namespace Platformer
         {
             // change color with hp / MAXHP
             foreach (Shape shape in drawable)
-                shape.FillColor = this.hp <= this.maxHP * 0.25 ? Color.Red : shape.FillColor;
+                shape.FillColor = this.hp <= this.maxHP * 0.25 ? Color.Red : Color.White;
             this.display = this.hp > 0;
             base.LateUpdate();
         }

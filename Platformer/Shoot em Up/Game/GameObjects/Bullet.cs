@@ -13,9 +13,6 @@ namespace Platformer
 {
     class Bullet  : KillableObject
     {
-
-        private Vector2f initPosition;
-        private const float MAXVELOCITYSQ = 40000;
         private Vector2f bend;
         public KillableObject shooter;
 
@@ -41,24 +38,6 @@ namespace Platformer
             this.alive = true;
             this.display = true;
         }
-
-        //Faction faction, IRigidBody[] bodies, Vector2f position, float rotation
-   /*     public Bullet(KillableObject shooter, Faction faction, Vector2f position, float radius, Color color, float density, float rotation, int dmg, Vector2f speed, Vector2f bend)
-            : base(faction, new[] { new Circle(position + speed + bend, 0, radius, density) }, position + speed + bend, rotation)
-        {
-            RigidBodyParent = this;
-            initPosition = position + speed + bend;
-            drawable[0].FillColor = color;
-            rigidBody.Restitution = 1.0f;
-            rigidBody.Velocity = speed*5;
-            this.shooter = shooter;
-            this.hp = 1;
-            this.maxHP = 1;
-            this.damage = dmg;
-            this.points = 0;
-            this.bend = bend;
-
-        }*/
 
         public override void EarlyUpdate()
         {

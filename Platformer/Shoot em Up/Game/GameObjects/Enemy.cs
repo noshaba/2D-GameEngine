@@ -18,31 +18,6 @@ namespace Platformer
         private int attentionRange;
         public int[][] animations;
 
-        //Faction faction, string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density
-       /* public Enemy(Collision.Type type,  int[] tileSize, int[] tileIndices,float density, int animationIndex, float restitution, float staticFriction, float kineticFriction, String texturePath, int[]spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction, int pattern, WeaponContract w)
-            : base(faction, texturePath, tileSize, spriteSize, tileIndices, animationIndex, position, rotation, density)
-        {
-            RigidBodyParent = this;
-            Rotateable = false;
-            this.initPos = position;
-
-            this.rigidBody.DragCoefficient = 1;
-            this.rigidBody.Restitution = restitution;
-            this.rigidBody.StaticFriction = staticFriction;
-            this.rigidBody.KineticFriction = kineticFriction;
-            this.hp = health;
-            this.damage = dmg;
-            this.points = points;
-            this.type = type;
-            this.speed = -20;
-            this.rigidBody.Velocity = new Vector2f(0, this.speed);
-            this.mPattern = pattern;
-            this.drop = this.DetermineDrop();
-            this.weapon = new Weapon("singleShot", this, dmg, 2000, 60, new Vector2f(-1, 0), new Vector2f(-new Texture(texturePath).Size.X/2, 0), Color.Magenta);
-            this.fire = true;
-        }*/
-
-
         public Enemy(int attentionRange, int[][] animation, int[] tileSize, int[] tileIndices, float density, int animationIndex, float restitution, float staticFriction, float kineticFriction, String texturePath, int[] spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction, WeaponContract weapon)
             : base(faction, dmg, health, texturePath, tileSize, spriteSize, tileIndices, animationIndex, position, rotation, density)
         {
@@ -122,14 +97,6 @@ namespace Platformer
         private void Shoot()
         {
            if (fire) this.weapon.Shoot(); 
-        }
-
-        public override void EarlyUpdate()
-        {
-            base.EarlyUpdate();
-            this.UpdateBodies();
-            this.rigidBody = this.rigidBodies[this.animationFrame];
-            this.drawable = this.drawables[this.animationFrame];
         }
 
         public bool IsPlayerNear() {

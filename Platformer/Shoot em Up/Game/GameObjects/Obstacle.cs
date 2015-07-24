@@ -41,9 +41,6 @@ namespace Platformer
         public override void EarlyUpdate()
         {
             base.EarlyUpdate();
-            this.UpdateBodies();
-            this.rigidBody = this.rigidBodies[this.animationFrame];
-            this.drawable = this.drawables[this.animationFrame];
             if (this.hover)
             {
                 this.rigidBody.COM = new Vector2f(this.rigidBody.COM.X, this.initPos.Y);

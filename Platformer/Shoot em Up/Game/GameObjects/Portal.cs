@@ -37,13 +37,5 @@ namespace Platformer
         {
             this.open = true;
         }
-
-        public override void EarlyUpdate()
-        {
-            base.EarlyUpdate();
-            this.UpdateBodies();
-            this.rigidBody = this.rigidBodies[this.animationFrame];
-            this.drawable = this.drawables[this.animationFrame];
-        }
     }
 }

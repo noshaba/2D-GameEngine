@@ -46,15 +46,6 @@ namespace Platformer
             this.rigidBody.Velocity = new Vector2f(0, 0);
             this.rigidBody.AngularVelocity = 0;
         }
-
-        public override void EarlyUpdate()
-        {
-            
-            base.EarlyUpdate();
-            this.UpdateBodies();
-            this.rigidBody = this.rigidBodies[this.animationFrame];
-            this.drawable = this.drawables[this.animationFrame];
-        }
     }
 }
 
