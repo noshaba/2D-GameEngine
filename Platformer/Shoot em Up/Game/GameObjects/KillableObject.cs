@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Physics;
 using SFML.Graphics;
 using SFML.System;
+using System.Diagnostics;
 
 namespace Platformer
 {
@@ -18,10 +19,9 @@ namespace Platformer
         public int points;
         protected List<KillableObject> opponents = new List<KillableObject>();
         public bool alive = true;
-        public bool shield;
-        public int shieldHp;
-        public int maxShieldHp;
         public Faction faction;
+        public bool timed = false;
+        private Stopwatch lifetime;
 
         public KillableObject(Faction faction, int dmg, int hp, IRigidBody[]bodies, Shape[] drawables, 
             Vector2f position, float rotation) 
@@ -31,6 +31,22 @@ namespace Platformer
             this.damage = dmg;
             this.hp = hp;
             this.maxHP = hp;
+        }
+
+        public KillableObject(bool timed, Faction faction, int dmg, int hp, IRigidBody[] bodies, Shape[] drawables,
+            Vector2f position, float rotation)
+            : base(bodies, drawables, position, rotation)
+        {
+            this.faction = faction;
+            this.damage = dmg;
+            this.hp = hp;
+            this.maxHP = hp;
+            this.timed = timed;
+            if (timed)
+            {
+                lifetime = new Stopwatch();
+                lifetime.Start();
+            }
         }
 
         public KillableObject(Faction faction, int dmg, int hp, string texturePath, int[] spriteTileSize, 
@@ -63,17 +79,11 @@ namespace Platformer
                 if (collision.collision)
                 {
                     KillableObject opponent = collision.obj as KillableObject;
-                    if (opponent != null && !shield)
+                    if (opponent != null)
                     {
                         opponents.Add(opponent);
                         // decrease HP
                         this.hp -= opponent.damage * 
-                            (100 - opponent.faction.Reputation[(int)this.faction.ID]) / 100;
-                    }
-                    if (opponent != null && shield)
-                    {
-                        opponents.Add(opponent);
-                        this.shieldHp -= opponent.damage * 
                             (100 - opponent.faction.Reputation[(int)this.faction.ID]) / 100;
                     }
                 }
@@ -88,6 +98,9 @@ namespace Platformer
                 shape.FillColor = this.hp <= this.maxHP * 0.25 ? Color.Red : shape.FillColor;
             this.display = this.hp > 0;
             base.LateUpdate();
+            if (timed)
+                if (lifetime.ElapsedMilliseconds >= 10000)
+                    this.hp = 0;
         }
     }
 }
