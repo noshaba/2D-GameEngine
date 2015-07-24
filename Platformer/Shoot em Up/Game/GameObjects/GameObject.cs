@@ -92,18 +92,6 @@ namespace Platformer
             }
         }
 
-        public GameObject(GameObject copy)
-        {
-            this.rigidBodies = copy.rigidBodies;
-            this.drawables = copy.drawables;
-            this.rigidBody = copy.rigidBody;
-            this.drawable = copy.drawable;
-            this.speed = copy.speed;
-            this.currentState = copy.currentState;
-            this.animationFrame = copy.animationFrame;
-            this.clock.Start();
-        }
-
         public GameObject(Vector2f normal, Vector2f position, Vector2f size, float rotation)
         {
             this.rigidBodies = new Body[] { new Body(this, new[] { new Plane(normal, new Vector2f(), size, 0) }, position, rotation) };

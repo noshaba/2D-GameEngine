@@ -58,6 +58,8 @@ namespace Platformer
         [DataMember]
         public int FireRate { get; set; }
         [DataMember]
+        public int CylinderSize { get; set; }
+        [DataMember]
         public BulletShot[] Shoot { get; set; }
     }
 }

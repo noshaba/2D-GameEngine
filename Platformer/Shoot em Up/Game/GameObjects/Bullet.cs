@@ -21,25 +21,25 @@ namespace Platformer
 
         public Bullet(KillableObject shooter, int dmg, 
             string bulletPath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices,
-            int animationIndex, float density)
+            int animationIndex, float density, Vector2f position, Vector2f speed, Vector2f bend)
             : base(shooter.faction, dmg, 1, bulletPath, spriteTileSize, spriteSize, tileIndices,
-            animationIndex, shooter.rigidBody.COM, 0, density)
+                animationIndex, position + speed + bend, 0, density)
         {
             this.RigidBodyParent = this;
-            this.initPosition = shooter.rigidBody.COM;
             this.Restitution = 1.0f;
+            this.rigidBody.Velocity = speed * 5;
             this.shooter = shooter;
+            this.bend = bend;
         }
 
-        public Bullet(Bullet prototype, Vector2f position, Vector2f speed, Vector2f bend)
-            : base(prototype as KillableObject)
+        public void Charge(Vector2f position, Vector2f speed, Vector2f bend)
         {
-            this.RigidBodyParent = this;
-            this.initPosition = position + speed + bend;
-            this.rigidBody.COM = this.initPosition;
+            this.rigidBody.COM = position + speed + bend;
             this.rigidBody.Velocity = speed * 5;
-            this.shooter = prototype.shooter;
             this.bend = bend;
+            this.hp = this.maxHP;
+            this.alive = true;
+            this.display = true;
         }
 
         //Faction faction, IRigidBody[] bodies, Vector2f position, float rotation

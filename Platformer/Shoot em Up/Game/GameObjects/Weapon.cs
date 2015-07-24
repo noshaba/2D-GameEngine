@@ -14,20 +14,18 @@ namespace Platformer
     {
         private Stopwatch charge;
         private int fireRate;
-        public int damage;
-    //    public string type;
-        public Vector2f direction;
+        private int damage;
+        private Vector2f direction;
         private Vector2f relativePos;
-    //    private Dictionary<string, Shot> weapons;
-
-    //    private delegate void Shot(Vector2f position, Vector2f direction);
         private KillableObject owner;
         private Bullet bulletPrototype;
-
         private BulletShot[] shots;
+        private Bullet[,] cylinder;
+
 
         public Weapon(KillableObject owner, int dmg, string bulletPath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices,
-            int animationIndex, float bulletDensity, int fireRate, Vector2f direction, Vector2f relativePos, BulletShot[] shots)
+            int animationIndex, float bulletDensity, int fireRate, Vector2f direction, Vector2f relativePos, BulletShot[] shots,
+            int cylinderSize)
         {
             this.owner = owner;
             this.fireRate = fireRate;
@@ -36,25 +34,39 @@ namespace Platformer
             this.charge.Start();
             this.direction = direction;
             this.relativePos = relativePos;
-            this.bulletPrototype = new Bullet(owner, dmg, bulletPath, spriteTileSize, spriteSize, tileIndices,
-                animationIndex, bulletDensity);
+          //  this.bulletPrototype = new Bullet(owner, dmg, bulletPath, spriteTileSize, spriteSize, tileIndices,
+          //      animationIndex, bulletDensity);
             this.shots = shots;
+            this.cylinder = new Bullet[cylinderSize, shots.Length];
+            for (int i = 0; i < cylinderSize; ++i) for (int j = 0; j < shots.Length; ++j)
+                {
+                    Vector2f position = this.relativePos + this.owner.rigidBody.COM;
+                    cylinder[i, j] = new Bullet(owner, dmg, bulletPath, spriteTileSize, spriteSize, tileIndices,
+                        animationIndex, bulletDensity, position, direction.ElemMul(shots[j].BulletSpeed).Add(shots[j].Offset), 
+                        new Vector2f(shots[j].Bend[0], shots[j].Bend[1]));
+                }
             this.charge.Start();
         }
-
+        int i = 0;
         public void Shoot()
         {
             if (this.charge.ElapsedMilliseconds > this.fireRate)
             {
-                Vector2f position = this.owner.rigidBody.WorldTransform * this.relativePos + this.owner.rigidBody.COM;
-                Vector2f speed = this.owner.rigidBody.WorldTransform * this.direction;
-                Console.WriteLine(shots.Length);
-                foreach (BulletShot shot in shots)
+                for (int j = 0; j <= cylinder.GetUpperBound(1); ++j)
                 {
-                    Game.Add(new Bullet(bulletPrototype, position, speed.ElemMul(shot.BulletSpeed).Add(shot.Offset),
-                        new Vector2f(shot.Bend[0], shot.Bend[1])));
+                    Vector2f position = this.relativePos + this.owner.rigidBody.COM;
+                    cylinder[i, j].Charge(position, this.direction.ElemMul(shots[j].BulletSpeed).Add(shots[j].Offset),
+                        new Vector2f(shots[j].Bend[0], shots[j].Bend[1]));
+                    Game.Add(cylinder[i, j]);
                 }
+                        /*    Vector2f position = this.owner.rigidBody.WorldTransform * this.relativePos + this.owner.rigidBody.COM;
+                            Vector2f speed = this.owner.rigidBody.WorldTransform * this.direction;
+                            foreach (BulletShot shot in shots)
+                                Game.Add(new Bullet(bulletPrototype, position, speed.ElemMul(shot.BulletSpeed).Add(shot.Offset),
+                                    new Vector2f(shot.Bend[0], shot.Bend[1])));*/
                 this.charge.Restart();
+                i = (++i) % (cylinder.Length);
+                Console.WriteLine(i);
             }
         }
 

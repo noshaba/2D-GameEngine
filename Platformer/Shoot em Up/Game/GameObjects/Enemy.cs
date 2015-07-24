@@ -60,7 +60,7 @@ namespace Platformer
                 this.weapon =
                     new Weapon(this, weapon.BulletDamage, weapon.BulletPath, weapon.SpriteTileSize, weapon.SpriteSize,
                         weapon.TileIndices, weapon.AnimationIndex, weapon.BulletDensity, weapon.FireRate, new Vector2f(-1, 0),
-                        new Vector2f(-tileSize[0] * .5f, 0), weapon.Shoot);
+                        new Vector2f(-tileSize[0] * .5f, 0), weapon.Shoot, weapon.CylinderSize);
             else
                 this.weapon = null;
 
@@ -121,7 +121,7 @@ namespace Platformer
 
         private void Shoot()
         {
-            if (fire) this.weapon.Shoot(); 
+           if (fire) this.weapon.Shoot(); 
         }
 
         public override void EarlyUpdate()

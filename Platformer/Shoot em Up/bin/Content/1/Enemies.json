@@ -50,11 +50,12 @@
                 "TileIndices" :  [0],
                 "AnimationIndex" : 0,
                 "BulletDensity" : 0.5,
-                "FireRate" : 100,
+                "FireRate" : 500,
+                "CylinderSize" : 12,
                 "Shoot" : 
                 [
                     {
-                        "BulletSpeed" : [5, 0],
+                        "BulletSpeed" : [20, 0],
                         "Bend" : [0, 0],
                         "Offset" : [0, 0]
                     }
