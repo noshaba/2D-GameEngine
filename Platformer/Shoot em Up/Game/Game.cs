@@ -157,7 +157,7 @@ namespace Platformer
                 planet.Init();
                 this.killPercentage = planet.KillPercentage;
                 this.requiredScore = planet.RequiredPoints;
-                this.portal = new Portal(Collision.Type.Polygon, planet.PortalTileSize, new int[] { 0 }, 0, 0, 0, 0, 0, planet.PortalSprite, planet.PortalSpriteSize, new Vector2f(planet.PortalPosition[0], planet.PortalPosition[1]), 0);
+                this.portal = new Portal(Collision.Type.Polygon, planet.PortalOpen, planet.PortalClosed, planet.PortalTileSize, new int[] { 0 }, 0, 0, 0, 0, 0, planet.PortalSprite, planet.PortalSpriteSize, new Vector2f(planet.PortalPosition[0], planet.PortalPosition[1]), 0);
                 Add(portal);
                 levelSize = new Vector2f(planet.Size[0], planet.Size[1]);
                 player = new Player(factions[1], new Vector2f(250, 1250), "../Content/ghostSprite.png",

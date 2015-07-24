@@ -23,6 +23,10 @@ namespace Platformer
         [DataMember]
         public int[] PortalTileSize { get; set; }
         [DataMember]
+        public int[] PortalOpen { get; set; }
+        [DataMember]
+        public int[] PortalClosed { get; set; }
+        [DataMember]
         public int RequiredPoints { get; set; }
         [DataMember]
         public int KillPercentage { get; set; }

@@ -2,7 +2,6 @@ To-Do
 
 - weapons and bullets from json
 - enemies (3 more at least)
-- improve obstacles
 - platform fragments can vanish(but why and when)
 - leveldesign(3-5 lvls?)
 
