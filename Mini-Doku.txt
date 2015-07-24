@@ -29,8 +29,10 @@ All die Sachen, die noch nicht 100% so sind, wie wir sie eigentlich gerne hätten
 	  + mangelnde künstlerische Fähigkeiten der Programmirerer)
 	- pooling für bullets sollte eingeführt werden
 	- allgemein Feinheiten der Physik und besonders der GUI(grade hier nur Basiskram vorhanden und teilweise nicht mal das)
+	- manchmal ist es möglich das besonders schnelle objekte(bullets insbesondere) durch zusammengesetzte platforms glitchen
 	- es sollte möglich sein, objekte unCollidable zu setzen 
 	(so das ma sich z.B. vor dem portal bewegen kann, solange es noch nicht aktiv ist)
 
 Wenn irgendwas hier total kryptisch klingt, oder keinen Sinn ergibt, lassen wir uns gerne über alle Schwächen, 
-Ecken und Kanten des Programms ausführlicher per E-mail aus :p
+Ecken und Kanten des Programms ausführlicher per E-mail aus, abgesehen davon gibts eh bestimmt was, 
+was vergessen wurde zu erwähnen :p
