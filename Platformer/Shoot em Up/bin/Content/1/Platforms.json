@@ -1,17 +1,18 @@
 [
     {
-        "Density": 1,
+        "Density": 0.5,
         "Restitution": 0,
-        "StaticFriction": 1,
-        "KineticFriction": 1,
-        "Position": [800,1200],
+        "StaticFriction": 2,
+        "KineticFriction": 2,
+        "Position": [900,1200],
 	    "Rotateable": false,
         "Rotation": 0,
 	    "Breakable": false,
         "SpritePath": "../Content/platform1.png",
         "SpriteSize": [300,200],
         "SpriteTileSize": [100, 100],
-        "Tiles": [0,1,1,1,1,1,1,1,1,1,2],
+        "Tiles": [0,1,1,1,1,1,1,1,1,1,1,1,2],
+	"Animation": [0,0,0,1,1, 1 ],
 	    "Path": []
     },
     {
@@ -27,6 +28,7 @@
         "SpriteSize": [300,200],
         "SpriteTileSize": [100, 100],
         "Tiles": [0,1,2],
+	"Animation": [0,0,0,1,1, 1 ],
 	    "Path": [1000,1000,1400,1000, 1200, 900]
     },
     {
@@ -34,14 +36,15 @@
         "Restitution": 0,
         "StaticFriction": 2,
         "KineticFriction": 2,
-        "Position": [500,700],
+        "Position": [500,750],
 	    "Rotateable": true,
         "Rotation": 10,
 	    "Breakable": true,
         "SpritePath": "../Content/platform1.png",
         "SpriteSize": [300,200],
         "SpriteTileSize": [100, 100],
-        "Tiles": [0,1,1,1,1,2],
+        "Tiles": [0,1,1,1,2],
+	"Animation": [0,0,0,1,1, 1 ],
 	    "Path":[]
     }
 ]

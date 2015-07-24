@@ -21,19 +21,23 @@ namespace Platformer
        private int[] spriteSize;
        private string imagePath;
        private int[] animation;
+       private int[] tiles;
+       private float density;
        // SpritePath, Position, Rotation, SpriteSize, SpriteTileSize, Tiles, KineticFriction, StaticFriction, Restitution, Density
-       public Platform(bool breakable, bool rotateable, int[] movement, String path, Vector2f position, float rotation, int[] spriteSize, int[] tileSize, int[] tiles,
+       public Platform(int[] animation, bool breakable, bool rotateable, int[] movement, String path, Vector2f position, float rotation, int[] spriteSize, int[] tileSize, int[] tiles,
            float kineticFriction, float staticFriction, float restitution, float density)
-            : base(path, tileSize, spriteSize, tiles, 0, position, rotation,density)
+            : base(path, tileSize, spriteSize, tiles, 0, position, rotation, density)
         {
             this.tileSize = tileSize;
             this.spriteSize = spriteSize;
             this.imagePath = path;
+            this.tiles = tiles;
+            this.density = density;
             this.DetermineMoves(movement);
             this.breakable = breakable;
             globalPosition = position;
             this.animated = true;
-            this.animation = new int[] { 0,0,0,1,1, 1 };
+            this.animation = animation;
             this.currentState = new AnimState(animation, this);
             foreach (Body body in rigidBodies)
             {
@@ -66,7 +70,7 @@ namespace Platformer
                 {
                     pos = rigidBody.bodies[i].Center;
                     rigidBody.bodies[i].Centroid = -rigidBody.bodies[i].Centroid;
-                    Game.Add(new Obstacle(false, animation, Collision.Type.Polygon, this.tileSize, new int[]{i}, 0, 1,0,0,0, imagePath, spriteSize, pos,0,100,0,100,Game.factions[0]));
+                    Game.Add(new Obstacle(false, animation, Collision.Type.Polygon, this.tileSize, new int[] { this.tiles[i] }, 0, density, rigidBody.Restitution, rigidBody.StaticFriction, rigidBody.KineticFriction, imagePath, spriteSize, pos, rigidBody.bodies[i].DegOrientation, 100, 0, 100, Game.factions[0]));
                     //Game.Add(new KillableObject(Game.factions[0], 100, 100, new[] { rigidBody.bodies[i] }, new[] { drawables[0][i] }, pos, 0));
                 }
             }

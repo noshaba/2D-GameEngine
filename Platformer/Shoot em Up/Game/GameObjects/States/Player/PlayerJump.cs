@@ -18,7 +18,7 @@ namespace Platformer
         public override void HandleEvents()
         {
             base.HandleEvents();
-            if (this.owner.rigidBody.Collision.Count > 0 && this.owner.rigidBody.Velocity.Y > 0)
+            if (this.owner.rigidBody.Collision.Count > 0 && this.owner.rigidBody.Velocity.Y >= 0)
                 this.owner.currentState = new PlayerIdle(this.owner);
         }
 
