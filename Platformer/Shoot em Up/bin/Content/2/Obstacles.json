@@ -8,13 +8,13 @@
         "Hover": false,
         "Health": 25,
         "Points": 10,
-        "Damage": 50,
+        "Damage": 5,
         "SpawnPatternID": 0,
-        "NumberOfObjects": 1,
-        "SpawnStartPosition": [1200,1000],
-        "SpritePath": "../Content/RockSmall.png",
-        "SpriteSize": [100,300],
-        "SpriteTileSize": [100, 100],
+        "NumberOfObjects": 2,
+        "SpawnStartPosition": [200,1200],
+        "SpritePath": "../Content/Rock.png",
+        "SpriteSize": [200,600],
+        "SpriteTileSize": [200, 200],
 	    "Animation": [0,0,1,1,2,2,1,1]
      }
   ]

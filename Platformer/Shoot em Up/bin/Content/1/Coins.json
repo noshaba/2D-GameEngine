@@ -4,7 +4,27 @@
          "Points": 10,
          "Faction":1,
          "NumberOfObjects": 10,
-         "SpawnStartPosition": [800, 1400],
+         "SpawnStartPosition": [600, 1400],
+         "SpritePath": "../Content/CoinSprite.png",
+         "SpriteSize": [50, 150],
+         "SpriteTileSize": [50, 50],
+	 "Animation": [0,1,2,1]
+      },
+     {
+         "Points": 10,
+         "Faction":1,
+         "NumberOfObjects": 10,
+         "SpawnStartPosition": [700, 1050],
+         "SpritePath": "../Content/CoinSprite.png",
+         "SpriteSize": [50, 150],
+         "SpriteTileSize": [50, 50],
+	 "Animation": [0,1,2,1]
+      },
+     {
+         "Points": 10,
+         "Faction":1,
+         "NumberOfObjects": 8,
+         "SpawnStartPosition": [750, 1000],
          "SpritePath": "../Content/CoinSprite.png",
          "SpriteSize": [50, 150],
          "SpriteTileSize": [50, 50],

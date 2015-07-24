@@ -34,13 +34,15 @@ namespace Platformer
         public override void EarlyUpdate()
         {
             base.EarlyUpdate();
-            foreach(KillableObject opponent in opponents)
+            foreach (KillableObject opponent in opponents)
+            {
                 if (opponent is Player)
                 {
-                    SoundManager.Play(SoundManager.collectCoin);
                     this.hp = 0;
+                    SoundManager.Play(SoundManager.collectCoin);
                     break;
                 }
+            }
         }
     }
 }

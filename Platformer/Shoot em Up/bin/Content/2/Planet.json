@@ -1,13 +1,13 @@
 {
   "Name": "some name",
-  "PortalPosition": [1800,1300],
+  "PortalPosition": [700,900],
   "PortalSprite": "../Content/Portal.png",
   "PortalSpriteSize": [150,900],
   "PortalTileSize": [150,150],
   "PortalOpen": [3,3,4,4,5,5,4,4],
   "PortalClosed": [0,0,1,1,2,2,1,1],
-  "RequiredPoints":100,
-  "KillPercentage":10,
+  "RequiredPoints":25,
+  "KillPercentage":0,
   "BackgroundTile":  "../Content/BGTile.png",
   "BackgroundMusicPath": "audio_path",
   "Gravity": [0, 9.81],
@@ -29,16 +29,16 @@
   "Ground": [0,0,0,0,0,0,0,0,0,0,
              0,0,0,0,0,0,0,0,0,0,
              0,0,0,0,0,0,0,0,0,0,
-             0,0,0,0,0
+             0
   ],
   "GroundTiles": [2,4,0,0,0,0,0,0,0,0,
                   0,0,0,0,0,0,0,0,0,0,
                   0,0,0,0,0,0,0,0,0,0,
-                  0,0,0,0,0
+                  0
   ],
   "GroundTileHeight": [3,2,1,1,1,1,1,1,1,1,
                        1,1,1,1,1,1,1,1,1,1,
                        1,1,1,1,1,1,1,1,1,1,
-                       1,1,1,1,1
+                       1
   ]
 }

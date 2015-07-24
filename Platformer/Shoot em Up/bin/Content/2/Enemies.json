@@ -1,0 +1,89 @@
+
+   [
+     {
+         "Density": 0.1,
+         "Restitution": 0.5,
+         "StaticFriction": 0.5,
+         "KineticFriction": 0.1,
+         "Faction": 2,
+         "Health": 5,
+         "Points": 10,
+         "Damage": 10,
+         "Speed": 20,
+         "SpawnPatternID": 3,
+         "NumberOfObjects": 1,
+         "SpawnStartPosition": [800, 1200],
+         "SpritePath": "../Content/BlobSprite.png",
+         "SpriteSize": [70, 490],
+         "SpriteTileSize": [70, 70],
+         "AttentionRange": 350,
+         "Sleep" : [0],
+         "Awake" : [0,1,2,3,4],
+         "Observe": [4,5,6,5],
+         "Attack": [4]
+      },
+     {
+         "Density": 0.1,
+         "Restitution": 0.5,
+         "StaticFriction": 0.5,
+         "KineticFriction": 0.1,
+         "Faction": 2,
+         "Health": 5,
+         "Points": 10,
+         "Damage": 10,
+         "Speed": 20,
+         "SpawnPatternID": 3,
+         "NumberOfObjects": 1,
+         "SpawnStartPosition": [500, 1200],
+         "SpritePath": "../Content/BlobSprite.png",
+         "SpriteSize": [70, 490],
+         "SpriteTileSize": [70, 70],
+         "AttentionRange": 350,
+         "Sleep" : [0],
+         "Awake" : [0,1,2,3,4],
+         "Observe": [4,5,6,5],
+         "Attack": [4],
+         "Weapon" : 
+            {
+                "FireRate" : 500,
+                "CylinderSize" : 12,
+                "MaxBulletLifetime" : 2000,
+                "Shoot" : 
+                [
+                    {
+                        "Speed" : [20, 0],
+                        "Bend" : [0, -2.5],
+                        "Offset" : [0, 0],
+                        "Damage" :  10,
+                        "Density" : 0.5,
+                        "FillColor" : [67, 152, 217],
+                        "OutlineThickness" : 2,
+                        "OutlineColor" : [0, 87, 156],
+                        "Radius" : 2
+                    },
+                    {
+                        "Speed" : [20, 0],
+                        "Bend" : [0, -5],
+                        "Offset" : [0, -10],
+                        "Damage" :  10,
+                        "Density" : 0.5,
+                        "FillColor" : [67, 152, 217],
+                        "OutlineThickness" : 2,
+                        "OutlineColor" : [0, 87, 156],
+                        "Radius" : 2
+                    },
+                    {
+                        "Speed" : [20, 0],
+                        "Bend" : [0, 5],
+                        "Offset" : [0, 10],
+                        "Damage" :  10,
+                        "Density" : 0.5,
+                        "FillColor" : [67, 152, 217],
+                        "OutlineThickness" : 2,
+                        "OutlineColor" : [0, 87, 156],
+                        "Radius" : 2
+                    }
+                ]
+            }
+      }
+   ]

@@ -31,7 +31,7 @@ namespace Platformer
         private const int MAXSHAKERATE = 50;
         private int shakeRate = MAXSHAKERATE;
         private int level;
-        private const int MAXLEVEL = 1;
+        private const int MAXLEVEL = 2;
         public Player player;
         public bool levelEnded;
         public GameStatus status;
