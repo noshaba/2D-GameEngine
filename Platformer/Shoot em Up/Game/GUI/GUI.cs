@@ -22,8 +22,6 @@ namespace Platformer {
         Label resultScore;
         Label hp;
         Label lvl;
-        Menue results;
-        Picture shield;
         private List<IGraphic> welcome = new List<IGraphic>();
         private List<IGraphic> inGame = new List<IGraphic>();
         private List<IGraphic> credits = new List<IGraphic>();
@@ -51,7 +49,6 @@ namespace Platformer {
 
         private void StartGame()
         {
-            //game.StartGame();
             game.startGame();
         }
 
@@ -61,7 +58,6 @@ namespace Platformer {
         }
         private void ShowWelcome()
         {
-            //game.Reset();
             game.status = Game.GameStatus.Start;
         }
 
@@ -102,7 +98,6 @@ namespace Platformer {
                 Label l2 = new Label(new Vector2f(350, 40), "HP", this.textColor);
                 hp = new Label(new Vector2f(390, 40), this.game.player.hp.ToString() + "/" + this.game.player.maxHP.ToString(), this.textColor);
                 lvl = new Label(new Vector2f(500, 10), this.game.Level.ToString(), this.textColor);
-                //shield = new Picture(850, 10, "../Content/"+this.game.player.shieldStatus+".png", this.color);
                 menue.Add(toMain);
                 menue.Add(new Button(10, 40, "Sound", this.color, this.textColor, ToggleSound));
                 menue.Add(scoreLabel);
@@ -110,7 +105,6 @@ namespace Platformer {
                 menue.Add(l2);
                 menue.Add(hp);
                 menue.Add(lvl);
-               // menue.Add(shield);
                 this.inGame.Add(menue);
             }
             else
@@ -118,7 +112,6 @@ namespace Platformer {
                 scoreLabel.DisplayedString = this.game.player.score.ToString();
                 hp.DisplayedString = this.game.player.hp.ToString() + "/" + this.game.player.maxHP.ToString();
                 lvl.DisplayedString = "Level " + this.game.Level.ToString();
-                //shield.setImage("../Content/" + this.game.player.shieldStatus + ".png");
                 this.resultScore.DisplayedString = "Your Score: " + this.game.player.score.ToString();
             }
         }
