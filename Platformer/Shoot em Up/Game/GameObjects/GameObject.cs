@@ -131,7 +131,8 @@ namespace Platformer
             this.clock.Start();
         }
 
-        public GameObject(string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density)
+        public GameObject(string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, 
+            int animationIndex, Vector2f position, float rotation, float density)
         {
             int cols = tileIndices.Length;
             int rows = spriteSize[1] / spriteTileSize[1];

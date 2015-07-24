@@ -11,15 +11,36 @@ using SFML.System;
 
 namespace Platformer
 {
-    class Bullet // : KillableObject
+    class Bullet  : KillableObject
     {
 
         private Vector2f initPosition;
-        private const float MAXVELOCITY2 = 40000;
+        private const float MAXVELOCITYSQ = 40000;
         private Vector2f bend;
-        private KillableObject shooter;
+        public KillableObject shooter;
 
-   //     public Bullet(KillableObject shooter, Faction faction, Vector2f position, string )
+        public Bullet(KillableObject shooter, int dmg, 
+            string bulletPath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices,
+            int animationIndex, float density)
+            : base(shooter.faction, dmg, 1, bulletPath, spriteTileSize, spriteSize, tileIndices,
+            animationIndex, shooter.rigidBody.COM, 0, density)
+        {
+            this.RigidBodyParent = this;
+            this.initPosition = shooter.rigidBody.COM;
+            this.Restitution = 1.0f;
+            this.shooter = shooter;
+        }
+
+        public Bullet(Bullet prototype, Vector2f position, Vector2f speed, Vector2f bend)
+            : base(prototype as KillableObject)
+        {
+            this.RigidBodyParent = this;
+            this.initPosition = position + speed + bend;
+            this.rigidBody.COM = this.initPosition;
+            this.rigidBody.Velocity = speed * 5;
+            this.shooter = prototype.shooter;
+            this.bend = bend;
+        }
 
         //Faction faction, IRigidBody[] bodies, Vector2f position, float rotation
    /*     public Bullet(KillableObject shooter, Faction faction, Vector2f position, float radius, Color color, float density, float rotation, int dmg, Vector2f speed, Vector2f bend)
@@ -39,7 +60,7 @@ namespace Platformer
 
         }*/
 
-    /*    public override void EarlyUpdate()
+        public override void EarlyUpdate()
         {
             base.EarlyUpdate();
             if (opponents.Count > 0)
@@ -61,6 +82,6 @@ namespace Platformer
         {
             base.LateUpdate();
             rigidBody.Velocity += bend;
-        }*/
+        }
     }
 }

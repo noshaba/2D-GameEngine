@@ -11,6 +11,10 @@ namespace Maths {
         public static float Dot(this Vector2f vec1, Vector2f vec2) {
             return vec1.X * vec2.X + vec1.Y * vec2.Y;
         }
+        public static Vector2f ElemMul(this Vector2f vec1, Vector2f vec2)
+        {
+            return new Vector2f(vec1.X * vec1.X, vec2.Y * vec2.Y);
+        }
         public static float Length2(this Vector2f vec) {
             return vec.X * vec.X + vec.Y * vec.Y;
         }

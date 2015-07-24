@@ -23,6 +23,20 @@ namespace Platformer
         public int maxShieldHp;
         public Faction faction;
 
+        public KillableObject(KillableObject copy)
+            : base(copy as GameObject)
+        {
+            this.score = copy.score;
+            this.hp = copy.hp;
+            this.maxHP = copy.maxHP;
+            this.damage = copy.damage;
+            this.points = copy.points;
+            this.shield = copy.shield;
+            this.shieldHp = copy.shieldHp;
+            this.maxShieldHp = copy.maxShieldHp;
+            this.faction = copy.faction;
+        }
+
         public KillableObject(Faction faction, int dmg, int hp, IRigidBody[]bodies, Shape[] drawables, 
             Vector2f position, float rotation) 
             : base(bodies,drawables,position,rotation)

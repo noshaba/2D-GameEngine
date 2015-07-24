@@ -1,4 +1,5 @@
 ﻿using Physics;
+using Maths;
 using SFML.Graphics;
 using SFML.System;
 using System;
@@ -11,22 +12,64 @@ namespace Platformer
 {
     class Weapon 
     {
-        private int bulletSpeed;
         private Stopwatch charge;
         private int fireRate;
         public int damage;
     //    public string type;
-        private Vector2f direction;
+        public Vector2f direction;
         private Vector2f relativePos;
     //    private Dictionary<string, Shot> weapons;
 
-        private delegate void Shot(Vector2f position, Vector2f direction);
+    //    private delegate void Shot(Vector2f position, Vector2f direction);
         private KillableObject owner;
+        private Bullet bulletPrototype;
 
-   /*     public Weapon(string bulletPath, )
+        /*
+         * "Weapon": 
+         * {
+         *      "BulletDamage" : 5,
+         *      "BulletPath" : "...",
+         *      "SpriteTileSize" : [10, 10],
+         *      "SpriteSize" : [10, 10],
+         *      "TileIndices" : [0],
+         *      "AnimationIndex" : [0],
+         *      "BulletDensity" : 0.5,
+         *      "FireRate" : 100,
+         *      "Shoot" : 
+         *      [
+         *          {
+         *              "BulletSpeed" : [5, 0],
+         *              "Bend" : [0, 0],
+         *              "Offset" : [0, 0]
+         *          }
+         *      ]
+         * }
+         */
+
+        private BulletShot[] shots;
+
+        public Weapon(KillableObject owner, int dmg, string bulletPath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices,
+            int animationIndex, int bulletDensity, int fireRate, Vector2f direction, Vector2f relativePos, BulletShot[] shots)
         {
+            this.owner = owner;
+            this.fireRate = fireRate;
+            this.damage = dmg;
+            this.charge = new Stopwatch();
+            this.charge.Start();
+            this.direction = direction;
+            this.relativePos = relativePos;
+            this.bulletPrototype = new Bullet(owner, dmg, bulletPath, spriteTileSize, spriteSize, tileIndices,
+                animationIndex, bulletDensity);
+            this.shots = shots;
+        }
 
-        } */
+        public void shoot()
+        {
+            Vector2f position = this.owner.rigidBody.WorldTransform * this.relativePos + this.owner.rigidBody.COM;
+            Vector2f speed = this.owner.rigidBody.WorldTransform * this.direction;
+            foreach (BulletShot shot in shots)
+                Game.Add(new Bullet(bulletPrototype, position, speed.ElemMul(shot.bulletSpeed) + shot.offset, shot.bend));
+        }
 
 
      //   private Color color;
