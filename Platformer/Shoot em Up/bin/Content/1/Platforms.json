@@ -8,11 +8,11 @@
 	    "Rotateable": false,
         "Rotation": 0,
 	    "Breakable": false,
-        "SpritePath": "../Content/platform1.png",
-        "SpriteSize": [300,200],
+        "SpritePath": "../Content/platform.png",
+        "SpriteSize": [600,300],
         "SpriteTileSize": [100, 100],
-        "Tiles": [0,1,1,1,1,1,1,1,1,1,1,1,2],
-	"Animation": [0,0,0,1,1, 1 ],
+        "Tiles": [0,1,2,1,2,1,2,1,1,1,1,1,5],
+	"Animation": [0,0,1,1, 2,2,1,1 ],
 	    "Path": []
     },
     {
@@ -24,11 +24,11 @@
 	    "Rotateable": false,
         "Rotation": 0,
 	    "Breakable": true,
-        "SpritePath": "../Content/platform1.png",
-        "SpriteSize": [300,200],
+        "SpritePath": "../Content/platform.png",
+        "SpriteSize": [600,300],
         "SpriteTileSize": [100, 100],
-        "Tiles": [0,1,2],
-	"Animation": [0,0,0,1,1, 1 ],
+        "Tiles": [0,1,5],
+	"Animation": [0,0,1, 1,2,2,1,1 ],
 	    "Path": [1000,1000,1400,1000, 1200, 900]
     },
     {
@@ -40,11 +40,11 @@
 	    "Rotateable": true,
         "Rotation": 10,
 	    "Breakable": true,
-        "SpritePath": "../Content/platform1.png",
-        "SpriteSize": [300,200],
+        "SpritePath": "../Content/platform.png",
+        "SpriteSize": [600,300],
         "SpriteTileSize": [100, 100],
-        "Tiles": [0,1,1,1,2],
-	"Animation": [0,0,0,1,1, 1 ],
+        "Tiles": [0,1,1,1,5],
+	"Animation": [0,0,1, 1,2,2,1,1 ],
 	    "Path":[]
     }
 ]
