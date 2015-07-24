@@ -30,7 +30,7 @@ namespace Platformer
             this.rigidBody.KineticFriction = kineticFriction;
 
             this.points = points;
-            this.speed = speed;
+            this.speed = -speed;
             if (weapon != null)
                 this.weapon =
                     new Weapon(this, weapon.FireRate, new Vector2f(-1, 0), new Vector2f(-tileSize[0] * .5f, 0), weapon.Shoot, 
