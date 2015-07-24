@@ -24,7 +24,7 @@ All die Sachen, die noch nicht 100% so sind, wie wir sie eigentlich gerne hätten
 	 sie hätten einige States gemeinsam, müssten diese allerdings durch unterschiedliche Transitions verlassen(ungelöst)
 	 daher zur Zeit nur "homogene" gegner möglich
 	- auch einige transitions im Player Fehleranfällig (besonders jump verlassen, ruckeln, "schlechtes handling")
-	- damit verknüpft Fernkampf gegner sollten besser zielen
+	- damit verknüpft Fernkampf gegner sollten besser zielen(nicht versuchen durch platforms zu schießen)
 	- Wenige verschieden Sprites(mangelndes für unser eigenes System tauglichs fertigmaterial 
 	  + mangelnde künstlerische Fähigkeiten der Programmirerer)
 	- pooling für bullets sollte eingeführt werden
