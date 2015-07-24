@@ -45,6 +45,8 @@ namespace Platformer
         public int[] SpriteSize { get; set; }
         [DataMember]
         public int[] SpriteTileSize { get; set; }
+        [DataMember]
+        public int[] Animation { get; set; }
 
         public void Init()
         {
@@ -54,7 +56,7 @@ namespace Platformer
             {
                 x = SpawnStartPosition[0] + i * SpriteTileSize[0];
                 y = SpawnStartPosition[1];
-                s.Add(new Coin(SpriteTileSize, new int[]{0},0,0,0,0,0,SpritePath, SpriteSize, new Vector2f(x,y), 0,1,Points,0, Game.factions[Faction]));
+                s.Add(new Coin(Animation, SpriteTileSize, new int[]{0},0,0,0,0,0,SpritePath, SpriteSize, new Vector2f(x,y), 0,1,Points,0, Game.factions[Faction]));
             }
             Game.spawners.Add(s);
         }
