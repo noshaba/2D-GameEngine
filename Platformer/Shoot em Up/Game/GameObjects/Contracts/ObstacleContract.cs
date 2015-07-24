@@ -64,7 +64,7 @@ namespace Platformer {
         [DataMember]
         public int[] SpriteTileSize { get; set; } 
         [DataMember]
-        public int[] TileIndices { get; set; } //not included yet
+        public int[] Animation { get; set; } 
 
         public void Init()
         {
@@ -74,7 +74,7 @@ namespace Platformer {
             {
                 x = SpawnStartPosition[0] + i * SpriteTileSize[0];
                 y = SpawnStartPosition[1];
-                s.Add(new Obstacle(Hover, CollisionType, SpriteTileSize, new int[] {0}, 0, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(SpawnStartPosition[0], SpawnStartPosition[1]), 0, Health, Points, Damage, Game.factions[(int)Faction]));
+                s.Add(new Obstacle(Hover, Animation, CollisionType, SpriteTileSize, new int[] {0}, 0, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(SpawnStartPosition[0], SpawnStartPosition[1]), 0, Health, Points, Damage, Game.factions[(int)Faction]));
                 Game.spawners.Add(s);
             }
            // Game.spawners.Add(s);

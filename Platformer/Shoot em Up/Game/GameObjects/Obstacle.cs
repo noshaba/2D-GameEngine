@@ -16,7 +16,7 @@ namespace Platformer
         private bool hover;
 
         // Faction faction, string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density
-        public Obstacle(bool hover, Collision.Type type, int[] spriteTileSize, int[] tileIndices, int animationIndex, float density, float restitution, float staticFriction, float kineticFriction, String texturePath, int[] spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction)
+        public Obstacle(bool hover, int[] animation, Collision.Type type, int[] spriteTileSize, int[] tileIndices, int animationIndex, float density, float restitution, float staticFriction, float kineticFriction, String texturePath, int[] spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction)
             : base(faction, texturePath, spriteTileSize, spriteSize, tileIndices, animationIndex, position, rotation, density)
          {
              RigidBodyParent = this;
@@ -30,7 +30,7 @@ namespace Platformer
              this.points = points;
              this.type = type;
              this.animated = true;
-             this.currentState = new AnimState(new int[] { 0,0,1,1,2,2,1,1}, this);
+             this.currentState = new AnimState(animation, this);
         }
 
          public override void EarlyUpdate()

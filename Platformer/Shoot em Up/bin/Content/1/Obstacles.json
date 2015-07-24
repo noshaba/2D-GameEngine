@@ -15,6 +15,7 @@
         "SpawnStartPosition": [200,1200],
         "SpritePath": "../Content/Rock.png",
         "SpriteSize": [200,600],
-        "SpriteTileSize": [200, 200]
+        "SpriteTileSize": [200, 200],
+	"Animation": [0,0,1,1,2,2,1,1]
      }
   ]
