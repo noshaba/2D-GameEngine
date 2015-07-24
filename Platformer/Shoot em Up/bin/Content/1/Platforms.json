@@ -8,8 +8,8 @@
 	    "Rotateable": false,
         "Rotation": 0,
 	    "Breakable": false,
-        "SpritePath": "../Content/platform.png",
-        "SpriteSize": [300,100],
+        "SpritePath": "../Content/platform1.png",
+        "SpriteSize": [300,200],
         "SpriteTileSize": [100, 100],
         "Tiles": [0,1,1,1,1,1,1,1,1,1,2],
 	    "Path": []
@@ -23,8 +23,8 @@
 	    "Rotateable": false,
         "Rotation": 0,
 	    "Breakable": true,
-        "SpritePath": "../Content/platform.png",
-        "SpriteSize": [300,100],
+        "SpritePath": "../Content/platform1.png",
+        "SpriteSize": [300,200],
         "SpriteTileSize": [100, 100],
         "Tiles": [0,1,2],
 	    "Path": [1000,1000,1400,1000, 1200, 900]
@@ -38,8 +38,8 @@
 	    "Rotateable": true,
         "Rotation": 10,
 	    "Breakable": true,
-        "SpritePath": "../Content/platform.png",
-        "SpriteSize": [300,100],
+        "SpritePath": "../Content/platform1.png",
+        "SpriteSize": [300,200],
         "SpriteTileSize": [100, 100],
         "Tiles": [0,1,1,1,1,2],
 	    "Path":[]

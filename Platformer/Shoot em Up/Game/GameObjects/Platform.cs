@@ -17,14 +17,24 @@ namespace Platformer
        private int currentPosition;
        private int nextPosition;
        private bool moveable;
+       private int[] tileSize;
+       private int[] spriteSize;
+       private string imagePath;
+       private int[] animation;
        // SpritePath, Position, Rotation, SpriteSize, SpriteTileSize, Tiles, KineticFriction, StaticFriction, Restitution, Density
        public Platform(bool breakable, bool rotateable, int[] movement, String path, Vector2f position, float rotation, int[] spriteSize, int[] tileSize, int[] tiles,
            float kineticFriction, float staticFriction, float restitution, float density)
             : base(path, tileSize, spriteSize, tiles, 0, position, rotation,density)
         {
+            this.tileSize = tileSize;
+            this.spriteSize = spriteSize;
+            this.imagePath = path;
             this.DetermineMoves(movement);
             this.breakable = breakable;
             globalPosition = position;
+            this.animated = true;
+            this.animation = new int[] { 0,0,0,1,1, 1 };
+            this.currentState = new AnimState(animation, this);
             foreach (Body body in rigidBodies)
             {
                 body.rotateable = rotateable;
@@ -56,7 +66,8 @@ namespace Platformer
                 {
                     pos = rigidBody.bodies[i].Center;
                     rigidBody.bodies[i].Centroid = -rigidBody.bodies[i].Centroid;
-                    Game.Add(new KillableObject(Game.factions[0], 500, 100, new[] { rigidBody.bodies[i] }, new[] { drawables[0][i] }, pos, 0));
+                    Game.Add(new Obstacle(false, animation, Collision.Type.Polygon, this.tileSize, new int[]{i}, 0, 1,0,0,0, imagePath, spriteSize, pos,0,100,0,100,Game.factions[0]));
+                    //Game.Add(new KillableObject(Game.factions[0], 100, 100, new[] { rigidBody.bodies[i] }, new[] { drawables[0][i] }, pos, 0));
                 }
             }
         }
@@ -123,6 +134,10 @@ namespace Platformer
 
         public override void EarlyUpdate()
         {
+            base.EarlyUpdate();
+            this.UpdateBodies();
+            this.rigidBody = this.rigidBodies[this.animationFrame];
+            this.drawable = this.drawables[this.animationFrame];
             if (this.moveable)
             {
                 this.Move();
