@@ -24,7 +24,7 @@ namespace Platformer
             this.damage = dmg;
             this.points = points;
             this.status = state.idle;
-            this.currentState = new AnimState(new int[] { 0, 1, 2, 3, 4, 5 }, this);
+            this.currentState = new AnimState(new int[] { 0}, this);
             this.animated = true;
         }
 

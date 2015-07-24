@@ -6,7 +6,7 @@
          "NumberOfObjects": 10,
          "SpawnStartPosition": [800, 1400],
          "SpritePath": "../Content/CoinSprite.png",
-         "SpriteSize": [50, 300],
+         "SpriteSize": [50, 50],
          "SpriteTileSize": [50, 50]
       }
  ]

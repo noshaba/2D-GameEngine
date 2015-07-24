@@ -29,11 +29,16 @@ namespace Platformer
              this.damage = dmg;
              this.points = points;
              this.type = type;
+             this.animated = true;
+             this.currentState = new AnimState(new int[] { 0,0,1,1,2,2,1,1}, this);
         }
 
          public override void EarlyUpdate()
          {
              base.EarlyUpdate();
+             this.UpdateBodies();
+             this.rigidBody = this.rigidBodies[this.animationFrame];
+             this.drawable = this.drawables[this.animationFrame];
              if (this.hover)
              {
                  this.rigidBody.COM = new Vector2f(this.rigidBody.COM.X, this.initPos.Y);
