@@ -15,15 +15,23 @@ namespace Platformer
         private Stopwatch charge;
         private int fireRate;
         public int damage;
-        public string type;
+    //    public string type;
         private Vector2f direction;
         private Vector2f relativePos;
-        private Dictionary<string, Shot> weapons;
+    //    private Dictionary<string, Shot> weapons;
 
         private delegate void Shot(Vector2f position, Vector2f direction);
         private KillableObject owner;
-        private Color color;
 
+   /*     public Weapon(string bulletPath, )
+        {
+
+        } */
+
+
+     //   private Color color;
+
+        /*
         public Weapon(Collision.Type type, string imagePath, int bulletPattern, int fireRate, int damage)
         {
 
@@ -93,5 +101,7 @@ namespace Platformer
          //   Game.Add(new Bullet(this.owner, this.owner.faction, position, 1.5f, this.color, 0.5f, this.damage, this.owner.rigidBody.WorldTransform * new Vector2f(this.direction.X * bulletSpeed, this.direction.Y * bulletSpeed), new Vector2f(0, 0)));
          //   Game.Add(new Bullet(this.owner, this.owner.faction, position, 1.5f, this.color, 0.5f, this.damage, this.owner.rigidBody.WorldTransform * new Vector2f(this.direction.X * bulletSpeed * 2, this.direction.Y + 5), new Vector2f(0, 1)));
         }
+        */
     }
+         
 }

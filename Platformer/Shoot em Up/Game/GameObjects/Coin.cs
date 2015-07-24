@@ -14,14 +14,12 @@ namespace Platformer
         public Coin(int[] animation, int[] tileSize, int[] tileIndices, float density, int animationIndex, float restitution, float staticFriction, 
             float kineticFriction, String texturePath, int[] spriteSize, Vector2f position, float rotation, int health, int points, 
             int dmg, Faction faction)
-            : base(faction, texturePath, tileSize, spriteSize, tileIndices, animationIndex, position, rotation, density)
+            : base(faction, dmg, health, texturePath, tileSize, spriteSize, tileIndices, animationIndex, position, rotation, density)
         {
             RigidBodyParent = this;
             Restitution = restitution;
             StaticFriction = staticFriction;
             KineticFriction = kineticFriction;
-            this.hp = health;
-            this.damage = dmg;
             this.points = points;
             this.status = state.idle;
             this.currentState = new AnimState(animation, this);

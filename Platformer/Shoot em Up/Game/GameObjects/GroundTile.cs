@@ -19,7 +19,7 @@ namespace Platformer
             this.rigidBody.Restitution = restitution;
             this.rigidBody.StaticFriction = staticFriction;
             this.rigidBody.KineticFriction = kineticFriction;
-            this.rigidBody.COM = new Vector2f(spriteTileSize[0] * (index + .5f), Game.levelSize.Y - (height-1)*spriteTileSize[1]);
+            this.rigidBody.COM = new Vector2f(spriteTileSize[0] * (index + .5f), Game.levelSize.Y - height*spriteTileSize[1] + spriteTileSize[1] * .5f);
         }
     }
 }

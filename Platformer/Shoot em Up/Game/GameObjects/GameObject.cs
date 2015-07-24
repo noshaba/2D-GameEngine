@@ -16,7 +16,7 @@ namespace Platformer
         public Shape[][] drawables;
         public Body rigidBody;
         public Shape[] drawable;
-        protected int animationFrame;
+        public int animationFrame;
         public bool animated = false;
         public AnimState currentState;
         public float speed;
@@ -90,6 +90,18 @@ namespace Platformer
                 foreach (Body body in rigidBodies)
                     body.Parent = value;
             }
+        }
+
+        public GameObject(GameObject copy)
+        {
+            this.rigidBodies = copy.rigidBodies;
+            this.drawables = copy.drawables;
+            this.rigidBody = copy.rigidBody;
+            this.drawable = copy.drawable;
+            this.speed = copy.speed;
+            this.currentState = copy.currentState;
+            this.animationFrame = copy.animationFrame;
+            this.clock.Start();
         }
 
         public GameObject(Vector2f normal, Vector2f position, Vector2f size, float rotation)

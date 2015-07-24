@@ -4,7 +4,6 @@
         "Restitution": 0.5,
         "StaticFriction": 0.5,
         "KineticFriction": 0.1,
-        "CollisionType": 1,
         "Faction": 0,
         "Hover": false,
         "Health": 25,
@@ -16,6 +15,6 @@
         "SpritePath": "../Content/Rock.png",
         "SpriteSize": [200,600],
         "SpriteTileSize": [200, 200],
-	"Animation": [0,0,1,1,2,2,1,1]
+	    "Animation": [0,0,1,1,2,2,1,1]
      }
   ]

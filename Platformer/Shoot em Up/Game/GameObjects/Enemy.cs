@@ -11,8 +11,6 @@ namespace Platformer
 {
     class Enemy : KillableObject
     {
-
-        public Collision.Type type;
         public Weapon weapon;
         public Game.GameItem drop;
         private Vector2f initPos;
@@ -45,8 +43,8 @@ namespace Platformer
         }*/
 
 
-        public Enemy(Collision.Type type, int attentionRange, int[][] animation, int[] tileSize, int[] tileIndices, float density, int animationIndex, float restitution, float staticFriction, float kineticFriction, String texturePath, int[] spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction, WeaponContract weapon)
-            : base(faction, texturePath, tileSize, spriteSize, tileIndices, animationIndex, position, rotation, density)
+        public Enemy(int attentionRange, int[][] animation, int[] tileSize, int[] tileIndices, float density, int animationIndex, float restitution, float staticFriction, float kineticFriction, String texturePath, int[] spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction, WeaponContract weapon)
+            : base(faction, dmg, health, texturePath, tileSize, spriteSize, tileIndices, animationIndex, position, rotation, density)
         {
             RigidBodyParent = this;
             Rotateable = false;
@@ -56,13 +54,11 @@ namespace Platformer
             this.rigidBody.StaticFriction = staticFriction;
             this.rigidBody.KineticFriction = kineticFriction;
 
-            this.hp = health;
-            this.damage = dmg;
             this.points = points;
-            this.type = type;
             this.speed = -20;
             if (weapon != null)
-                this.weapon = new Weapon(weapon.BulletCollisionType, weapon.BulletImage, weapon.BulletPattern, weapon.FireRate, this.damage);
+                //    this.weapon = new Weapon(weapon.BulletCollisionType, weapon.BulletImage, weapon.BulletPattern, weapon.FireRate, this.damage);
+                ;
             else
                 this.weapon = null;
 
@@ -123,7 +119,7 @@ namespace Platformer
 
         private void Shoot()
         {
-            if (fire) this.weapon.shoot(this.rigidBody.COM); 
+         //   if (fire) this.weapon.shoot(this.rigidBody.COM); 
         }
 
         public override void EarlyUpdate()

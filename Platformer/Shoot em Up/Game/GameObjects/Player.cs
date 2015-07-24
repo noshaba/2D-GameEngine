@@ -17,7 +17,7 @@ namespace Platformer
 
         //Faction faction, string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density
         public Player(Faction faction, Vector2f position, String texture, int[]tileSize, int[]spriteSize, int[]tileIndices)
-            : base(faction, texture, tileSize, spriteSize,tileIndices, 0, position, 0, 0.01f)
+            : base(faction, 0, 1000, texture, tileSize, spriteSize,tileIndices, 0, position, 0, 0.01f)
         {
             foreach (Body body in rigidBodies)
             {
@@ -27,9 +27,6 @@ namespace Platformer
             }
             this.speed = 80;
             this.score = 0;
-            this.hp = 1000;
-            this.maxHP = 1000;
-            this.shield = false;
             this.currentState = new PlayerIdle( this);
             this.animated = true;
         }

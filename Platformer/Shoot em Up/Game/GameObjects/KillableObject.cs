@@ -13,7 +13,7 @@ namespace Platformer
     {
         public int score;
         public int hp;
-        public int maxHP = 1;
+        public int maxHP;
         public int damage;
         public int points;
         protected List<KillableObject> opponents = new List<KillableObject>();
@@ -23,23 +23,36 @@ namespace Platformer
         public int maxShieldHp;
         public Faction faction;
 
-        public KillableObject(Faction faction, int dmg, int hp, IRigidBody[]bodies, Shape[] drawables, Vector2f position, float rotation) : base(bodies,drawables,position,rotation)
+        public KillableObject(Faction faction, int dmg, int hp, IRigidBody[]bodies, Shape[] drawables, 
+            Vector2f position, float rotation) 
+            : base(bodies,drawables,position,rotation)
         {
             this.faction = faction;
             this.damage = dmg;
             this.hp = hp;
+            this.maxHP = hp;
         }
 
-        public KillableObject(Faction faction, string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density)
-            : base(texturePath, spriteTileSize, spriteSize, tileIndices, animationIndex, position, rotation, density)
+        public KillableObject(Faction faction, int dmg, int hp, string texturePath, int[] spriteTileSize, 
+            int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, 
+            float rotation, float density)
+            : base(texturePath, spriteTileSize, spriteSize, tileIndices, animationIndex, 
+            position, rotation, density)
         {
             this.faction = faction;
+            this.damage = dmg;
+            this.hp = hp;
+            this.maxHP = hp;
         }
 
-        public KillableObject(Faction faction, IRigidBody[] bodies, Vector2f position, float rotation)
+        public KillableObject(Faction faction, int dmg, int hp, IRigidBody[] bodies, Vector2f position, 
+            float rotation)
             : base(bodies, position, rotation)
         {
             this.faction = faction;
+            this.damage = dmg;
+            this.hp = hp;
+            this.maxHP = hp;
         }
 
         /*
@@ -81,12 +94,14 @@ namespace Platformer
                     {
                         opponents.Add(opponent);
                         // decrease HP
-                        this.hp -= opponent.damage * (100 - opponent.faction.Reputation[(int)this.faction.ID]) / 100;
+                        this.hp -= opponent.damage * 
+                            (100 - opponent.faction.Reputation[(int)this.faction.ID]) / 100;
                     }
                     if (opponent != null && shield)
                     {
                         opponents.Add(opponent);
-                        this.shieldHp -= opponent.damage * (100 - opponent.faction.Reputation[(int)this.faction.ID]) / 100;
+                        this.shieldHp -= opponent.damage * 
+                            (100 - opponent.faction.Reputation[(int)this.faction.ID]) / 100;
                     }
                 }
             }

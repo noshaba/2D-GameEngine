@@ -181,8 +181,13 @@ namespace Platformer
             Add(player);
             playerPos = player.rigidBody.COM;
 
-            Add(new Wall(new Vector2f(1, 0), new Vector2f(0, levelSize.Y * .5f), new Vector2f(.1f, levelSize.Y), Color.Transparent));
-            Add(new Wall(new Vector2f(-1, 0), new Vector2f(levelSize.X, levelSize.Y * .5f), 
+            Add(new Wall(new Vector2f(0, 1), new Vector2f(levelSize.X * .5f, 0),
+                new Vector2f(levelSize.X, .1f), Color.Transparent));
+            Add(new Wall(new Vector2f(0,-1), new Vector2f(levelSize.X * .5f, levelSize.Y),
+                new Vector2f(levelSize.X, .1f), Color.Transparent));
+            Add(new Wall(new Vector2f( 1,0), new Vector2f(0, levelSize.Y * .5f), 
+                new Vector2f(.1f, levelSize.Y), Color.Transparent));
+            Add(new Wall(new Vector2f(-1,0), new Vector2f(levelSize.X, levelSize.Y * .5f), 
                 new Vector2f(.1f, levelSize.Y), Color.Transparent));
             planet.AddGround();
             using (StreamReader sr = new StreamReader("../Content/" + level + "/Platforms.json"))

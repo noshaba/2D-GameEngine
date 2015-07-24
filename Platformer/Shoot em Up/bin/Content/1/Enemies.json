@@ -5,7 +5,6 @@
          "Restitution": 0.5,
          "StaticFriction": 0.5,
          "KineticFriction": 0.1,
-         "CollisionType": 1,
          "Faction": 2,
          "Health": 5,
          "Points": 10,

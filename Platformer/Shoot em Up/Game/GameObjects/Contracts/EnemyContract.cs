@@ -46,8 +46,6 @@ namespace Platformer
         [DataMember]
         public float KineticFriction { get; set; }
         [DataMember]
-        public Collision.Type CollisionType { get; set; }
-        [DataMember]
         public Faction.Type Faction { get; set; }
         [DataMember]
         public int Health { get; set; }
@@ -108,7 +106,7 @@ namespace Platformer
                 x = SpawnStartPosition[0] + i * SpriteTileSize[0];
                 y = SpawnStartPosition[1];
                 //Collision.Type type, int[] tileSize, int[] tileIndices,float density, int animationIndex, float restitution, float staticFriction, float kineticFriction, String texturePath, int[]spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction, int pattern, WeaponContract w
-                s.Add(new Enemy(CollisionType, AttentionRange, new int[][] {Sleep, Awake, Observe, Attack}, SpriteTileSize, new int[] { 0 }, Density, 0, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), 0, Health, Points, Damage, Game.factions[(int)Faction], Weapon));
+                s.Add(new Enemy(AttentionRange, new int[][] {Sleep, Awake, Observe, Attack}, SpriteTileSize, new int[] { 0 }, Density, 0, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(x, y), 0, Health, Points, Damage, Game.factions[(int)Faction], Weapon));
             }
             Game.spawners.Add(s);
         }
