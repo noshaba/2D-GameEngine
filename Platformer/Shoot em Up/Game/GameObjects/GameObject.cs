@@ -186,8 +186,8 @@ namespace Platformer
 
         public void Draw(RenderTexture buffer, float alpha, Vector2f viewCenter, Vector2f windowHalfSize)
         {
-         //   if (!InsideWindow(viewCenter, windowHalfSize))
-         //       return;
+            if (!InsideWindow(viewCenter, windowHalfSize))
+                return;
             State interpol;
             Transform t;
             RenderStates r;
@@ -204,8 +204,8 @@ namespace Platformer
 
         public void Draw(RenderWindow buffer, float alpha, Vector2f viewCenter, Vector2f windowHalfSize)
         {
-            //   if (!InsideWindow(viewCenter, windowHalfSize))
-            //       return;
+            if (!InsideWindow(viewCenter, windowHalfSize))
+                return;
             State interpol;
             Transform t;
             RenderStates r;

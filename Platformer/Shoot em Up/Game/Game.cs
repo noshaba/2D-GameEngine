@@ -28,8 +28,8 @@ namespace Platformer
         public static Faction[] factions;
         public static bool debug = false;
         public static bool screenShake = false;
-        public const int MAXSHAKERATE = 50;
-        public static int shakeRate = MAXSHAKERATE;
+        private const int MAXSHAKERATE = 50;
+        private int shakeRate = MAXSHAKERATE;
         private int level;
         private const int MAXLEVEL = 1;
         public Player player;
@@ -42,6 +42,7 @@ namespace Platformer
         private int numberOfEnemies;
         private float killPercentage;
         private int killedEnemies;
+        public static View view;
 
         Shader light = new Shader(null, "../Content/shaders/light.frag");
         Shader sceneBufferShader = new Shader(null, "../Content/shaders/scene_buffer.frag");
@@ -77,6 +78,7 @@ namespace Platformer
             SoundManager.on = false;
             SoundManager.Play(SoundManager.ambient);
             SoundManager.ambient.Loop = true;
+            view = new View(new Vector2f(WIDTH, HEIGHT) *.5f, new Vector2f(WIDTH, HEIGHT));
         }
 
 
@@ -164,10 +166,10 @@ namespace Platformer
                     lightPosition.X, HEIGHT - lightPosition.Y, lightPosition.Z);
                 light.SetParameter("resolution",
                     planet.Size[0] * 10, HEIGHT * 10);
-                shadowBuffer = new RenderTexture((uint)planet.Size[0], (uint)planet.Size[1]);
+                shadowBuffer = new RenderTexture((uint)WIDTH, (uint)HEIGHT);
                 shadowScene.Texture = shadowBuffer.Texture;
 
-                sceneBuffer = new RenderTexture((uint)planet.Size[0], (uint)planet.Size[1]);
+                sceneBuffer = new RenderTexture((uint)WIDTH, (uint)HEIGHT);
                 scene.Texture = sceneBuffer.Texture;
             }
             physics = new Physic(rigidBodies, joints, new Vector2f(planet.Gravity[0], planet.Gravity[1]), planet.Damping,
@@ -231,17 +233,23 @@ namespace Platformer
             }
         }
 
-        public void EarlyUpdate(Vector2f viewCenter)
+        public void FixedUpdate(float dt)
+        {
+            if (status == GameStatus.Active)
+                physics.Update(dt, view.Center);
+        }
+
+        public void EarlyUpdate()
         {
             if (this.player.score >= this.requiredScore && this.killedEnemies >= this.numberOfEnemies*(this.killPercentage/100)) {
                 this.portal.Open();
             }
             for (int i = 0; i < objects.Count; ++i)
-                if(objects[i].InsideWindow(viewCenter, windowHalfSize))
+                if(objects[i].InsideWindow(playerPos, windowHalfSize))
                     objects[i].EarlyUpdate();
             for (int i = 0; i < spawners.Count; i++)
             {
-                if (spawners[i].NearPlayer(player.rigidBody.COM.X, WIDTH / 2))
+                if (spawners[i].NearPlayer(playerPos.X, WIDTH / 2))
                 {
                     spawners[i].Spawn();
                     spawners.RemoveAt(i);
@@ -249,15 +257,28 @@ namespace Platformer
             }
         }
 
-        public void LateUpdate(Vector2f viewCenter) 
+        public void LateUpdate() 
         {
             if (physics.frozen) 
                 return;
 
             playerPos = player.rigidBody.COM;
 
+            view.Center = playerPos;
+            if (view.Center.X < windowHalfSize.X)
+                view.Center = new Vector2f(windowHalfSize.X, view.Center.Y);
+            if (view.Center.X > Game.levelSize.X - windowHalfSize.X)
+                view.Center = new Vector2f(Game.levelSize.X - windowHalfSize.X, view.Center.Y);
+            if (view.Center.Y < windowHalfSize.Y)
+                view.Center = new Vector2f(view.Center.X, windowHalfSize.Y);
+            if (view.Center.Y > Game.levelSize.Y - windowHalfSize.Y)
+                view.Center = new Vector2f(view.Center.X, Game.levelSize.Y - windowHalfSize.Y);
+
             if (screenShake)
+            {
+                view.Center += new Vector2f(EMath.random.Next(shakeRate), EMath.random.Next(shakeRate));
                 shakeRate--;
+            }
 
             if (shakeRate < 0)
             {
@@ -270,7 +291,7 @@ namespace Platformer
                 //there exists a better way for this???
                 rigidBodies[i] = objects[i].rigidBody;
 
-                if (!objects[i].InsideWindow(viewCenter, windowHalfSize))
+                if (!objects[i].InsideWindow(playerPos, windowHalfSize))
                     continue;
 
                 objects[i].LateUpdate();
@@ -305,21 +326,27 @@ namespace Platformer
             }
         }
 
-        public void Draw(RenderWindow window, float alpha, Vector2f viewCenter)
+        public void Draw(RenderWindow window, float alpha)
         {   
             if(status == GameStatus.Active) {
-                planet.sky.Position = viewCenter;
-                shadow.SetParameter("lightPosition", lightPosition.X / planet.Size[0], 
-                    1 - lightPosition.Y / HEIGHT);
                 shadowBuffer.Clear(Color.Transparent);
                 sceneBuffer.Clear(Color.Transparent);
+                shadowBuffer.SetView(view);
+                sceneBuffer.SetView(view);
+
+                planet.sky.Position = view.Center;
+                sceneBuffer.Draw(planet.sky);
                 foreach (GameObject obj in objects)
                 {
-                    obj.Draw(sceneBuffer, alpha, viewCenter, windowHalfSize);
-                    obj.Draw(shadowBuffer, alpha, viewCenter, windowHalfSize);
+                    obj.Draw(sceneBuffer, alpha, view.Center, windowHalfSize);
+                    obj.Draw(shadowBuffer, alpha, view.Center, windowHalfSize);
                     if (debug)
-                        obj.rigidBody.Draw(sceneBuffer, alpha, viewCenter, windowHalfSize);
+                        obj.rigidBody.Draw(sceneBuffer, alpha, view.Center, windowHalfSize);
                 }
+
+                shadow.SetParameter("lightPosition", lightPosition.X / planet.Size[0],
+                    1 - lightPosition.Y / HEIGHT);
+
                 RenderStates s = new RenderStates(Transform.Identity);
 
             //    sceneBufferShader.SetParameter("sceneTex", shadowBuffer.Texture);
@@ -328,7 +355,6 @@ namespace Platformer
 
             //    shadow.SetParameter("texture", shadowScene.Texture);
            //     s.Shader = light;
-                window.Draw(planet.sky, s);
             //    s.Shader = shadow;
             //    window.Draw(shadowScene, s);
 

@@ -25,7 +25,6 @@ namespace Platformer
         static ContextSettings context = new ContextSettings();
         static Stopwatch timer = new Stopwatch();
         static RenderWindow window;
-        static View view = new View(new Vector2f(WIDTH * .5f, HEIGHT * .5f), new Vector2f(WIDTH, HEIGHT));
         static View GUIview = new View(new Vector2f(WIDTH * .5f, HEIGHT * .5f), new Vector2f(WIDTH, HEIGHT));
 
         static Sprite mouseSprite = new Sprite(new Texture("../Content/Mouse.png"));
@@ -58,7 +57,6 @@ namespace Platformer
             context.AntialiasingLevel = 8;
             window = new RenderWindow(new VideoMode(WIDTH, HEIGHT), "Platformer", Styles.Close, context);
             window.Position = new Vector2i(0,0);
-            window.SetView(view);
             window.SetActive(true);
             window.Closed += window_Closed;
             window.KeyReleased += window_KeyReleased;
@@ -79,53 +77,21 @@ namespace Platformer
             if (accumulator > MAX_DT) accumulator = MAX_DT;
             while (accumulator >= DT)
             {
-               // mouseSprite.Position = window.MapPixelToCoords(Mouse.GetPosition(window), GUIview);
-                if (sEmUp.status == Game.GameStatus.Active)
-                    sEmUp.physics.Update(DT, view.Center);
+                sEmUp.FixedUpdate(DT);
                 accumulator -= DT;
             }
             if (sEmUp.status == Game.GameStatus.Active)
             {
                 ReadInput();
-                /*if (sEmUp.player.rigidBody.COM.X >= view.Center.X && sEmUp.player.rigidBody.Velocity.X > 0 && sEmUp.player.rigidBody.COM.X < sEmUp.planet.backgroundSprite.TextureRect.Width-WIDTH/2)
-                {*/
-                view.Center = sEmUp.player.rigidBody.COM;
-                if (view.Center.X < 600) 
-                    view.Center = new Vector2f(600,view.Center.Y);
-                if (view.Center.X > Game.levelSize.X - 600)
-                    view.Center = new Vector2f(Game.levelSize.X - 600, view.Center.Y);
-                if (view.Center.Y < 700)
-                    view.Center = new Vector2f(view.Center.X, 700);
-                if (view.Center.Y > Game.levelSize.Y - 350)
-                    view.Center = new Vector2f(view.Center.X, Game.levelSize.Y - 350);
-
-                if(Game.screenShake)
-                    view.Center += new Vector2f(EMath.random.Next(Game.shakeRate), EMath.random.Next(Game.shakeRate));
-
-                sEmUp.EarlyUpdate(view.Center);
-                sEmUp.LateUpdate(view.Center);
-                /*}
-                else {
-                    view.Center = new Vector2f(view.Center.X, HEIGHT / 2);
-                    if (sEmUp.player.rigidBody.COM.X > sEmUp.planet.backgroundSprite.TextureRect.Width - WIDTH / 2)
-                    {
-                        sEmUp.player.rigidBody.Velocity = new Vector2f(100, 0);
-                        sEmUp.levelEnded = true;
-                    }
-                }*/
+                sEmUp.EarlyUpdate();
+                sEmUp.LateUpdate();
             }
-            window.SetView(view);
         }
 
         //draw method
         private static void Draw(float alpha)
         {
-            if (sEmUp.status == Game.GameStatus.Nextlevel || sEmUp.status == Game.GameStatus.Credits || sEmUp.status == Game.GameStatus.Start)
-            { 
-                view = new View(new Vector2f(WIDTH * .5f, HEIGHT * .5f), new Vector2f(WIDTH, HEIGHT));
-            }
-            window.SetView(view);
-            sEmUp.Draw(window, alpha, view.Center);
+            sEmUp.Draw(window, alpha);
             window.SetView(GUIview);
             gui.Draw(window);
             mouseSprite.Draw(window, RenderStates.Default);
