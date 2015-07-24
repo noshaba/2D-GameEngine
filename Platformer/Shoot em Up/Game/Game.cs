@@ -87,6 +87,10 @@ namespace Platformer
             this.Reset();
             this.levelEnded = false;
             Level = 1;
+            player = new Player(factions[1], new Vector2f(250, 1250), "../Content/ghostSprite.png",
+                    new int[] { 100, 100 }, new int[] { 100, 1200 }, new int[] { 0 });
+            playerPos = player.rigidBody.COM;
+            Add(player);
             this.status = GameStatus.Active;
         }
 
@@ -96,6 +100,8 @@ namespace Platformer
             this.levelEnded = false;
             this.status = GameStatus.Active;
             Level++;
+            player.rigidBody.COM = new Vector2f(250, 1250);
+            Add(player);
         }
 
         public static void Add(GameObject obj)
@@ -157,8 +163,6 @@ namespace Platformer
                 this.portal = new Portal(Collision.Type.Polygon, planet.PortalOpen, planet.PortalClosed, planet.PortalTileSize, new int[] { 0 }, 0, 0, 0, 0, 0, planet.PortalSprite, planet.PortalSpriteSize, new Vector2f(planet.PortalPosition[0], planet.PortalPosition[1]), 0);
                 Add(portal);
                 levelSize = new Vector2f(planet.Size[0], planet.Size[1]);
-                player = new Player(factions[1], new Vector2f(250, 1250), "../Content/ghostSprite.png",
-                    new int[] { 100, 100 }, new int[] { 100, 1200 }, new int[] { 0 });
 
                 lightPosition = new Vector3f(WIDTH*2, HEIGHT * 0.5f, 0.04f);
 
@@ -175,8 +179,6 @@ namespace Platformer
             }
             physics = new Physic(rigidBodies, joints, new Vector2f(planet.Gravity[0], planet.Gravity[1]), planet.Damping,
                 new Vector2f(WIDTH, HEIGHT));
-            Add(player);
-            playerPos = player.rigidBody.COM;
 
             Add(new Wall(new Vector2f(0, 1), new Vector2f(levelSize.X * .5f, 0),
                 new Vector2f(levelSize.X, .1f), Color.Transparent));
