@@ -2,7 +2,7 @@
    [
      {
          "Points": 10,
-	 "Faction":1,
+         "Faction":1,
          "NumberOfObjects": 10,
          "SpawnStartPosition": [800, 1400],
          "SpritePath": "../Content/CoinSprite.png",

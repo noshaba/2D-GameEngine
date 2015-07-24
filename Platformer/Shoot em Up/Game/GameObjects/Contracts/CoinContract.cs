@@ -54,8 +54,7 @@ namespace Platformer
             {
                 x = SpawnStartPosition[0] + i * SpriteTileSize[0];
                 y = SpawnStartPosition[1];
-                //Add(new Coin(Collision.Type.Polygon, new int[]{50,50}, new int[]{0}, 0,0,0,0,0,"../Content/CoinSprite.png",new int[]{50,300}, new Vector2f(300,1400),0,5,10,0, factions[1]));
-                s.Add(new Coin(Physics.Collision.Type.Polygon, SpriteTileSize, new int[]{0},0,0,0,0,0,SpritePath, SpriteSize, new Vector2f(x,y), 0,1,Points,0, Game.factions[Faction]));
+                s.Add(new Coin(SpriteTileSize, new int[]{0},0,0,0,0,0,SpritePath, SpriteSize, new Vector2f(x,y), 0,1,Points,0, Game.factions[Faction]));
             }
             Game.spawners.Add(s);
         }

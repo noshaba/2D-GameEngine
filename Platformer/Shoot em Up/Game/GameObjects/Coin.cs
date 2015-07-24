@@ -11,15 +11,17 @@ namespace Platformer
     class Coin : KillableObject
     {
         public state status;
-        public Coin(Collision.Type type, int[] tileSize, int[] tileIndices, float density, int animationIndex, float restitution, float staticFriction, float kineticFriction, String texturePath, int[] spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction)
+        public Coin(int[] tileSize, int[] tileIndices, float density, int animationIndex, float restitution, float staticFriction, 
+            float kineticFriction, String texturePath, int[] spriteSize, Vector2f position, float rotation, int health, int points, 
+            int dmg, Faction faction)
             : base(faction, texturePath, tileSize, spriteSize, tileIndices, animationIndex, position, rotation, density)
         {
             RigidBodyParent = this;
             Rotateable = false;
-            this.rigidBody.DragCoefficient = 1;
-            this.rigidBody.Restitution = restitution;
-            this.rigidBody.StaticFriction = staticFriction;
-            this.rigidBody.KineticFriction = kineticFriction;
+      //      EarlyOut = true;
+            Restitution = restitution;
+            StaticFriction = staticFriction;
+            KineticFriction = kineticFriction;
             this.hp = health;
             this.damage = dmg;
             this.points = points;

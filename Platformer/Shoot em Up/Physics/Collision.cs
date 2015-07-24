@@ -22,8 +22,23 @@ namespace Physics {
 
         public static Collision CheckForCollision(Body b1, Body b2) {
             Collision colli = new Collision();
-            if ((b1.COM - b2.COM).Length2() < (b1.Radius + b2.Radius) * (b1.Radius + b2.Radius))
+            Vector2f normal = b1.COM - b2.COM;
+            float distanceSq = normal.Length2();
+            float radius = b1.Radius + b2.Radius;
+            if (distanceSq < radius * radius)
             {
+                if (b1.earlyOut || b2.earlyOut)
+                {
+                    colli.collision = true;
+                    colli.distance = (float)Math.Sqrt(distanceSq);
+                    colli.overlap = radius - colli.distance;
+                    colli.normal /= colli.distance;
+                    PullApart(b1, b2, colli.normal, colli.overlap);
+                    colli.contacts = new Vector2f[1];
+                    colli.contacts[0] = b2.COM + colli.normal * b2.Radius;
+                    colli.obj = b2.Parent;
+                    return colli;
+                }
                 foreach (IRigidBody obj1 in b1.bodies)
                 {
                     foreach (IRigidBody obj2 in b2.bodies)
@@ -319,15 +334,10 @@ namespace Physics {
                 b1.Pull(n,  overlap * 0.5f);
                 b2.Pull(n, -overlap * 0.5f);
             } else {
-                if (b1.moveable)
+                if (b1.moveable || b1.rotateable)
                     b1.Pull(n, overlap);
-                else if (b2.rotateable)
+                else if (b2.moveable || b2.rotateable)
                     b2.Pull(n, -overlap);
-
-                if (b2.moveable)
-                    b2.Pull(n, -overlap);
-                else if (b1.rotateable)
-                    b1.Pull(n, overlap);
             }
         }
     }

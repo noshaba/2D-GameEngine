@@ -42,6 +42,56 @@ namespace Platformer
             }
         }
 
+        public float Restitution
+        {
+            get { return rigidBody.Restitution; }
+            set
+            {
+                foreach (Body body in rigidBodies)
+                    body.Restitution = value;
+            }
+        }
+
+        public float DragCoefficient
+        {
+            get { return rigidBody.DragCoefficient; }
+            set
+            {
+                foreach (Body body in rigidBodies)
+                    body.DragCoefficient = value;
+            }
+        }
+
+        public float KineticFriction
+        {
+            get { return rigidBody.KineticFriction; }
+            set
+            {
+                foreach (Body body in rigidBodies)
+                    body.KineticFriction = value;
+            }
+        }
+
+        public float StaticFriction
+        {
+            get { return rigidBody.StaticFriction; }
+            set
+            {
+                foreach (Body body in rigidBodies)
+                    body.StaticFriction = value;
+            }
+        }
+
+        public bool EarlyOut
+        {
+            get { return rigidBody.earlyOut; }
+            set
+            {
+                foreach (Body body in rigidBodies)
+                    body.earlyOut = value;
+            }
+        }
+
         public object RigidBodyParent
         {
             get { return rigidBody.Parent; }
