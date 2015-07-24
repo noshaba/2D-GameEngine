@@ -5,4 +5,3 @@ To-Do
 - leveldesign(3-5 lvls?)
 
 Visuals -> nice spritesheets etc.
-Audio   -> music and sfx

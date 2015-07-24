@@ -69,7 +69,7 @@ namespace Platformer {
         {
             SoundManager.on = !SoundManager.on;
             if (!SoundManager.on)
-                SoundManager.stop();
+                SoundManager.Stop();
             if (SoundManager.on)
                 SoundManager.ambient.Play();
         }

@@ -41,6 +41,7 @@ namespace Platformer
             foreach(KillableObject opponent in opponents)
                 if (opponent is Player)
                 {
+                    SoundManager.Play(SoundManager.collectCoin);
                     this.hp = 0;
                     break;
                 }

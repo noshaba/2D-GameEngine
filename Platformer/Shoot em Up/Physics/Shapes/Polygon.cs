@@ -124,7 +124,6 @@ namespace Physics {
 
             current = new State(position, rotation, density * area, density * I);
             previous = current;
-           // Console.WriteLine(Mass);
         }
 
         private void SetCentroid()

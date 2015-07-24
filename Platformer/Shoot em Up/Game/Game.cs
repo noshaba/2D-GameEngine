@@ -76,7 +76,6 @@ namespace Platformer
          
             this.status = GameStatus.Start;
 
-            SoundManager.on = false;
             SoundManager.Play(SoundManager.ambient);
             SoundManager.ambient.Loop = true;
             view = new View(new Vector2f(WIDTH, HEIGHT) *.5f, new Vector2f(WIDTH, HEIGHT));

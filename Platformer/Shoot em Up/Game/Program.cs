@@ -36,7 +36,6 @@ namespace Platformer
         //main method
         static void Main(string[] args)
         {
-            //Console.WriteLine("Hello World!");
             InitWindow();
             timer.Start();
             float frameStart = timer.ElapsedMilliseconds / 1000.0f;
@@ -185,6 +184,7 @@ namespace Platformer
 
         static void window_Closed(object sender, EventArgs e)
         {
+            SoundManager.Stop();
             window.Close();
         }
 

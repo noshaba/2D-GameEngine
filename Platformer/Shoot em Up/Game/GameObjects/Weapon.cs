@@ -48,7 +48,7 @@ namespace Platformer
             {
                 Vector2f position = this.owner.rigidBody.WorldTransform * this.relativePos + this.owner.rigidBody.COM;
                 Vector2f speed = this.owner.rigidBody.WorldTransform * this.direction;
-                Console.WriteLine(shots.Length);
+
                 foreach (BulletShot shot in shots)
                 {
                     Game.Add(new Bullet(bulletPrototype, position, speed.ElemMul(shot.BulletSpeed).Add(shot.Offset),

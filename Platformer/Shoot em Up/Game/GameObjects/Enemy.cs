@@ -43,7 +43,7 @@ namespace Platformer
         }*/
 
 
-        public Enemy(int attentionRange, int[][] animation, int[] tileSize, int[] tileIndices, float density, int animationIndex, float restitution, float staticFriction, float kineticFriction, String texturePath, int[] spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction, WeaponContract weapon)
+        public Enemy(int attentionRange, int speed, int[][] animation, int[] tileSize, int[] tileIndices, float density, int animationIndex, float restitution, float staticFriction, float kineticFriction, String texturePath, int[] spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction, WeaponContract weapon)
             : base(faction, dmg, health, texturePath, tileSize, spriteSize, tileIndices, animationIndex, position, rotation, density)
         {
             RigidBodyParent = this;
@@ -55,7 +55,7 @@ namespace Platformer
             this.rigidBody.KineticFriction = kineticFriction;
 
             this.points = points;
-            this.speed = -20;
+            this.speed = -speed;
             if (weapon != null)
                 this.weapon =
                     new Weapon(this, weapon.BulletDamage, weapon.BulletPath, weapon.SpriteTileSize, weapon.SpriteSize,

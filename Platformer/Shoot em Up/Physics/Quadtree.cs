@@ -30,7 +30,6 @@ namespace Physics
             this.drawable.OutlineColor = Color.White;
             this.objects = new List<IRigidBody>();
             this.nodes = new Quadtree[4];
-            // Console.WriteLine(height);
         }
 
         public void Clear()
