@@ -85,7 +85,7 @@ namespace Platformer
         {
             // change color with hp / MAXHP
             foreach (Shape shape in drawable)
-                shape.FillColor = this.hp <= this.maxHP * 0.25 ? Color.Red : Color.White;
+                shape.FillColor = this.hp <= this.maxHP * 0.25 ? Color.Red : shape.FillColor;
             this.display = this.hp > 0;
             base.LateUpdate();
         }

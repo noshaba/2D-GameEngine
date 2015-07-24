@@ -33,9 +33,8 @@ namespace Platformer
             this.speed = -20;
             if (weapon != null)
                 this.weapon =
-                    new Weapon(this, weapon.BulletDamage, weapon.BulletPath, weapon.SpriteTileSize, weapon.SpriteSize,
-                        weapon.TileIndices, weapon.AnimationIndex, weapon.BulletDensity, weapon.FireRate, new Vector2f(-1, 0),
-                        new Vector2f(-tileSize[0] * .5f, 0), weapon.Shoot, weapon.CylinderSize);
+                    new Weapon(this, weapon.FireRate, new Vector2f(-1, 0), new Vector2f(-tileSize[0] * .5f, 0), weapon.Shoot, 
+                        weapon.MaxBulletLifetime);
             else
                 this.weapon = null;
 

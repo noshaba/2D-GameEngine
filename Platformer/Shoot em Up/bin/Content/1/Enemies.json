@@ -43,21 +43,43 @@
          "Attack": [4],
          "Weapon" : 
             {
-                "BulletDamage" : 10,
-                "BulletPath" :  "../Content/ButtonActive.png",
-                "SpriteTileSize" : [10,10],
-                "SpriteSize" : [10,10],
-                "TileIndices" :  [0],
-                "AnimationIndex" : 0,
-                "BulletDensity" : 0.5,
                 "FireRate" : 500,
                 "CylinderSize" : 12,
+                "MaxBulletLifetime" : 2000,
                 "Shoot" : 
                 [
                     {
-                        "BulletSpeed" : [20, 0],
-                        "Bend" : [0, 0],
-                        "Offset" : [0, 0]
+                        "Speed" : [20, 0],
+                        "Bend" : [0, -2.5],
+                        "Offset" : [0, 0],
+                        "Damage" :  10,
+                        "Density" : 0.5,
+                        "FillColor" : [67, 152, 217],
+                        "OutlineThickness" : 2,
+                        "OutlineColor" : [0, 87, 156],
+                        "Radius" : 2
+                    },
+                    {
+                        "Speed" : [20, 0],
+                        "Bend" : [0, -5],
+                        "Offset" : [0, -10],
+                        "Damage" :  10,
+                        "Density" : 0.5,
+                        "FillColor" : [67, 152, 217],
+                        "OutlineThickness" : 2,
+                        "OutlineColor" : [0, 87, 156],
+                        "Radius" : 2
+                    },
+                    {
+                        "Speed" : [20, 0],
+                        "Bend" : [0, 5],
+                        "Offset" : [0, 10],
+                        "Damage" :  10,
+                        "Density" : 0.5,
+                        "FillColor" : [67, 152, 217],
+                        "OutlineThickness" : 2,
+                        "OutlineColor" : [0, 87, 156],
+                        "Radius" : 2
                     }
                 ]
             }
