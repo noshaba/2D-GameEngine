@@ -12,3 +12,25 @@ Spiel Ziele:
 	- Gegner können durch strategischen shattern von Platformen oder manipulation von obstacles getötet werden
 	- Vermeide es gegner oder deren geschosse zu berühren, dies führt zum Verlust von leben
 
+
+All die Sachen, die noch nicht 100% so sind, wie wir sie eigentlich gerne hätten:
+	- Die Programmierer waren erst späääät Freitagnacht(Samstagmorgen) fertig
+	- diverse verstreute magic numbers
+	- übermäßig lange Konstruktoren im allgemeinen
+	- shattern von Platformen führt zu einem delay, da texturen neu eingelesen statt übergeben werden
+	- jsons müssen manuell eingetragen werden, Editor wäre besser(müsste man aber auch selber programmieren :p)
+	- AI FSM schwächelt, wie effizient mit potenziell vielen verschiedenen gegnern kombinieren,
+	 die auch im Code unterschiedliche Sachen können sollten e.g. ein Boss mit drei Attacken und kleine Minions mit nur einer,
+	 sie hätten einige States gemeinsam, müssten diese allerdings durch unterschiedliche Transitions verlassen(ungelöst)
+	 daher zur Zeit nur "homogene" gegner möglich
+	- auch einige transitions im Player Fehleranfällig (besonders jump verlassen, ruckeln, "schlechtes handling")
+	- damit verknüpft Fernkampf gegner sollten besser zielen
+	- Wenige verschieden Sprites(mangelndes für unser eigenes System tauglichs fertigmaterial 
+	  + mangelnde künstlerische Fähigkeiten der Programmirerer)
+	- pooling für bullets sollte eingeführt werden
+	- allgemein Feinheiten der Physik und besonders der GUI(grade hier nur Basiskram vorhanden und teilweise nicht mal das)
+	- es sollte möglich sein, objekte unCollidable zu setzen 
+	(so das ma sich z.B. vor dem portal bewegen kann, solange es noch nicht aktiv ist)
+
+Wenn irgendwas hier total kryptisch klingt, oder keinen Sinn ergibt, lassen wir uns gerne über alle Schwächen, 
+Ecken und Kanten des Programms ausführlicher per E-mail aus :p
