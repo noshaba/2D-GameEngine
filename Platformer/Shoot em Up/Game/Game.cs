@@ -249,7 +249,7 @@ namespace Platformer
                 this.portal.Open();
             }
             for (int i = 0; i < objects.Count; ++i)
-                if(objects[i].InsideWindow(playerPos, windowHalfSize))
+                if(objects[i].InsideWindow(view.Center, windowHalfSize))
                     objects[i].EarlyUpdate();
             for (int i = 0; i < spawners.Count; i++)
             {
@@ -295,7 +295,7 @@ namespace Platformer
                 //there exists a better way for this???
                 rigidBodies[i] = objects[i].rigidBody;
 
-                if (!objects[i].InsideWindow(playerPos, windowHalfSize))
+                if (!objects[i].InsideWindow(view.Center, windowHalfSize))
                     continue;
 
                 objects[i].LateUpdate();
