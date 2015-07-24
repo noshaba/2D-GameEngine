@@ -86,11 +86,18 @@ namespace Platformer
             if (this.weapon != null)
             {
                 this.Shoot();
+                if (Game.playerPos.X - attentionRange/4 >= this.rigidBody.COM.X)
+                    this.rigidBody.Velocity = new Vector2f(-this.speed, this.rigidBody.Velocity.Y);
+                else if (Game.playerPos.X + attentionRange / 4 <= this.rigidBody.COM.X)
+                    this.rigidBody.Velocity = new Vector2f(this.speed, this.rigidBody.Velocity.Y);
             }
-            if (Game.playerPos.X >= this.rigidBody.COM.X)
-                this.rigidBody.Velocity = new Vector2f(-this.speed, this.rigidBody.Velocity.Y);
-            else if (Game.playerPos.X <= this.rigidBody.COM.X)
-                this.rigidBody.Velocity = new Vector2f(this.speed, this.rigidBody.Velocity.Y);
+            else
+            {
+                if (Game.playerPos.X  > this.rigidBody.COM.X)
+                    this.rigidBody.Velocity = new Vector2f(-this.speed, this.rigidBody.Velocity.Y);
+                else if (Game.playerPos.X  < this.rigidBody.COM.X)
+                    this.rigidBody.Velocity = new Vector2f(this.speed, this.rigidBody.Velocity.Y);
+            }
         }
 
         private void Shoot()
