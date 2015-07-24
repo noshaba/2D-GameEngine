@@ -241,6 +241,22 @@ namespace Platformer
             }
         }
 
+
+
+        protected void UpdateBodies()
+        {
+            foreach (Body body in this.rigidBodies)
+            {
+                body.Current = rigidBody.Current;
+                body.Previous = rigidBody.Previous;
+                for (int i = 0; i < body.bodies.Length; ++i)
+                {
+                    body.bodies[i].Current = this.rigidBody.bodies[i].Current;
+                    body.bodies[i].Previous = this.rigidBody.bodies[i].Previous;
+                }
+            }
+        }
+
         public void AdvanceAnim()
         {
             if (this.currentState.index  < this.currentState.sequence.Length)
