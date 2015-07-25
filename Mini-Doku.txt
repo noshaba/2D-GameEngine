@@ -7,9 +7,10 @@ Pfeiltaste unten  - wenn im sprung löst dies den shatter move aus, mit dem einig
 		    aber nicht alle Platforms sind zerstörbar
 
 Spiel Ziele:
-	- Erreiche genug Punkte und töte genügend Gegner um das Portal zum nächsten Level zu öffnen
+	- Erreiche genug Punkte und töte genügend Gegner um das Portal zum nächsten Level zu öffnen (in lvl 2 müssen alle gegner getötet werden)
 	- Punkte können sowohl durch das einsammeln von Orbs als auch durch das töten von gegnern gesammelt werden
 	- Gegner können durch strategischen shattern von Platformen oder manipulation von obstacles getötet werden
+	- Einige obstacles sind jedoch feindlich dem Spieler gegenüber und ziehen diesem auch Leben ab
 	- Vermeide es gegner oder deren geschosse zu berühren, dies führt zum Verlust von leben
 
 Was im großen und ganzen gut ist:
@@ -49,6 +50,10 @@ All die Sachen, die noch nicht 100% so sind, wie wir sie eigentlich gerne hätten
 	  ,würde auch das apprallen von orbs die man eisammelt verhindern)
         - Punkte aus vorherigen Level werden immer mitgezählt, so das punktabhängig portale sich in späteren leveln zu früh öffnen
 	- Manchmal mit dem Sound verbundene Exception beim Beenden des Spiels
+
+Sachen, wo wir Kompromisse machen mussten:
+	- durch das Clipping kann es passieren, dass objekte durch andere Fallen, wenn das objekt selber zwar im Bildschirm ist, aber einige
+	  der darunter liegenden nicht mehr, dafür ist das spiel viel angenehmer zu spielen und wir haben diesen Glitch dafür gerne in Kauf genommen
 
 Wenn irgendwas hier total kryptisch klingt, oder keinen Sinn ergibt, lassen wir uns gerne über alle Schwächen, 
 Ecken und Kanten des Programms ausführlicher per E-mail aus, abgesehen davon gibts eh bestimmt was, 

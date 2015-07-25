@@ -5,7 +5,7 @@
   "PortalTileSize": [150,150],
   "PortalOpen": [3,3,4,4,5,5,4,4],
   "PortalClosed": [0,0,1,1,2,2,1,1],
-  "RequiredPoints":300,
+  "RequiredPoints":450,
   "KillPercentage":100,
   "BackgroundTile":  "../Content/BGTile.png",
   "Gravity": [0, 9.81],
