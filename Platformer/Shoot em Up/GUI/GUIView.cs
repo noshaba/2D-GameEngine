@@ -8,6 +8,7 @@ using SFML.Window;
 using SFML.System;
 
 namespace GUI {
+    //unfinished - needs work - includes lots of workarounds and unneeded repititions
     class GUIView : RectangleShape, IGraphic{
         protected List<IGraphic> children = new List<IGraphic>();
         private bool displayed;

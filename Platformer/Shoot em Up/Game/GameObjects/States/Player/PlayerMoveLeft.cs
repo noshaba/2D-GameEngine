@@ -12,6 +12,8 @@ namespace Platformer
     {
         public PlayerMoveLeft(GameObject owner) : base (owner)
         {
+            //hardcoded -> bleh
+
             this.sequence = new int[] { 8, 9, 10, 9, 8 };
         }
 

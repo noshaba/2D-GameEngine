@@ -7,6 +7,7 @@ using System.Text;
 
 namespace GUI
 {
+    //unfinished - needs work - includes lots of workarounds and unneeded repititions
     class Picture : GUIElement, IGraphic
     {
 

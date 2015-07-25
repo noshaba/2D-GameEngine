@@ -121,7 +121,6 @@ namespace Platformer
         private static void window_MouseMoved(object sender, MouseMoveEventArgs e)
         {
             mouseSprite.Position = window.MapPixelToCoords(Mouse.GetPosition(window), GUIview);
-         //   gui.OnHover(e.X, e.Y);
         }
 
         private static void window_MouseLeft(object sender, EventArgs e)

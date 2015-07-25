@@ -1,0 +1,44 @@
+{
+  "Name": "some name",
+  "PortalPosition": [700,900],
+  "PortalSprite": "../Content/Portal.png",
+  "PortalSpriteSize": [150,900],
+  "PortalTileSize": [150,150],
+  "PortalOpen": [3,3,4,4,5,5,4,4],
+  "PortalClosed": [0,0,1,1,2,2,1,1],
+  "RequiredPoints":0,
+  "KillPercentage":0,
+  "BackgroundTile":  "../Content/BGTile.png",
+  "BackgroundMusicPath": "audio_path",
+  "Gravity": [0, 9.81],
+  "Damping": 1,
+  "Size": [2000, 1000],
+  "WindowSize": [1200, 700],
+  "SkyColor": [0, 54, 99],
+  "GroundTypes": [
+     {
+        "Name": "ground",
+        "Restitution": 0.2,
+        "StaticFriction": 0,
+        "KineticFriction": 0,
+        "SpritePath": "../Content/1/images/ground.png",
+        "SpriteTileSize": [64,64],
+        "SpriteSize": [192,64]
+     }
+  ],
+  "Ground": [0,0,0,0,0,0,0,0,0,0,
+             0,0,0,0,0,0,0,0,0,0,
+             0,0,0,0,0,0,0,0,0,0,
+             0
+  ],
+  "GroundTiles": [0,0,0,0,0,0,0,0,0,0,
+                  0,0,0,0,0,0,0,0,0,0,
+                  0,0,0,0,0,0,0,0,0,0,
+                  0
+  ],
+  "GroundTileHeight": [1,1,1,1,1,1,1,1,1,1,
+                       1,1,1,1,1,1,1,1,1,1,
+                       1,1,1,1,1,1,1,1,1,1,
+                       1
+  ]
+}

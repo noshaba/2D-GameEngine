@@ -27,10 +27,6 @@ namespace Platformer
                         break;
                     }
             }
-         /*   if (this.owner.open && this.owner.rigidBody.Collision.collision && this.owner.rigidBody.Collision.obj is Player)
-            {
-                this.owner.entered = true;
-            }*/
         }
     }
 }

@@ -8,6 +8,7 @@ using System.Text;
 
 namespace GUI
 {
+    //unfinished - needs work - includes lots of workarounds and unneeded repititions
     class GUIElement : Transformable, Drawable
     {
         protected Texture img;
@@ -57,7 +58,6 @@ namespace GUI
 
         public virtual void Draw(RenderTarget target, RenderStates states)
         {
-            //this.ScaleImage();
             if (this.topLeftDest != null)
             {
                 target.Draw(this.topLeftDest, states);

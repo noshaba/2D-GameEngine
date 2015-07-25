@@ -17,7 +17,6 @@ namespace Platformer
         private KillableObject owner;
         private BulletShot[] shots;
         private int bulletLifeTime;
-     //   public Vector2f direction;
 
         public Weapon(KillableObject owner, int fireRate, BulletShot[] shots, int bulletLifeTime)
         {
@@ -25,7 +24,6 @@ namespace Platformer
             this.fireRate = fireRate;
             this.charge = new Stopwatch();
             this.charge.Start();
-          //  this.direction = new Vector2f(-1, 0);
             this.shots = shots;
             this.bulletLifeTime = bulletLifeTime;
             this.charge.Start();

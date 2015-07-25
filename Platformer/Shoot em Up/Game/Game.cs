@@ -395,6 +395,8 @@ namespace Platformer
             rigidBodies.Clear();
         }
 
+        //a)-> items not in use and b) the effects of the items belong into item class
+        /*
         public void AddItem(Game.GameItem item, Vector2f pos)
         {
             switch (item)
@@ -440,7 +442,7 @@ namespace Platformer
         private void NoPoints()
         {
             player.score -= 100;
-        }
+        }*/
 
     }
 }

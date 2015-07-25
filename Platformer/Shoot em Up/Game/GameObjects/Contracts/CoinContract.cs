@@ -11,26 +11,6 @@ namespace Platformer
     [DataContract]
     class CoinContract
     {
-        /*
-         * {
-        "Points": 10,
-        "SpawnPatternID": 3,
-        "NumberOfObjects": 10,
-        "SpawnStartPosition": [
-            800,
-            1200
-        ],
-        "SpritePath": "../Content/CoinSprite.png",
-        "SpriteSize": [
-            50,
-            300
-        ],
-        "SpriteTileSize": [
-            50,
-            50
-        ]
-    }
-         */
         [DataMember]
         public int Points { get; set; }
         [DataMember]

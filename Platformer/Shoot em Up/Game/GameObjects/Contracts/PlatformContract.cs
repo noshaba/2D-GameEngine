@@ -42,20 +42,7 @@ namespace Platformer
         public int[] Animation { get; set; }
         [DataMember]
         public int[] Path { get; set; }
-        /*
-            "Density": 0.01,
-            "Restitution": 0,
-            "StaticFriction": 2,
-            "KineticFriction": 2,
-            "Position": [800,500],
-            "SpritePath": "../Content/platform.png",
-            "SpriteSize": [300,100],
-            "SpriteTileSize": [100, 100],
-            "Tiles": [0,1,2]
-         * 
-         * type statioary || tilt || move
-         * movePoints[]
-         */
+
         public void Init()
         {
             Game.Add(new Platform(Animation, Breakable, Rotateable, Path, SpritePath, new Vector2f(Position[0], Position[1]), Rotation, SpriteSize, SpriteTileSize, Tiles,
