@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GUI
 {
-    //unfinished - needs work - includes lots of workarounds and unneeded repititions
+    //unfinished - needs work - includes lots of workarounds and unneeded repititions - also attack of the constructors
     class Label : Text, IGraphic
     {
 

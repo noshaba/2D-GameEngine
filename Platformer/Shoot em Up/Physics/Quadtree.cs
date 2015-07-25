@@ -8,6 +8,7 @@ using SFML.System;
 
 namespace Physics
 {
+    //Not in use yet, needs some work - especially concerning objects that touch more than one quadrant 
     class Quadtree
     {
         private int MAX_OBJECTS = 10;

@@ -8,6 +8,7 @@ using System.Text;
 
 namespace GUI
 {
+    //unfinished - needs work - includes lots of workarounds and unneeded repititions
     class Menue : GUIElement, IGraphic
     {
         private List<IGraphic> elements = new List<IGraphic>();

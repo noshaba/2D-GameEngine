@@ -8,6 +8,8 @@ using SFML.Graphics;
 using SFML.System;
 
 namespace GUI {
+
+    //unfinished - needs work - includes lots of workarounds and unneeded repititions
     class Button : GUIElement, IGraphic {
         public enum Status {
             Pressed, Released, OnHover
@@ -29,7 +31,6 @@ namespace GUI {
             this.label.CharacterSize = cSize;
             this.size = size;
             this.centerLabel(this.label.GetLocalBounds(), position, size);
-            //this.label.Position = position;
             status = Status.Released;
             displayed = true;
         }
