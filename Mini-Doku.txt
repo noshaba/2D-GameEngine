@@ -12,6 +12,18 @@ Spiel Ziele:
 	- Gegner können durch strategischen shattern von Platformen oder manipulation von obstacles getötet werden
 	- Vermeide es gegner oder deren geschosse zu berühren, dies führt zum Verlust von leben
 
+Was im großen und ganzen gut ist:
+	- Bis auf SFML 100% eigenes Süppchen
+	- Eigenständige wiederverwendbare Physik
+	- Wiederverwendbare GUI
+	- Einlesen von Daten aus Json, für alle Spielobjekte außer Player
+	- TileBased in dem Sinne, dass Elemente nur eines Sprites wiederverwendet werden können, 
+	  um verschiedene Platforms oder Böden zu erschaffen
+	- Zusammengesetzte Objekte, welche auch zerbrechen können
+	- Animationen sind möglich(Alle Sprites sind eigenarbeit)
+	- Pendel können verwendet werden
+	- Bewegliche und Rotierende Platformen sind möglich
+
 
 All die Sachen, die noch nicht 100% so sind, wie wir sie eigentlich gerne hätten:
 	- Die Programmierer waren erst späääät Freitagnacht(Samstagmorgen) fertig
@@ -36,6 +48,7 @@ All die Sachen, die noch nicht 100% so sind, wie wir sie eigentlich gerne hätten
 	  nurGame reagiert (so das man sich z.B. vor dem portal bewegen kann, solange es noch nicht aktiv ist
 	  ,würde auch das apprallen von orbs die man eisammelt verhindern)
         - Punkte aus vorherigen Level werden immer mitgezählt, so das punktabhängig portale sich in späteren leveln zu früh öffnen
+	- Manchmal mit dem Sound verbundene Exception beim Beenden des Spiels
 
 Wenn irgendwas hier total kryptisch klingt, oder keinen Sinn ergibt, lassen wir uns gerne über alle Schwächen, 
 Ecken und Kanten des Programms ausführlicher per E-mail aus, abgesehen davon gibts eh bestimmt was, 
