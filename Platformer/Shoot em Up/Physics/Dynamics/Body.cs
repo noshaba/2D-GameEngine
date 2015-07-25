@@ -82,9 +82,7 @@ namespace Physics
         public bool InsideWindow(Vector2f viewCenter, Vector2f halfSize)
         {
             return COM.X + Radius >= viewCenter.X - halfSize.X &&
-                   COM.X - Radius <= viewCenter.X + halfSize.X &&
-                   COM.Y + Radius >= viewCenter.Y - halfSize.Y &&
-                   COM.Y - Radius <= viewCenter.Y + halfSize.Y;
+                   COM.X - Radius <= viewCenter.X + halfSize.X;
         }
 
         public void UpdateCentroid()

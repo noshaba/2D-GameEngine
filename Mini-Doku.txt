@@ -5,13 +5,19 @@ Linke Pfeiltaste  - nach links bewegen
 Pfeiltaste oben   - springen
 Pfeiltaste unten  - wenn im sprung löst dies den shatter move aus, mit dem einige Platforms zerstört werden können,
 		    aber nicht alle Platforms sind zerstörbar
+P - Toggle Pause
 
 Spiel Ziele:
-	- Erreiche genug Punkte und töte genügend Gegner um das Portal zum nächsten Level zu öffnen (in lvl 2 müssen alle gegner getötet werden)
+	- Erreiche genug Punkte und töte genügend Gegner um das Portal zum nächsten Level zu öffnen
 	- Punkte können sowohl durch das einsammeln von Orbs als auch durch das töten von gegnern gesammelt werden
 	- Gegner können durch strategischen shattern von Platformen oder manipulation von obstacles getötet werden
 	- Einige obstacles sind jedoch feindlich dem Spieler gegenüber und ziehen diesem auch Leben ab
-	- Vermeide es gegner oder deren geschosse zu berühren, dies führt zum Verlust von leben
+	- Vermeide es gegner oder deren geschosse oder gefährliche Obstacles zu berühren, dies führt zum Verlust von leben
+
+Hinweis:
+	- Level 2 ist etwas schwerer zu lösen: ein Tipp - nur versuchen durch platformen die gegner zu töten oder den obstacle finden
+	  der nicht feindlich ist
+	- wenn Level 2 immer noch zu schwer bei Facebook oder E-Mail nach möglicher Lösung fragen
 
 Was im großen und ganzen gut ist:
 	- Bis auf SFML 100% eigenes Süppchen
@@ -27,7 +33,7 @@ Was im großen und ganzen gut ist:
 
 
 All die Sachen, die noch nicht 100% so sind, wie wir sie eigentlich gerne hätten:
-	- Die Programmierer waren erst späääät Freitagnacht(Samstagmorgen) fertig
+	- Die Programmierer waren erst Samstagmorgen "fertig"
 	- diverse verstreute magic numbers
 	- übermäßig lange Konstruktoren im allgemeinen
 	- shattern von Platformen führt zu einem delay, da texturen neu eingelesen statt übergeben werden
@@ -52,7 +58,7 @@ All die Sachen, die noch nicht 100% so sind, wie wir sie eigentlich gerne hätten
 	- Manchmal mit dem Sound verbundene Exception beim Beenden des Spiels
 
 Sachen, wo wir Kompromisse machen mussten:
-	- durch das Clipping kann es passieren, dass objekte durch andere Fallen, wenn das objekt selber zwar im Bildschirm ist, aber einige
+	- durch das Clipping kann es passieren, dass objekte durch andere Fallen, wenn das Objekt selber zwar im Bildschirm ist, aber einige
 	  der darunter liegenden nicht mehr, dafür ist das spiel viel angenehmer zu spielen und wir haben diesen Glitch dafür gerne in Kauf genommen
 
 Wenn irgendwas hier total kryptisch klingt, oder keinen Sinn ergibt, lassen wir uns gerne über alle Schwächen, 

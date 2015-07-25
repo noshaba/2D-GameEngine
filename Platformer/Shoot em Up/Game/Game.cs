@@ -41,7 +41,7 @@ namespace Platformer
         private int requiredScore;
         private int numberOfEnemies;
         private float killPercentage;
-        private int killedEnemies;
+        private float killedEnemies;
         public static View view;
 
         Shader light = new Shader(null, "../Content/shaders/light.frag");
@@ -99,6 +99,7 @@ namespace Platformer
             this.Reset();
             this.levelEnded = false;
             this.status = GameStatus.Active;
+            this.killedEnemies = 0;
             Level++;
             player.rigidBody.COM = new Vector2f(250, 1250);
             Add(player);
@@ -158,7 +159,7 @@ namespace Platformer
                 String json = sr.ReadToEnd();
                 planet = JSONManager.deserializeJson<Planet>(json);
                 planet.Init();
-                this.killPercentage = planet.KillPercentage;
+                this.killPercentage = planet.KillPercentage / 100.0f;
                 this.requiredScore = planet.RequiredPoints;
                 this.portal = new Portal(Collision.Type.Polygon, planet.PortalOpen, planet.PortalClosed, planet.PortalTileSize, new int[] { 0 }, 0, 0, 0, 0, 0, planet.PortalSprite, planet.PortalSpriteSize, new Vector2f(planet.PortalPosition[0], planet.PortalPosition[1]), 0);
                 Add(portal);
@@ -233,7 +234,7 @@ namespace Platformer
                 CoinContract[] coins;
                 String json = sr.ReadToEnd();
                 coins = JSONManager.deserializeJson<CoinContract[]>(json);
-                this.numberOfEnemies = coins.Length;
+             //   this.numberOfEnemies = coins.Length;
                 for (int i = 0; i < coins.Length; i++)
                 {
                     coins[i].Init();
@@ -249,8 +250,13 @@ namespace Platformer
 
         public void EarlyUpdate()
         {
-            if (this.player.score >= this.requiredScore && this.killedEnemies >= this.numberOfEnemies*(this.killPercentage/100)) {
-                this.portal.Open();
+            if (this.player.score >= this.requiredScore)
+            {
+                if (this.numberOfEnemies == 0)
+                {
+                    this.portal.Open();
+                } else if ((this.killedEnemies / this.numberOfEnemies) >= this.killPercentage)
+                    this.portal.Open();
             }
             for (int i = 0; i < objects.Count; ++i)
                 if(objects[i].InsideWindow(view.Center, windowHalfSize))

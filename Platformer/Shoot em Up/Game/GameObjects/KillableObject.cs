@@ -42,6 +42,7 @@ namespace Platformer
             this.hp = hp;
             this.maxHP = hp;
             this.timed = timed;
+            this.RigidBodyParent = this;
             if (timed)
             {
                 lifetime = new Stopwatch();
