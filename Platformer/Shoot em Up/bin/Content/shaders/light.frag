@@ -1,9 +1,9 @@
-uniform vec2 lightPosition = vec2(0.5f, 0.5f);
+uniform vec2 lightPosition = vec2(0.5f, 0.7f);
 uniform sampler2D texture;
 
 const int NUM_SAMPLES = 30;
-const float exposure = 0.8f;
-const float density = 0.5f;
+const float exposure = 0.5f;
+const float density = 0.3f;
 const float weight = 0.1f;
 
 void main() {	
@@ -13,10 +13,9 @@ void main() {
 
     for (int i = 0; i < NUM_SAMPLES; i++) {
         texCrd -= deltaTexCrd;
-        vec3 texel = texture2D(texture, texCrd).rgb;
-        gl_FragColor.rgb += texel * weight;
+        gl_FragColor += texture2D(texture, texCrd) * weight;
     }
 
-    gl_FragColor.rgb *= exposure;
-    gl_FragColor.a = 1.f;
+    gl_FragColor *= exposure;
+	gl_FragColor.a = (gl_FragColor.r + gl_FragColor.g + gl_FragColor.b) / 3.0f;
 }

@@ -39,6 +39,7 @@ namespace Platformer
             InitWindow();
             timer.Start();
             float frameStart = timer.ElapsedMilliseconds / 1000.0f;
+          //  Color col = new Color(0,0,20);
             //game loop
             while (window.IsOpen)
             {

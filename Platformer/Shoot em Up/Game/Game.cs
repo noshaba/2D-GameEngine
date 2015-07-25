@@ -331,26 +331,20 @@ namespace Platformer
         public void Draw(RenderWindow window, float alpha)
         {   
             if(status == GameStatus.Active) {
-                // RenderTexture for stenciled image
                 lightBuffer.Clear(Color.Transparent);
-                // RenderTexture for coloured scene
                 sceneBuffer.Clear(Color.Transparent);
                 lightBuffer.SetView(view);
                 sceneBuffer.SetView(view);
 
-                planet.sky.Position = view.Center;
-                // draw the sky to the scene buffer
-              //  sceneBuffer.Draw(planet.sky);
+                // planet.sky.Position = view.Center;
+                // sceneBuffer.Draw(planet.sky);
                 foreach (GameObject obj in objects)
                 {
-                    // draw objects to the scene buffer
                     obj.Draw(sceneBuffer, alpha, view.Center, windowHalfSize);
-                    // draw objects to the shadow buffer for stenciling later
                     obj.Draw(lightBuffer, alpha, view.Center, windowHalfSize);
                     if (debug)
                         obj.rigidBody.Draw(sceneBuffer, alpha, view.Center, windowHalfSize);
                 }
-                sceneBuffer.Display();
                 RenderStates s = new RenderStates(Transform.Identity);
                 // stencil image
                 stencilShader.SetParameter("sceneTex", lightBuffer.Texture);
@@ -365,8 +359,11 @@ namespace Platformer
                 // use the god's ray shader on the stenciled image with lower resultion
                 lightShader.SetParameter("texture", lightBufferQuaterSize.Texture);
                 s.Shader = lightShader;
-                // scene = new Sprite(sceneBuffer.Texture)
-                window.Draw(sceneBufferSprite, s);
+                sceneBuffer.Display();
+                sceneBuffer.SetView(window.GetView());
+                sceneBuffer.Draw(sceneBufferSprite, s);
+                // draw the whole scene
+                window.Draw(sceneBufferSprite);
             }
         }
 
