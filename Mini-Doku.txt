@@ -18,12 +18,12 @@ All die Sachen, die noch nicht 100% so sind, wie wir sie eigentlich gerne hätten
 	- diverse verstreute magic numbers
 	- übermäßig lange Konstruktoren im allgemeinen
 	- shattern von Platformen führt zu einem delay, da texturen neu eingelesen statt übergeben werden
-	(darum sind elemente nach shatter derzeit nicht mehr animiert)
+	  (darum sind elemente nach shatter derzeit nicht mehr animiert)
 	- jsons müssen manuell eingetragen werden, Editor wäre besser(müsste man aber auch selber programmieren :p)
 	- AI FSM schwächelt, wie effizient mit potenziell vielen verschiedenen gegnern kombinieren,
-	 die auch im Code unterschiedliche Sachen können sollten e.g. ein Boss mit drei Attacken und kleine Minions mit nur einer,
-	 sie hätten einige States gemeinsam, müssten diese allerdings durch unterschiedliche Transitions verlassen(ungelöst)
-	 daher zur Zeit nur "homogene" gegner möglich
+	  die auch im Code unterschiedliche Sachen können sollten e.g. ein Boss mit drei Attacken und kleine Minions mit nur einer,
+	  sie hätten einige States gemeinsam, müssten diese allerdings durch unterschiedliche Transitions verlassen(ungelöst)
+	  daher zur Zeit nur "homogene" gegner möglich
 	- Dementsprechen fehlt ein Boss (der sich auch Phasenmäßig weiterentwickeln sollte)
 	- auch einige transitions im Player Fehleranfällig (besonders jump verlassen, ruckeln, "schlechtes handling")
 	- damit verknüpft Fernkampf gegner sollten besser zielen(nicht versuchen durch platforms zu schießen)
@@ -32,8 +32,9 @@ All die Sachen, die noch nicht 100% so sind, wie wir sie eigentlich gerne hätten
 	- pooling für bullets sollte eingeführt werden
 	- allgemein Feinheiten der Physik und besonders der GUI(grade hier nur Basiskram vorhanden und teilweise nicht mal das)
 	- manchmal ist es möglich das besonders schnelle objekte(bullets insbesondere) durch zusammengesetzte platforms glitchen
-	- es sollte möglich sein, objekte unCollidable zu setzen 
-	(so das ma sich z.B. vor dem portal bewegen kann, solange es noch nicht aktiv ist)
+	- es sollte möglich sein, objekte unCollidable zu setzen, also collision wird erkannt, aber physik führt reaktion nicht aus, 
+	  nurGame reagiert (so das man sich z.B. vor dem portal bewegen kann, solange es noch nicht aktiv ist
+	  ,würde auch das apprallen von orbs die man eisammelt verhindern)
         - Punkte aus vorherigen Level werden immer mitgezählt, so das punktabhängig portale sich in späteren leveln zu früh öffnen
 
 Wenn irgendwas hier total kryptisch klingt, oder keinen Sinn ergibt, lassen wir uns gerne über alle Schwächen, 
