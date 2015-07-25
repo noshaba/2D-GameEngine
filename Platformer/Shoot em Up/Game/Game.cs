@@ -86,7 +86,7 @@ namespace Platformer
         {
             this.Reset();
             this.levelEnded = false;
-            Level = 1;
+            Level = 2;
             player = new Player(factions[1], new Vector2f(250, 1250), "../Content/ghostSpriteBlueGlow.png",
                     new int[] { 100, 100 }, new int[] { 100, 1200 }, new int[] { 0 });
             playerPos = player.rigidBody.COM;

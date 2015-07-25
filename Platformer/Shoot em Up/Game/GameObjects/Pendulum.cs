@@ -22,6 +22,7 @@ namespace Platformer
                 Game.Add(joints[i]);
             }
             joints[0].Moveable = false;
+            joints[0].Rotateable = false;
             for (int i = 0; i < jointNumber - 1; ++i)
                 Game.AddJoint(new DistanceConstraint(joints[i].rigidBody, joints[i+1].rigidBody, jointDistance));
         }

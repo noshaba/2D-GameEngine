@@ -1,13 +1,3 @@
 
-   [
-     {
-         "Points": 10,
-         "Faction":1,
-         "NumberOfObjects": 10,
-         "SpawnStartPosition": [800, 1400],
-         "SpritePath": "../Content/CoinSprite.png",
-         "SpriteSize": [50, 150],
-         "SpriteTileSize": [50, 50],
-	 "Animation": [0,1,2,1]
-      }
- ]
+[
+]

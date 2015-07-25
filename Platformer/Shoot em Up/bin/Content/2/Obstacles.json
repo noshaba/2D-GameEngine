@@ -1,6 +1,6 @@
 [
-     {
-        "Density": 10,
+    {
+        "Density": 0.01,
         "Restitution": 0.5,
         "StaticFriction": 0.5,
         "KineticFriction": 0.1,
@@ -10,11 +10,11 @@
         "Points": 10,
         "Damage": 5,
         "SpawnPatternID": 0,
-        "NumberOfObjects": 2,
-        "SpawnStartPosition": [200,1200],
-        "SpritePath": "../Content/Rock.png",
-        "SpriteSize": [200,600],
-        "SpriteTileSize": [200, 200],
-	    "Animation": [0,0,1,1,2,2,1,1]
+        "NumberOfObjects": 1,
+        "SpawnStartPosition": [2300,400],
+        "SpritePath": "../Content/PillarTall.png",
+        "SpriteSize": [100,1560],
+        "SpriteTileSize": [100, 520],
+        "Animation": [0,0,1,1,2,2,1,1]
      }
-  ]
+]
