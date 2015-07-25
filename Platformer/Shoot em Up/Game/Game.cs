@@ -31,7 +31,7 @@ namespace Platformer
         private const int MAXSHAKERATE = 50;
         private int shakeRate = MAXSHAKERATE;
         private int level;
-        private const int MAXLEVEL = 2;
+        private const int MAXLEVEL = 3;
         public Player player;
         public bool levelEnded;
         public GameStatus status;
@@ -87,7 +87,7 @@ namespace Platformer
             this.Reset();
             this.levelEnded = false;
             Level = 1;
-            player = new Player(factions[1], new Vector2f(250, 1250), "../Content/ghostSpriteBlueGlow.png",
+            player = new Player(factions[1], new Vector2f(150, 850), "../Content/ghostSpriteBlueGlow.png",
                     new int[] { 100, 100 }, new int[] { 100, 1200 }, new int[] { 0 });
             playerPos = player.rigidBody.COM;
             Add(player);
