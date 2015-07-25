@@ -9,6 +9,7 @@ using SFML.System;
 using GUI;
 
 namespace Platformer {
+    //overall a bit spaghetti like but had no priority
     class GUI : GUIView {
         Color color;
         Color textColor;

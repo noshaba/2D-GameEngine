@@ -12,6 +12,7 @@ namespace Platformer
     {
         public PlayerJump(GameObject owner) : base (owner)
         {
+            //hardcoded -> bleh
             this.sequence = new int[] {4};
         }
 

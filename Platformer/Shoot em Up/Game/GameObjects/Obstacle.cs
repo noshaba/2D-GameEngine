@@ -14,10 +14,8 @@ namespace Platformer
     {
         private Vector2f initPos;
         private bool hover;
-        private bool timed;
         private Stopwatch lifetime;
 
-        // Faction faction, string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density
         public Obstacle(bool hover, bool timed, int[] animation, int[] spriteTileSize, int[] tileIndices, int animationIndex, float density, float restitution, float staticFriction, float kineticFriction, String texturePath, int[] spriteSize, Vector2f position, float rotation, int health, int points, int dmg, Faction faction)
             : base(faction, dmg, health, texturePath, spriteTileSize, spriteSize, tileIndices, animationIndex, position, rotation, density)
         {

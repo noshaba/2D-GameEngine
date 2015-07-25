@@ -71,6 +71,7 @@ namespace Platformer
                     pos = rigidBody.bodies[i].Center;
                     rigidBody.bodies[i].Centroid = -rigidBody.bodies[i].Centroid;
                     Game.Add(new KillableObject(true, Game.factions[0], 100, 100, new[] { rigidBody.bodies[i] }, new[] { drawables[0][i] }, pos, 0));
+                    //for shattering animated fragments use this instead of the one above, will cause delay
                     /*   Game.Add(new Obstacle(false, true, animation, this.tileSize, new int[] { this.tiles[i] }, 0, density, 
                             rigidBody.Restitution, rigidBody.StaticFriction, rigidBody.KineticFriction, imagePath, spriteSize, 
                             pos, rigidBody.bodies[i].DegOrientation, 100, 0, 100, Game.factions[0]));*/
@@ -99,7 +100,7 @@ namespace Platformer
             this.nextPosition = 1;
         }
 
-        //needs some adjustments, speed has to be defined in json and then has to be calculated correctly taking the distnace bewteen the two points into account
+        //needs some adjustments, speed has to be defined in json and then has to be calculated correctly taking the distnace between the two points into account
         private void Move() {
             Vector2f direction = new Vector2f(positions[nextPosition].X - positions[currentPosition].X, positions[nextPosition].Y - positions[currentPosition].Y);
             if (this.rigidBody.COM.X >= positions[nextPosition].X * 0.99f && this.rigidBody.COM.X <= positions[nextPosition].X * 1.01f
@@ -119,27 +120,6 @@ namespace Platformer
             else {
                 this.rigidBody.Velocity = new Vector2f(direction.X / 20, direction.Y / 20);
             }
-           /* if (this.currentPosition < positions.Length)
-            {
-                //get currentPosition
-                //get nextPosition
-                direction = new Vector2f( positions[currentPosition+1].X - positions[currentPosition].X, positions[currentPosition+1].Y- positions[currentPosition].Y );
-                if (this.rigidBody.COM.X <= positions[currentPosition + 1].X * 1.05f && this.rigidBody.COM.X >= positions[currentPosition + 1].X * 0.95f)
-                {
-                    this.currentPosition++;
-                }
-            }
-            else if(currentPosition > 0){
-                direction = new Vector2f(positions[0].X - positions[currentPosition].X, positions[0].Y - positions[currentPosition].Y);
-                //nextPosition is at 0
-                if (this.rigidBody.COM.X <= positions[0].X * 1.05f && this.rigidBody.COM.X >= positions[0].X * 0.95f)
-                {
-                    this.currentPosition = 0;
-                }
-            }
-            this.rigidBody.Velocity = new Vector2f(direction.X/20, direction.Y/20);*/
-            //calculate direction
-            //set velocity in that direction
         }
 
         public override void EarlyUpdate()

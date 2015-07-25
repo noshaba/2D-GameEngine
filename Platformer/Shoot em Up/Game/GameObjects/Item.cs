@@ -8,12 +8,12 @@ using Physics;
 
 namespace Platformer
 {
+    //Not used here but works
     class Item : GameObject
     {
         public delegate void ActionListener();
         private Vector2f initPos;
         public ActionListener listener;
-        //string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density
         public Item(String texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density, ActionListener listener)
             : base(texturePath, spriteTileSize, spriteSize, tileIndices, animationIndex, position, rotation, density)
         {
@@ -26,7 +26,6 @@ namespace Platformer
         public override void EarlyUpdate()
         {
             base.EarlyUpdate();
-            //this.rigidBody.COM = this.initPos;
             foreach(Collision collision in rigidBody.Collision)
                 if (collision.obj is Player)
                 {

@@ -14,8 +14,6 @@ namespace Platformer
 {
     class Player : KillableObject
     {
-
-        //Faction faction, string texturePath, int[] spriteTileSize, int[] spriteSize, int[] tileIndices, int animationIndex, Vector2f position, float rotation, float density
         public Player(Faction faction, Vector2f position, String texture, int[]tileSize, int[]spriteSize, int[]tileIndices)
             : base(faction, 0, 1000, texture, tileSize, spriteSize,tileIndices, 0, position, 0, 0.01f)
         {

@@ -12,6 +12,7 @@ namespace Platformer
     {
         public PlayerIdle(GameObject owner) : base (owner)
         {
+            //hardcoded -> bleh
             this.sequence = new int[] { 0, 1, 2, 3, 4, 3, 2, 1 };
             this.owner.rigidBody.Velocity = new Vector2f(0, 0);
         }

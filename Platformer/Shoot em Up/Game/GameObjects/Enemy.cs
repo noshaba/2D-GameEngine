@@ -37,7 +37,6 @@ namespace Platformer
             else
                 this.weapon = null;
 
-            this.drop = this.DetermineDrop();
             this.fire = true;
 
             this.attentionRange = attentionRange;
@@ -52,7 +51,8 @@ namespace Platformer
             sleep, awake, observe, attack
         }
 
-        private Game.GameItem DetermineDrop()
+        //Drops are not in use in this game, for drops and items look in the one-week late shooter
+     /*   private Game.GameItem DetermineDrop()
         {
             Game.GameItem i;
             int no = EMath.random.Next(1,100);
@@ -79,7 +79,7 @@ namespace Platformer
                 i = Game.GameItem.None;
             }
             return i;
-        }
+        }*/
 
         public void Attack() {
             if (this.weapon != null)

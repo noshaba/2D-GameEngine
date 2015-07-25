@@ -12,6 +12,7 @@ namespace Platformer
     {
         public PlayerShatter(GameObject owner) : base (owner)
         {
+            //hardcoded -> bleh
             this.sequence = new int[] { 11 };
             this.owner.rigidBody.Velocity = new Vector2f(this.owner.rigidBody.Velocity.X, this.owner.speed * 10);
         }

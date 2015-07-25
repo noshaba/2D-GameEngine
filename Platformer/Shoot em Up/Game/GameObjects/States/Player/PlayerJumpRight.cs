@@ -12,6 +12,7 @@ namespace Platformer
     {
         public PlayerJumpRight(GameObject owner) : base (owner)
         {
+            //hardcoded -> bleh
             this.sequence = new int[] {7};
             this.owner.rigidBody.Velocity = new Vector2f(this.owner.speed, this.owner.rigidBody.Velocity.Y);
         }

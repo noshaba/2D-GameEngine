@@ -73,9 +73,8 @@ namespace Platformer {
                 x = SpawnStartPosition[0] + i * SpriteTileSize[0];
                 y = SpawnStartPosition[1];
                 s.Add(new Obstacle(Hover, false,Animation, SpriteTileSize, new int[] {0}, 0, Density, Restitution, StaticFriction, KineticFriction, SpritePath, SpriteSize, new Vector2f(SpawnStartPosition[0], SpawnStartPosition[1]), 0, Health, Points, Damage, Game.factions[(int)Faction]));
-                Game.spawners.Add(s);
             }
-           // Game.spawners.Add(s);
+            Game.spawners.Add(s);
         }
     }
 }
