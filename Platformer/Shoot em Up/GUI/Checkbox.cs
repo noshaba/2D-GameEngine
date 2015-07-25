@@ -8,6 +8,7 @@ using SFML.Window;
 using SFML.System;
 
 namespace GUI {
+    //unfinished - non functional
     class Checkbox : RectangleShape, IGraphic {
         public enum Status {
             Pressed, Released, OnHover

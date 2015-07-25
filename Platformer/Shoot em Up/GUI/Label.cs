@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace GUI
 {
+    //unfinished - needs work - includes lots of workarounds and unneeded repititions
     class Label : Text, IGraphic
     {
 
