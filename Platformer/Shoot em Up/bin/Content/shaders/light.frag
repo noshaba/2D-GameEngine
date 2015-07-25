@@ -1,9 +1,10 @@
+
 uniform vec2 lightPosition = vec2(0.5f, 0.7f);
 uniform sampler2D texture;
 
-const int NUM_SAMPLES = 30;
+const int NUM_SAMPLES = 25;
 const float exposure = 0.5f;
-const float density = 0.3f;
+const float density = 0.5f;
 const float weight = 0.1f;
 
 void main() {	

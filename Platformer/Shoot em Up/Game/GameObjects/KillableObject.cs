@@ -77,16 +77,13 @@ namespace Platformer
             opponents.Clear();
             foreach (Collision collision in rigidBody.Collision)
             {
-                if (collision.collision)
+                KillableObject opponent = collision.obj as KillableObject;
+                if (opponent != null)
                 {
-                    KillableObject opponent = collision.obj as KillableObject;
-                    if (opponent != null)
-                    {
-                        opponents.Add(opponent);
-                        // decrease HP
-                        this.hp -= opponent.damage * 
-                            (100 - opponent.faction.Reputation[(int)this.faction.ID]) / 100;
-                    }
+                    opponents.Add(opponent);
+                    // decrease HP
+                    this.hp -= opponent.damage * 
+                        (100 - opponent.faction.Reputation[(int)this.faction.ID]) / 100;
                 }
             }
             base.EarlyUpdate();

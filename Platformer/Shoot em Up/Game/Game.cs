@@ -332,12 +332,12 @@ namespace Platformer
         {   
             if(status == GameStatus.Active) {
                 lightBuffer.Clear(Color.Transparent);
-                sceneBuffer.Clear(Color.Transparent);
+                sceneBuffer.Clear();
                 lightBuffer.SetView(view);
                 sceneBuffer.SetView(view);
 
-                // planet.sky.Position = view.Center;
-                // sceneBuffer.Draw(planet.sky);
+              //  planet.sky.Position = view.Center;
+              //  sceneBuffer.Draw(planet.sky);
                 foreach (GameObject obj in objects)
                 {
                     obj.Draw(sceneBuffer, alpha, view.Center, windowHalfSize);

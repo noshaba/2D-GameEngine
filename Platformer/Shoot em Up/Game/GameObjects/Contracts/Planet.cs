@@ -47,13 +47,13 @@ namespace Platformer
         [DataMember]
         public int[] GroundTileHeight { get; set; }
 
-        public Sprite sky;
+        public RectangleShape sky;
 
         public void Init()
         {
-            sky = new Sprite(new Texture(BackgroundTile), new IntRect(0, 0, WindowSize[0], WindowSize[1]));
-            sky.Texture.Repeated = true;
-            sky.Origin = new Vector2f(WindowSize[0], WindowSize[1]) * 0.5f;
+            sky = new RectangleShape(new Vector2f(WindowSize[0],WindowSize[1]));
+            sky.FillColor = new Color(0,0,0);
+            sky.Origin = new Vector2f(WindowSize[0],WindowSize[1]) * .5f;
         }
 
         public void AddGround()
