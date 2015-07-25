@@ -13,8 +13,6 @@ namespace Platformer
     class Planet
     {
         [DataMember]
-        public string Name { get; set; }
-        [DataMember]
         public int[] PortalPosition { get; set; }
         [DataMember]
         public string PortalSprite {get;set;}
@@ -33,8 +31,6 @@ namespace Platformer
         [DataMember]
         public string BackgroundTile { get; set; }
         [DataMember]
-        public string BackgroundMusicPath { get; set; }
-        [DataMember]
         public float[] Gravity { get; set; }
         [DataMember]
         public float Damping { get; set; }
@@ -42,8 +38,6 @@ namespace Platformer
         public int[] Size { get; set; }
         [DataMember]
         public int[] WindowSize { get; set; }
-        [DataMember]
-        public byte[] SkyColor { get; set; }
         [DataMember]
         public GroundType[] GroundTypes { get; set; }
         [DataMember]
