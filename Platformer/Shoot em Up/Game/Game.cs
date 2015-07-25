@@ -44,17 +44,15 @@ namespace Platformer
         private float killedEnemies;
         public static View view;
 
-        Shader light = new Shader(null, "../Content/shaders/light.frag");
-        Shader sceneBufferShader = new Shader(null, "../Content/shaders/scene_buffer.frag");
-        Shader shadow = new Shader(null, "../Content/shaders/shadow.frag");
+        Shader stencilShader = new Shader(null, "../Content/shaders/scene_buffer.frag");
+        Shader lightShader = new Shader(null, "../Content/shaders/light.frag");
 
-        RenderTexture shadowBuffer;
-        RenderTexture shadowBufferQuaterSize;
+        RenderTexture lightBuffer;
+        RenderTexture lightBufferQuaterSize;
         RenderTexture sceneBuffer;
-        Sprite shadowScene = new Sprite();
-        Sprite scene = new Sprite();
+        Sprite lightBufferSprite = new Sprite();
+        Sprite sceneBufferSprite = new Sprite();
         Vector2f windowHalfSize;
-        Vector3f lightPosition;
 
 
         public enum GameStatus
@@ -71,8 +69,6 @@ namespace Platformer
             WIDTH = width;
             HEIGHT = height;
             windowHalfSize = new Vector2f(WIDTH * .5f, HEIGHT * .5f);
-
-            light.SetParameter("normalMap", new Texture("../Content/textures/ReflectMap.png"));
          
             this.status = GameStatus.Start;
 
@@ -165,18 +161,11 @@ namespace Platformer
                 Add(portal);
                 levelSize = new Vector2f(planet.Size[0], planet.Size[1]);
 
-                lightPosition = new Vector3f(WIDTH*2, HEIGHT * 0.5f, 0.04f);
-
-                light.SetParameter("lightPosition", 
-                    lightPosition.X, HEIGHT - lightPosition.Y, lightPosition.Z);
-                light.SetParameter("resolution",
-                    planet.Size[0] * 10, HEIGHT * 10);
-
-                shadowBuffer = new RenderTexture((uint)WIDTH, (uint)HEIGHT);
+                lightBuffer = new RenderTexture((uint)WIDTH, (uint)HEIGHT);
                 sceneBuffer = new RenderTexture((uint)WIDTH, (uint)HEIGHT);
-                shadowBufferQuaterSize = new RenderTexture((uint) WIDTH / 2, (uint) HEIGHT / 2);
-                shadowScene.Texture = shadowBuffer.Texture;
-                scene.Texture = sceneBuffer.Texture;
+                lightBufferQuaterSize = new RenderTexture((uint) WIDTH / 4, (uint) HEIGHT / 4);
+                lightBufferSprite.Texture = lightBuffer.Texture;
+                sceneBufferSprite.Texture = sceneBuffer.Texture;
             }
             physics = new Physic(rigidBodies, joints, new Vector2f(planet.Gravity[0], planet.Gravity[1]), planet.Damping,
                 new Vector2f(WIDTH, HEIGHT));
@@ -234,7 +223,6 @@ namespace Platformer
                 CoinContract[] coins;
                 String json = sr.ReadToEnd();
                 coins = JSONManager.deserializeJson<CoinContract[]>(json);
-             //   this.numberOfEnemies = coins.Length;
                 for (int i = 0; i < coins.Length; i++)
                 {
                     coins[i].Init();
@@ -343,45 +331,42 @@ namespace Platformer
         public void Draw(RenderWindow window, float alpha)
         {   
             if(status == GameStatus.Active) {
-                shadowBuffer.Clear(Color.Transparent);
+                // RenderTexture for stenciled image
+                lightBuffer.Clear(Color.Transparent);
+                // RenderTexture for coloured scene
                 sceneBuffer.Clear(Color.Transparent);
-                shadowBuffer.SetView(view);
+                lightBuffer.SetView(view);
                 sceneBuffer.SetView(view);
 
                 planet.sky.Position = view.Center;
-                sceneBuffer.Draw(planet.sky);
+                // draw the sky to the scene buffer
+              //  sceneBuffer.Draw(planet.sky);
                 foreach (GameObject obj in objects)
                 {
+                    // draw objects to the scene buffer
                     obj.Draw(sceneBuffer, alpha, view.Center, windowHalfSize);
-                    obj.Draw(shadowBuffer, alpha, view.Center, windowHalfSize);
+                    // draw objects to the shadow buffer for stenciling later
+                    obj.Draw(lightBuffer, alpha, view.Center, windowHalfSize);
                     if (debug)
                         obj.rigidBody.Draw(sceneBuffer, alpha, view.Center, windowHalfSize);
                 }
-
-           //     shadow.SetParameter("lightPosition", lightPosition.X / planet.Size[0],
-           //         1 - lightPosition.Y / HEIGHT);
-
-                RenderStates s = new RenderStates(Transform.Identity);
-
-                sceneBufferShader.SetParameter("sceneTex", shadowBuffer.Texture);
-                s.Shader = sceneBufferShader;
-                shadowBuffer.Display();
-
-           //     shadow.SetParameter("texture", shadowScene.Texture);
-           //     s.Shader = light;
-            //    s.Shader = shadow;
-            //    window.Draw(shadowScene, s);
-
-
-             //   shadowBuffer.Display();
                 sceneBuffer.Display();
-                window.Draw(scene);
-         /*       shadowScene.Scale = new Vector2f(0.5f, 0.5f);
-                shadowBufferQuaterSize.Clear();
-                shadowBufferQuaterSize.Draw(shadowScene, s);
-                shadowBufferQuaterSize.Display();
-                window.Draw(new Sprite(shadowBufferQuaterSize.Texture));
-                scene.Scale = new Vector2f(1,1);*/
+                RenderStates s = new RenderStates(Transform.Identity);
+                // stencil image
+                stencilShader.SetParameter("sceneTex", lightBuffer.Texture);
+                s.Shader = stencilShader;
+                lightBuffer.Display();
+                // scale stenciled image to 4th of it's resolution
+                lightBufferSprite.Scale = new Vector2f(0.25f, 0.25f);
+                lightBufferQuaterSize.Clear();
+                lightBufferQuaterSize.Draw(lightBufferSprite, s);
+                lightBufferQuaterSize.Display();
+                lightBufferQuaterSize.Texture.Smooth = true;
+                // use the god's ray shader on the stenciled image with lower resultion
+                lightShader.SetParameter("texture", lightBufferQuaterSize.Texture);
+                s.Shader = lightShader;
+                // scene = new Sprite(sceneBuffer.Texture)
+                window.Draw(sceneBufferSprite, s);
             }
         }
 
