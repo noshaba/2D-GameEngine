@@ -94,5 +94,21 @@
         "Tiles": [0,1,1,5],
         "Animation": [0,0,1,1,2,2,1,1],
         "Path": [3500,900,2900,900]
+    },
+        {
+        "Density": 0.01,
+        "Restitution": 0,
+        "StaticFriction": 2,
+        "KineticFriction": 2,
+        "Position": [400,1000],
+        "Rotateable": true,
+        "Rotation": 0,
+        "Breakable": true,
+        "SpritePath": "../Content/platform.png",
+        "SpriteSize": [600,300],
+        "SpriteTileSize": [100, 100],
+        "Tiles": [0,5],
+        "Animation": [0,0,1,1,2,2,1,1],
+        "Path":[]
     }
 ]

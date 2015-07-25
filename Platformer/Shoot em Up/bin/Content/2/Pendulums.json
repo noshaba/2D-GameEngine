@@ -65,10 +65,10 @@
         "BallTileSize": [50, 50],
         "TileIndices": [0],
         "AnimationIndex":  0,
-        "Position": [3700, 600],
+        "Position": [3700, 200],
         "Rotation": 0,
         "Density": 0.01,
-        "NumberOfBalls": 3,
+        "NumberOfBalls": 7,
         "DistanceBetweenBalls": 100
     }
 ]
