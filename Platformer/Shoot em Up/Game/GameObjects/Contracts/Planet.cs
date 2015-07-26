@@ -47,15 +47,6 @@ namespace Platformer
         [DataMember]
         public int[] GroundTileHeight { get; set; }
 
-        public RectangleShape sky;
-
-        public void Init()
-        {
-            sky = new RectangleShape(new Vector2f(WindowSize[0],WindowSize[1]));
-            sky.FillColor = new Color(0,0,0);
-            sky.Origin = new Vector2f(WindowSize[0],WindowSize[1]) * .5f;
-        }
-
         public void AddGround()
         {
            for (int i = 0; i < Ground.Length; ++i)

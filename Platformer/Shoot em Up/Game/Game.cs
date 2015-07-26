@@ -30,6 +30,10 @@ namespace Platformer
         public static bool screenShake = false;
         private const int MAXSHAKERATE = 50;
         private int shakeRate = MAXSHAKERATE;
+        private const float MOONRADIUS = 150;
+        private Vector2f MOONPOSUV = new Vector2f(0.5f,0.6f);
+        private Color MOONCOLOR = new Color(127,127,255,150);
+        private Color SKYCOLOR = new Color(0,30,97);
         private int level;
         private const int MAXLEVEL = 3;
         public Player player;
@@ -43,6 +47,7 @@ namespace Platformer
         private float killPercentage;
         private float killedEnemies;
         public static View view;
+        private CircleShape moon;
 
         Shader stencilShader = new Shader(null, "../Content/shaders/scene_buffer.frag");
         Shader lightShader = new Shader(null, "../Content/shaders/light.frag");
@@ -75,6 +80,15 @@ namespace Platformer
             SoundManager.Play(SoundManager.ambient);
             SoundManager.ambient.Loop = true;
             view = new View(new Vector2f(WIDTH, HEIGHT) *.5f, new Vector2f(WIDTH, HEIGHT));
+            moon = new CircleShape(MOONRADIUS, 100);
+            moon.Origin = new Vector2f(MOONRADIUS, MOONRADIUS);
+            moon.FillColor = MOONCOLOR;
+            stencilShader.SetParameter("moonPosition", MOONPOSUV.X, MOONPOSUV.Y);
+            stencilShader.SetParameter("moonRadius", MOONRADIUS);
+            stencilShader.SetParameter("resolution", WIDTH, HEIGHT);
+            stencilShader.SetParameter("moonColour", MOONCOLOR.R/255f, MOONCOLOR.G/255f, MOONCOLOR.B/255f);
+            stencilShader.SetParameter("skyColour", SKYCOLOR.R/255f, SKYCOLOR.G/255f, SKYCOLOR.B/255f);
+            lightShader.SetParameter("lightPosition", MOONPOSUV.X, MOONPOSUV.Y);
         }
 
 
@@ -154,7 +168,6 @@ namespace Platformer
             {
                 String json = sr.ReadToEnd();
                 planet = JSONManager.deserializeJson<Planet>(json);
-                planet.Init();
                 this.killPercentage = planet.KillPercentage / 100.0f;
                 this.requiredScore = planet.RequiredPoints;
                 this.portal = new Portal(Collision.Type.Polygon, planet.PortalOpen, planet.PortalClosed, planet.PortalTileSize, new int[] { 0 }, 0, 0, 0, 0, 0, planet.PortalSprite, planet.PortalSpriteSize, new Vector2f(planet.PortalPosition[0], planet.PortalPosition[1]), 0);
@@ -338,6 +351,8 @@ namespace Platformer
 
               //  planet.sky.Position = view.Center;
               //  sceneBuffer.Draw(planet.sky);
+                moon.Position = view.Center - windowHalfSize + new Vector2f(WIDTH * MOONPOSUV.X, HEIGHT * (1 - MOONPOSUV.Y));
+                sceneBuffer.Draw(moon);
                 foreach (GameObject obj in objects)
                 {
                     obj.Draw(sceneBuffer, alpha, view.Center, windowHalfSize);

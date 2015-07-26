@@ -1,5 +1,5 @@
 
-uniform vec2 lightPosition = vec2(0.5f, 0.7f);
+uniform vec2 lightPosition;
 uniform sampler2D texture;
 
 const int NUM_SAMPLES = 25;
