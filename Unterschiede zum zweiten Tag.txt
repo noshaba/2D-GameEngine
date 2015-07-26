@@ -1,0 +1,1 @@
+- Noch gemerkt dass der Player Endscore hinter dem Button verschwindet weil der für das neue Titelbild nach unten verschoben wurde - oops ^^'
