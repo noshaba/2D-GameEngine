@@ -1,6 +1,5 @@
 - Shader
 - Hintergrund
-- besseres Titelbild
 - Farbe bei zu geringem Level wurde ovn rot auf ein "seichteres" rot umgestellt, damit es zum Hintergrund passt
 - Gefährliche Obstacles haben einen grünen Glow bekommen, damit man sie von ungefährlich leichter Unterscheiden kann und nicht erst in sie hinein rennen muss um zu testen ob man Leben verliert
 - Schriftart zu Times geändert
