@@ -22,6 +22,7 @@ namespace Platformer
         public Faction faction;
         public bool timed = false;
         private Stopwatch lifetime;
+        private Color LOWHP = new Color(200,91,108);
 
         public KillableObject(Faction faction, int dmg, int hp, IRigidBody[]bodies, Shape[] drawables, 
             Vector2f position, float rotation) 
@@ -93,7 +94,7 @@ namespace Platformer
         {
             // change color with hp / MAXHP
             foreach (Shape shape in drawable)
-                shape.FillColor = this.hp <= this.maxHP * 0.25 ? Color.Red : shape.FillColor;
+                shape.FillColor = this.hp <= this.maxHP * 0.25 ? LOWHP : Color.White;
             this.display = this.hp > 0;
             base.LateUpdate();
             if (timed)
