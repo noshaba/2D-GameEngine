@@ -32,17 +32,17 @@ namespace Platformer {
             game = g;
             this.color = Color.Black;
             this.textColor = Color.White;
-            start = new Button(new Vector2f(500, 400), new Vector2f(200,50), "Start Game!", this.color, this.textColor, 24, StartGame);
+            start = new Button(new Vector2f(500, 500), new Vector2f(200,50), "Start Game!", this.color, this.textColor, 24, StartGame);
             title = new Picture(0,0,"../Content/title.png", this.color);
             this.welcome.Add(title);
             this.welcome.Add(start);
             this.nextLevel.Add(title);
-            this.nextLevel.Add(new Button(new Vector2f(500, 400), new Vector2f(200, 50), "Start next Level!", this.color,this.textColor, 24, NextLevel));
+            this.nextLevel.Add(new Button(new Vector2f(500, 500), new Vector2f(200, 50), "Start next Level!", this.color,this.textColor, 24, NextLevel));
 
             this.credits.Add(new Picture(0,0, "../Content/title.png", this.color));
-            restart = new Button(new Vector2f(500, 400), new Vector2f(200, 50), "Play Again!", this.color, this.textColor, 24, ShowWelcome);
+            restart = new Button(new Vector2f(500, 500), new Vector2f(200, 50), "Play Again!", this.color, this.textColor, 24, ShowWelcome);
             this.credits.Add(restart);
-            this.resultScore = new Label(new Vector2f(500, 300), "Your Score: ", Color.Black, 30);
+            this.resultScore = new Label(new Vector2f(500, 500), "Your Score: ", Color.Black, 30);
             this.credits.Add(resultScore);
 
             this.children = this.credits;
@@ -59,6 +59,7 @@ namespace Platformer {
         }
         private void ShowWelcome()
         {
+            game.Reset();
             game.status = Game.GameStatus.Start;
         }
 
@@ -93,14 +94,14 @@ namespace Platformer {
             if (this.inGame.Count == 0)
             {
                 menue = new Menue(new Vector2f(0, 0), new Vector2f(1200, 75), this.color);
-                toMain = new Button(10, 10, "Main Menue", this.color, this.textColor, ShowWelcome);
-                Label l = new Label(new Vector2f(600,40), "Score", this.textColor);
-                scoreLabel = new Label(new Vector2f(650, 40), this.game.player.score.ToString(), this.textColor);
-                Label l2 = new Label(new Vector2f(350, 40), "HP", this.textColor);
-                hp = new Label(new Vector2f(390, 40), this.game.player.hp.ToString() + "/" + this.game.player.maxHP.ToString(), this.textColor);
-                lvl = new Label(new Vector2f(500, 10), this.game.Level.ToString(), this.textColor);
+                toMain = new Button(20, 10, "Main Menue", this.color, this.textColor, ShowWelcome);
+                Label l = new Label(new Vector2f(675,40), "Score", this.textColor);
+                scoreLabel = new Label(new Vector2f(725, 40), this.game.player.score.ToString(), this.textColor);
+                Label l2 = new Label(new Vector2f(425, 40), "HP", this.textColor);
+                hp = new Label(new Vector2f(465, 40), this.game.player.hp.ToString() + "/" + this.game.player.maxHP.ToString(), this.textColor);
+                lvl = new Label(new Vector2f(575, 10), this.game.Level.ToString(), this.textColor);
                 menue.Add(toMain);
-                menue.Add(new Button(10, 40, "Sound", this.color, this.textColor, ToggleSound));
+                menue.Add(new Button(20, 40, "Sound", this.color, this.textColor, ToggleSound));
                 menue.Add(scoreLabel);
                 menue.Add(l);
                 menue.Add(l2);

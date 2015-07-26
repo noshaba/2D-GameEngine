@@ -60,7 +60,6 @@ namespace Platformer
             window.SetActive(true);
             window.Closed += window_Closed;
             window.KeyReleased += window_KeyReleased;
-            //window.KeyPressed += window_KeyPressed;
             window.MouseMoved += window_MouseMoved;
             window.MouseEntered += window_MouseEntered;
             window.MouseLeft += window_MouseLeft;
@@ -154,31 +153,12 @@ namespace Platformer
                 case Keyboard.Key.Escape:
                     window.Close();
                     break;
-                case Keyboard.Key.Return:
-                    //sEmUp.StartGame();
-                    break;
                 case Keyboard.Key.P:
                     if (sEmUp.status == Game.GameStatus.Active) sEmUp.Pause();
                     break;
                 default:
                     sEmUp.player.Release(e.Code);
                     break;
-            }
-        }
-
-        static void window_KeyPressed(object sender, KeyEventArgs e) {
-            if (sEmUp.status == Game.GameStatus.Active) {
-                switch(e.Code) {
-                    case Keyboard.Key.Left:
-                    case Keyboard.Key.Right:
-                    case Keyboard.Key.Up:
-                    case Keyboard.Key.Down:
-                 //       sEmUp.MovePlayer(e.Code);
-                        break;
-                    case Keyboard.Key.Space:
-                  //      sEmUp.Fire();
-                        break;
-                }
             }
         }
 

@@ -19,7 +19,7 @@ namespace GUI
             this.DisplayedString = text;
             this.CharacterSize = 18;
             this.Color = c;
-            this.Font = new Font("../Content/arial.ttf");
+            this.Font = new Font("../Content/times.ttf");
         }
 
         public Label(Vector2f position, String text, Color c, uint size)
@@ -28,7 +28,7 @@ namespace GUI
             this.DisplayedString = text;
             this.CharacterSize = size;
             this.Color = c;
-            this.Font = new Font("../Content/arial.ttf");
+            this.Font = new Font("../Content/times.ttf");
         }
 
         public Label(Vector2f position, String text, Color c)
@@ -37,7 +37,7 @@ namespace GUI
             this.Position = position;
             this.CharacterSize = 18;
             this.Color = c;
-            this.Font = new Font("../Content/arial.ttf");
+            this.Font = new Font("../Content/times.ttf");
         }
 
         public IGraphic ParentView
