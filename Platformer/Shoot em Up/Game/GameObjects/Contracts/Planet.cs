@@ -47,6 +47,15 @@ namespace Platformer
         [DataMember]
         public int[] GroundTileHeight { get; set; }
 
+        public Sprite sky;
+
+        public void Init()
+        {
+            sky = new Sprite(new Texture(BackgroundTile));
+         //   sky.Texture.Repeated = true;
+            sky.Origin = new Vector2f(WindowSize[0],WindowSize[1]) * .5f;
+        }
+
         public void AddGround()
         {
            for (int i = 0; i < Ground.Length; ++i)

@@ -32,7 +32,7 @@ namespace Platformer
         private int shakeRate = MAXSHAKERATE;
         private const float MOONRADIUS = 150;
         private Vector2f MOONPOSUV = new Vector2f(0.5f,0.6f);
-        private Color MOONCOLOR = new Color(127,127,255,150);
+        private Color MOONCOLOR = new Color(100,145,200,100);
         private Color SKYCOLOR = new Color(0,30,97);
         private int level;
         private const int MAXLEVEL = 3;
@@ -168,6 +168,7 @@ namespace Platformer
             {
                 String json = sr.ReadToEnd();
                 planet = JSONManager.deserializeJson<Planet>(json);
+                planet.Init();
                 this.killPercentage = planet.KillPercentage / 100.0f;
                 this.requiredScore = planet.RequiredPoints;
                 this.portal = new Portal(Collision.Type.Polygon, planet.PortalOpen, planet.PortalClosed, planet.PortalTileSize, new int[] { 0 }, 0, 0, 0, 0, 0, planet.PortalSprite, planet.PortalSpriteSize, new Vector2f(planet.PortalPosition[0], planet.PortalPosition[1]), 0);
@@ -349,10 +350,12 @@ namespace Platformer
                 lightBuffer.SetView(view);
                 sceneBuffer.SetView(view);
 
-              //  planet.sky.Position = view.Center;
-              //  sceneBuffer.Draw(planet.sky);
+                planet.sky.Position = view.Center;
+                sceneBuffer.Draw(planet.sky);
+                
                 moon.Position = view.Center - windowHalfSize + new Vector2f(WIDTH * MOONPOSUV.X, HEIGHT * (1 - MOONPOSUV.Y));
                 sceneBuffer.Draw(moon);
+
                 foreach (GameObject obj in objects)
                 {
                     obj.Draw(sceneBuffer, alpha, view.Center, windowHalfSize);
