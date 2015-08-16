@@ -1,3 +1,55 @@
+********************
+Kurs-Gesamtnote: 1.3
+********************
+
+Aufgabe Jump&Run
+
+Note: 1-
+
+Positiv:
+Compiliert & Startet sofort
+Sehr cooler Shadow-Shader
+Eigene Physik mit Constraints etc
+Die Grafiken und der Sound sind schön.
+Das Spiel hat Charme!
+
+Kritik & Tips:
+
+Spontane Gedanken beim Spielen:
+
+Esc beendet das Spiel direkt. Meist will man aber nur das Level neustarten?
+Deutliches Feedback, wenn man Schaden bekommt fehlt.
+Character-Steuerung etwas unintuitiv.
+
+Gesamteindruck:
+
+Das Projekt ist damit sehr ambitioniert schwächelt aber auch an vielen Stellen bei der Umsetzung. Der Code ist teilweise sehr schwer zu lesen was an 14 Parameter langen Constructoren und ähnlichen Strukturschwächen aber auch an der oft willkürlichen Groß/Kleinschreibung liegt.
+
+Tilebasiert. Ja, aber nur in Ansätzen. 
+
+Das GUI startet super ambitioniert mit gesliceten Grafiken doch am Ende gibt es nur einen Button und der hat nicht mal States. Iterative Entwicklung (die ich eigentlich fördern wollte) sieht anders aus.
+
+Die Vorgaben datengetrieben zu arbeiten setzt ihr zwar um. Aber wenn ich die JSONs durchgucke dann wirken sie sehr sperrig. Da ist der Vorteil gegenüber Code (ala GUI.cs) nicht immer zu erkennen. Gleichzeitig seh ich im Code viele Magic-Numbers die sich gut in JSON ausgelagert gemacht hätten.
+
+Apropos GUI.cs ...
+
+public void createInGame()
+{
+	if (this.inGame.Count == 0)
+	{
+//INIT
+	}
+	else
+	{
+//UPDATE
+	}
+}
+
+Das liest sich verwirrend und skaliert auch nicht gut. Eine Screenlösung gehört eigentlich zum A&O einer 2D Gameengine. Wenn man es einfach macht einen neuen Screen zu bauen und zwischen diesen zu wechseln, dann verlieren diesbezügliche Ergänzungen ihren Schrecken. Man hat dann ganz schnell ein halbes Dutzend Screens: MainMenu, GameScreen, PauseScreen, GameOver usw… das kommt dem Spiel natürlich zugute und beschleunigt auch die Entwicklung.
+
+Die meisten anderen Projekte machen es mir leichter weil sie qualitativ viel einheitlicher sind. Bei eurem Projekt ist teilweise viel mehr drinn als ich erwartet hätte und andererseits auch viele Stellen die mich enttäuschen. Ein sehr gutes, sehr ambitioniertes Projekt aber wegen der vielen kleinen und nicht so kleinen Schwächen keine glatte 1.
+
+
 Aufgabe Pong
 
 Note: 1-
